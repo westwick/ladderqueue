@@ -2,13 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
+use App\Events\UserAuthenticatedSteam;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\UserRegistered as UserRegisteredNotification;
-use App\User;
 
-class SendUserRegisteredNotification
+class SendUserSteamAuthNotification
 {
     /**
      * Create the event listener.
@@ -23,12 +21,11 @@ class SendUserRegisteredNotification
     /**
      * Handle the event.
      *
-     * @param  UserRegistered  $event
+     * @param  UserAuthenticatedSteam  $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(UserAuthenticatedSteam $event)
     {
-        $user = User::find(1);
-        $user->notify(new UserRegisteredNotification($event->user));
+        //
     }
 }

@@ -8,8 +8,12 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
-
+                    @if(! Auth::user()->steam_verified)
+                        You must authenticate with Steam to use CarbonX.
+                        <a href="/steam/auth">Click here to login with Steam</a>
+                    @else
+                        Welcome!
+                    @endif
                 </div>
             </div>
         </div>

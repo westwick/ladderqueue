@@ -17,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendUserRegisteredNotification',
             'App\Listeners\SendWelcomeEmail'
         ],
+        'App\Events\UserAuthenticatedSteam' => [
+            'App\Listeners\SendUserSteamAuthNotification'
+        ],
     ];
 
     /**
