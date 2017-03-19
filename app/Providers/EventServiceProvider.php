@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\UserRegistered' => [
             'App\Listeners\SendUserRegisteredNotification',
-            'App\Listeners\SendWelcomeEmail'
+            //'App\Listeners\SendWelcomeEmail'
         ],
         'App\Events\UserAuthenticatedSteam' => [
             'App\Listeners\SendUserSteamAuthNotification'

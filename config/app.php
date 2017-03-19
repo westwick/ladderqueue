@@ -182,6 +182,7 @@ return [
          */
 
         Invisnik\LaravelSteamAuth\SteamServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

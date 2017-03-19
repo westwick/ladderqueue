@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\User;
 use Illuminate\Notifications\Messages\SlackMessage;
+use App\Channels\DiscordChannel;
 
 class UserRegistered extends Notification implements ShouldQueue
 {
@@ -33,7 +34,7 @@ class UserRegistered extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database', 'slack'];
+        return ['database', 'slack', DiscordChannel::class];
     }
 
     /**
@@ -69,5 +70,10 @@ class UserRegistered extends Notification implements ShouldQueue
         return (new SlackMessage)
             ->from('Ghost', ':ghost:')
             ->content($this->user->name . ' registered with email ' . $this->user->email);
+    }
+
+    public function toDiscord($notifiable)
+    {
+        return $this->user->name . ' registered with email ' . $this->user->email;
     }
 }

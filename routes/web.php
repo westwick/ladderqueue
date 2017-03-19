@@ -11,6 +11,8 @@
 |
 */
 
+use GuzzleHttp\Client;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,4 +22,3 @@ Auth::routes();
 Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 
 Route::get('/home', 'HomeController@index');
-Route::get('/test', 'HomeController@test');

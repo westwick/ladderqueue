@@ -1,0 +1,71 @@
+.season3-hero {
+  background-color: black;
+  background-image: url(/images/season3hero.jpg);
+  height: 0;
+  padding: 0;
+  padding-bottom: 38%;
+  background-position: center center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  //background-attachment: fixed;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.season3-nav {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #e8eced;
+  ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      margin-right: 3rem;
+
+      a {
+        display: block;
+        padding: 1.5rem 0;
+        color: #a7b2b8;
+        border-bottom: 3px solid transparent;
+        font-weight: bold;
+
+        &.active {
+          color: $cxred2;
+          border-bottom: 3px solid $cxred2;
+        }
+
+        &:hover {
+          color: $cxred2;
+        }
+      }
+    }
+  }
+}
+
+.season3-rules li {
+  padding-bottom: 0.375rem;
+
+  ul ul {
+    list-style-type: circle;
+  }
+}
+
+.internal-link {
+  position: relative;
+  top: -191px;
+  display: block;
+  visibility: hidden;
+}

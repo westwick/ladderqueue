@@ -18,3 +18,28 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+$(function() {
+
+    $(document).foundation();
+
+    $('.nav-toggle').click(function(e) {
+        e.preventDefault();
+        // get child subnav
+        var subnav = $(this).siblings('.subnav');
+        // hide any other subnavs
+        $('.subnav').not(subnav).hide();
+        //toggle the selected subnav
+        subnav.toggle();
+        e.stopPropagation();
+    });
+
+    $('html').click(function() {
+        $('.subnav').hide();
+    });
+
+    // stop propagations!
+    $('.subnav').click(function(e){
+        e.stopPropagation();
+    });
+});
