@@ -10,6 +10,7 @@ use App\Team;
 use App\Game;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use App\Jobs\GenerateSeason2Stats;
 
 class GameController extends Controller
 {
@@ -78,13 +79,10 @@ class GameController extends Controller
 
         $game->save();
 
-        $teams = Team::all();
-        foreach($teams as $team) {
-            $team->calculateRWP();
-        }
+        dispatch(new GenerateSeason2Stats());
 
         flash('Score updated', 'success');
-        return redirect('/csgo/schedule');
+        return redirect('/season2/schedule');
     }
 
     public function deleteGame()
@@ -99,6 +97,6 @@ class GameController extends Controller
             flash('Unauthorized', 'error');
         }
 
-        return redirect('/csgo/schedule');
+        return redirect('/season2/schedule');
     }
 }
