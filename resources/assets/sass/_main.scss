@@ -692,6 +692,15 @@ img.grayscale:hover {
   height: 76px;
 }
 
+.no-steam-auth {
+  font-size: 17px;
+
+  img {
+    width: 130px;
+    height: auto;
+  }
+}
+
 #toast-container {
 
   & > div {

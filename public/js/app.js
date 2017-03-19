@@ -12202,6 +12202,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['games'],
@@ -29555,7 +29560,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("close")])])]), _vm._v(" "), _vm._l((_vm.sortedGames), function(day) {
+  }, [_vm._v("close")])])]), _vm._v(" "), (_vm.sortedGames.length === 0) ? _c('div', [_c('div', {
+    staticClass: "empty-state"
+  }, [_vm._v("\n            No games to display\n        ")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.sortedGames), function(day) {
     return _c('div', [_c('h4', [_vm._v(_vm._s(day.day))]), _vm._v(" "), _c('table', {
       staticClass: "schedule-table"
     }, _vm._l((day.games), function(game) {

@@ -24,6 +24,11 @@
                 <a href="#" class="timezone-select-hide hidden button button-outline button-small">close</a>
             </div>
         </div>
+        <div v-if="sortedGames.length === 0">
+            <div class="empty-state">
+                No games to display
+            </div>
+        </div>
         <div v-for="day in sortedGames">
             <h4>{{ day.day }}</h4>
             <table class="schedule-table">
