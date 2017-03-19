@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/cxleague":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/cxleague","hostpath":"/Users/awestwick/cxleague","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/awestwick/cxleague","disabled":false,"__vagrantfile":true}}}
