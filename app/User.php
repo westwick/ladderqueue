@@ -31,4 +31,14 @@ class User extends Authenticatable
     {
         return 'https://hooks.slack.com/services/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';
     }
+
+    public function team()
+    {
+        return $this->hasOne('App\Team', 'id', 'team_id');
+    }
+
+    public function hasTeam()
+    {
+        return $this->team_id !== NULL;
+    }
 }

@@ -11,7 +11,7 @@ class DiscordChannel
     {
         $message = $notification->toDiscord($notifiable);
 
-        $url = 'https://discordapp.com/api/webhooks/292860031940952064/i0J_apRBWX2tRHBzOTNF46Fp6tDF5Czn6P2zpeCV51nXWqn5kryjRDVMACLlwBt9xUx8';
+        $url = 'https://discordapp.com/api/webhooks/293092709009457152/6T6c7abzi88xLtMmNR8h5HVsFwivZ9gBooEmYW0UrClqpc0KdgsF03u9qERU5Pjs1-w5';
 
         $guzzle = new Client();
         $res = $guzzle->request('POST', $url, [

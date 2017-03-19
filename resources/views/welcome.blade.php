@@ -1,95 +1,105 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('head')
+    <style>
+        video#bgvid {
+            /*position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            background: url(polina.jpg) no-repeat;
+            background-size: cover;*/
+            position: absolute;
+            top: -130px;
+            width: 100%;
+            height: auto;
+            z-index: -100;
+        }
+        section.hero {
+            background: transparent !important;
+            padding: 12rem 0 10rem !important;
+        }
+        section.features {
+            background-color: #f8f8f8;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -99;
+            background: linear-gradient(rgba(34,36,63,0.35),rgba(34,36,63,0.35));
+        }
+    </style>
+@endsection
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login') || true)
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-{{--                        <a href="{{ url('/register') }}">Register</a>--}}
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+@section('content')
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+            <source src="/images/csgo.mp4" type="video/mp4">
+        </video>
+        <div class="row">
+            <div class="large-6 columns">
+                <h4>Join the competition!</h4>
+                <p class="hero-intro">Season 2 is over but it's not too late to sign up for next season! Compete against fierce teams for your chance at league glory. <a href="https://docs.google.com/document/d/1tQjpzjWlCkzbzTI75CHFFFaBrSyFJogCmOntPEyhfBw" target="_blank">Read the Season 3 Rules</a></p>
+                <div class="button-holder">
+                    <a href="https://docs.google.com/forms/d/1KVAx-Fkdw-CyXMRjF8kGMnhQPuYCzMEWYrup6cquEyY/viewform" class="redbutton" target="_blank"><i class="icon ion-clipboard" style="margin-right: 9px"></i>Register For Season 3</a>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </section>
+
+    <section class="welcome">
+        <div class="row">
+            <div class="medium-5 columns">
+                <p class="intro">Welcome to Carbon X</p>
+                <p class="welcome-text">Carbon X is an up and coming league offering a fun and competitive environment to test your skills. In our second official season, 40 teams compete for a prize pool of $700. Play against some of the best amateur teams and gain new fans, all games are broadcast on twitch, hosted by our great cast of callers. Season 2 began on Jan 16 and ends on March 12. Season 3 boasts an even bigger prize pool, learn more and sign up!</p>
+            </div>
+            <div class="medium-7 columns">
+                <div class="row">
+                    <div class="small-4 columns">
+                        <img src="/images/dust2.png" class="grayscale" />
+                    </div>
+                    <div class="small-4 columns">
+                        <img src="/images/mirage.png" class="grayscale"/>
+                    </div>
+                    <div class="small-4 columns">
+                        <img src="/images/cache.png" class="grayscale"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Upcoming Games</h3>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="small-12 columns text-center">
+                <a href="/season2/schedule" class="button button-outline">View Full Schedule</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="welcome" style="border-bottom: none">
+        <h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Recently Played</h3>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="small-12 columns text-center">
+                <a href="/season2/standings" class="button button-outline">View Complete Standings</a>
+            </div>
+        </div>
+    </section>
+@endsection

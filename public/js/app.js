@@ -11221,7 +11221,7 @@ __webpack_require__(31);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(33));
+Vue.component('schedule', __webpack_require__(33));
 
 var app = new Vue({
     el: '#app'
@@ -12122,10 +12122,147 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['games'],
+    data: function data() {
+        return {
+            //                games: [],
+            selectedTz: 'EST - Eastern Standard Time (-05:00)',
+            hideCompleted: false,
+            timezoneOptions: [{ text: 'EST - Eastern Standard Time (-05:00)', value: 'America/New_York' }, { text: 'CST - Central Standard Time (-06:00)', value: 'America/Chicago' }, { text: 'MST - Mountain Standard Time (-07:00)', value: 'America/Denver' }, { text: 'PST - Pacific Standard Time (-08:00)', value: 'America/Los_Angeles' }]
+        };
+    },
+
+    computed: {
+        sortedGames: function sortedGames() {
+            var gamelist = [];
+            var currentDay = '';
+            var gamelistindex = 0;
+            for (var i = 0; i < this.games.length; i++) {
+                if (this.hideCompleted && this.games[i].game_status > 0) continue;
+                var gametime = moment.tz(this.games[i].match_time, 'Etc/UTC');
+                gametime.tz(this.selectedTz);
+                var gameday = gametime.format('dddd MMM Do');
+                var gamedata = Object.assign({
+                    match_time_local: gametime.format('h:mm a'),
+                    match_time_from_now: gametime.fromNow()
+                }, this.games[i]);
+                if (currentDay !== gameday) {
+                    gamelistindex = gamelist.push({ day: gameday, games: [] });
+                    currentDay = gameday;
+                }
+                gamelist[gamelistindex - 1].games.push(gamedata);
+            }
+
+            return gamelist;
+        },
+        tzDisplay: function tzDisplay() {
+            var _this = this;
+
+            var option = this.timezoneOptions.find(function (o) {
+                return o.value == _this.selectedTz;
+            });
+            return option.text.substring(0, 3);
+        }
+    },
+    created: function created() {
+        var guesstz = moment.tz.guess();
+        var nowtz = moment.tz(guesstz);
+        var findtz = this.timezoneOptions.find(function (o) {
+            return o.value == guesstz;
+        });
+        if (findtz === undefined) {
+            this.timezoneOptions.push({ text: nowtz.format('z') + ' - ' + guesstz + ' (' + nowtz.format('Z') + ')', value: guesstz });
+            this.selectedTz = guesstz;
+        } else {
+            this.selectedTz = findtz.value;
+        }
+    },
+    methods: {
+        toggleHideCompleted: function toggleHideCompleted() {
+            this.hideCompleted = this.hideCompleted ? false : true;
+        }
     }
 };
 
@@ -29286,9 +29423,9 @@ var Component = __webpack_require__(34)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/Example.vue"
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/Schedule.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Schedule.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -29297,9 +29434,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-23549862", Component.options)
+    hotAPI.createRecord("data-v-d7189762", Component.options)
   } else {
-    hotAPI.reload("data-v-23549862", Component.options)
+    hotAPI.reload("data-v-d7189762", Component.options)
   }
 })()}
 
@@ -29364,27 +29501,126 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
+  return _c('div', {}, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+    staticClass: "medium-6 columns"
+  }, [_c('p', [_c('span', {
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    on: {
+      "click": function($event) {
+        _vm.toggleHideCompleted()
+      }
+    }
+  }, [(_vm.hideCompleted) ? [_c('i', {
+    staticClass: "icon ion-android-radio-button-off"
+  })] : [_c('i', {
+    staticClass: "icon ion-android-checkmark-circle"
+  })], _vm._v("\n                Show Completed Games\n                ")], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-6 columns text-right"
+  }, [_c('p', [_vm._v("Timezone: "), _c('a', {
+    staticClass: "tzdisplay blacklink",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v(_vm._s(_vm.tzDisplay))])]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.selectedTz),
+      expression: "selectedTz"
+    }],
+    staticClass: "timezone-select hidden",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.selectedTz = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.timezoneOptions), function(option) {
+    return _c('option', {
+      domProps: {
+        "value": option.value
+      }
+    }, [_vm._v("\n                    " + _vm._s(option.text) + "\n                ")])
+  })), _vm._v(" "), _c('a', {
+    staticClass: "timezone-select-hide hidden button button-outline button-small",
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("close")])])]), _vm._v(" "), _vm._l((_vm.sortedGames), function(day) {
+    return _c('div', [_c('h4', [_vm._v(_vm._s(day.day))]), _vm._v(" "), _c('table', {
+      staticClass: "schedule-table"
+    }, _vm._l((day.games), function(game) {
+      return _c('tr', [_c('td', {
+        attrs: {
+          "width": "30%"
+        }
+      }, [_c('img', {
+        attrs: {
+          "src": game.team1_logo
+        }
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/team/' + game.team1_id
+        }
+      }, [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_name))])] : [_vm._v("\n                            " + _vm._s(game.team1_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team1_record) + ")\n                ")]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "30%"
+        }
+      }, [_c('img', {
+        attrs: {
+          "src": game.team2_logo
+        }
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/team/' + game.team2_id
+        }
+      }, [(game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_name))])] : [_vm._v("\n                            " + _vm._s(game.team2_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team2_record) + ")\n                ")]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "8%"
+        }
+      }, [_vm._v(_vm._s(game.match_time_local))]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "10%"
+        }
+      }, [(game.map == 'tbd') ? [_c('span', {
+        staticClass: "tbd"
+      }, [_vm._v("\n                                            tbd\n                                        ")])] : [_vm._v("\n                        " + _vm._s(game.map) + "\n                    ")]], 2), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "10%"
+        }
+      }, [(game.team1_score == 0 && game.team2_score == 0) ? [_c('span', {
+        staticClass: "tbd tinyfont"
+      }, [_vm._v(_vm._s(game.match_time_from_now))])] : [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_score))])] : [(game.team1_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team1_score))]], _vm._v("\n                        -\n                        "), (game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_score))])] : [(game.team2_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team2_score))]]]], 2), _vm._v(" "), _vm._m(0, true)])
+    }))])
+  })], 2)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    attrs: {
+      "width": "12%"
+    }
+  }, [_c('a', {
+    staticClass: "button button-outline button-small",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "icon ion-stats-bars"
+  }), _vm._v("stats")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-23549862", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-d7189762", module.exports)
   }
 }
 

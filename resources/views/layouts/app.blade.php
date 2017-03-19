@@ -92,8 +92,8 @@
 
                     <div class="subnav account-subnav">
                         <ul>
-                            <li><a href="/account"><i class="icon ion-person"></i> My Account</a></li>
-                            <li><a href="/u/{{Auth::user()->slug}}"><i class="icon ion-eye"></i> View Profile</a></li>
+                            <li><a href="/home"><i class="icon ion-person"></i> My Account</a></li>
+                            <li><a href="/u/{{Auth::user()->name}}"><i class="icon ion-eye"></i> View Profile</a></li>
                             <li><a href="#"><i class="icon ion-gear-a"></i> Settings</a></li>
                             <li><a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

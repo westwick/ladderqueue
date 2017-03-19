@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Notifications\UserRegistered as UserRegisteredNotification;
 use App\User;
 
-class SendUserRegisteredNotification
+class SendUserRegisteredNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
