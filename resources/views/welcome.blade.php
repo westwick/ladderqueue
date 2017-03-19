@@ -3,20 +3,6 @@
 @section('head')
     <style>
         video#bgvid {
-            /*position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -100;
-            -ms-transform: translateX(-50%) translateY(-50%);
-            -moz-transform: translateX(-50%) translateY(-50%);
-            -webkit-transform: translateX(-50%) translateY(-50%);
-            transform: translateX(-50%) translateY(-50%);
-            background: url(polina.jpg) no-repeat;
-            background-size: cover;*/
             position: absolute;
             top: -130px;
             width: 100%;
@@ -29,6 +15,9 @@
         }
         section.features {
             background-color: #f8f8f8;
+        }
+        body {
+            background: #000;
         }
         .hero-overlay {
             position: absolute;
