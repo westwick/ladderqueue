@@ -36,7 +36,7 @@
             <div class="row setrel">
                 <div class="small-12 columns">
                     <div class="player-image">
-                        <img src="/images/unknown.png" />
+                        <img src="{{ $player->avatar !== NULL ? $player->avatar : '/images/unknown.png' }}" />
                     </div>
                     <div class="player-name">
                         {{$player->name}}
@@ -89,6 +89,14 @@
                     <li>
                         <i class="icon ion-android-calendar"></i>
                         <span>21 years old</span>
+                    </li>
+                    <li>
+                        <i class="icon ion-steam"></i>
+                        @if($player->steamid !== NULL)
+                            <span>{{ substr($player->steamid, 6) }}</span>
+                        @else
+                            <span class="noteam">Not authenticated</span>
+                        @endif
                     </li>
                 </ul>
             </div>

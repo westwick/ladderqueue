@@ -37,7 +37,7 @@ Route::get('/u/{slug}', 'UserController@showUser');
 
 Route::post('/create-team', 'TeamController@createTeam');
 Route::post('/update-team', 'TeamController@updateTeam');
-Route::post('/join-team',   'TeamController@joinTeam');
+Route::post('/join-team',   'TeamController@joinTeam')->middleware('steamauth');
 Route::get('/teams',        'TeamController@viewAll');
 Route::get('/team/{id}',    'TeamController@viewTeam');
 
