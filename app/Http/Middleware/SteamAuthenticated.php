@@ -16,7 +16,7 @@ class SteamAuthenticated
     public function handle($request, Closure $next)
     {
         if(! $request->user()->steam_verified) {
-            flash('You must connect your Steam account before performing that action', 'error');
+            flash('You must connect your Steam account before performing that action', 'warning');
             return redirect('/home');
         }
 

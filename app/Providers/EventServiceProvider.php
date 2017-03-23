@@ -20,6 +20,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserAuthenticatedSteam' => [
             'App\Listeners\SendUserSteamAuthNotification'
         ],
+        'App\Events\BracketRegistrationStarted' => [
+            'App\Listeners\SendBracketRegistrationStartedNotifications'
+        ],
+        'App\Events\PartyDisbanded' => [
+            'App\Listeners\SendPartyDisbandedNotifications'
+        ],
+        'App\Events\PartyPlayerStatusChange' => [
+            'App\Listeners\SendPartyPlayerStatusChangeNotifications'
+        ],
     ];
 
     /**

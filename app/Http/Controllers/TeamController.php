@@ -8,9 +8,15 @@ use Auth;
 use App\Team;
 use App\Game;
 use Illuminate\Support\Facades\Input;
+use App\TeamMember;
 
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'steamauth'])->except(['viewAll', 'viewTeam']);
+    }
+
     public function viewAll()
     {
         $teams = Team::all();
@@ -48,8 +54,14 @@ class TeamController extends Controller
         $user->team_role = 1;
         $user->save();
 
+        $tm = new TeamMember();
+        $tm->player_id = $user->id;
+        $tm->team_id = $team->id;
+        $tm->role = 2;
+        $tm->save();
+
         flash('Your team has been created', 'success');
-        return redirect('/account');
+        return redirect('/home');
     }
 
     public function updateTeam()
@@ -62,7 +74,7 @@ class TeamController extends Controller
         $team->save();
 
         flash('Updated', 'success');
-        return redirect('/account');
+        return redirect('/home');
     }
 
     public function joinTeam()
@@ -76,8 +88,14 @@ class TeamController extends Controller
             $user->team_id = $team->id;
             $user->save();
 
+            $tm = new TeamMember();
+            $tm->player_id = $user->id;
+            $tm->team_id = $team->id;
+            $tm->role = 0;
+            $tm->save();
+
             flash('You have joined ' . $team->name, 'success');
-            return redirect('/account');
+            return redirect('/home');
         } else {
             flash('Wrong password', 'error');
             return redirect()->back();

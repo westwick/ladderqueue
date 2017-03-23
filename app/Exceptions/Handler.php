@@ -59,7 +59,7 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-
+        flash('Please log in or register', 'warning');
         return redirect()->guest(route('login'));
     }
 }

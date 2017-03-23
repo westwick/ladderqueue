@@ -29,7 +29,7 @@ input[type='text'], input[type='password'], input[type='email'] {
   width: 100%;
 }
 
-#main {
+#app {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -52,13 +52,15 @@ a {
   }
 }
 
-.button {
+button,.button {
+  font-family: 'Montserrat', sans-serif;
   border-radius: 2px;
-  background-color: #464343;
+  //background-color: #464343;
+  background-color: $primary-color;
   color: #eee;
 
   &:hover, &:active, &:focus {
-    background-color: #363333;
+    background-color: lighten($primary-color, 10%);
     color: #fff;
   }
 }
@@ -388,6 +390,10 @@ footer {
 
 .main-top-padder {
   padding-top: 65px;
+}
+
+.extra-padder {
+  height: 57px;
 }
 
 .panel {
@@ -786,6 +792,29 @@ img.grayscale:hover {
         background-color: #F89406;
         opacity: 1;
       }
+    }
+  }
+}
+
+.party-notifier {
+  width: 100%;
+  background: #FFF;
+  top: 65px;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0;
+  z-index: 999;
+
+  p {
+    margin: 0;
+
+    .button {
+      margin: 0;
+      margin-left: 1rem;
+      padding: 0.5rem;
     }
   }
 }

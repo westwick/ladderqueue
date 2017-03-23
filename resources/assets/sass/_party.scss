@@ -1,0 +1,14 @@
+.party-players {
+  .party-player {
+    margin-bottom: 1rem;
+    img {
+      width: 50px;
+      border-radius: 50px;
+      margin-right: 0.5rem;
+
+      &.confirmed {
+        border: 4px solid green;
+      }
+    }
+  }
+}

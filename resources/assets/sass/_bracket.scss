@@ -1,0 +1,20 @@
+.team-container {
+  border: 1px solid #aaa;
+  padding: 0.25rem;
+  margin-bottom: 4px;
+  max-width: 300px;
+}
+
+.team-name {
+  cursor:pointer;
+  color: #a7b2b8;
+
+  &.active {
+    color: $cxred;
+  }
+}
+
+.player-selecter {
+  padding-left: 0.5rem;
+  cursor: pointer;
+}

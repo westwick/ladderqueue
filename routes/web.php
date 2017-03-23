@@ -25,6 +25,18 @@ Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/bracket/{id}', 'BracketController@showBracket');
+Route::get('/assemble/{id}', 'BracketController@showRegistrationRoom');
+Route::post('/start-bracket-registration', 'BracketController@startRegistration');
+Route::post('/decline-party', 'BracketController@declineParty');
+Route::post('/join-party', 'BracketController@joinParty');
+Route::post('/enter-bracket', 'BracketController@enterBracket');
+
+Route::get('/userstate', function() {
+    $user = Auth::user();
+    return response()->json(['userid' => $user->id]);
+});
+
 /*
  * User Controller
  */
@@ -37,7 +49,7 @@ Route::get('/u/{slug}', 'UserController@showUser');
 
 Route::post('/create-team', 'TeamController@createTeam');
 Route::post('/update-team', 'TeamController@updateTeam');
-Route::post('/join-team',   'TeamController@joinTeam')->middleware('steamauth');
+Route::post('/join-team',   'TeamController@joinTeam');
 Route::get('/teams',        'TeamController@viewAll');
 Route::get('/team/{id}',    'TeamController@viewTeam');
 

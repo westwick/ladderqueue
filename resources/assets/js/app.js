@@ -1,23 +1,62 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import Vuex from 'vuex'
+// import VueResource from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 Vue.component('schedule', require('./components/Schedule.vue'));
+Vue.component('teamselecter', require('./components/TeamSelecter.vue'));
+Vue.component('dataloader', require('./components/DataLoader.vue'));
+Vue.component('partybar', require('./components/PartyBar.vue'));
+Vue.component('partylobby', require('./components/PartyLobby.vue'));
+Vue.use(Vuex)
+Vue.use(VueAxios, axios)
+
+const store = new Vuex.Store({
+  state: {
+    loggedIn: false,
+    csrfToken: '',
+    userid: 0,
+    party: {}
+  },
+  mutations: {
+    setUserstate (state, userstate) {
+      state.userid = userstate.userid
+      state.party = userstate.party
+      state.loggedIn = userstate.loggedIn
+    },
+    setCsrfToken (state, token) {
+      state.csrfToken = token
+    },
+    addParty (state, data) {
+      state.party = data.party
+      state.party.creator = data.creator
+    },
+    clearParty (state) {
+      state.party = {}
+    }
+  }
+})
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
+    methods: {
+      getState: function() {
+        this.$http.get('/userstate').then(response => {
+          // success
+          console.log(response)
+        }, response => {
+          // error
+          console.log(response)
+        })
+      }
+    }
 });
+
+// set up websocket listeners
 
 $(function() {
 
@@ -43,3 +82,14 @@ $(function() {
         e.stopPropagation();
     });
 });
+
+// Echo.join('chat.1')
+//   .here((users) => {
+//     console.log(users)
+//   })
+//   .joining((user) => {
+//     console.log(user.name);
+//   })
+//   .leaving((user) => {
+//     console.log(user.name);
+//   });

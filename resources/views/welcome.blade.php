@@ -34,7 +34,7 @@
 @section('content')
     <section class="hero">
         <div class="hero-overlay"></div>
-        <video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+        <video playsinline autoplay muted loop id="bgvid">
             <source src="/images/csgo.mp4" type="video/mp4">
         </video>
         <div class="row">
