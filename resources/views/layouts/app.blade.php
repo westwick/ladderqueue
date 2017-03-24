@@ -49,6 +49,7 @@
                                 {{--<li class="list-section-header">Season 3</li>--}}
                                 <li><a href="/season3">Info &amp; Rules</a></li>
                                 <li><a href="/season3/registration">Register</a></li>
+                                <li><a href="/teams">Teams</a></li>
                                 {{--<li class="list-section-header inthemid">Season 2</li>--}}
                             </ul>
                         </div>

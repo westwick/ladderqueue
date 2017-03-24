@@ -20,7 +20,7 @@ class TeamController extends Controller
 
     public function viewAll()
     {
-        $teams = Team::all();
+        $teams = Team::orderBy('name')->get();
         return view('teams')->with('teams', $teams);
     }
 

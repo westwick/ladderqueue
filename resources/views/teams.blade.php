@@ -22,7 +22,7 @@
                                     <img class="team-logo-small" src="{{$team->logo}}" />
                                     {{$team->name}}
                                 </td>
-                                <td></td>
+                                <td>Season 2 - {{$team->division_season2}}</td>
                                 <td>{{$team->owner->name}}</td>
                                 <td>{{$team->memberCount()}}/10</td>
                                 <td><a href="/team/{{$team->id}}">Join this team</a></td>
