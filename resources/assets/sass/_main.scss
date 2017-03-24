@@ -204,7 +204,7 @@ header ul {
 }
 
 header .logo {
-  width: 200px;
+  //width: 200px;
   display: inline-block;
   margin-right: 2rem;
 }
@@ -212,6 +212,8 @@ header .logo {
 .header-logo {
   position: relative;
   top: -2px;
+  height: 44px;
+  width: auto;
 }
 
 header .login {

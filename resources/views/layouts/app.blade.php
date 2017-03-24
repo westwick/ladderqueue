@@ -159,9 +159,9 @@
                     <div class="medium-6 columns">
                         <h4>Latest News</h4>
                         <ul>
-                            @foreach($announcements as $announcement)
-                            <li><a href="/announcements">{{$announcement->title}}</a></li>
-                            @endforeach
+                            {{--@foreach($announcements as $announcement)--}}
+                            {{--<li><a href="/announcements">{{$announcement->title}}</a></li>--}}
+                            {{--@endforeach--}}
                         </ul>
                     </div>
                 </div>
