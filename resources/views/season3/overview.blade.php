@@ -20,10 +20,11 @@
         <div class="row">
             <div class="small-12 medium-12 medium-centered columns">
                 <ul>
-                    <li><a id="nav_0" href="#schedule">Schedule</a></li>
-                    <li><a id="nav_1" href="#entry">Entry</a></li>
+                    <li><a id="nav_0" href="#schedule" class="active">Schedule</a></li>
+                    <li><a id="nav_1" href="#entry">Entry and Prizes</a></li>
                     <li><a id="nav_2" href="#requirements">Requirements</a></li>
                     <li><a id="nav_3" href="#format">Format</a></li>
+                    <li><a id="nav_3" href="#games">Games</a></li>
                     <li><a id="nav_4" href="#playoffs">Playoffs</a></li>
                 </ul>
             </div>
@@ -58,19 +59,21 @@
             </div>
             <div class="panel season3-rules">
                 <a name="entry" class="internal-link"></a>
-                <h4>2. Entry and Registration</h4>
-                <p>To apply for season 3, click here. (Website Registration coming soon)</p>
+                <h4>2. Entry and Prize Pool</h4>
+                <p>To apply for season 3, <a href="/season3/registration">click here</a>.</p>
                 <ul>
                     <li>Entry Fee</li>
                     <ul>
+                        <li>Each team must pay an entry fee of $30</li>
                         <li>Due April 18</li>
-                        <li>Each team must pay an entry fee:</li>
-                        <ul>
-                            <li>$30 Paypal: wearwolf1@verizon.net</li>
-                            <li>$40 Steam: https://steamcommunity.com/tradeoffer/new/?partner=168000790&token=mnQx-J2u</li>
-                        </ul>
                         <li>The Entry Fee goes towards the Prize Pool, Website Upkeep, Server Upkeep, Ebot Costs, and Staff.</li>
-                        <li>Once a team pays their entry fee they can play with a max of 5 starters and a coach.</li>
+                    </ul>
+                    <li>Prize Pool</li>
+                    <ul>
+                        <li>1st place: $500</li>
+                        <li>2nd place: $250</li>
+                        <li>3rd and 4th: $125 each</li>
+                        <li>5th - 8th: $50 each</li>
                     </ul>
                 </ul>
             </div>
@@ -80,14 +83,16 @@
                 <ul>
                     <li>Team Requirements</li>
                     <ul>
-                        <li>Teams must create a registered and approved roster consisting of 5 players, 1 free sub and a coach</li>
-                        <li>Once any league game is played, the 5 man main roster is locked, and cannot be changed, unless he or she gets banned by the league, quits, or departs with the team.</li>
+                        <li>Teams must create a registered and approved roster consisting of 5 players, 1 optional sub and an optional coach</li>
+                        <li>There is a $5 fee to add a player to your roster after the deadline</li>
+                        <li>Teams must maintain a core roster of 3 players</li>
                     </ul>
                     <li>Player Requirements</li>
                     <ul>
                         <li>Must be from NA Region</li>
                         <li>Must play all league games under their registered account</li>
-                        <li>Must follow all CarbonX General Rules</li>
+                        <li>Must use an anti-cheat client for all games</li>
+                        <li>Must follow all CarbonX General Rules and abide by our <a href="/code-of-conduct">code of conduct</a></li>
                     </ul>
                 </ul>
             </div>
@@ -97,21 +102,48 @@
                 <ul>
                     <li>There will be 64 teams participating in a group stage / round robin format</li>
                     <li>Teams will be split into divisions of 8 and will play each team in their division twice</li>
-                    <li>All games in the regular season will be a BO1 format</li>
-                    <ul>
-                        <li>Map Pool: Mirage, Cache, Overpass, Cobblestone, Train, Nuke, and Inferno</li>
-                        <li>Teams will alternate map bans starting with the home team. The last map left unbanned is played.</li>
-                    </ul>
                     <li>Standings are determined by Wins, OT Losses, Losses, and Rounds Won Percentage</li>
                     <ul>
                         <li>Each map win earns 3 points. In overtime the losing team also gets 1 point.</li>
                         <li>Rounds Won Percentage is calculated by total rounds won divided by total rounds played, not counting rounds won or lost in forfeited games.</li>
                     </ul>
+                    <li>Teams have 10 minutes from their scheduled start time to arrive in the server or will otherwise forfeit the match</li>
+                </ul>
+            </div>
+            <div class="panel season3-rules">
+                <a name="games" class="internal-link"></a>
+                <h4>5. Games</h4>
+                <ul>
+                    <li>All games in the regular season will be a BO1 format</li>
+                    <ul>
+                        <li>Map Pool: Mirage, Cache, Overpass, Cobblestone, Train, Nuke, and Inferno</li>
+                        <li>Teams will alternate map bans starting with the home team. The last map left unbanned is played.</li>
+                    </ul>
+                    <li>Servers</li>
+                    <ul>
+                        <li>CarbonX will provide all servers</li>
+                        <li>128 tick</li>
+                        <li>Choose East (New York) or West (San Francisco) when signing up</li>
+                        <li>VAC secured</li>
+                        <li>Additional anti-cheat measures in place</li>
+                    </ul>
+                    <li><strong>Most</strong> games will be broadcast</li>
+                    <ul>
+                        <li>Stream A: https://www.twitch.tv/carbonx_tv</li>
+                        <li>Stream B: https://www.twitch.tv/carbonx_tv2</li>
+                    </ul>
+                    <li>Coaches are allowed (sv_coaching enabled)</li>
+                    <li>Overtime</li>
+                    <ul>
+                        <li>No ties are allowed</li>
+                        <li>Overtime format is best of 6 rounds</li>
+                        <li>$10k starting money</li>
+                    </ul>
                 </ul>
             </div>
             <div class="panel season3-rules">
                 <a name="playoffs" class="internal-link"></a>
-                <h4>5. Playoffs</h4>
+                <h4>6. Playoffs</h4>
                 <ul>
                     <li>24 Teams in Playoffs</li>
                     <li>Top 3 teams from each division</li>

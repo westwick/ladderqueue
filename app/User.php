@@ -75,4 +75,9 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function getImage()
+    {
+        return $this->avatar !== NUll ? $this->avatar : '/images/unknown.png';
+    }
 }

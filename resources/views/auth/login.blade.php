@@ -1,62 +1,53 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row padbot main-top-padder">
-        <div class="medium-12 columns">
-            <div class="panel">
+
+    <div class="row main-top-padder">
+        <div class="medium-5 columns medium-centered">
+            <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                        {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">Username</label>
+                            <div class="">
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Username">
 
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('email'))
+                                @if ($errors->has('name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                            <div class="">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
+                        <div class="row form-group">
+                            <div class="small-12 columns">
+                                <button type="submit" class="button button-full">
+                                    <i class="icon ion-log-in"></i>Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+                                {{--<div class="login-helper" style="margin-bottom: 0.375rem">--}}
+                                {{--Not registered? <a href="/register">Create an account</a>--}}
+                                {{--</div>--}}
+
+                                <div class="login-helper">
+                                    Forgot your password? <a href="{{ url('/password/reset') }}">Click here to reset</a>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -64,5 +55,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

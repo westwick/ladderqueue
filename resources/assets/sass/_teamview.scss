@@ -1,5 +1,5 @@
 section.teamview-hero {
-  background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/inferno-bg.jpg);
+  background: linear-gradient(rgba(11, 11, 30, 0.85), rgba(11, 11, 30, 0.85)),url(/images/team-bg.jpg);
   background-size: cover;
   color: #FFF;
   height: 300px;
@@ -13,7 +13,7 @@ section.teamview-hero {
   flex-direction: column;
   justify-content: flex-end;
 
-  .player-stats {
+  .team-members {
     position: relative;
     width: 100%;
     margin-bottom: 1.5rem;
@@ -83,6 +83,64 @@ section.teamview-hero {
 
         &:hover {
           color: $cxred2;
+        }
+      }
+    }
+  }
+}
+
+.players-wrap {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .players-inner {
+    display: block;
+    //background: rgba(0,0,0,0.75);
+    //border-radius: 3px;
+    //border: 1px solid #292929;
+    //padding: 1.25rem 1.5rem;
+
+    .player-stat {
+      display: inline-block;
+      text-align: center;
+      margin-left: 2.5rem;
+      position: relative;
+
+      &:before {
+        content: '';
+        height: 32px;
+        width: 1px;
+        background-color: #292929;
+        position: absolute;
+        top: 20px;
+        left: -1.25rem;
+      }
+
+      .stat-number {
+        display: block;
+        img {
+          width: 60px;
+          height: auto;
+          border-radius: 100%;
+          border: 2px solid #FFF;
+          margin-bottom: 3px;
+        }
+      }
+      .stat-label {
+        font-size: 14px;
+        display: block;
+      }
+
+      &:first-child {
+        margin-left: 0;
+        &:before {
+          display: none;
         }
       }
     }

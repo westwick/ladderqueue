@@ -14,6 +14,7 @@
 use GuzzleHttp\Client;
 use App\Standing;
 use App\Game;
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,80 @@ Auth::routes();
 Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 
 Route::get('/home', 'HomeController@index');
+Route::get('/about', function() {
+    return view('static.about');
+});
+Route::get('/get-involved', function() {
+    return view('static.get-involved');
+});
+Route::get('/coming-soon', function() {
+    return view('static.coming-soon');
+});
+Route::get('/code-of-conduct', function() {
+    return view('static.code-of-conduct');
+});
+
+Route::get('/checkout', function() {
+    $team = Auth::user()->team;
+    $registration = App\SeasonRegistration::where('team_id', $team->id)->first();
+    if($registration->paid) {
+        flash('Your team has already paid', 'info');
+        return redirect('/home');
+    }
+    return view('checkout');
+})->middleware('auth');
+Route::post('/complete-checkout', function() {
+    // dd(Input::all());
+
+    $token = Input::get('stripeToken');
+    $email = Input::get('stripeEmail');
+    $customer = Stripe::customers()->create([
+        'email' => $email,
+        'source' => $token
+    ]);
+    $charge = Stripe::charges()->create([
+        'customer' => $customer['id'],
+        'currency' => 'USD',
+        'amount' => 30.00
+    ]);
+
+    $team = Auth::user()->team;
+    $registration = App\SeasonRegistration::where('team_id', $team->id)->first();
+    $registration->paid = true;
+    $registration->save();
+
+    flash('Payment received!', 'success');
+    return redirect('/home');
+
+})->middleware('auth');
+
+Route::post('/update-profile', function() {
+    $user = Auth::user();
+
+    $age = Input::get('age');
+    if($age < 14) {
+        flash('You must be older than 13 to use this site', 'error');
+        return redirect()->back();
+    }
+    if($age == 69) {
+        flash('lololololol', 'error');
+        return redirect()->back();
+    }
+    if($age > 90) {
+        flash('Go back to your retirement home, grandpa', 'error');
+        return redirect()->back();
+    }
+
+    $user->intro = Input::get('intro');
+    $user->server_preference = Input::get('serverpreference');
+    $user->location = Input::get('location');
+    $user->age = $age;
+    $user->save();
+
+    flash('Profile updated', 'success');
+    return redirect()->back();
+
+})->middleware('auth');
 
 Route::get('/bracket/{id}', 'BracketController@showBracket');
 Route::get('/assemble/{id}', 'BracketController@showRegistrationRoom');
@@ -47,6 +122,7 @@ Route::get('/u/{slug}', 'UserController@showUser');
  * Team Controller
  */
 
+Route::get('/create-team', 'HomeController@showCreateTeamForm');
 Route::post('/create-team', 'TeamController@createTeam');
 Route::post('/update-team', 'TeamController@updateTeam');
 Route::post('/join-team',   'TeamController@joinTeam');
@@ -70,6 +146,8 @@ Route::get('/game/{id}/edit', 'GameController@editGameForm');
 
 Route::get('/season3', 'SeasonController@season3info');
 Route::get('/season3/rules', 'SeasonController@season3rules');
+Route::get('/season3/registration', 'TeamController@season3registration');
+Route::post('/season3/register', 'TeamController@season3register');
 
 /*
  * Schedule/Standings
@@ -127,3 +205,6 @@ Route::get('/season2/standings', function () {
         ->get();
     return view('standings')->with('divisions', $divisions)->with('standings', $overall);
 });
+
+Route::post('profile-image-upload', 'ImageController@profile_image_upload');
+Route::post('user-profile-image-save', 'ImageController@user_profile_image_save');

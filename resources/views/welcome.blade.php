@@ -40,9 +40,9 @@
         <div class="row">
             <div class="large-6 columns">
                 <h4>Join the competition!</h4>
-                <p class="hero-intro">Season 2 is over but it's not too late to sign up for next season! Compete against fierce teams for your chance at league glory. <a href="https://docs.google.com/document/d/1tQjpzjWlCkzbzTI75CHFFFaBrSyFJogCmOntPEyhfBw" target="_blank">Read the Season 3 Rules</a></p>
+                <p class="hero-intro">Season 2 is over but it's not too late to sign up for next season! Compete against fierce teams for your chance at league glory. <a href="/season3/rules">Read the Season 3 Rules</a></p>
                 <div class="button-holder">
-                    <a href="https://docs.google.com/forms/d/1KVAx-Fkdw-CyXMRjF8kGMnhQPuYCzMEWYrup6cquEyY/viewform" class="redbutton" target="_blank"><i class="icon ion-clipboard" style="margin-right: 9px"></i>Register For Season 3</a>
+                    <a href="/season3/registration" class="redbutton"><i class="icon ion-clipboard" style="margin-right: 9px"></i>Register For Season 3</a>
                 </div>
             </div>
         </div>

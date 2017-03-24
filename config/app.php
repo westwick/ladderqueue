@@ -183,6 +183,8 @@ return [
 
         Invisnik\LaravelSteamAuth\SteamServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class
 
     ],
 
@@ -232,6 +234,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class
 
     ],
 

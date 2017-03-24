@@ -5,12 +5,18 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\Game;
+use App\User;
 
 class Team extends Model
 {
     public function owner()
     {
         return $this->hasOne('App\User', 'id', 'owner_id');
+    }
+
+    public function players()
+    {
+        return User::where('team_id', $this->id)->get();
     }
 
     public function members()

@@ -34,7 +34,7 @@
 
 </head>
 <body id="main">
-<div id="app">
+<div>
     <header>
         <div class="not-a-row">
             <div class="small-12 columns">
@@ -65,21 +65,21 @@
                         </div>
                     </li>
                     {{--<li>--}}
-                        {{--<a href="#" class="nav3-toggle nav-toggle">Daily Tourneys</a>--}}
-                        {{--<div class="subnav nav3-subnav">--}}
-                            {{--<ul>--}}
-                                {{--<li><a href="#">Rules and Info</a></li>--}}
-                            {{--</ul>--}}
-                        {{--</div>--}}
+                    {{--<a href="#" class="nav3-toggle nav-toggle">Daily Tourneys</a>--}}
+                    {{--<div class="subnav nav3-subnav">--}}
+                    {{--<ul>--}}
+                    {{--<li><a href="#">Rules and Info</a></li>--}}
+                    {{--</ul>--}}
+                    {{--</div>--}}
                     {{--</li>--}}
                     <li>
                         <a href="#" class="nav4-toggle nav-toggle">Resources</a>
                         <div class="subnav nav4-subnav">
                             <ul>
-                                <li><a href="/coming-soon">Forum</a></li>
-                                <li><a href="/coming-soon">Find a Player</a></li>
-                                <li><a href="/coming-soon">Find a Team</a></li>
-                                <li><a href="/coming-soon">Become a Caster</a></li>
+                                <li><a href="#">Forum</a></li>
+                                <li><a href="#">Find a Player</a></li>
+                                <li><a href="#">Find a Team</a></li>
+                                <li><a href="#">Become a Caster</a></li>
                             </ul>
                         </div>
                     </li>
@@ -99,7 +99,7 @@
                                 <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
-                                    <i class="icon ion-log-out"></i> Logout
+                                        <i class="icon ion-log-out"></i> Logout
                                     </a>
                                 </li>
 
@@ -118,76 +118,58 @@
         </div>
     </header>
 
-    @if(Auth::user())
-    <dataloader :userstate="{{Auth::user()->getState()}}" :csrftoken="'{{csrf_token()}}'"></dataloader>
-        {{--don't show party bar on party page--}}
-        {{--this logic should probably go elsewhere--}}
-        @if(!Request::is('assemble/*'))
-            <partybar></partybar>
-        @endif
-    @else
-    <dataloader :userstate="{ loggedIn: false, userid: null, party: {}}"></dataloader>
-    @endif
-
     <div class="main-content">
-        @yield('content')
-    </div>
+        <div class="row main-top-padder">
+            <div class="medium-6 columns medium-centered">
+                <div class="panel">
+                    <h3 class="text-center">Season 3 Registration Payment</h3>
+                    <p class="text-center" style="font-size: 1.5rem">Total Cost: $30.00</p>
+                    <p><strong>Pay with Credit Card</strong></p>
+                    <p>We use Stripe to process credit cards, none of your information is stored on our servers. All data is securely transmitted over https.</p>
+                    <div style="display: block">
+                    <form action="/complete-checkout" method="POST">
+                        {{ csrf_field() }}
+                        <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_xAGAZgjFcuyzjB1CTB3v60zp"
+                                data-amount="3000"
+                                data-name="Carbon X League"
+                                data-description="Season 3 Registration Fee"
+                                data-image="https://carbonxleague.com/images/logocircle.jpg"
+                                data-allow-remember-me="false"
+                                data-zip-code="true"
+                                data-locale="auto">
+                        </script>
+                    </form>
+                    </div>
 
-    <footer>
-        <div class="row">
-            <div class="medium-8 columns">
-                <div class="row">
-                    <div class="medium-3 columns">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/get-involved">Get Involved</a></li>
-                            <li><a href="/announcements">Announcements</a></li>
-                            <li><a href="/code-of-conduct">Code of Conduct</a></li>
-                        </ul>
-                    </div>
-                    <div class="medium-3 columns">
-                        <h4>Get In Touch</h4>
-                        <ul>
-                            <li><a href="https://www.twitch.tv/carbonx_tv" target="_blank"><i class="icon ion-social-twitch"></i> Twitch</a></li>
-                            <li><a href="https://twitter.com/carbonx_league" target="_blank"><i class="icon ion-social-twitter"></i> Twitter</a></li>
-                            {{--<li><a href="#"><i class="icon ion-social-facebook"></i> Facebook</a></a></li>--}}
-                            <li><a href="https://www.youtube.com/channel/UCzjlYNiChADil0IPfRwaUWA" target="_blank"><i class="icon ion-social-youtube"></i> Youtube</a></li>
-                            <li><a href="https://discord.gg/fshER5N" target="_blank"><i class="icon ion-ios-telephone"></i> Discord</a></li>
-                        </ul>
-                    </div>
-                    <div class="medium-6 columns">
-                        <h4>Latest News</h4>
-                        <ul>
-                            @foreach($announcements as $announcement)
-                            <li><a href="/announcements">{{$announcement->title}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    <p style="margin-top: 4rem; margin-bottom: 0"><strong>Pay with PayPal</strong></p>
+                    <p class="nomargin">Send a manual payment to wearwolf1@verizon.net</p>
+                    <p style="margin-top: 1rem; margin-bottom: 0"><strong>Other Payment Options</strong></p>
+                    <p class="nomargin">To discuss other payment options, come chat with us on Discord.</p>
+                    {{--<p style="margin-top: 4rem"><strong>Pay with PayPal</strong></p>--}}
+                    {{--<p class="nomargin">Please send your paypal payment to: <strong>wearwolf1@verizon.net</strong></p>--}}
+                    {{--<p style="font-size:14px">Send an email or notify us over discord so that we can mark your team as paid.</p>--}}
                 </div>
             </div>
-            <div class="medium-4 columns">
-                <img class="footer-logo" src="/images/logocircle.png" />
-                <p class="footer-about">CarbonX was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
-            </div>
         </div>
-    </footer>
+    </div>
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/foundation.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function() {
 
-            toastr.options.progressBar = true
-            toastr.options.positionClass = 'toast-bottom-right'
-            @if (session()->has('flash_notification.message'))
-            toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')
-            @endif
-        });
-    </script>
+        toastr.options.progressBar = true
+        toastr.options.positionClass = 'toast-bottom-right'
+        @if (session()->has('flash_notification.message'))
+        toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')
+        @endif
+    });
+</script>
 
 
 @yield('scripts')

@@ -56,15 +56,30 @@
             </div>
             <div class="medium-3 columns text-right">
                 <div class="nav-button-flex-wrapper">
-                    <a href="#" class="button button-secondary">Edit Profile</a>
+                    @if(Auth::user() && Auth::user()->id == $player->id)
+                    <a href="#" class="button nomargin edit-profile-button">Edit Profile</a>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
     <section class="row padbot">
         <div class="medium-3 columns">
-            <div class="panel">
-                <p>Scooby Dooby Doo!</p>
+            <div class="panel edit-profile hidden">
+                <form method="POST" action="/update-profile">
+                    {{ csrf_field() }}
+                    <textarea name="intro" style="height: 100px">{{$player->intro}}</textarea>
+                    <select name="serverpreference">
+                        <option value="US - East" {{ $player->server_preference === 'US - East' ? 'selected':'' }}>US - East</option>
+                        <option value="US - West" {{ $player->server_preference === 'US - West' ? 'selected':'' }}>US - West</option>
+                    </select>
+                    <input type="text" value="{{$player->location}}" name="location" placeholder="New York, NY"/>
+                    <input type="number" value="{{$player->age != 0 ? $player->age:''}}" name="age" placeholder="age" />
+                    <input type="submit" class="button button-full" value="Update Profile"/>
+                </form>
+            </div>
+            <div class="panel player-profile">
+                <p style="line-height: 20px">{{$player->intro}}</p>
                 <ul class="player-details">
                     <li>
                         <i class="icon ion-ios-people"></i>
@@ -80,15 +95,15 @@
                     </li>
                     <li>
                         <i class="icon ion-android-globe"></i>
-                        <span>US - East</span>
+                        <span>{{$player->server_preference}}</span>
                     </li>
                     <li>
                         <i class="icon ion-location"></i>
-                        <span>New York</span>
+                        <span>{{$player->location}}</span>
                     </li>
                     <li>
                         <i class="icon ion-android-calendar"></i>
-                        <span>21 years old</span>
+                        <span>{{$player->age}} years old</span>
                     </li>
                     <li>
                         <i class="icon ion-steam"></i>
@@ -100,17 +115,14 @@
                     </li>
                 </ul>
             </div>
-            <div class="panel">
-                <p class="panel-title">Clubs</p>
-                <div class="empty-state">
-                    Not a member of any clubs
-                </div>
-            </div>
+            {{--<div class="panel">--}}
+                {{--<p class="panel-title">Clubs</p>--}}
+                {{--<div class="empty-state">--}}
+                    {{--Not a member of any clubs--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         <div class="medium-6 columns">
-            <div class="panel">
-                Player Panel - something goes here
-            </div>
             <div class="panel">
                 <p>Recent Matches</p>
                 <div class="empty-state" style="height: 300px">
@@ -138,7 +150,10 @@
 @section('scripts')
 <script>
     $(function() {
-
+        $('.edit-profile-button').click(function() {
+            $('.edit-profile').show();
+            $('.player-profile').hide();
+        })
     })
 </script>
 @endsection

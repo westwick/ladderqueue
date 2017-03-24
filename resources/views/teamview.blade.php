@@ -2,31 +2,17 @@
 
 @section('content')
     <section class="teamview-hero">
-        <div class="player-stats">
+        <div class="team-members">
             <div class="row">
                 <div class="small-12 columns text-right">
-                    <div class="stat-wrap">
-                        <div class="stat-inner">
+                    <div class="players-wrap">
+                        <div class="players-inner">
+                            @foreach($team->players() as $player)
                             <div class="player-stat">
-                                <span class="stat-number">78</span>
-                                <span class="stat-label">kills</span>
+                                <span class="stat-number"><a href="/u/{{$player->name}}"><img src="{{$player->getImage()}}" /></a></span>
+                                <span class="stat-label">{{$player->name}}</span>
                             </div>
-                            <div class="player-stat">
-                                <span class="stat-number">89.6</span>
-                                <span class="stat-label">avg dmg</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">1000</span>
-                                <span class="stat-label">some stat</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">1.125</span>
-                                <span class="stat-label">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">2</span>
-                                <span class="stat-label">aces</span>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -56,54 +42,33 @@
             </div>
             <div class="medium-3 columns text-right">
                 <div class="nav-button-flex-wrapper">
-                    <a href="#" class="button button-secondary">Edit Profile</a>
+                    <a href="#" class="button nomargin show-membership-option">Join this team</a>
                 </div>
             </div>
         </div>
     </section>
-    <section class="row">
-        <div class="small-12 columns">
+
+    <div class="row membership-option hidden">
+        <div class="medium-12 columns">
             <div class="panel">
-                <h2 class="text-center">{{$team->name}} ({{$team->record()}})</h2>
-                <hr />
-                <div class="row">
-                    <div class="medium-3 columns">
-                    </div>
-                    <div class="medium-3 columns">
-                    </div>
-                    <div class="medium-3 columns">
-                        <p>
-                            <strong>Members</strong>
-                        <ul>
-                            @foreach($team->members as $user)
-                                <li><a href="/u/{{$user->slug}}">{{$user->name}}</a></li>
-                            @endforeach
-                        </ul>
-                        </p>
-                    </div>
-                    <div class="medium-3 columns">
-                        <p><strong>Membership</strong></p>
-                        <p><a href="#" class="show-membership-option">Join this team</a></p>
-                        <div class="membership-option hidden">
-                            @if(Auth::user() && Auth::user()->team_id == NULL)
-                                <form method="post" action="/join-team">
-                                    {{ csrf_field() }}
-                                    <p class="smalltext">Ask the team owner for the password</p>
-                                    <input type="text" name="joinpw" placeholder="password to join" />
-                                    <input type="hidden" name="teamid" value="{{$team->id}}" />
-                                    <button type="submit" class="button">Join {{$team->name}}</button>
-                                </form>
-                            @elseif(Auth::user())
-                                <p>You must leave your current team before joining a new team.</p>
-                            @else
-                                <p>Log in to join or create a team</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                <p><strong>Membership</strong></p>
+
+                @if(Auth::user() && Auth::user()->team_id == NULL)
+                    <form method="post" action="/join-team">
+                        {{ csrf_field() }}
+                        <p class="smalltext">Ask the team owner for the password</p>
+                        <input type="text" name="joinpw" placeholder="password to join" />
+                        <input type="hidden" name="teamid" value="{{$team->id}}" />
+                        <button type="submit" class="button">Join {{$team->name}}</button>
+                    </form>
+                @elseif(Auth::user())
+                    <p>You must leave your current team before joining a new team.</p>
+                @else
+                    <p>Log in to join or create a team</p>
+                @endif
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="row padbot">
         <div class="medium-6 columns">

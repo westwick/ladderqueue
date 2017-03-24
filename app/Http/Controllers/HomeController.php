@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\SeasonRegistration;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $team = Auth::user()->team;
+        $seasonregistration = NULL;
+        if($team) {
+            $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
+        }
+        return view('home')->with('seasonregistration', $seasonregistration);
+    }
+
+    public function showCreateTeamForm()
+    {
+        return view('create-team');
     }
 }
