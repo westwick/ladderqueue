@@ -23,7 +23,7 @@
                                     <td width="8%" style="font-size: 1.5rem; font-weight: 300">{{ $index + 1 }}</td>
                                     <td width="50%">
                                         <img src="{{$standing->team->logo}}" />
-                                        <a class="blacklink" href="/team/{{$standing->team->id}}">{{$standing->team->name}}</a>
+                                        <a class="blacklink" href="/team/{{$standing->team->slug}}">{{$standing->team->name}}</a>
                                     </td>
                                     <td>{{$standing['totalpoints']}}</td>
                                     <td>{{$standing->team->wins()}}</td>
@@ -59,7 +59,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="blacklink" href="/team/{{$standing->team->id}}">{{$standing->team->name}}</a>
+                                <a class="blacklink" href="/team/{{$standing->team->slug}}">{{$standing->team->name}}</a>
                                 <span class="tinyfont">({{$standing->team->record()}})</span>
                             </td>
                             <td>{{$standing['totalpoints']}}</td>

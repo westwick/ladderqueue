@@ -87,7 +87,7 @@
                         <span>
                             {{ $player->team->owner_id == $player->id ? 'Leader' : 'Member' }}
                             of
-                            <a href="/team/{{$player->team->id}}">{{$player->team->name}}</a>
+                            <a href="/team/{{$player->team->slug}}">{{$player->team->name}}</a>
                         </span>
                         @else
                         <span class="noteam">Not on a team</span>

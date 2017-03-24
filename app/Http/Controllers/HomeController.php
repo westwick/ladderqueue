@@ -35,6 +35,11 @@ class HomeController extends Controller
 
     public function showCreateTeamForm()
     {
+        $user = Auth::user();
+        if($user->team) {
+            flash('You already have a team', 'error');
+            return redirect('/home');
+        }
         return view('create-team');
     }
 }

@@ -35400,7 +35400,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }), _vm._v(" "), _c('a', {
         attrs: {
-          "href": '/team/' + game.team1_id
+          "href": '/team/' + game.team1_slug
         }
       }, [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_name))])] : [_vm._v("\n                            " + _vm._s(game.team1_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team1_record) + ")\n                ")]), _vm._v(" "), _c('td', {
         attrs: {
@@ -35412,7 +35412,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }), _vm._v(" "), _c('a', {
         attrs: {
-          "href": '/team/' + game.team2_id
+          "href": '/team/' + game.team2_slug
         }
       }, [(game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_name))])] : [_vm._v("\n                            " + _vm._s(game.team2_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team2_record) + ")\n                ")]), _vm._v(" "), _c('td', {
         attrs: {

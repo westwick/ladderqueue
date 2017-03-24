@@ -31,7 +31,7 @@
                     <div class="panel team-info">
                         <img src="{{Auth::user()->team->logo}}" />
                         <p class="team-name">{{Auth::user()->team->name}}</p>
-                        <p class="nomargin"><a href="/team/{{Auth::user()->team->id}}">View team profile</a></p>
+                        <p class="nomargin"><a href="/team/{{Auth::user()->team->slug}}">View team profile</a></p>
                     </div>
                     @else
                         <div class="panel">

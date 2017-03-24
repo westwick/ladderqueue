@@ -29,7 +29,7 @@
                                 @endif
                                 <td>{{$team->owner->name}}</td>
                                 <td>{{$team->memberCount()}}/10</td>
-                                <td><a href="/team/{{$team->id}}">Join this team</a></td>
+                                <td><a href="/team/{{$team->slug}}">Join this team</a></td>
                             </tr>
                         @endforeach
                     </tbody>

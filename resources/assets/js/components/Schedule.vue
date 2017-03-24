@@ -35,7 +35,7 @@
                 <tr v-for="game in day.games">
                     <td width="30%">
                         <img :src="game.team1_logo" />
-                        <a :href="'/team/' + game.team1_id">
+                        <a :href="'/team/' + game.team1_slug">
                             <template v-if="game.team1_id == game.winner_id">
                                 <strong>{{ game.team1_name }}</strong>
                             </template>
@@ -47,7 +47,7 @@
                     </td>
                     <td width="30%">
                         <img :src="game.team2_logo" />
-                        <a :href="'/team/' + game.team2_id">
+                        <a :href="'/team/' + game.team2_slug">
                             <template v-if="game.team2_id == game.winner_id">
                                 <strong>{{ game.team2_name }}</strong>
                             </template>

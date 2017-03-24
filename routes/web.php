@@ -15,6 +15,7 @@ use GuzzleHttp\Client;
 use App\Standing;
 use App\Game;
 use Illuminate\Support\Facades\Input;
+use App\Team;
 
 Route::get('/', function () {
     $recent = Game::orderBy('start_time', 'desc')->take(3)->get();
@@ -136,7 +137,8 @@ Route::post('/create-team', 'TeamController@createTeam');
 Route::post('/update-team', 'TeamController@updateTeam');
 Route::post('/join-team',   'TeamController@joinTeam');
 Route::get('/teams',        'TeamController@viewAll');
-Route::get('/team/{id}',    'TeamController@viewTeam');
+Route::get('/team/{slug}',    'TeamController@viewTeam');
+Route::get('/edit-team', 'TeamController@showUpdateForm');
 
 /*
  * Game Controller
@@ -171,11 +173,13 @@ Route::get('/season2/schedule', function () {
             'game_id' => $game->id,
             'team1_name' => $game->team1->name,
             'team1_id' => $game->team1->id,
+            'team1_slug' => $game->team1->slug,
             'team1_logo' => $game->team1->logo,
             'team1_record' => $game->team1->record(),
             'team1_score' => $game->team1_score,
             'team2_name' => $game->team2->name,
             'team2_id' => $game->team2->id,
+            'team2_slug' => $game->team2->slug,
             'team2_logo' => $game->team2->logo,
             'team2_record' => $game->team2->record(),
             'team2_score' => $game->team2_score,

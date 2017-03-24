@@ -69,4 +69,9 @@ class Team extends Model
             }
         }
     }
+
+    public function makeSlug($name)
+    {
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
+    }
 }

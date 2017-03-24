@@ -25,9 +25,9 @@ class TeamController extends Controller
         return view('teams')->with('teams', $teams);
     }
 
-    public function viewTeam($id)
+    public function viewTeam($slug)
     {
-        $team = Team::findOrFail($id);
+        $team = Team::where('slug', $slug)->firstOrFail();
         $upcoming = [];
         $recent = [];
         $games = Game::where('team1_id', $team->id)->orWhere('team2_id', $team->id)->orderBy('start_time', 'desc')->get();
@@ -41,9 +41,20 @@ class TeamController extends Controller
         return view('teamview')->with(compact('team', 'upcoming', 'recent'));
     }
 
+    public function showUpdateForm()
+    {
+        $team = Team::findOrFail(Auth::user()->team->id);
+        return view('edit-team')->with(compact('team'));
+    }
+
     public function createTeam()
     {
         $user = Auth::user();
+
+        if($user->team) {
+            flash('You already have a team', 'error');
+            return redirect('/home');
+        }
 
         $team = new Team();
         $team->name = Input::get('teamname');
@@ -52,6 +63,7 @@ class TeamController extends Controller
         $team->join_password = Input::get('joinpw');
         $team->division_season2 = '';
         $team->rwp = 0;
+        $team->slug = $team->makeSlug(Input::get('teamname'));
         $team->save();
 
         $user->team_id = $team->id;
@@ -74,13 +86,17 @@ class TeamController extends Controller
     {
         $user = Auth::user();
         $team = Auth::user()->team;
-        $input = Input::all();
+        $oldname = $team->name;
         $team->join_password = Input::get('joinpw');
+        $team->name = Input::get('teamname');
         $team->logo = Input::get('logo');
+        $team->slug = $team->makeSlug(Input::get('teamname'));
         $team->save();
 
+        event(new UserAccountProgress($user, 'changed team name from ' . $oldname . ' to ' . $team->name));
+
         flash('Updated', 'success');
-        return redirect('/home');
+        return redirect('/team/' . $team->slug);
     }
 
     public function joinTeam()

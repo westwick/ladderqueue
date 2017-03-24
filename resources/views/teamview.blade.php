@@ -42,7 +42,11 @@
             </div>
             <div class="medium-3 columns text-right">
                 <div class="nav-button-flex-wrapper">
+                    @if(Auth::user() && Auth::user()->team->id == $team->id)
+                    <a href="/edit-team" class="button nomargin">Edit Team Info</a>
+                    @else
                     <a href="#" class="button nomargin show-membership-option">Join this team</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -94,7 +98,7 @@
                             ({{$game->team1_score}} - {{$game->team2_score}})
                         @endif
                         vs
-                        <a href="/team/{{$game->team1->name !== $team->name ? $game->team1->id : $game->team2->id}}">
+                        <a href="/team/{{$game->team1->name !== $team->name ? $game->team1->slug : $game->team2->slug}}">
                             {{$game->team1->name !== $team->name ? $game->team1->name : $game->team2->name}}
                         </a>
                     </p>
