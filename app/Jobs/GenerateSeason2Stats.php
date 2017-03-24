@@ -46,12 +46,12 @@ class GenerateSeason2Stats implements ShouldQueue
         DB::statement("drop view if exists standings_season2;");
         DB::statement("
             create view standings_season2 as
-            select count(distinct g.id) as wins,count(distinct g2.id) as otlosses, count(distinct g.id)*3+count(distinct g2.id) as totalpoints, t.* 
+            select count(distinct g.id) as wins,count(distinct g2.id) as otlosses, count(distinct g.id)*3+count(distinct g2.id) as totalpoints,t.id,t.name,t.division_season2,t.rwp
             from teams t
               left join games g on g.winner_id = t.id
               left join games g2 on g2.loser_id = t.id and (g2.team1_score >= 15 and g2.team2_score >= 15)
             where t.division_season2 != ''
-            group by t.id;
+            group by t.id,t.name,t.division_season2,t.rwp;
         ");
     }
 }
