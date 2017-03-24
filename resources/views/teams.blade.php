@@ -10,9 +10,9 @@
                         <tr>
                             <th>Name</th>
                             <th>Division</th>
-                            <th>Owner</th>
+                            <th>Leader</th>
                             <th>Members</th>
-                            <th>Join</th>
+                            <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,9 +25,8 @@
                                 @if($team->division_season2)
                                     <td>Season 2 - {{$team->division_season2}}</td>
                                 @else
-                                    <td></td>
+                                <td></td>
                                 @endif
-                                <td>{{$team->division_season2}}</td>
                                 <td>{{$team->owner->name}}</td>
                                 <td>{{$team->memberCount()}}/10</td>
                                 <td><a href="/team/{{$team->id}}">Join this team</a></td>
