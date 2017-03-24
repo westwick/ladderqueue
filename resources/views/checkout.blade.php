@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css?family=Patua+One|Montserrat:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <link href="{{ asset('css/app.css') }}?v=4" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}?v=4" rel="stylesheet">
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -131,7 +131,7 @@
                         {{ csrf_field() }}
                         <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_test_xAGAZgjFcuyzjB1CTB3v60zp"
+                                data-key="{{ Config::get('services.stripe.key') }}"
                                 data-amount="3000"
                                 data-name="Carbon X League"
                                 data-description="Season 3 Registration Fee"
@@ -156,7 +156,7 @@
     </div>
 </div>
 
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ asset('js/foundation.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

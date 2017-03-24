@@ -41,6 +41,10 @@ Route::get('/code-of-conduct', function() {
 Route::get('/checkout', function() {
     $team = Auth::user()->team;
     $registration = App\SeasonRegistration::where('team_id', $team->id)->first();
+    if(!$registration) {
+        flash('Please apply first', 'warning');
+        return redirect('/season3/registration');
+    }
     if($registration->paid) {
         flash('Your team has already paid', 'info');
         return redirect('/home');
