@@ -16,7 +16,7 @@ class CreatePartyPlayersTable extends Migration
         Schema::create('party_players', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('party_id')->unsigned();
-            $table->foreign('party_id')->references('id')->on('partys');
+            $table->foreign('party_id')->references('id')->on('parties');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_id')->default(0);
