@@ -190,7 +190,7 @@ Route::get('/season2/standings', function () {
         ->orderBy('totalpoints', 'desc')
         ->orderBy('rwp', 'desc')
         ->orderBy('name')
-        ->with('team')
+        //->with('team')
         ->get();
     $divisions = [];
     $currentDivision = '';
@@ -204,7 +204,7 @@ Route::get('/season2/standings', function () {
     $overall = Standing::orderBy('totalpoints', 'desc')
         ->orderBy('rwp', 'desc')
         ->orderBy('name')
-        ->with('team')
+        //->with('team')
         //->take(32)
         ->get();
     return view('standings')->with('divisions', $divisions)->with('standings', $overall);
