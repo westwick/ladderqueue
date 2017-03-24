@@ -81,6 +81,7 @@
                 <a name="requirements" class="internal-link"></a>
                 <h4>3. Requirements</h4>
                 <ul>
+                    <li>Team leaders are in control of every aspect of the team. Team Leaders have the right to edit team information, add or remove members on the team, schedule matches, report scores, and file disputes. Every team is required to have a Team Leader.</li>
                     <li>Team Requirements</li>
                     <ul>
                         <li>Teams must create a registered and approved roster consisting of 5 players, 1 optional sub and an optional coach</li>
@@ -108,6 +109,12 @@
                         <li>Rounds Won Percentage is calculated by total rounds won divided by total rounds played, not counting rounds won or lost in forfeited games.</li>
                     </ul>
                     <li>Teams have 10 minutes from their scheduled start time to arrive in the server or will otherwise forfeit the match</li>
+                    <li>Scheduling Games</li>
+                    <ul>
+                        <li>Upon registering, you will be asked to select the times your team is available to play</li>
+                        <li>CarbonX will schedule your games according to your selected availability</li>
+                        <li>Teams can reschedule any regular season match as needed if the new match time is mutually agreed upon by both team leaders</li>
+                    </ul>
                 </ul>
             </div>
             <div class="panel season3-rules">
@@ -117,7 +124,7 @@
                     <li>All games in the regular season will be a BO1 format</li>
                     <ul>
                         <li>Map Pool: Mirage, Cache, Overpass, Cobblestone, Train, Nuke, and Inferno</li>
-                        <li>Teams will alternate map bans starting with the home team. The last map left unbanned is played.</li>
+                        <li>Teams will alternate map bans starting with the home team; the last map left unbanned is played</li>
                     </ul>
                     <li>Servers</li>
                     <ul>
@@ -139,6 +146,8 @@
                         <li>Overtime format is best of 6 rounds</li>
                         <li>$10k starting money</li>
                     </ul>
+                    <li>Players can be changed at any time during a live  match, with a paid and registered sub only</li>
+                    <li>Games may be paused but a team may not exceed 10 minutes total of pause time</li>
                 </ul>
             </div>
             <div class="panel season3-rules">
@@ -159,24 +168,20 @@
                     </ul>
                 </ul>
             </div>
+            <div class="panel season3-rules">
+                <h4>7. Notices</h4>
+                <ul>
+                    <li>We have the explicit right to change, modify, or adapt all rules as deemed correct and by Staff in order to uphold and maintain a spirit of overall fairness and good sportsmanship after getting the opinion of League Team Leaders.</li>
+                    <li>The Admins and Head Admins also have the right to make judgment on matches / cases that are not specifically overall supported, or detailed in these League rules, or even goes against these rules may be taken in extreme cases, to preserve fairness and good sportsmanship.</li>
+                </ul>
+            </div>
         </div>
     </section>
 @endsection
 
 @section('scripts')
-    <script src="/js/makefixed.js"></script>
     <script>
         $(function() {
-            $('.season3-nav').makeFixed({
-                onFixed: function (el)
-                {
-                    $('.pagecontent').addClass('pushed');
-                },
-                onUnFixed: function (el)
-                {
-                    $('.pagecontent').removeClass('pushed');
-                }
-            });
 
             // smooth scroll to anchors
             $('a[href*="#"]:not([href="#"])').click(function() {
@@ -192,38 +197,5 @@
                 }
             });
         })
-    </script>
-    <script>
-
-        function setActive() {
-            var sections = [];
-            var active = 0;
-
-            $('.internal-link').each(function(){
-                sections.push($(this).offset().top + 200);
-            });
-
-            var pos = $(this).scrollTop();
-
-            for(var i = 0 ; i < sections.length; i++) {
-                if(sections[i] > pos) {
-                    active = i;
-                    break
-                }
-                active = sections.length - 1
-            }
-
-            $('.season3-nav a').removeClass('active');
-            $('#nav_' + active).addClass('active');
-            console.log(active)
-        }
-
-        $(function(){
-            $(document).scroll(function(){
-                setActive()
-            });
-
-            setActive()
-        });
     </script>
 @endsection

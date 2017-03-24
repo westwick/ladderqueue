@@ -70,20 +70,39 @@
         </div>
     </section>
 
-    <section class="features">
-        <h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Upcoming Games</h3>
-        <div class="row">
-        </div>
-        <div class="row">
-            <div class="small-12 columns text-center">
-                <a href="/season2/schedule" class="button button-outline">View Full Schedule</a>
-            </div>
-        </div>
-    </section>
+    {{--<section class="features">--}}
+        {{--<h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Upcoming Games</h3>--}}
+        {{--<div class="row">--}}
+        {{--</div>--}}
+        {{--<div class="row">--}}
+            {{--<div class="small-12 columns text-center">--}}
+                {{--<a href="/season2/schedule" class="button button-outline">View Full Schedule</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</section>--}}
 
     <section class="welcome" style="border-bottom: none">
-        <h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Recently Played</h3>
+        <h3 class="text-center" style="margin-bottom: 2.5rem; margin-top: 0.5rem">Recent Games</h3>
         <div class="row">
+            @foreach($recent as $game)
+                <div class="medium-4 columns">
+                    <div class="upcoming-game">
+                        <img src="/images/{{$game->map !== 'tbd' ? $game->map : 'dust2'}}.png" class="grayscale" />
+                        <div class="game-teams">
+                            <p class="team1">
+                                <img src="{{$game->team1->logo}}" />
+                                {{$game->team1->name}}
+                            </p>
+                            <p class="vs">{{$game->team1_score}} - {{$game->team2_score}}</p>
+                            <p class="team2">
+                                {{$game->team2->name}}
+                                <img src="{{$game->team2->logo}}" />
+                            </p>
+                        </div>
+                    </div>
+                    <p class="upcoming-game-time">{{$game->start_time->setTimezone('America/New_York')->format('l M jS @ g:i a')}}</p>
+                </div>
+            @endforeach
         </div>
         <div class="row">
             <div class="small-12 columns text-center">

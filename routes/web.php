@@ -17,7 +17,8 @@ use App\Game;
 use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
-    return view('welcome');
+    $recent = Game::orderBy('start_time', 'desc')->take(3)->get();
+    return view('welcome')->with('recent', $recent);
 });
 
 Auth::routes();
@@ -36,6 +37,10 @@ Route::get('/coming-soon', function() {
 });
 Route::get('/code-of-conduct', function() {
     return view('static.code-of-conduct');
+});
+Route::get('/announcements', function() {
+    $announcements = App\Announcement::all();
+    return view('announcements')->with(compact('announcements'));
 });
 
 Route::get('/checkout', function() {
@@ -149,7 +154,7 @@ Route::get('/game/{id}/edit', 'GameController@editGameForm');
  */
 
 Route::get('/season3', 'SeasonController@season3info');
-Route::get('/season3/rules', 'SeasonController@season3rules');
+Route::get('/season3/rules', 'SeasonController@season3info');
 Route::get('/season3/registration', 'TeamController@season3registration');
 Route::post('/season3/register', 'TeamController@season3register');
 

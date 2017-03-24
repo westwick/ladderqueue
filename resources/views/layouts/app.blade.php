@@ -47,8 +47,7 @@
                         <div class="subnav nav1-subnav">
                             <ul>
                                 {{--<li class="list-section-header">Season 3</li>--}}
-                                <li><a href="/season3">Overview</a></li>
-                                <li><a href="/season3/rules">Rules</a></li>
+                                <li><a href="/season3">Info &amp; Rules</a></li>
                                 <li><a href="/season3/registration">Register</a></li>
                                 {{--<li class="list-section-header inthemid">Season 2</li>--}}
                             </ul>
@@ -144,6 +143,8 @@
                             <li><a href="/get-involved">Get Involved</a></li>
                             <li><a href="/announcements">Announcements</a></li>
                             <li><a href="/code-of-conduct">Code of Conduct</a></li>
+                            <li><a href="/season3/rules">Season 3 Rules</a></li>
+                            <li><a href="https://bitbucket.org/awestwick/cxleague/issues" target="_blank">Report a Bug</a></li>
                         </ul>
                     </div>
                     <div class="medium-3 columns">
@@ -159,9 +160,9 @@
                     <div class="medium-6 columns">
                         <h4>Latest News</h4>
                         <ul>
-                            {{--@foreach($announcements as $announcement)--}}
-                            {{--<li><a href="/announcements">{{$announcement->title}}</a></li>--}}
-                            {{--@endforeach--}}
+                            @foreach(App\Announcement::orderBy('created_at', 'desc')->take(3)->get() as $announcement)
+                            <li><a href="/announcements">{{$announcement->title}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
