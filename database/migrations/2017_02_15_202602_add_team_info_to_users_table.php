@@ -15,7 +15,7 @@ class AddTeamInfoToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('team_id')->unsigned()->nullable();
             $table->foreign('team_id')->references('id')->on('teams');
-            $table->integer('team_role')->unsigned();
+            $table->integer('team_role')->unsigned()->default(0);
         });
     }
 
