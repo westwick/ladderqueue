@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(190);
         //$announcements = Announcement::orderBy('created_at', 'desc')->limit(3)->get();
         //view()->share('announcements', $announcements);
     }
