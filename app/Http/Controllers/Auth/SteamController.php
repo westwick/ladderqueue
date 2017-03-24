@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserAccountProgress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Invisnik\LaravelSteamAuth\SteamAuth;
@@ -43,6 +44,9 @@ class SteamController extends Controller
                 $user->steamid = $info->steamID;
                 $user->steam_verified = true;
                 $user->save();
+
+                event(new UserAccountProgress($user, 'authenticated with steam'));
+
                 flash('Your steam account has been connected', 'success');
                 return redirect('/home'); // redirect to site
             }

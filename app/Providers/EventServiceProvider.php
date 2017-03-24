@@ -13,18 +13,15 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\UserRegistered' => [
-            'App\Listeners\SendUserRegisteredNotification',
-            //'App\Listeners\SendWelcomeEmail'
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\LogSuccessfulLogin',
         ],
-        'App\Events\UserAuthenticatedSteam' => [
-            'App\Listeners\SendUserSteamAuthNotification'
+        'App\Events\UserAccountProgress' => [
+            'App\Listeners\SendUserAccountProgressNotification',
+            //'App\Listeners\SendWelcomeEmail'
         ],
         'App\Events\BracketRegistrationStarted' => [
             'App\Listeners\SendBracketRegistrationStartedNotifications'
-        ],
-        'App\Events\PartyDisbanded' => [
-            'App\Listeners\SendPartyDisbandedNotifications'
         ],
         'App\Events\PartyPlayerStatusChange' => [
             'App\Listeners\SendPartyPlayerStatusChangeNotifications'

@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
+use App\Events\UserAccountProgress;
+use App\Notifications\UserAccountProgressUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Notifications\UserRegistered as UserRegisteredNotification;
 use App\User;
 
-class SendUserRegisteredNotification implements ShouldQueue
+class SendUserAccountProgressNotification
 {
     /**
      * Create the event listener.
@@ -23,12 +23,12 @@ class SendUserRegisteredNotification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  UserRegistered  $event
+     * @param  UserAccountProgress  $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(UserAccountProgress $event)
     {
         $user = User::find(1);
-        $user->notify(new UserRegisteredNotification($event->user));
+        $user->notify(new UserAccountProgressUpdated($event->user, $event->status));
     }
 }

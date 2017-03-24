@@ -2,11 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\UserAuthenticatedSteam;
+use App\Notifications\UserAccountProgressUpdated;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\User;
 
-class SendUserSteamAuthNotification
+class LogSuccessfulLogin
 {
     /**
      * Create the event listener.
@@ -21,11 +23,12 @@ class SendUserSteamAuthNotification
     /**
      * Handle the event.
      *
-     * @param  UserAuthenticatedSteam  $event
+     * @param  Login  $event
      * @return void
      */
-    public function handle(UserAuthenticatedSteam $event)
+    public function handle(Login $event)
     {
-        //
+        $user = User::find($event->user->id);
+        $user->notify(new UserAccountProgressUpdated($user, 'logged in from ' . \Request::ip()));
     }
 }

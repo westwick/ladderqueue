@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserRegistered;
+use App\Events\UserAccountProgress;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        event(new UserRegistered($user));
+        event(new UserAccountProgress($user, 'created an account from IP ' . \Request::ip()));
 
         return $user;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserAccountProgress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -63,6 +64,8 @@ class TeamController extends Controller
         $tm->role = 2;
         $tm->save();
 
+        event(new UserAccountProgress($user, 'created team ' . $team->name));
+
         flash('Your team has been created', 'success');
         return redirect('/home');
     }
@@ -96,6 +99,8 @@ class TeamController extends Controller
             $tm->team_id = $team->id;
             $tm->role = 0;
             $tm->save();
+
+            event(new UserAccountProgress($user, 'joined team ' . $team->name));
 
             flash('You have joined ' . $team->name, 'success');
             return redirect('/home');
@@ -173,6 +178,8 @@ class TeamController extends Controller
         $reg->team_time_zone = Input::get('teamtimezone');
         $reg->available_times = json_encode($selectedTimes);
         $reg->save();
+
+        event(new UserAccountProgress($user, 'registered their team for season 3'));
 
         flash('Your application has been submitted!', 'success');
         return redirect('/home');

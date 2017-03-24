@@ -11,20 +11,22 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\User;
 
-class UserRegistered
+class UserAccountProgress
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $status;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $status)
     {
         $this->user = $user;
+        $this->status = $status;
     }
 
     /**
@@ -34,6 +36,6 @@ class UserRegistered
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('user-registrations');
+        return new PrivateChannel('channel-name');
     }
 }
