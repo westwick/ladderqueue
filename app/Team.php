@@ -26,7 +26,7 @@ class Team extends Model
 
     public function memberCount()
     {
-        return $this->members->count();
+        return $this->players()->count();
     }
 
     public function wins()

@@ -8,23 +8,23 @@
                     <div class="stat-wrap">
                         <div class="stat-inner">
                             <div class="player-stat">
-                                <span class="stat-number">78</span>
+                                <span class="stat-number">0</span>
                                 <span class="stat-label">kills</span>
                             </div>
                             <div class="player-stat">
-                                <span class="stat-number">89.6</span>
+                                <span class="stat-number">0.0</span>
                                 <span class="stat-label">avg dmg</span>
                             </div>
                             <div class="player-stat">
-                                <span class="stat-number">1000</span>
-                                <span class="stat-label">some stat</span>
+                                <span class="stat-number">999</span>
+                                <span class="stat-label">clutchs</span>
                             </div>
                             <div class="player-stat">
-                                <span class="stat-number">1.125</span>
+                                <span class="stat-number">1.0</span>
                                 <span class="stat-label">KDA</span>
                             </div>
                             <div class="player-stat">
-                                <span class="stat-number">2</span>
+                                <span class="stat-number">0</span>
                                 <span class="stat-label">aces</span>
                             </div>
                         </div>
