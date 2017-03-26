@@ -42,7 +42,7 @@
             </div>
             <div class="medium-3 columns text-right">
                 <div class="nav-button-flex-wrapper">
-                    @if(Auth::user() && Auth::user()->team->id == $team->id)
+                    @if(Auth::user() && Auth::user()->team && Auth::user()->team->id == $team->id)
                     <a href="/edit-team" class="button nomargin">Edit Team Info</a>
                     @else
                     <a href="#" class="button nomargin show-membership-option">Join this team</a>
