@@ -161,6 +161,12 @@ Route::get('/season3/registration', 'TeamController@season3registration');
 Route::post('/season3/register', 'TeamController@season3register');
 
 /*
+ *  Message Controller
+ */
+
+Route::get('/messages', 'MessageController@index');
+
+/*
  * Schedule/Standings
  */
 
