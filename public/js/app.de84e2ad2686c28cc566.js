@@ -29223,7 +29223,7 @@ var _ = __webpack_require__(2);
       players: this.initplayers,
       game: this.initgame,
       loading: false,
-      inGame: true,
+      inGame: !_.isEmpty(this.initgame),
       mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
     };
   },
@@ -29287,7 +29287,7 @@ var _ = __webpack_require__(2);
       return 0;
     },
     canBanMap: function canBanMap() {
-      if (this.banTurn === 0) return false;
+      if (this.banTurn === 0 || _.isEmpty(this.game)) return false;
       return this.banTurn.user.id === this.userid;
     }
   },

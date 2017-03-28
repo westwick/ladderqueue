@@ -36,7 +36,7 @@ class User extends Authenticatable
     {
         return json_encode([
             'userid' => $this->id,
-            'party' => $this->activeParty(),
+            //'party' => $this->activeParty(),
             'loggedIn' => true
         ]);
     }

@@ -18,7 +18,7 @@
     </section>
 @else
 
-    <playerqueue :initplayers="{{$players}}" :initgame="{{$game}}"></playerqueue>
+    <playerqueue :initplayers="{{$players}}" :initgame="{{ $game !== NULL ? $game : '{}' }}"></playerqueue>
 
 @endif
 
