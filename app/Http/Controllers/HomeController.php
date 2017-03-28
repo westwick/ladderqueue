@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\LadderGame;
 use Illuminate\Http\Request;
 use Auth;
 use App\SeasonRegistration;
+use App\QueueUser;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -25,12 +28,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $team = Auth::user()->team;
-        $seasonregistration = NULL;
-        if($team) {
-            $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
-        }
-        return view('home')->with('seasonregistration', $seasonregistration);
+        $user = Auth::user();
+        
+        $ids = QueueUser::all()->pluck('user_id');
+        $players = User::whereIn('id', $ids)->get();
+        
+        $game = $user->getLadderGame();
+        
+        return view('home')->with('players', $players)->with('game', $game);
     }
 
     public function showCreateTeamForm()

@@ -12,3 +12,50 @@
     }
   }
 }
+
+.ladder-draft {
+  strong {
+    margin-bottom: 1rem;
+    display: block;
+  }
+}
+
+.draft-player {
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 0.5rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  position: relative;
+
+  img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    margin-right: 0.25rem;
+  }
+
+  &.player-available {
+    cursor: pointer;
+
+    .pick-player {
+      //display: none;
+      display: inline-block;
+      margin-left: 1rem;
+      position: absolute;
+      right: 0.5rem;
+    }
+
+    &:hover {
+      border: 1px solid #aaa;
+
+      .pick-player {
+        //display: inline-block;
+      }
+    }
+  }
+}
+
+.map-banned {
+  text-decoration: line-through;
+}

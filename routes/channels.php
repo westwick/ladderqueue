@@ -12,6 +12,7 @@
 */
 
 use App\Party;
+use App\LadderGame;
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
@@ -21,10 +22,14 @@ Broadcast::channel('users.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('party.{partyId}', function ($user, $partyId) {
-    $party = Party::findOrFail($partyId);
-    foreach($party->players as $player) {
-        if($user->id === $player->id) return true;
+Broadcast::channel('queue', function ($user) {
+    return true;
+});
+
+Broadcast::channel('laddergame.{id}', function ($user, $id) {
+    $game = LadderGame::findOrFail($id);
+    foreach($game->players as $player) {
+        if($player->user->id === $user->id) return true;
     }
     return false;
 });

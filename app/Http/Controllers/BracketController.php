@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MapBanned;
+use App\Events\PlayerDrafted;
 use Illuminate\Http\Request;
 use App\Bracket;
 use Illuminate\Support\Facades\Input;
@@ -12,9 +14,115 @@ use App\PartyPlayer;
 use App\Events\BracketRegistrationStarted;
 use Log;
 use App\Events\PartyPlayerStatusChange;
+use App\QueueUser;
+use App\Events\PlayerJoinedQueue;
+use App\Events\PlayerLeftQueue;
+use App\LadderGame;
+use App\LadderParty;
+use App\LadderPlayer;
 
 class BracketController extends Controller
 {
+    public function joinQueue()
+    {
+        $user = Auth::user();
+        
+        $q = new QueueUser();
+        $q->user_id = $user->id;
+        $q->save();
+        
+        broadcast(new PlayerJoinedQueue($user))->toOthers();
+
+        $all = QueueUser::with('user')->orderBy('created_at')->limit(10)->get();
+        if(count($all) === 10) {
+            $team1captain = $all[0];
+            $team2captain = $all[1];
+
+
+            // create game
+            $game = new LadderGame();
+            $game->save();
+
+            // create captains
+            $player = new LadderPlayer();
+            $player->user_id = $team1captain->user->id;
+            $player->game_id = $game->id;
+            $player->status_id = 50;
+            $player->isCaptain = true;
+            $player->team = 1;
+            $player->save();
+
+            $player = new LadderPlayer();
+            $player->user_id = $team2captain->user->id;
+            $player->game_id = $game->id;
+            $player->status_id = 50;
+            $player->isCaptain = true;
+            $player->team = 2;
+            $player->save();
+
+            // create rest of players
+            for($i = 2; $i <= 9; $i++) {
+                $player = new LadderPlayer();
+                $player->user_id = $all[$i]->user->id;
+                $player->game_id = $game->id;
+                $player->status_id = 0;
+                $player->save();
+            }
+
+            // remove users from queue
+            foreach($all as $q) {
+                $q->delete();
+            }
+
+            //broadcast(new GameStarting($game));
+        }
+
+        return response()->json(['success' => true, 'user' => $user]);
+    }
+
+    public function leaveQueue()
+    {
+        $user = Auth::user();
+
+        $q = QueueUser::where('user_id', $user->id);
+        $q->delete();
+
+        broadcast(new PlayerLeftQueue($user))->toOthers();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function draftPlayer() {
+        $user = Auth::user();
+        $input = Input::all();
+
+        $game = LadderGame::findOrFail($input['gameId']);
+        $player = User::findOrFail($input['userId']);
+
+        if($user->canDraftIn($game)) {
+            $updated = $game->draft($user, $player);
+            broadcast(new PlayerDrafted($updated, $game))->toOthers();
+        } else {
+            return response()->json(['success' => false], 403);
+        }
+
+        return response()->json(['success' => true, 'player' => $updated]);
+    }
+
+    public function banMap()
+    {
+        $user = Auth::user();
+        $input = Input::all();
+
+        $game = LadderGame::findOrFail($input['gameId']);
+        if($user->canBanMapIn($game)) {
+            $game->mapBan($input['map']);
+            broadcast(new MapBanned($game, $input['map']))->toOthers();
+        }
+
+        return response()->json(['success' => true]);
+    }
+    
     public function showBracket($id)
     {
         $bracket = Bracket::findOrFail($id);

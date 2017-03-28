@@ -35,35 +35,38 @@
 </head>
 <body id="main">
 <div id="app">
-    <header>
+    <header style="height: 65px">
         <div class="not-a-row">
             <div class="small-12 columns">
                 <div class="logo">
-                    <a href="/"><img class="header-logo" src="/images/logo.png" /></a>
+                    <a href="/">
+                    <span style="height: 65px; line-height: 65px">Something New</span>
+                    </a>
+                    {{--<a href="/"><img class="header-logo" src="/images/vitalityx-small.png" /></a>--}}
                 </div>
-                <ul>
-                    <li class="active">
-                        <a href="#" class="nav1-toggle nav-toggle">Season 3</a>
-                        <div class="subnav nav1-subnav">
-                            <ul>
+                {{--<ul>--}}
+                    {{--<li class="active">--}}
+                        {{--<a href="#" class="nav1-toggle nav-toggle">Season 3</a>--}}
+                        {{--<div class="subnav nav1-subnav">--}}
+                            {{--<ul>--}}
                                 {{--<li class="list-section-header">Season 3</li>--}}
-                                <li><a href="/season3">Info &amp; Rules</a></li>
-                                <li><a href="/season3/registration">Register</a></li>
-                                <li><a href="/teams">Teams</a></li>
+                                {{--<li><a href="/season3">Info &amp; Rules</a></li>--}}
+                                {{--<li><a href="/season3/registration">Register</a></li>--}}
+                                {{--<li><a href="/teams">Teams</a></li>--}}
                                 {{--<li class="list-section-header inthemid">Season 2</li>--}}
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav2-toggle nav-toggle">Season 2</a>
-                        <div class="subnav nav2-subnav">
-                            <ul>
-                                <li><a href="/season2/standings">Standings</a></li>
-                                <li><a href="/season2/schedule">Schedule</a></li>
-                                <li><a href="http://challonge.com/CXS2Playoffs" target="_blank">Playoffs</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<a href="#" class="nav2-toggle nav-toggle">Season 2</a>--}}
+                        {{--<div class="subnav nav2-subnav">--}}
+                            {{--<ul>--}}
+                                {{--<li><a href="/season2/standings">Standings</a></li>--}}
+                                {{--<li><a href="/season2/schedule">Schedule</a></li>--}}
+                                {{--<li><a href="http://challonge.com/CXS2Playoffs" target="_blank">Playoffs</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
                     {{--<li>--}}
                         {{--<a href="#" class="nav3-toggle nav-toggle">Daily Tourneys</a>--}}
                         {{--<div class="subnav nav3-subnav">--}}
@@ -72,18 +75,18 @@
                             {{--</ul>--}}
                         {{--</div>--}}
                     {{--</li>--}}
-                    <li>
-                        <a href="#" class="nav4-toggle nav-toggle">Resources</a>
-                        <div class="subnav nav4-subnav">
-                            <ul>
-                                <li><a href="/coming-soon">Forum</a></li>
-                                <li><a href="/coming-soon">Find a Player</a></li>
-                                <li><a href="/coming-soon">Find a Team</a></li>
-                                <li><a href="/coming-soon">Become a Caster</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                    {{--<li>--}}
+                        {{--<a href="#" class="nav4-toggle nav-toggle">Resources</a>--}}
+                        {{--<div class="subnav nav4-subnav">--}}
+                            {{--<ul>--}}
+                                {{--<li><a href="/coming-soon">Forum</a></li>--}}
+                                {{--<li><a href="/coming-soon">Find a Player</a></li>--}}
+                                {{--<li><a href="/coming-soon">Find a Team</a></li>--}}
+                                {{--<li><a href="/coming-soon">Become a Caster</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
                 <div class="login">
                     @if(Auth::user())
                         <div class="alerts">
@@ -133,47 +136,47 @@
         @yield('content')
     </div>
 
-    <footer>
-        <div class="row">
-            <div class="medium-8 columns">
-                <div class="row">
-                    <div class="medium-3 columns">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/get-involved">Get Involved</a></li>
-                            <li><a href="/announcements">Announcements</a></li>
-                            <li><a href="/code-of-conduct">Code of Conduct</a></li>
-                            <li><a href="/season3/rules">Season 3 Rules</a></li>
-                            <li><a href="https://bitbucket.org/awestwick/cxleague/issues" target="_blank">Report a Bug</a></li>
-                        </ul>
-                    </div>
-                    <div class="medium-3 columns">
-                        <h4>Get In Touch</h4>
-                        <ul>
-                            <li><a href="https://www.twitch.tv/carbonx_tv" target="_blank"><i class="icon ion-social-twitch"></i> Twitch</a></li>
-                            <li><a href="https://twitter.com/carbonx_league" target="_blank"><i class="icon ion-social-twitter"></i> Twitter</a></li>
+    {{--<footer>--}}
+        {{--<div class="row">--}}
+            {{--<div class="medium-8 columns">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="medium-3 columns">--}}
+                        {{--<h4>Useful Links</h4>--}}
+                        {{--<ul>--}}
+                            {{--<li><a href="/about">About Us</a></li>--}}
+                            {{--<li><a href="/get-involved">Get Involved</a></li>--}}
+                            {{--<li><a href="/announcements">Announcements</a></li>--}}
+                            {{--<li><a href="/code-of-conduct">Code of Conduct</a></li>--}}
+                            {{--<li><a href="/season3/rules">Season 3 Rules</a></li>--}}
+                            {{--<li><a href="https://bitbucket.org/awestwick/cxleague/issues" target="_blank">Report a Bug</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                    {{--<div class="medium-3 columns">--}}
+                        {{--<h4>Get In Touch</h4>--}}
+                        {{--<ul>--}}
+                            {{--<li><a href="https://www.twitch.tv/carbonx_tv" target="_blank"><i class="icon ion-social-twitch"></i> Twitch</a></li>--}}
+                            {{--<li><a href="https://twitter.com/carbonx_league" target="_blank"><i class="icon ion-social-twitter"></i> Twitter</a></li>--}}
                             {{--<li><a href="#"><i class="icon ion-social-facebook"></i> Facebook</a></a></li>--}}
-                            <li><a href="https://www.youtube.com/channel/UCzjlYNiChADil0IPfRwaUWA" target="_blank"><i class="icon ion-social-youtube"></i> Youtube</a></li>
-                            <li><a href="https://discord.gg/fshER5N" target="_blank"><i class="icon ion-ios-telephone"></i> Discord</a></li>
-                        </ul>
-                    </div>
-                    <div class="medium-6 columns">
-                        <h4>Latest News</h4>
-                        <ul>
-                            @foreach(App\Announcement::orderBy('created_at', 'desc')->take(3)->get() as $announcement)
-                            <li><a href="/announcements">{{$announcement->title}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="medium-4 columns">
-                <img class="footer-logo" src="/images/logocircle.png" />
-                <p class="footer-about">CarbonX was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
-            </div>
-        </div>
-    </footer>
+                            {{--<li><a href="https://www.youtube.com/channel/UCzjlYNiChADil0IPfRwaUWA" target="_blank"><i class="icon ion-social-youtube"></i> Youtube</a></li>--}}
+                            {{--<li><a href="https://discord.gg/fshER5N" target="_blank"><i class="icon ion-ios-telephone"></i> Discord</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                    {{--<div class="medium-6 columns">--}}
+                        {{--<h4>Latest News</h4>--}}
+                        {{--<ul>--}}
+                            {{--@foreach(App\Announcement::orderBy('created_at', 'desc')->take(3)->get() as $announcement)--}}
+                            {{--<li><a href="/announcements">{{$announcement->title}}</a></li>--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<div class="medium-4 columns">--}}
+                {{--<img class="footer-logo" src="/images/logocircle.png" />--}}
+                {{--<p class="footer-about">CarbonX was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</footer>--}}
 </div>
 
 <script src="{{ mix('/js/app.js') }}"></script>
