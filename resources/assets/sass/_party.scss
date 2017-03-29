@@ -59,3 +59,27 @@
 .map-banned {
   text-decoration: line-through;
 }
+
+.players-in-queue {
+  .player-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .playa {
+      width: 20%;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+
+      img {
+        border-radius: 100%;
+        width: 45px;
+        height: 45px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}

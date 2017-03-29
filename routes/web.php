@@ -44,7 +44,7 @@ Route::get('/announcements', function() {
     return view('announcements')->with(compact('announcements'));
 });
 
-Route::post('/enter-queue', 'BracketController@joinQueue');
+Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
 Route::post('/leave-queue', 'BracketController@leaveQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');
 Route::post('/ban-map', 'BracketController@banMap');

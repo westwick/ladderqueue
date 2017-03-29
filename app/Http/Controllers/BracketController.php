@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameStarting;
 use App\Events\MapBanned;
 use App\Events\PlayerDrafted;
 use Illuminate\Http\Request;
@@ -74,7 +75,7 @@ class BracketController extends Controller
                 $q->delete();
             }
 
-            //broadcast(new GameStarting($game));
+            broadcast(new GameStarting($game));
         }
 
         return response()->json(['success' => true, 'user' => $user]);

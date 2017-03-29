@@ -30,6 +30,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\PlayerLeftQueue' => [
         ],
+        'App\Events\GameStarting' => [
+        ],
         'App\Events\PlayerDrafted' => [
         ],
         'App\Events\MapBanned' => [

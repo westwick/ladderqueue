@@ -29214,6 +29214,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var _ = __webpack_require__(2);
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -29223,7 +29233,6 @@ var _ = __webpack_require__(2);
       players: this.initplayers,
       game: this.initgame,
       loading: false,
-      inGame: !_.isEmpty(this.initgame),
       mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
     };
   },
@@ -29240,6 +29249,9 @@ var _ = __webpack_require__(2);
         if (player.id == _this.userid) q = true;
       });
       return q;
+    },
+    inGame: function inGame() {
+      return this.game && this.game.id > 0;
     },
     undraftedplayers: function undraftedplayers() {
       return _.filter(this.game.players, { team: 0 });
@@ -29307,6 +29319,19 @@ var _ = __webpack_require__(2);
           }
         });
         _this2.players = p;
+      }).listen('GameStarting', function (e) {
+        var userIsInGame = false;
+        _.forEach(e.game.players, function (player) {
+          if (player.user.id === _this2.userid) {
+            userIsInGame = true;
+          }
+        });
+        if (userIsInGame) {
+          console.log('starting game', e.game);
+          _this2.game = e.game;
+        } else {
+          location.reload();
+        }
       });
     },
     startGameListener: function startGameListener() {
@@ -29329,8 +29354,12 @@ var _ = __webpack_require__(2);
         var p = _this4.players;
         p.push(response.data.user);
         _this4.players = p;
-      }, function (response) {
+      }).catch(function (error) {
         _this4.loading = false;
+        if (error.response) {
+          var retryafter = error.response.headers["retry-after"];
+          toastr.error("You're doing that too fast. Try again in " + retryafter + " seconds");
+        }
       });
     },
     leaveQueue: function leaveQueue() {
@@ -35574,21 +35603,21 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('section', {
     staticClass: "queue-status main-top-padder "
-  }, [_c('div', {
+  }, [(_vm.inGame) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
   }, [_c('div', {
     staticClass: "panel"
-  }, [(_vm.pickTurn !== 0) ? [_vm._v("\n            Status: " + _vm._s(_vm.pickTurn.user.name) + "'s turn to pick a player\n          ")] : [_vm._v("\n            Status: Someone's turn to ban a map\n          ")]], 2)])])]), _vm._v(" "), (!_vm.inGame) ? _c('section', {
+  }, [(_vm.pickTurn !== 0) ? [_vm._v("\n            Status: " + _vm._s(_vm.pickTurn.user.name) + "'s turn to pick a player\n          ")] : [_vm._v("\n            Status: Someone's turn to ban a map\n          ")]], 2)])]) : _vm._e()]), _vm._v(" "), (!_vm.inGame) ? _c('section', {
     staticClass: "row padbot"
   }, [_c('div', {
-    staticClass: "medium-6 columns medium-centered"
+    staticClass: "medium-9 large-6 columns medium-centered"
   }, [_c('div', {
     staticClass: "panel text-center"
   }, [_c('p', {
     staticClass: "text-center"
-  }, [_vm._v("Queue status: " + _vm._s(_vm.players.length) + "/10 players")]), _vm._v(" "), (!_vm.inQueue) ? _c('div', [_c('button', {
+  }, [_vm._v("Queue status: " + _vm._s(_vm.players.length) + "/10 players")]), _vm._v(" "), (_vm.players.length >= 10) ? _c('div', [_c('p', [_vm._v("Starting a game, please wait...")])]) : _c('div', [(!_vm.inQueue) ? _c('div', [_c('button', {
     staticClass: "button primary",
     attrs: {
       "disabled": this.loading
@@ -35599,11 +35628,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.enterQueue($event)
       }
     }
-  }, [_vm._v("\n              " + _vm._s(!this.loading ? 'Join Queue' : 'Joining...') + "\n          ")])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                " + _vm._s(!this.loading ? 'Join Queue' : 'Joining...') + "\n            ")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.players.length > 0),
+      expression: "players.length > 0"
+    }],
     staticClass: "players-in-queue"
-  }, [_c('p', [_vm._v("Players in queue:")]), _vm._v(" "), _vm._l((_vm.players), function(player) {
-    return _c('p', [_vm._v(_vm._s(player.name))])
-  })], 2), _vm._v(" "), (_vm.inQueue) ? _c('div', [_c('button', {
+  }, [_c('p', [_vm._v("Players in queue:")]), _vm._v(" "), _c('div', {
+    staticClass: "player-wrap"
+  }, _vm._l((_vm.players), function(player) {
+    return _c('p', {
+      staticClass: "playa"
+    }, [_c('img', {
+      attrs: {
+        "src": player.avatar
+      }
+    }), _vm._v("\n                " + _vm._s(player.name) + "\n              ")])
+  }))]), _vm._v(" "), (_vm.inQueue) ? _c('div', [_c('button', {
     staticClass: "button primary",
     attrs: {
       "disabled": this.loading
@@ -35614,7 +35657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.leaveQueue($event)
       }
     }
-  }, [_vm._v("\n              " + _vm._s(!this.loading ? 'Leave Queue' : 'Leaving...') + "\n          ")])]) : _vm._e()])])]) : _c('section', {
+  }, [_vm._v("\n                " + _vm._s(!this.loading ? 'Leave Queue' : 'Leaving...') + "\n            ")])]) : _vm._e()])])])]) : _c('section', {
     staticClass: "row padbot text-center ladder-draft"
   }, [_c('div', {
     staticClass: "medium-4 columns"
@@ -35625,7 +35668,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'
+        "src": player.user.avatar
       }
     }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
   })], 2)]), _vm._v(" "), _c('div', {
@@ -35637,7 +35680,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-available draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'
+        "src": player.user.avatar
       }
     }), _vm._v("\n            " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n            "), _c('div', {
       staticClass: "pick-player"
@@ -35681,7 +35724,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'
+        "src": player.user.avatar
       }
     }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
   })], 2)])])])

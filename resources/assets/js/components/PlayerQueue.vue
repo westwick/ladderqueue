@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="queue-status main-top-padder ">
-      <div class="row">
+      <div class="row" v-if="inGame">
         <div class="small-12 columns">
           <div class="panel">
             <template v-if="pickTurn !== 0">
@@ -15,22 +15,32 @@
       </div>
     </section>
     <section v-if="!inGame" class="row padbot">
-      <div class="medium-6 columns medium-centered">
+      <div class="medium-9 large-6 columns medium-centered">
         <div class="panel text-center">
           <p class="text-center">Queue status: {{players.length}}/10 players</p>
-          <div v-if="!inQueue">
-            <button class="button primary" @click.disable="enterQueue" :disabled="this.loading">
-                {{ !this.loading ? 'Join Queue': 'Joining...'}}
-            </button>
+          <div v-if="players.length >= 10">
+            <p>Starting a game, please wait...</p>
           </div>
-          <div class="players-in-queue">
-            <p>Players in queue:</p>
-            <p v-for="player in players">{{player.name}}</p>
-          </div>
-          <div v-if="inQueue">
-            <button class="button primary" @click.disable="leaveQueue" :disabled="this.loading">
-                {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
-            </button>
+          <div v-else>
+            <div v-if="!inQueue">
+              <button class="button primary" @click.disable="enterQueue" :disabled="this.loading">
+                  {{ !this.loading ? 'Join Queue': 'Joining...'}}
+              </button>
+            </div>
+            <div class="players-in-queue" v-show="players.length > 0">
+              <p>Players in queue:</p>
+              <div class="player-wrap">
+                <p v-for="player in players" class="playa">
+                  <img :src="player.avatar" />
+                  {{player.name}}
+                </p>
+              </div>
+            </div>
+            <div v-if="inQueue">
+              <button class="button primary" @click.disable="leaveQueue" :disabled="this.loading">
+                  {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -40,7 +50,7 @@
         <div class="panel">
           <strong>Team 1</strong>
           <div v-for="player in team1players" class="player-on-team draft-player">
-            <img :src="player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'" />
+            <img :src="player.user.avatar" />
             {{player.user.name}} ({{player.user.ladder_points}})
           </div>
         </div>
@@ -50,7 +60,7 @@
           <div v-if="undraftedcount > 0">
             <strong>Undrafted Players</strong>
             <div v-for="player in undraftedplayers" class="player-available draft-player">
-              <img :src="player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'" />
+              <img :src="player.user.avatar" />
               {{player.user.name}} ({{player.user.ladder_points}})
               <div class="pick-player">
                 <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || this.loading">
@@ -77,7 +87,7 @@
         <div class="panel">
           <strong>Team 2</strong>
           <div v-for="player in team2players" class="player-on-team draft-player">
-            <img :src="player.user.avatar !== null ? player.user.avatar : '/images/unknown.png'" />
+            <img :src="player.user.avatar" />
             {{player.user.name}} ({{player.user.ladder_points}})
           </div>
         </div>
@@ -95,7 +105,6 @@
                 players: this.initplayers,
                 game: this.initgame,
                 loading: false,
-                inGame: !(_.isEmpty(this.initgame)),
                 mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
         },
@@ -109,6 +118,9 @@
                   if(player.id == this.userid) q = true
                 })
                 return q
+            },
+            inGame() {
+              return this.game && this.game.id > 0
             },
             undraftedplayers() {
               return _.filter(this.game.players, {team: 0})
@@ -177,6 +189,21 @@
                         })
                         this.players = p
                     })
+                    .listen('GameStarting', (e) => {
+                        var userIsInGame = false
+                        _.forEach(e.game.players, (player) => {
+                          if(player.user.id === this.userid) {
+                            userIsInGame = true
+                          }
+                        })
+                        if(userIsInGame) {
+                          console.log('starting game', e.game)
+                          this.game = e.game
+                          this.startGameListener()
+                        } else {
+                          location.reload()
+                        }
+                    })
             },
             startGameListener: function() {
               Echo.private('laddergame.' + this.game.id)
@@ -196,8 +223,12 @@
                     var p = this.players
                     p.push(response.data.user)
                     this.players = p
-                }, (response) => {
+                }).catch((error) => {
                     this.loading = false
+                    if(error.response) {
+                      var retryafter = error.response.headers["retry-after"]
+                      toastr.error("You're doing that too fast. Try again in " + retryafter + " seconds")
+                    }
                 })
             },
             leaveQueue() {
@@ -256,7 +287,9 @@
         },
         created: function () {
             this.startPartyListener()
-            this.startGameListener()
+            if(this.inGame) {
+              this.startGameListener()
+            }
         }
     }
 </script>

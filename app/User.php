@@ -32,6 +32,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getAvatarAttribute($avatar)
+    {
+        return $avatar !== null ? $avatar : '/images/unknown.png';
+    }
+
     public function getState()
     {
         return json_encode([
