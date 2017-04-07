@@ -25,6 +25,10 @@ input[type='text'], input[type='password'], input[type='email'] {
   }
 }
 
+.reveal {
+  outline: none;
+}
+
 .row-full {
   width: 100%;
 }
@@ -41,6 +45,7 @@ input[type='text'], input[type='password'], input[type='email'] {
 
 .main-content {
   flex: 1;
+  min-height: 50vh;
 }
 
 .padbot {
@@ -398,6 +403,10 @@ footer {
   padding-top: 65px;
 }
 
+.main-mb {
+  margin-bottom: 2rem;
+}
+
 .extra-padder {
   height: 57px;
 }
@@ -467,7 +476,7 @@ footer {
 
 .alerts {
   display: inline-block;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
 }
 
 img.grayscale {

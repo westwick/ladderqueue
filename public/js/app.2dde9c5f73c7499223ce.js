@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 57);
+/******/ 	return __webpack_require__(__webpack_require__.s = 66);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -17515,7 +17515,7 @@ module.exports = function normalizeComponent (
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(56)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(65)(module)))
 
 /***/ }),
 /* 3 */
@@ -27929,25 +27929,28 @@ module.exports = g;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_axios__);
 
-__webpack_require__(38);
+__webpack_require__(41);
 
 
 // import VueResource from 'vue-resource'
 
 
 
-Vue.component('schedule', __webpack_require__(45));
-Vue.component('teamselecter', __webpack_require__(47));
-Vue.component('dataloader', __webpack_require__(42));
-Vue.component('partybar', __webpack_require__(43));
-Vue.component('partylobby', __webpack_require__(44));
-Vue.component('season3reg', __webpack_require__(46));
+Vue.component('schedule', __webpack_require__(51));
+Vue.component('teamselecter', __webpack_require__(53));
+Vue.component('dataloader', __webpack_require__(47));
+Vue.component('partybar', __webpack_require__(49));
+Vue.component('partylobby', __webpack_require__(50));
+Vue.component('season3reg', __webpack_require__(52));
+Vue.component('messages', __webpack_require__(48));
+Vue.component('conversations', __webpack_require__(45));
+Vue.component('convonav', __webpack_require__(46));
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_1_axios___default.a);
 
@@ -28883,6 +28886,235 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var _ = __webpack_require__(2);
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['convos', 'maxItems'],
+    data: function data() {
+        return {
+            conversations: this.convos,
+            maxConvos: this.maxItems || 0
+        };
+    },
+
+    computed: {
+        userid: function userid() {
+            return this.$store.state.userid;
+        },
+        sortedConvos: function sortedConvos() {
+            var _this = this;
+
+            var unsorted = this.conversations;
+            var convos = [];
+            if (this.maxConvos > 0 && unsorted.length > this.maxConvos) {
+                convos = unsorted.slice(0, 3);
+                var regex = /^\/messages\/[a-zA-Z0-9]+$/g;
+                if (regex.test(document.location.pathname)) {
+                    // if we are on an active conversation
+                    // make sure it is in the sorted list
+                    var hasActive = false;
+                    _.forEach(convos, function (c) {
+                        if (_this.isActive(c)) {
+                            hasActive = true;
+                        }
+                    });
+                    if (!hasActive) {
+
+                        var activeConvo = this.findActiveConvo(unsorted);
+                        if (activeConvo) {
+                            convos = convos.slice(0, 2);
+                            convos.push(activeConvo);
+                        }
+                    }
+                }
+            } else {
+                convos = unsorted;
+            }
+            return convos;
+        },
+        hiddenConvos: function hiddenConvos() {
+            return this.conversations.length - this.sortedConvos.length;
+        },
+        totalUnread: function totalUnread() {
+            var _this2 = this;
+
+            var unread = 0;
+            _.forEach(this.conversations, function (o) {
+                var p = _this2.participant(o);
+                if (p) {
+                    unread += p.unreadCount;
+                }
+            });
+            return unread;
+        }
+    },
+    methods: {
+        participant: function participant(convo) {
+            var _this3 = this;
+
+            return _.find(convo.participants, function (o) {
+                return o.user_id === _this3.userid;
+            });
+        },
+        otherUser: function otherUser(convo) {
+            var _this4 = this;
+
+            return _.find(convo.participants, function (o) {
+                return o.user_id !== _this4.userid;
+            });
+        },
+        isActive: function isActive(convo) {
+            var regex = /^\/messages\/[a-zA-Z0-9]+$/g;
+            if (regex.test(document.location.pathname)) {
+                var convoWith = document.location.pathname.substring(10);
+                return this.otherUser(convo).user.name.toLowerCase() === convoWith.toLowerCase();
+            } else {
+                return false;
+            }
+        },
+        findActiveConvo: function findActiveConvo() {
+            var _this5 = this;
+
+            var regex = /^\/messages\/[a-zA-Z0-9]+$/g;
+            var active = null;
+            if (regex.test(document.location.pathname)) {
+                var convoWith = document.location.pathname.substring(10);
+                _.forEach(this.conversations, function (c) {
+                    if (_this5.otherUser(c).user.name.toLowerCase() === convoWith.toLowerCase()) {
+                        active = c;
+                    }
+                });
+            } else {
+                return false;
+            }
+            return active;
+        },
+        notReplied: function notReplied(convo) {
+            var user = this.participant(convo);
+            var recipient = this.otherUser(convo);
+            if (!user || !user.lastMessage) {
+                return true;
+            } else {
+                return recipient.lastMessage && user.lastMessage.created_at < recipient.lastMessage.created_at;
+            }
+        },
+        replied: function replied(convo) {
+            var user = this.participant(convo);
+            var recipient = this.otherUser(convo);
+            if (!user.lastMessage) return false;
+            if (!recipient.lastMessage) return true;
+            return user.lastMessage.created_at > recipient.lastMessage.created_at;
+        },
+        repliedAndReceived: function repliedAndReceived(convo) {
+            var user = this.participant(convo);
+            var recipient = this.otherUser(convo);
+            return user && this.replied(convo) && user.lastMessage.created_at < recipient.last_read;
+        },
+        startConvoListener: function startConvoListener() {
+            var _this6 = this;
+
+            Echo.private('App.User.' + this.$store.state.userid).listen('ConversationsUpdated', function (e) {
+                _this6.$http.post('/get-messages').then(function (resp) {
+                    _this6.conversations = resp.data.messages;
+                    _this6.$emit('newunread', _this6.totalUnread);
+                });
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.startConvoListener();
+    }
+};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['convos', 'unreadcount'],
+    data: function data() {
+        return {
+            conversations: this.convos,
+            unread: this.unreadcount || 0
+        };
+    },
+
+    methods: {
+        updateUnread: function updateUnread(count) {
+            console.log('caught an emit');
+            this.unread = count;
+            document.title = '[' + count + '] - Continental eSports';
+        }
+    }
+};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['userstate', 'csrftoken'],
@@ -28924,7 +29156,103 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 33 */
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['msgs', 'recipient', 'user'],
+    data: function data() {
+        return {
+            messages: this.msgs,
+            loading: false,
+            newmsg: '',
+            showOlder: 2,
+            olderButtonVisible: false
+        };
+    },
+
+    computed: {
+        userid: function userid() {
+            return this.$store.state.userid;
+        }
+    },
+    methods: {
+        sendMsg: function sendMsg() {
+            var _this = this;
+
+            this.loading = true;
+            this.$http.post('/send-msg', { 'to_user_id': this.recipient.id, 'message': this.newmsg }).then(function (resp) {
+                _this.loading = false;
+                _this.newmsg = '';
+                var newmsgs = _this.messages;
+                newmsgs.push(resp.data.message);
+                _this.messages = newmsgs;
+            });
+        },
+        getHeight: function getHeight() {
+            return {
+                'max-height': 40 * this.showOlder + 'vh'
+            };
+        },
+        showMore: function showMore() {
+            this.showOlder = this.showOlder + 1;
+            this.setHeight();
+        },
+        setHeight: function setHeight() {
+            document.getElementById('convo').scrollTop = 100000;
+            this.checkButtonVisibility();
+        },
+        checkButtonVisibility: function checkButtonVisibility() {
+            var st = document.getElementById('convo').scrollTop;
+            this.olderButtonVisible = st > 0;
+        }
+    },
+    mounted: function mounted() {
+        this.setHeight();
+    }
+};
+
+/***/ }),
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28993,7 +29321,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29120,7 +29448,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29291,7 +29619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29461,7 +29789,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29537,12 +29865,12 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 window._ = __webpack_require__(2);
@@ -29561,7 +29889,7 @@ window.$ = window.jQuery = __webpack_require__(4);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(54);
+window.Vue = __webpack_require__(63);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -29584,7 +29912,7 @@ window.axios.defaults.headers.common = {
 
 
 
-window.Pusher = __webpack_require__(40);
+window.Pusher = __webpack_require__(43);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
@@ -29592,7 +29920,7 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 });
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -30366,7 +30694,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -34501,7 +34829,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34509,14 +34837,82 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(60),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/Conversations.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Conversations.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7a565f70", Component.options)
+  } else {
+    hotAPI.reload("data-v-7a565f70", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(33),
+  /* template */
+  __webpack_require__(57),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/ConversationsNavbar.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ConversationsNavbar.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-195c3c78", Component.options)
+  } else {
+    hotAPI.reload("data-v-195c3c78", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(62),
   /* scopeId */
   null,
   /* cssModules */
@@ -34543,14 +34939,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(54),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/Messages.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Messages.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0391c084", Component.options)
+  } else {
+    hotAPI.reload("data-v-0391c084", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -34577,14 +35007,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(34),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(55),
   /* scopeId */
   null,
   /* cssModules */
@@ -34611,14 +35041,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 45 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(61),
   /* scopeId */
   null,
   /* cssModules */
@@ -34645,14 +35075,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(50),
+  __webpack_require__(58),
   /* scopeId */
   null,
   /* cssModules */
@@ -34679,14 +35109,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(40),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(56),
   /* scopeId */
   null,
   /* cssModules */
@@ -34713,7 +35143,102 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 48 */
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "messages-container"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.olderButtonVisible),
+      expression: "olderButtonVisible"
+    }],
+    staticClass: "show-older"
+  }, [_c('button', {
+    staticClass: "button button-outline",
+    on: {
+      "click": _vm.showMore
+    }
+  }, [_vm._v("Show Older")])]), _vm._v(" "), _c('div', {
+    staticClass: "messages",
+    style: (_vm.getHeight()),
+    attrs: {
+      "id": "convo"
+    }
+  }, [_vm._l((_vm.messages), function(message) {
+    return _c('div', {
+      staticClass: "chat-wrap"
+    }, [_c('img', {
+      staticClass: "speaker-avatar",
+      attrs: {
+        "src": message.from.image
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "message",
+      class: message.from.id !== _vm.userid ? 'message-white' : ''
+    }, [_c('p', {
+      staticClass: "message-body"
+    }, [_vm._v(_vm._s(message.content))]), _vm._v(" "), _c('p', {
+      staticClass: "timestamp"
+    }, [_vm._v("Sent " + _vm._s(message.sentDate)), _c('span', {
+      staticClass: "cooldividier"
+    }), _vm._v(_vm._s(message.sentTime))])])])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "chat-wrap send-message-form"
+  }, [_c('img', {
+    staticClass: "speaker-avatar",
+    attrs: {
+      "src": _vm.user.image
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "message message-input"
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.newmsg),
+      expression: "newmsg"
+    }],
+    staticClass: "newmessage",
+    attrs: {
+      "placeholder": "Type your message here",
+      "maxlength": "240",
+      "disabled": _vm.loading
+    },
+    domProps: {
+      "value": (_vm.newmsg)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.newmsg = $event.target.value
+      }
+    }
+  }), _vm._v(" "), (this.loading) ? [_c('button', {
+    staticClass: "button disabled sendbutton"
+  }, [_vm._v("Sending")])] : [_c('button', {
+    staticClass: "button sendbutton",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.sendMsg($event)
+      }
+    }
+  }, [_vm._v("Send")])]], 2)])], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0391c084", module.exports)
+  }
+}
+
+/***/ }),
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -34762,7 +35287,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -34845,7 +35370,48 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "convonav"
+  }, [_c('a', {
+    staticClass: "message-toggle nav-toggle",
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('i', {
+    staticClass: "icon ion-email"
+  }), _vm._v(" "), (_vm.unread > 0) ? _c('div', {
+    staticClass: "unread-count"
+  }, [_c('span', [_vm._v(_vm._s(_vm.unread))])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "subnav message-subnav"
+  }, [_c('conversations', {
+    attrs: {
+      "convos": _vm.conversations,
+      "max-items": 3
+    },
+    on: {
+      "newunread": _vm.updateUnread
+    }
+  }), _vm._v(" "), _c('a', {
+    staticClass: "view-all-messages",
+    attrs: {
+      "href": "/messages"
+    }
+  }, [_vm._v("View All")])], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-195c3c78", module.exports)
+  }
+}
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35254,7 +35820,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35326,7 +35892,72 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "conversations"
+  }, [_vm._l((_vm.sortedConvos), function(convo) {
+    return _c('div', {
+      staticClass: "convo-wrap"
+    }, [_c('a', {
+      attrs: {
+        "href": '/messages/' + _vm.otherUser(convo).user.name.toLowerCase()
+      }
+    }, [_c('div', {
+      staticClass: "panel player-message-brief",
+      class: _vm.isActive(convo) ? 'active-convo' : ''
+    }, [(_vm.participant(convo) && _vm.participant(convo).unreadCount > 0) ? [_c('div', {
+      staticClass: "message-read-status unread-messages"
+    }, [_vm._v(_vm._s(_vm.participant(convo).unreadCount))])] : (_vm.repliedAndReceived(convo)) ? [_c('div', {
+      staticClass: "message-read-status read-or-replied"
+    }, [_c('i', {
+      staticClass: "icon ion-checkmark"
+    })])] : (_vm.notReplied(convo)) ? [_c('div', {
+      staticClass: "message-read-status read-or-replied"
+    }, [_c('i', {
+      staticClass: "icon"
+    }, [_vm._v(" ")])])] : (_vm.replied(convo)) ? [_c('div', {
+      staticClass: "message-read-status read-or-replied"
+    }, [_c('i', {
+      staticClass: "icon ion-reply"
+    })])] : _vm._e(), _vm._v(" "), _c('img', {
+      staticClass: "player-avatar",
+      attrs: {
+        "src": _vm.otherUser(convo).user.image
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "player-message"
+    }, [_c('strong', [_vm._v(_vm._s(_vm.otherUser(convo).user.name))]), _vm._v(" "), (_vm.otherUser(convo).lastMessage) ? _c('p', {
+      staticClass: "previewline"
+    }, [_vm._v("\n                        " + _vm._s(_vm.otherUser(convo).lastMessage.content) + "\n                    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "message-timestamp"
+    }, [_c('p', [_vm._v(_vm._s(convo.lastUpdatedDiff))])])], 2)])])
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.hiddenConvos > 0),
+      expression: "hiddenConvos > 0"
+    }],
+    staticClass: "view-all"
+  }, [_c('a', {
+    attrs: {
+      "href": "/messages"
+    }
+  }, [_vm._v("View All")])])], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7a565f70", module.exports)
+  }
+}
+
+/***/ }),
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35456,7 +36087,7 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -35473,7 +36104,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44726,7 +45357,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(12)))
 
 /***/ }),
-/* 55 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45541,7 +46172,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 56 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -45569,7 +46200,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 57 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);

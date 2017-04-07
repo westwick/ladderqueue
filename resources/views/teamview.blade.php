@@ -9,7 +9,7 @@
                         <div class="players-inner">
                             @foreach($team->players() as $player)
                             <div class="player-stat">
-                                <span class="stat-number"><a href="/u/{{$player->name}}"><img src="{{$player->getImage()}}" /></a></span>
+                                <span class="stat-number"><a href="/u/{{$player->name}}"><img src="{{$player->image}}" /></a></span>
                                 <span class="stat-label">{{$player->name}}</span>
                             </div>
                             @endforeach

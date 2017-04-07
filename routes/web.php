@@ -82,33 +82,7 @@ Route::post('/complete-checkout', function() {
 
 })->middleware('auth');
 
-Route::post('/update-profile', function() {
-    $user = Auth::user();
-
-    $age = Input::get('age');
-    if($age < 14) {
-        flash('You must be older than 13 to use this site', 'error');
-        return redirect()->back();
-    }
-    if($age == 69) {
-        flash('lololololol', 'error');
-        return redirect()->back();
-    }
-    if($age > 90) {
-        flash('Go back to your retirement home, grandpa', 'error');
-        return redirect()->back();
-    }
-
-    $user->intro = Input::get('intro');
-    $user->server_preference = Input::get('serverpreference');
-    $user->location = Input::get('location');
-    $user->age = $age;
-    $user->save();
-
-    flash('Profile updated', 'success');
-    return redirect()->back();
-
-})->middleware('auth');
+Route::post('/update-profile', 'UserController@updateProfile')->middleware('auth');
 
 Route::get('/bracket/{id}', 'BracketController@showBracket');
 Route::get('/assemble/{id}', 'BracketController@showRegistrationRoom');
@@ -164,7 +138,12 @@ Route::post('/season3/register', 'TeamController@season3register');
  *  Message Controller
  */
 
-Route::get('/messages', 'MessageController@index');
+Route::get('/messages', 'ConversationController@index');
+Route::get('test', 'ConversationController@sendtest');
+Route::post('/send-msg', 'ConversationController@sendMessage');
+Route::post('/sendmsg', 'ConversationController@sendMessageForm');
+Route::post('/get-messages', 'ConversationController@getMessages');
+Route::get('/messages/{withUser}', 'ConversationController@viewConversation');
 
 /*
  * Schedule/Standings

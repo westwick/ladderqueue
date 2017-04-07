@@ -26,6 +26,8 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PartyPlayerStatusChange' => [
             'App\Listeners\SendPartyPlayerStatusChangeNotifications'
         ],
+        'App\Events\ConversationsUpdated' => [
+        ],
     ];
 
     /**
