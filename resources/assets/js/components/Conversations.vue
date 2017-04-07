@@ -154,10 +154,24 @@
             startConvoListener: function() {
                 Echo.private('App.User.' + this.$store.state.userid)
                         .listen('ConversationsUpdated', (e) => {
-                            this.$http.post('/get-messages').then((resp) => {
-                                this.conversations = resp.data.messages
-                                this.$emit('newunread', this.totalUnread)
-                            })
+                            // if this conversation is open in Messages.vue component
+                            // we will ignore this event and just send a 'read' response back to server
+                            // to update the last_read timestamp
+                            console.log(e)
+                            var regex = /^\/messages\/[a-zA-Z0-9]+$/g
+                            if(regex.test(document.location.pathname)) {
+                                var convoWith = document.location.pathname.substring(10)
+                                if(e.sender.name.toLowerCase() === convoWith.toLowerCase()) {
+                                    this.$http.post('/read-convo', {id: e.conversation.id})
+                                }
+                            } else {
+                                // otherwise, we will make a call to the server to get the updated messages status
+                                this.$http.post('/get-messages').then((resp) => {
+                                    this.conversations = resp.data.messages
+                                    // this lets the ConversationNav component know so it can update
+                                    this.$emit('newunread', this.totalUnread)
+                                })
+                            }
                         })
             }
         },

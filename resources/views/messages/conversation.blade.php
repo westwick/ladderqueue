@@ -8,7 +8,7 @@
         </div>
         <div class="medium-8 columns">
             <p class="text-right messages-header">Conversation with <a href="/u/{{$recipient->name}}">{{$recipient->name}}</a></p>
-            <messages :msgs="{{$messages}}" :recipient="{{$recipient}}" :user="{{Auth::user()}}"></messages>
+            <messages :msgs="{{$messages}}" :recipient="{{$recipient}}" :user="{{Auth::user()}}" :convoid="{{$convoid}}"></messages>
         </div>
     </section>
 @endsection

@@ -143,6 +143,7 @@ Route::get('test', 'ConversationController@sendtest');
 Route::post('/send-msg', 'ConversationController@sendMessage');
 Route::post('/sendmsg', 'ConversationController@sendMessageForm');
 Route::post('/get-messages', 'ConversationController@getMessages');
+Route::post('/read-convo', 'ConversationController@convoRead');
 Route::get('/messages/{withUser}', 'ConversationController@viewConversation');
 
 /*

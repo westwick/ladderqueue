@@ -36,7 +36,7 @@
 
 <script type="text/babel">
     export default {
-        props: ['msgs', 'recipient', 'user'],
+        props: ['msgs', 'recipient', 'user', 'convoid'],
         data() {
             return {
                 messages: this.msgs,
@@ -52,7 +52,7 @@
             }
         },
         methods: {
-            sendMsg: function() {
+            sendMsg() {
                 this.loading = true
                 this.$http.post('/send-msg', {'to_user_id': this.recipient.id, 'message': this.newmsg}).then((resp) => {
                     this.loading = false
@@ -60,28 +60,43 @@
                     var newmsgs = this.messages
                     newmsgs.push(resp.data.message)
                     this.messages = newmsgs
+                    setTimeout(this.setHeight, 60)
                 })
             },
-            getHeight: function() {
+            getHeight() {
                 return {
                     'max-height': 40*this.showOlder + 'vh'
                 }
             },
-            showMore: function() {
+            showMore() {
                 this.showOlder = this.showOlder + 1
                 this.setHeight()
             },
-            setHeight: function() {
+            setHeight() {
                 document.getElementById('convo').scrollTop = 100000
                 this.checkButtonVisibility()
             },
             checkButtonVisibility() {
                 var st = document.getElementById('convo').scrollTop
                 this.olderButtonVisible = (st > 0)
+            },
+            startChatListener() {
+                Echo.private('convo.' + this.convoid)
+                    .listen('ConversationMessage', (e) => {
+                        console.log(e)
+                        var messages = this.messages
+                        var newmessage = e.message
+                        newmessage.from = e.from
+                        messages.push(newmessage)
+                        this.messages = messages
+                        setTimeout(this.setHeight, 60)
+                        //this.setHeight()
+                    })
             }
         },
         mounted() {
             this.setHeight()
+            this.startChatListener()
         }
     }
 </script>

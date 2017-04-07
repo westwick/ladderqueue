@@ -208,17 +208,20 @@ header ul {
   display: inline;
 }
 
+header ul.mainnav {
+  margin: 0 0 0 6rem;
+}
+
 header .logo {
-  //width: 200px;
+  width: 4.5rem;
   display: inline-block;
-  margin-right: 2rem;
+  position: absolute;
 }
 
 .header-logo {
-  position: relative;
-  top: -2px;
-  height: 44px;
-  width: auto;
+  width: 100%;
+  height: auto;
+
 }
 
 header .login {

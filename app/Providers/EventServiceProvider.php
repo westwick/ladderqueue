@@ -28,6 +28,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ConversationsUpdated' => [
         ],
+        'App\Events\ConversationMessage' => [
+        ],
     ];
 
     /**

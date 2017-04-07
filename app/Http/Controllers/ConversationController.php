@@ -32,8 +32,6 @@ class ConversationController extends Controller
         $message = Input::get('message');
         
         $newMsg = Message::send($sender, $recipient, $message);
-
-        broadcast(new ConversationsUpdated($sender, $recipient))->toOthers();
         
         return response()->json(['success' => true, 'message' => $newMsg]);
     }
@@ -46,8 +44,6 @@ class ConversationController extends Controller
 
         $newMsg = Message::send($sender, $recipient, $message);
         flash('Message sent!', 'success');
-
-        broadcast(new ConversationsUpdated($sender, $recipient))->toOthers();
 
         return redirect('/messages');
     }
@@ -70,6 +66,7 @@ class ConversationController extends Controller
 
         return view('messages.conversation')
             ->with('messages', $conversation->messages)
+            ->with('convoid', $conversation->id)
             ->with('recipient', $user2);
     }
     
@@ -78,5 +75,20 @@ class ConversationController extends Controller
         $user = Auth::user();
         
         return response()->json(['messages' => $user->getMessages()]);
+    }
+
+    public function convoRead()
+    {
+        $user = Auth::user();
+        $id = Input::get('id');
+        $convo = Conversation::findByIdOrFail($id);
+        foreach($convo->participants as $p) {
+            if($p->user_id === $user->id) {
+                $p->last_read = Carbon::now();
+                $p->save();
+            }
+        }
+
+        return response()->json(['success' => true]);
     }
 }
