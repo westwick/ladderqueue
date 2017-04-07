@@ -29587,6 +29587,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['games'],
@@ -36050,66 +36066,63 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("close")])])]), _vm._v(" "), (_vm.sortedGames.length === 0) ? _c('div', [_c('div', {
     staticClass: "empty-state"
-  }, [_vm._v("\n            No games to display\n        ")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.sortedGames), function(day) {
-    return _c('div', [_c('h4', [_vm._v(_vm._s(day.day))]), _vm._v(" "), _c('table', {
-      staticClass: "schedule-table"
-    }, _vm._l((day.games), function(game) {
+  }, [_vm._v("\n            No games to display\n        ")])]) : _vm._e(), _vm._v(" "), _c('table', {
+    staticClass: "schedule-table"
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.sortedGames), function(day) {
+    return _vm._l((day.games), function(game) {
       return _c('tr', [_c('td', {
         attrs: {
-          "width": "30%"
+          "width": "20%"
+        }
+      }, [(game.team1_score == 0 && game.team2_score == 0) ? [_c('span', {
+        staticClass: "tbd"
+      }, [_vm._v(_vm._s(game.match_time_from_now))])] : [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_score))])] : [(game.team1_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team1_score))]], _vm._v("\n                    -\n                    "), (game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_score))])] : [(game.team2_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team2_score))]]]], 2), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "20%"
+        }
+      }, [_c('a', {
+        attrs: {
+          "href": '/team/' + game.team1_slug
+        }
+      }, [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_name))])] : [_vm._v("\n                        " + _vm._s(game.team1_name) + "\n                    ")]], 2), _vm._v("\n                (" + _vm._s(game.team1_record) + ")\n            ")]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "6%"
         }
       }, [_c('img', {
         attrs: {
           "src": game.team1_logo
         }
-      }), _vm._v(" "), _c('a', {
+      })]), _vm._v(" "), _c('td', {
         attrs: {
-          "href": '/team/' + game.team1_slug
+          "width": "8%"
         }
-      }, [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_name))])] : [_vm._v("\n                            " + _vm._s(game.team1_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team1_record) + ")\n                ")]), _vm._v(" "), _c('td', {
+      }, [(game.map == 'tbd') ? [_c('span', {
+        staticClass: "tbd"
+      }, [_vm._v("\n                                        tbd\n                                    ")])] : [_vm._v("\n                    " + _vm._s(game.map) + "\n                ")]], 2), _vm._v(" "), _c('td', {
         attrs: {
-          "width": "30%"
+          "width": "6%"
         }
       }, [_c('img', {
         attrs: {
           "src": game.team2_logo
         }
-      }), _vm._v(" "), _c('a', {
+      })]), _vm._v(" "), _c('td', {
+        attrs: {
+          "width": "25%"
+        }
+      }, [_c('a', {
         attrs: {
           "href": '/team/' + game.team2_slug
         }
-      }, [(game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_name))])] : [_vm._v("\n                            " + _vm._s(game.team2_name) + "\n                        ")]], 2), _vm._v("\n                    (" + _vm._s(game.team2_record) + ")\n                ")]), _vm._v(" "), _c('td', {
+      }, [(game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_name))])] : [_vm._v("\n                        " + _vm._s(game.team2_name) + "\n                    ")]], 2), _vm._v("\n                (" + _vm._s(game.team2_record) + ")\n            ")]), _vm._v(" "), _c('td', {
         attrs: {
-          "width": "8%"
+          "width": "15%"
         }
-      }, [_vm._v(_vm._s(game.match_time_local))]), _vm._v(" "), _c('td', {
-        attrs: {
-          "width": "10%"
-        }
-      }, [(game.map == 'tbd') ? [_c('span', {
-        staticClass: "tbd"
-      }, [_vm._v("\n                                            tbd\n                                        ")])] : [_vm._v("\n                        " + _vm._s(game.map) + "\n                    ")]], 2), _vm._v(" "), _c('td', {
-        attrs: {
-          "width": "10%"
-        }
-      }, [(game.team1_score == 0 && game.team2_score == 0) ? [_c('span', {
-        staticClass: "tbd tinyfont"
-      }, [_vm._v(_vm._s(game.match_time_from_now))])] : [(game.team1_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team1_score))])] : [(game.team1_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team1_score))]], _vm._v("\n                        -\n                        "), (game.team2_id == game.winner_id) ? [_c('strong', [_vm._v(_vm._s(game.team2_score))])] : [(game.team2_score == 0 && game.game_status == 9) ? [_vm._v("F")] : [_vm._v(_vm._s(game.team2_score))]]]], 2), _vm._v(" "), _vm._m(0, true)])
-    }))])
-  })], 2)
+      }, [_vm._v("Continental Week 1")])])
+    })
+  })], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    attrs: {
-      "width": "12%"
-    }
-  }, [_c('a', {
-    staticClass: "button button-outline button-small",
-    attrs: {
-      "href": "#"
-    }
-  }, [_c('i', {
-    staticClass: "icon ion-stats-bars"
-  }), _vm._v("stats")])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Status")]), _vm._v(" "), _c('th', [_vm._v("Team 1")]), _vm._v(" "), _c('th'), _vm._v(" "), _c('th', [_vm._v("vs")]), _vm._v(" "), _c('th'), _vm._v(" "), _c('th', [_vm._v("Team 2")]), _vm._v(" "), _c('th', [_vm._v("Event")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

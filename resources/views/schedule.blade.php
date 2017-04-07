@@ -8,7 +8,7 @@
 @section('content')
     <section class="row main-top-padder padbot">
         <div class="small-12 columns">
-            <div class="panel" style="min-height: 80vh">
+            <div class="" style="min-height: 80vh; margin-top: 2rem">
                 <schedule :games="{{ $games }}"></schedule>
             </div>
         </div>
