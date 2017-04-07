@@ -43,6 +43,16 @@ class Conversation extends Model
         }
     }
 
+    public static function findByIdOrFail($id) {
+        $conversation = static::where('id', $id)->first();
+
+        if(!$conversation) {
+            throw new HttpException(404);
+        } else {
+            return $conversation;
+        }
+    }
+
     public static function findOrFail(User $sender, User $recipient)
     {
         $conversation = static::whereHas('participants', function($query) use ($sender) {

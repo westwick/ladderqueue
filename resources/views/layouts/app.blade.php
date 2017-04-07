@@ -9,7 +9,7 @@
         @if($unreadCount > 0)
         [{{$unreadCount}}] -
         @endif
-        Carbon X League
+        Continental eSports
     </title>
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
@@ -44,28 +44,20 @@
         <div class="not-a-row">
             <div class="small-12 columns">
                 <div class="logo">
-                    <a href="/"><img class="header-logo" src="/images/logo.png" /></a>
+                    <a href="/"><img class="header-logo" src="/images/cel.png" /></a>
                 </div>
-                <ul>
+                <ul class="mainnav">
                     <li class="active">
-                        <a href="#" class="nav1-toggle nav-toggle">Season 3</a>
+                        <a href="#" class="nav1-toggle nav-toggle">League</a>
                         <div class="subnav nav1-subnav">
                             <ul>
                                 {{--<li class="list-section-header">Season 3</li>--}}
+                                <li><a href="/season2/schedule">Schedule</a></li>
+                                <li><a href="/season2/standings">Standings</a></li>
                                 <li><a href="/season3">Info &amp; Rules</a></li>
-                                <li><a href="/season3/registration">Register</a></li>
+                                {{--<li><a href="/season3/registration">Register</a></li>--}}
                                 <li><a href="/teams">Teams</a></li>
                                 {{--<li class="list-section-header inthemid">Season 2</li>--}}
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav2-toggle nav-toggle">Season 2</a>
-                        <div class="subnav nav2-subnav">
-                            <ul>
-                                <li><a href="/season2/standings">Standings</a></li>
-                                <li><a href="/season2/schedule">Schedule</a></li>
-                                <li><a href="http://challonge.com/CXS2Playoffs" target="_blank">Playoffs</a></li>
                             </ul>
                         </div>
                     </li>
@@ -78,7 +70,7 @@
                         {{--</div>--}}
                     {{--</li>--}}
                     <li>
-                        <a href="#" class="nav4-toggle nav-toggle">Resources</a>
+                        <a href="#" class="nav4-toggle nav-toggle">Community</a>
                         <div class="subnav nav4-subnav">
                             <ul>
                                 <li><a href="/coming-soon">Forum</a></li>
@@ -175,7 +167,7 @@
             </div>
             <div class="medium-4 columns">
                 <img class="footer-logo" src="/images/logocircle.png" />
-                <p class="footer-about">CarbonX was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
+                <p class="footer-about">Continental was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
             </div>
         </div>
     </footer>

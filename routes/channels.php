@@ -12,6 +12,7 @@
 */
 
 use App\Party;
+use App\Conversation;
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
@@ -19,6 +20,14 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 
 Broadcast::channel('users.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('convo.{id}', function($user, $id) {
+    $convo = Conversation::findByIdOrFail($id);
+    foreach($convo->participants as $participant) {
+        if($participant->user->id === $user->id) return true;
+    }
+    return false;
 });
 
 Broadcast::channel('party.{partyId}', function ($user, $partyId) {

@@ -29053,10 +29053,24 @@ var _ = __webpack_require__(2);
             var _this6 = this;
 
             Echo.private('App.User.' + this.$store.state.userid).listen('ConversationsUpdated', function (e) {
-                _this6.$http.post('/get-messages').then(function (resp) {
-                    _this6.conversations = resp.data.messages;
-                    _this6.$emit('newunread', _this6.totalUnread);
-                });
+                // if this conversation is open in Messages.vue component
+                // we will ignore this event and just send a 'read' response back to server
+                // to update the last_read timestamp
+                console.log(e);
+                var regex = /^\/messages\/[a-zA-Z0-9]+$/g;
+                if (regex.test(document.location.pathname)) {
+                    var convoWith = document.location.pathname.substring(10);
+                    if (e.sender.name.toLowerCase() === convoWith.toLowerCase()) {
+                        _this6.$http.post('/read-convo', { id: e.conversation.id });
+                    }
+                } else {
+                    // otherwise, we will make a call to the server to get the updated messages status
+                    _this6.$http.post('/get-messages').then(function (resp) {
+                        _this6.conversations = resp.data.messages;
+                        // this lets the ConversationNav component know so it can update
+                        _this6.$emit('newunread', _this6.totalUnread);
+                    });
+                }
             });
         }
     },
@@ -29098,9 +29112,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         updateUnread: function updateUnread(count) {
-            console.log('caught an emit');
             this.unread = count;
-            document.title = '[' + count + '] - Continental eSports';
+            if (count > 0) {
+                document.title = '[' + count + '] - Continental eSports';
+            } else {
+                document.title = 'Continental eSports';
+            }
         }
     }
 };
@@ -29199,7 +29216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    props: ['msgs', 'recipient', 'user'],
+    props: ['msgs', 'recipient', 'user', 'convoid'],
     data: function data() {
         return {
             messages: this.msgs,
@@ -29226,6 +29243,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var newmsgs = _this.messages;
                 newmsgs.push(resp.data.message);
                 _this.messages = newmsgs;
+                setTimeout(_this.setHeight, 60);
             });
         },
         getHeight: function getHeight() {
@@ -29244,10 +29262,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         checkButtonVisibility: function checkButtonVisibility() {
             var st = document.getElementById('convo').scrollTop;
             this.olderButtonVisible = st > 0;
+        },
+        startChatListener: function startChatListener() {
+            var _this2 = this;
+
+            Echo.private('convo.' + this.convoid).listen('ConversationMessage', function (e) {
+                console.log(e);
+                var messages = _this2.messages;
+                var newmessage = e.message;
+                newmessage.from = e.from;
+                messages.push(newmessage);
+                _this2.messages = messages;
+                setTimeout(_this2.setHeight, 60);
+                //this.setHeight()
+            });
         }
     },
     mounted: function mounted() {
         this.setHeight();
+        this.startChatListener();
     }
 };
 

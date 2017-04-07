@@ -24,9 +24,12 @@
         },
         methods: {
             updateUnread: function(count) {
-                console.log('caught an emit')
                 this.unread = count
-                document.title = '[' + count + '] - Continental eSports'
+                if(count > 0) {
+                    document.title = '[' + count + '] - Continental eSports'
+                } else {
+                    document.title = 'Continental eSports'
+                }
             }
         }
     }

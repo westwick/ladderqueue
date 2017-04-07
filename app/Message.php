@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\ConversationMessage;
+use App\Events\ConversationsUpdated;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Conversation;
@@ -23,27 +25,30 @@ class Message extends Model
         return $this->belongsTo('App\User', 'sender_id');
     }
     
-    public static function send(User $sender, User $recipient, $message)
+    public static function send(User $sender, User $recipient, $content)
     {
         $convo = Conversation::findOrCreate($sender, $recipient);
         $convo->touch();
         $message = Static::create([
             'conversation_id' => $convo->id,
             'sender_id' => $sender->id,
-            'content' => $message]);
+            'content' => $content]);
 
         $message->load('from');
+
+        broadcast(new ConversationsUpdated($convo, $sender, $recipient))->toOthers();
+        broadcast(new ConversationMessage($convo, $sender, $message))->toOthers();
 
         return $message;
     }
 
     public function getSentTimeAttribute()
     {
-        return $this->created_at->timezone('America/Los_Angeles')->format('g:i a');
+        return $this->created_at->timezone('America/New_York')->format('g:i a');
     }
 
     public function getSentDateAttribute()
     {
-        return $this->created_at->timezone('America/Los_Angeles')->format('M j');
+        return $this->created_at->timezone('America/New_York')->format('M j');
     }
 }
