@@ -50,8 +50,9 @@ section.player-hero {
 
 .player-nav {
   width: 100%;
-  background-color: #fff;
+  background-color: #1a1a1a;
   border-bottom: 1px solid #e8eced;
+  border-top: 6px solid $cxred;
   ul {
     display: -webkit-box;
     display: -ms-flexbox;

@@ -567,6 +567,9 @@ img.grayscale:hover {
     text-align: center;
     font-weight: 400;
     text-transform: uppercase;
+    tr, tr:nth-child(odd), tr:nth-child(even) {
+      background: #111;
+    }
     th {
       text-align: center;
       font-weight: 400;
