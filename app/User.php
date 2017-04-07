@@ -30,6 +30,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // always add the image attribute to all model requests
+    public $appends = ['image'];
+
     public function getState()
     {
         return json_encode([
@@ -65,6 +68,25 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Party', 'party_players');
     }
 
+    public function conversations()
+    {
+        return $this->belongsToMany('App\Conversation', 'participants')->with('participants');
+    }
+
+    public function unreadMessagesCount()
+    {
+        $unread = 0;
+        foreach($this->conversations as $convo) {
+            foreach($convo->participants as $p) {
+                if($p->user_id == $this->id) {
+                    $unread += $p->unreadCount;
+                }
+            }
+        }
+
+        return $unread;
+    }
+
     public function activeParty()
     {
         $party = $this->parties->where('status_id', '<', Party::$STATUS_COMPLETE)->first();
@@ -76,7 +98,7 @@ class User extends Authenticatable
         }
     }
 
-    public function getImage()
+    public function getImageAttribute()
     {
         return $this->avatar !== NUll ? $this->avatar : '/images/unknown.png';
     }

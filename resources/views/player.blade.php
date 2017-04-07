@@ -56,8 +56,25 @@
             </div>
             <div class="medium-3 columns text-right">
                 <div class="nav-button-flex-wrapper">
-                    @if(Auth::user() && Auth::user()->id == $player->id)
-                    <a href="#" class="button nomargin edit-profile-button">Edit Profile</a>
+                    @if(Auth::user())
+                        @if(Auth::user()->id == $player->id)
+                            <a href="#" class="button nomargin edit-profile-button">Edit Profile</a>
+                        @else
+                            <button class="button nomargin" data-open="exampleModal1">Send a Message</button>
+
+                            <div class="reveal" id="exampleModal1" data-reveal data-animation-in="slide-in-down fast ease-in-out">
+                                <form method="post" action="/sendmsg">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="to_user_id" value="{{$player->id}}" />
+                                    <p>Send a message to {{$player->name}}</p>
+                                    <textarea placeholder="Enter your message" maxlength="240" class="newmessage" name="message"></textarea>
+                                    <input type="submit" class="button" value="send" />
+                                </form>
+                                <a class="close-button" data-close aria-label="Close modal">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>

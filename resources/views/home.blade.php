@@ -21,7 +21,7 @@
         <div class="medium-3 columns">
             <div class="user-sidebar">
                 <div class="panel">
-                    <img src="{{ Auth::user()->getImage() }}" class="user-image" />
+                    <img src="{{ Auth::user()->image }}" class="user-image" />
                     <div class="user-name">{{Auth::user()->name}}</div>
                     <div class="steam-verified"><i class="icon ion-checkmark"></i> Steam Verified</div>
                 </div>

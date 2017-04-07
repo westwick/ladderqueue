@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Carbon X League',
+    'name' => 'Continental eSports',
 
     /*
     |--------------------------------------------------------------------------
@@ -184,7 +184,8 @@ return [
         Invisnik\LaravelSteamAuth\SteamServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        App\Providers\ViewServiceProvider::class
 
     ],
 

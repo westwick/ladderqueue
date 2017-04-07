@@ -5,7 +5,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Carbon X League</title>
+    <title>
+        @if($unreadCount > 0)
+        [{{$unreadCount}}] -
+        @endif
+        Carbon X League
+    </title>
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
@@ -85,16 +90,27 @@
                     </li>
                 </ul>
                 <div class="login">
-                    @if(Auth::user())
+                    @if($user)
                         <div class="alerts">
-                            <a href="#"><i class="icon ion-email"></i></a>
+                            <a href="#" class="message-toggle nav-toggle">
+                                <i class="icon ion-email"></i>
+                                @if($unreadCount > 0)
+                                <div class="unread-count">
+                                    <span>{{$unreadCount}}</span>
+                                </div>
+                                @endif
+                            </a>
+                            <div class="subnav message-subnav">
+                                <conversations :convos="{{Auth::user()->conversations()->orderBy('updated_at', 'desc')->get()}}" :max-items="3"></conversations>
+                                <a href="/messages" class="view-all-messages">View All</a>
+                            </div>
                         </div>
                         <a href="#" class="account-toggle nav-toggle">{{Auth::user()->name}} <i class="icon ion-ios-arrow-down"></i></a>
 
                         <div class="subnav account-subnav">
                             <ul>
                                 <li><a href="/home"><i class="icon ion-person"></i> My Account</a></li>
-                                <li><a href="/u/{{Auth::user()->name}}"><i class="icon ion-eye"></i> View Profile</a></li>
+                                <li><a href="/u/{{strtolower(Auth::user()->name)}}"><i class="icon ion-eye"></i> View Profile</a></li>
                                 <li><a href="#"><i class="icon ion-gear-a"></i> Settings</a></li>
                                 <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -185,23 +201,25 @@
 
             toastr.options.progressBar = true
             toastr.options.positionClass = 'toast-bottom-right'
+
             @if (session()->has('flash_notification.message'))
-            toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')
+                toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')
             @endif
+
         });
     </script>
 
 
 @yield('scripts')
 
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+{{--<script>--}}
+    {{--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){--}}
+                {{--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),--}}
+            {{--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)--}}
+    {{--})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');--}}
 
-    ga('create', 'UA-93265405-1', 'auto');
-    ga('send', 'pageview');
-</script>
+    {{--ga('create', 'UA-93265405-1', 'auto');--}}
+    {{--ga('send', 'pageview');--}}
+{{--</script>--}}
 </body>
 </html>
