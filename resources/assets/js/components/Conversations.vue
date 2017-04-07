@@ -154,11 +154,14 @@
             startConvoListener: function() {
                 Echo.private('App.User.' + this.$store.state.userid)
                         .listen('ConversationsUpdated', (e) => {
-                            console.log(e);
+                            this.$http.post('/get-messages').then((resp) => {
+                                this.conversations = resp.data.messages
+                                this.$emit('newunread', this.totalUnread)
+                            })
                         })
             }
         },
-        created() {
+        mounted() {
             this.startConvoListener()
         }
     }

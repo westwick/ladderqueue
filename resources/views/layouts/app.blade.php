@@ -92,20 +92,9 @@
                 <div class="login">
                     @if($user)
                         <div class="alerts">
-                            <a href="#" class="message-toggle nav-toggle">
-                                <i class="icon ion-email"></i>
-                                @if($unreadCount > 0)
-                                <div class="unread-count">
-                                    <span>{{$unreadCount}}</span>
-                                </div>
-                                @endif
-                            </a>
-                            <div class="subnav message-subnav">
-                                <conversations :convos="{{Auth::user()->conversations()->orderBy('updated_at', 'desc')->get()}}" :max-items="3"></conversations>
-                                <a href="/messages" class="view-all-messages">View All</a>
-                            </div>
+                            <convonav :unreadcount="{{$unreadCount}}" :convos="{{$user->getMessages()}}"></convonav>
                         </div>
-                        <a href="#" class="account-toggle nav-toggle">{{Auth::user()->name}} <i class="icon ion-ios-arrow-down"></i></a>
+                        <a href="#" class="account-toggle nav-toggle">{{$user->name}} <i class="icon ion-ios-arrow-down"></i></a>
 
                         <div class="subnav account-subnav">
                             <ul>

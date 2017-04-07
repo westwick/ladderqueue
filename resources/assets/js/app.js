@@ -14,6 +14,7 @@ Vue.component('partylobby', require('./components/PartyLobby.vue'));
 Vue.component('season3reg', require('./components/Season3Registration.vue'));
 Vue.component('messages', require('./components/Messages.vue'));
 Vue.component('conversations', require('./components/Conversations.vue'));
+Vue.component('convonav', require('./components/ConversationsNavbar.vue'));
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 

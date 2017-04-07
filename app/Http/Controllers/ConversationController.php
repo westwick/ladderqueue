@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
+use App\Events\ConversationsUpdated;
 use App\Message;
 use App\Participant;
 use App\User;
@@ -31,6 +32,8 @@ class ConversationController extends Controller
         $message = Input::get('message');
         
         $newMsg = Message::send($sender, $recipient, $message);
+
+        broadcast(new ConversationsUpdated($sender, $recipient))->toOthers();
         
         return response()->json(['success' => true, 'message' => $newMsg]);
     }
@@ -43,6 +46,8 @@ class ConversationController extends Controller
 
         $newMsg = Message::send($sender, $recipient, $message);
         flash('Message sent!', 'success');
+
+        broadcast(new ConversationsUpdated($sender, $recipient))->toOthers();
 
         return redirect('/messages');
     }
@@ -66,5 +71,12 @@ class ConversationController extends Controller
         return view('messages.conversation')
             ->with('messages', $conversation->messages)
             ->with('recipient', $user2);
+    }
+    
+    public function getMessages()
+    {
+        $user = Auth::user();
+        
+        return response()->json(['messages' => $user->getMessages()]);
     }
 }

@@ -87,6 +87,11 @@ class User extends Authenticatable
         return $unread;
     }
 
+    public function getMessages()
+    {
+        return $this->conversations()->orderBy('updated_at', 'desc')->get();
+    }
+
     public function activeParty()
     {
         $party = $this->parties->where('status_id', '<', Party::$STATUS_COMPLETE)->first();
