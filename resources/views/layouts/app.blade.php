@@ -40,30 +40,56 @@
 </head>
 <body id="main">
 <div id="app">
+    <nav>
+        <div class="logo">
+            <a href="/"><img class="header-logo" src="/images/cel.png" /></a>
+        </div>
+        <hr />
+        <h5>League</h5>
+        <ul>
+            <li><a href="/season2/schedule">Schedule</a></li>
+            <li><a href="/season2/schedule">Standings</a></li>
+            <li><a href="/season3">Rules &amp; Info</a></li>
+            <li><a href="/teams">Teams</a></li>
+        </ul>
+        <hr />
+        <h5>Community</h5>
+        <ul>
+            <li><a href="/season2/schedule">Forum</a></li>
+            <li><a href="/season2/schedule">Find a Team</a></li>
+            <li><a href="/season2/schedule">Find a Player</a></li>
+        </ul>
+        <hr />
+        <h5>Continental 10 Mans</h5>
+        <ul>
+            <li><a href="/season2/schedule">Queue</a></li>
+            <li><a href="/season2/schedule">Leaderboard</a></li>
+            <li><a href="/season2/schedule">Rules</a></li>
+        </ul>
+        <hr />
+    </nav>
     <header>
         <div class="borda">
             <div style="width:100%; height: 2px; background: linear-gradient(to right, rgba(20,93,190,1) 0%,rgba(212,31,38,1) 100%);"></div>
         </div>
         <div class="not-a-row">
             <div class="small-12 columns">
-                <div class="logo">
-                    <a href="/"><img class="header-logo" src="/images/cel.png" /></a>
-                </div>
-                <ul class="mainnav">
-                    <li class="active">
-                        <a href="#" class="nav1-toggle nav-toggle">League</a>
-                        <div class="subnav nav1-subnav subnavblu">
-                            <ul>
+
+                {{--<ul class="mainnav">--}}
+                    {{--<li class="active">--}}
+                        {{--<a href="#" class="nav1-toggle nav-toggle">League</a>--}}
+                        {{--<div class="subnav nav1-subnav subnavblu">--}}
+                            {{--<ul>--}}
                                 {{--<li class="list-section-header">Season 3</li>--}}
-                                <li><a href="/season2/schedule">Schedule</a></li>
-                                <li><a href="/season2/standings">Standings</a></li>
-                                <li><a href="/season3">Info &amp; Rules</a></li>
+                                {{--<li><a href="/season2/schedule">Schedule</a></li>--}}
+                                {{--<li><a href="/season2/standings">Standings</a></li>--}}
+                                {{--<li><a href="/season3">Info &amp; Rules</a></li>--}}
                                 {{--<li><a href="/season3/registration">Register</a></li>--}}
-                                <li><a href="/teams">Teams</a></li>
+                                {{--<li><a href="/teams">Teams</a></li>--}}
                                 {{--<li class="list-section-header inthemid">Season 2</li>--}}
-                            </ul>
-                        </div>
-                    </li>
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
                     {{--<li>--}}
                         {{--<a href="#" class="nav3-toggle nav-toggle">Daily Tourneys</a>--}}
                         {{--<div class="subnav nav3-subnav">--}}
@@ -72,18 +98,18 @@
                             {{--</ul>--}}
                         {{--</div>--}}
                     {{--</li>--}}
-                    <li>
-                        <a href="#" class="nav4-toggle nav-toggle">Community</a>
-                        <div class="subnav nav4-subnav subnavblu">
-                            <ul>
-                                <li><a href="/coming-soon">Forum</a></li>
-                                <li><a href="/coming-soon">Find a Player</a></li>
-                                <li><a href="/coming-soon">Find a Team</a></li>
-                                <li><a href="/coming-soon">Become a Caster</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                    {{--<li>--}}
+                        {{--<a href="#" class="nav4-toggle nav-toggle">Community</a>--}}
+                        {{--<div class="subnav nav4-subnav subnavblu">--}}
+                            {{--<ul>--}}
+                                {{--<li><a href="/coming-soon">Forum</a></li>--}}
+                                {{--<li><a href="/coming-soon">Find a Player</a></li>--}}
+                                {{--<li><a href="/coming-soon">Find a Team</a></li>--}}
+                                {{--<li><a href="/coming-soon">Become a Caster</a></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
                 <div class="login">
                     @if($user)
                         <div class="alerts">

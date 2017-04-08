@@ -1,0 +1,168 @@
+input[type='text'], input[type='password'], input[type='email'] {
+  box-shadow: none;
+  transition: border-color .15s ease-in-out,background-color .15s ease-in-out;
+  border-radius: 2px;
+  background-color: #FFF;
+  border: 1px solid #ced4d4;
+
+
+  &:focus {
+    border-color: #edbb8b;
+    outline: 0;
+    box-shadow: none;
+  }
+}
+
+.panel {
+  margin: 2rem 0 0;
+  padding: 1rem;
+  background-color: #FFF;
+  border: 1px solid #e8eced;
+  border-radius: 3px;
+
+  .panel-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #736e6e;
+    text-align: center;
+    border-bottom: 1px solid $cxred;
+    width: 50%;
+    margin: 0 auto 1rem;
+  }
+}
+
+.empty-state {
+  border: 1px solid #e8eced;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a7b2b8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.panel-transparent {
+  margin: 2rem 0 0;
+  padding: 1rem;
+}
+
+.panel-heading {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.panel-tall {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button,.button {
+  font-family: 'proxima nova', sans-serif;
+  border-radius: 2px;
+  //background-color: #464343;
+  background-color: $primary-color;
+  color: #eee;
+
+  &:hover, &:active, &:focus {
+    background-color: lighten($primary-color, 10%);
+    color: #fff;
+  }
+}
+
+.button-full {
+  width: 100%;
+}
+
+.button-outline {
+  margin-top: 2rem;
+  background-color: transparent;
+  border: 2px solid #000;
+  color: #000;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: transparent;
+    color: $cxred2;
+    border-color: $cxred2;
+  }
+  &:focus,&:active {
+    background-color: transparent;
+    color: $cxred;
+    border-color: $cxred;
+  }
+}
+
+.button-small {
+  padding: 0.375em 0.5em;
+  border-width: 1px;
+  font-size: 11px;
+  display: inline;
+  margin: 0;
+  margin-right: 0.5rem;
+
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.button-secondary {
+  transition: all 0.0s ease-in-out;
+  font-weight: normal;
+  border: 1px solid #e8eced;
+  background: #f8f8f8; /* Old Browsers */
+  background: -webkit-linear-gradient(top,#f8f8f8,#dcdcdc); /*Safari 5.1-6*/
+  background: -o-linear-gradient(top,#f8f8f8,#dcdcdc); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(top,#f8f8f8,#dcdcdc); /*Fx 3.6-15*/
+  background: linear-gradient(to bottom, #f8f8f8, #dcdcdc); /*Standard*/
+  color: #999;
+  margin: 0;
+
+  &:hover,&:active,&:focus {
+    background: #f8f8f8; /* Old Browsers */
+    background: -webkit-linear-gradient(top,#f8f8f8,#c8c7c7); /*Safari 5.1-6*/
+    background: -o-linear-gradient(top,#f8f8f8,#c8c7c7); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(top,#f8f8f8,#c8c7c7); /*Fx 3.6-15*/
+    background: linear-gradient(to bottom, #f8f8f8, #c8c7c7); /*Standard*/
+    color: #121212;
+  }
+}
+
+#button-login {
+  background: #eee;
+  padding: 6px 12px;
+  margin-right: 1rem;
+  //text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  color: #000;
+}
+
+#button-register {
+  border-radius: 2px;
+  border: 1px solid #FFF;
+  background-color: #000;
+  padding: 6px 12px;
+  //text-transform: uppercase;
+  color: #fff;
+}
+
+.redbutton {
+  background-color: $cxred2;
+  color: $cxwhite;
+  //text-transform: uppercase;
+  //box-shadow: 2px 2px 2px #333;
+  padding: 11px 12px;
+  font-size: 1.125rem;
+  border-radius: 2px;
+}
+
+.redbutton:hover {
+  color: #FFF;
+  background-color: darken($cxred2, 10%);
+}
