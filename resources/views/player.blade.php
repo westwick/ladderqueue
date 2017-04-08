@@ -59,6 +59,7 @@
                     @if(Auth::user())
                         @if(Auth::user()->id == $player->id)
                             <a href="#" class="button nomargin edit-profile-button">Edit Profile</a>
+                            <a href="#" class="button nomargin save-profile-button hidden">Save</a>
                         @else
                             <button class="button nomargin" data-open="exampleModal1">Send a Message</button>
 
@@ -92,7 +93,7 @@
                     </select>
                     <input type="text" value="{{$player->location}}" name="location" placeholder="New York, NY"/>
                     <input type="number" value="{{$player->age != 0 ? $player->age:''}}" name="age" placeholder="age" />
-                    <input type="submit" class="button button-full" value="Update Profile"/>
+                    <input type="submit" class="button button-full update-profile-button" value="Update Profile"/>
                 </form>
             </div>
             <div class="panel player-profile">
@@ -167,9 +168,17 @@
 @section('scripts')
 <script>
     $(function() {
-        $('.edit-profile-button').click(function() {
+        $('.edit-profile-button').click(function(e) {
+            e.preventDefault()
             $('.edit-profile').show();
             $('.player-profile').hide();
+            $(this).hide();
+            $('.save-profile-button').show()
+        })
+
+        $('.save-profile-button').click(function(e) {
+            e.preventDefault()
+            $('.update-profile-button').click()
         })
     })
 </script>
