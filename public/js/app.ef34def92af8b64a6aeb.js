@@ -29069,6 +29069,8 @@ var _ = __webpack_require__(2);
                         _this6.conversations = resp.data.messages;
                         // this lets the ConversationNav component know so it can update
                         _this6.$emit('newunread', _this6.totalUnread);
+                        var bedoop = new Audio('/audio/bedoop.wav');
+                        bedoop.play();
                     });
                 }
             });

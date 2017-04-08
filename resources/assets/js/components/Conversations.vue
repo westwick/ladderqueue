@@ -170,6 +170,8 @@
                                     this.conversations = resp.data.messages
                                     // this lets the ConversationNav component know so it can update
                                     this.$emit('newunread', this.totalUnread)
+                                    var bedoop = new Audio('/audio/bedoop.wav')
+                                    bedoop.play()
                                 })
                             }
                         })
