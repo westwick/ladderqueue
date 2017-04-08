@@ -41,6 +41,9 @@
 <body id="main">
 <div id="app">
     <header>
+        <div class="borda">
+            <div style="width:100%; height: 2px; background: linear-gradient(to right, rgba(20,93,190,1) 0%,rgba(212,31,38,1) 100%);"></div>
+        </div>
         <div class="not-a-row">
             <div class="small-12 columns">
                 <div class="logo">
@@ -49,7 +52,7 @@
                 <ul class="mainnav">
                     <li class="active">
                         <a href="#" class="nav1-toggle nav-toggle">League</a>
-                        <div class="subnav nav1-subnav">
+                        <div class="subnav nav1-subnav subnavblu">
                             <ul>
                                 {{--<li class="list-section-header">Season 3</li>--}}
                                 <li><a href="/season2/schedule">Schedule</a></li>
@@ -71,7 +74,7 @@
                     {{--</li>--}}
                     <li>
                         <a href="#" class="nav4-toggle nav-toggle">Community</a>
-                        <div class="subnav nav4-subnav">
+                        <div class="subnav nav4-subnav subnavblu">
                             <ul>
                                 <li><a href="/coming-soon">Forum</a></li>
                                 <li><a href="/coming-soon">Find a Player</a></li>
