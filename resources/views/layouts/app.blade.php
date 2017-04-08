@@ -90,7 +90,7 @@
 
                         <div class="subnav account-subnav">
                             <ul>
-                                <li><a href="/home"><i class="icon ion-person"></i> My Account</a></li>
+                                <li><a href="/home"><i class="icon ion-ios-monitor-outline"></i> Dashboard</a></li>
                                 <li><a href="/u/{{strtolower(Auth::user()->name)}}"><i class="icon ion-eye"></i> View Profile</a></li>
                                 <li><a href="#"><i class="icon ion-gear-a"></i> Settings</a></li>
                                 <li><a href="{{ route('logout') }}"
