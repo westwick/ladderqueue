@@ -18,6 +18,7 @@
 @include foundation-everything(false);
 @include motion-ui-transitions;
 
+@import "font";
 @import "datepicker";
 @import "croppic_extra";
 @import "main";

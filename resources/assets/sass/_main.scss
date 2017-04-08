@@ -6,9 +6,9 @@ body {
   background-color: #f8f8f8;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: 'Patua One', serif;
-}
+//h1,h2,h3,h4,h5,h6 {
+//  font-family: 'Patua One', serif;
+//}
 
 input[type='text'], input[type='password'], input[type='email'] {
   box-shadow: none;
@@ -62,7 +62,7 @@ a {
 }
 
 button,.button {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'proxima nova', sans-serif;
   border-radius: 2px;
   //background-color: #464343;
   background-color: $primary-color;
