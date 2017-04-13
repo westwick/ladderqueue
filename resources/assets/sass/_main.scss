@@ -56,9 +56,6 @@ $parallax-ios         : true !default;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
 }
 
 body {
@@ -120,6 +117,9 @@ input[type='text'], input[type='password'], input[type='email'] {
 }
 
 #app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   padding-top: rem-calc(65);
 }
 
@@ -465,11 +465,12 @@ section.hero {
     left: 0; bottom: 0; right: 0;
     background: linear-gradient(to right, rgba(20,93,190,0.5) 0%,rgba(212,31,38,0.5) 100%),url(/images/homepage.png);
     background-size: cover;
+    background-position: center center;
 
   }
 
   .hero-content {
-    margin-top: rem-calc(65);
+    //margin-top: rem-calc(65);
 
     h4 {
       margin-bottom: 1rem;
@@ -547,8 +548,9 @@ section.features {
 
 footer {
   border-top: 5px solid $cxred;
-  padding: 4rem 0;
+  padding: 4rem 0 8rem;
   background: url(/images/carbonpattern.png);
+  transform: translateZ(0.0001px) scale(1.0);
 
   .footer-logo {
     width: 100px;

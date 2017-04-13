@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row main-top-padder">
+    <div class="row">
         <div class="medium-5 columns medium-centered">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
