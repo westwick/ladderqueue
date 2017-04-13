@@ -4,7 +4,7 @@
 <div class="not-a-row">
     <div class="small-12 columns">
         <div class="logo">
-            <a href="/"><img class="header-logo" src="/images/cel2.png" /></a>
+            <a href="/"><img class="header-logo" src="/images/cel-logo.png" /></a>
         </div>
         <ul class="mainnav">
             <li class="active">
