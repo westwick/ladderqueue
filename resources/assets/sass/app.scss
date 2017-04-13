@@ -10,19 +10,29 @@
 
 @import "settings";
 
-// Foundation
+// Foundation & motion-ui for animations
 @import "node_modules/foundation-sites/scss/foundation";
+@import "node_modules/motion-ui/src/motion-ui";
 
 // Include Everything (True) for the Flex Grid :);
 @include foundation-everything(false);
+@include motion-ui-transitions;
 
+@import "variables";
+@import "font";
 @import "datepicker";
 @import "croppic_extra";
 @import "main";
+@import "base";
+@import "layout";
+@import "buttons";
+@import "homepage";
 @import "checkboxes";
 @import "season3";
 @import "player";
 @import "teamview";
 @import "bracket";
 @import "party";
+@import "messages";
 @import "userdashboard";
+@import "utility";

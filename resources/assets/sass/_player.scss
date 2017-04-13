@@ -50,8 +50,9 @@ section.player-hero {
 
 .player-nav {
   width: 100%;
-  background-color: #fff;
+  background-color: #1a1a1a;
   border-bottom: 1px solid #e8eced;
+  border-top: 5px solid $celred;
   ul {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -76,12 +77,12 @@ section.player-hero {
         font-weight: bold;
 
         &.active {
-          color: $cxred2;
-          border-bottom: 3px solid $cxred2;
+          color: $celredlight;
+          border-bottom: 3px solid $celredlight;
         }
 
         &:hover {
-          color: $cxred2;
+          color: $celredlight;
         }
       }
     }
@@ -163,7 +164,7 @@ ul.player-details {
       }
     }
     a {
-      color: $cxred;
+      color: $celred;
     }
   }
 }

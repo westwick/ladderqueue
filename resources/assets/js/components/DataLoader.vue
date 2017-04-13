@@ -2,7 +2,7 @@
     <div class="hidden">No</div>
 </template>
 
-<script>
+<script type="text/babel">
     export default {
         props: ['userstate', 'csrftoken'],
         data() {

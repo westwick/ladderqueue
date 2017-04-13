@@ -36,6 +36,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\MapBanned' => [
         ],
+        'App\Events\ConversationsUpdated' => [
+        ],
+        'App\Events\ConversationMessage' => [
+        ],
     ];
 
     /**

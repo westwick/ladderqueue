@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row main-top-padder">
+    <div class="row">
         <div class="medium-5 columns medium-centered">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
@@ -44,6 +44,10 @@
                                 {{--<div class="login-helper" style="margin-bottom: 0.375rem">--}}
                                 {{--Not registered? <a href="/register">Create an account</a>--}}
                                 {{--</div>--}}
+
+                                <div class="login-helper">
+                                    <p class="nomargin text-center">Need an account? <a href="/register">Register here</a></p>
+                                </div>
 
                                 <div class="login-helper">
                                     Forgot your password? <a href="{{ url('/password/reset') }}">Click here to reset</a>
