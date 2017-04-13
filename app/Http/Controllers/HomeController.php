@@ -34,8 +34,14 @@ class HomeController extends Controller
         $players = User::whereIn('id', $ids)->get();
         
         $game = $user->getLadderGame();
+
+        $team = Auth::user()->team;
+        $seasonregistration = NULL;
+        if($team) {
+            $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
+        }
         
-        return view('home')->with('players', $players)->with('game', $game);
+        return view('home')->with(compact('game', 'players', 'seasonregistration'));
     }
 
     public function showCreateTeamForm()
