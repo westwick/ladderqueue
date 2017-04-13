@@ -41,95 +41,7 @@
 <body id="main">
 <div id="app">
     <header>
-        {{--<div class="borda">--}}
-        {{--<div style="width:100%; height: 20px; background: linear-gradient(to right, rgba(20,93,190,1) 0%,rgba(212,31,38,1) 100%);"></div>--}}
-        {{--</div>--}}
-        <div class="not-a-row">
-            <div class="small-12 columns">
-                <div class="logo">
-                    <a href="/"><img class="header-logo" src="/images/cel2.png" /></a>
-                </div>
-                <ul class="mainnav">
-                    <li class="active">
-                        <a href="#" class="nav-toggle">League <i class="icon ion-arrow-down-b"></i></a>
-                        <div class="subnav subnavblu">
-                            <ul>
-                                {{--<li class="list-section-header">Season 3</li>--}}
-                                <li><a href="/season2/schedule">Schedule</a></li>
-                                <li><a href="/season2/standings">Standings</a></li>
-                                <li><a href="/season3">Rules &amp; Info</a></li>
-                                {{--<li><a href="/season3/registration">Register</a></li>--}}
-                                <li><a href="/teams">Teams</a></li>
-                                {{--<li class="list-section-header inthemid">Season 2</li>--}}
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-toggle">Tournaments <i class="icon ion-arrow-down-b"></i></a>
-                        <div class="subnav subnav3">
-                            <ul>
-                                <li><a href="#">Upcoming</a></li>
-                                <li><a href="#">Past Winners</a></li>
-                                <li><a href="#">Rules &amp; Info</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-toggle">Ladder <i class="icon ion-arrow-down-b"></i></a>
-                        <div class="subnav subnav4">
-                            <ul>
-                                <li><a href="#">Queue</a></li>
-                                <li><a href="#">Leaderboard</a></li>
-                                <li><a href="#">Rules &amp; Info</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-toggle">Community <i class="icon ion-arrow-down-b"></i></a>
-                        <div class="subnav">
-                            <ul>
-                                <li><a href="/coming-soon">Forum</a></li>
-                                <li><a href="/coming-soon">Find a Player</a></li>
-                                <li><a href="/coming-soon">Find a Team</a></li>
-                                <li><a href="/coming-soon" style="font-size: 14px">Become a Caster (??)</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <div class="login">
-                    @if($user)
-                        <div class="alerts">
-                            <convonav :unreadcount="{{$unreadCount}}" :convos="{{$user->getMessages()}}"></convonav>
-                        </div>
-                        <a href="#" class="account-toggle nav-toggle">{{$user->name}} <i class="icon ion-ios-arrow-down"></i></a>
-
-                        <div class="subnav account-subnav">
-                            <ul>
-                                <li><a href="/home"><i class="icon ion-ios-monitor-outline"></i> Dashboard</a></li>
-                                <li><a href="/u/{{strtolower(Auth::user()->name)}}"><i class="icon ion-eye"></i> View Profile</a></li>
-                                <li><a href="#"><i class="icon ion-gear-a"></i> Settings</a></li>
-                                <li><a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                        <i class="icon ion-log-out"></i> Logout
-                                    </a>
-                                </li>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-
-                            </ul>
-                        </div>
-
-                    @else
-                        {{--<a href="/login" id="button-login">Login</a> --}}
-                        {{--<a href="/register" id="button-register">Register</a>--}}
-                        <a href="/login" class="button" id="button-login">Login</a>
-                    @endif
-                </div>
-            </div>
-        </div>
+        @include('partials.header')
     </header>
 
     @if(Auth::user())
@@ -144,51 +56,15 @@
     @endif
 
     <div id="wrap">
-        <div class="main-content">
-            @yield('content')
-        </div>
-
-        <footer>
-            <div class="row">
-                <div class="medium-8 columns">
-                    <div class="row">
-                        <div class="medium-3 columns">
-                            <h4>Useful Links</h4>
-                            <ul>
-                                <li><a href="/about">About Us</a></li>
-                                <li><a href="/get-involved">Get Involved</a></li>
-                                <li><a href="/announcements">Announcements</a></li>
-                                <li><a href="/code-of-conduct">Code of Conduct</a></li>
-                                <li><a href="/season3/rules">Season 3 Rules</a></li>
-                                <li><a href="https://bitbucket.org/awestwick/cxleague/issues" target="_blank">Report a Bug</a></li>
-                            </ul>
-                        </div>
-                        <div class="medium-3 columns">
-                            <h4>Get In Touch</h4>
-                            <ul>
-                                <li><a href="https://www.twitch.tv/carbonx_tv" target="_blank"><i class="icon ion-social-twitch"></i> Twitch</a></li>
-                                <li><a href="https://twitter.com/carbonx_league" target="_blank"><i class="icon ion-social-twitter"></i> Twitter</a></li>
-                                {{--<li><a href="#"><i class="icon ion-social-facebook"></i> Facebook</a></a></li>--}}
-                                <li><a href="https://www.youtube.com/channel/UCzjlYNiChADil0IPfRwaUWA" target="_blank"><i class="icon ion-social-youtube"></i> Youtube</a></li>
-                                <li><a href="https://discord.gg/fshER5N" target="_blank"><i class="icon ion-ios-telephone"></i> Discord</a></li>
-                            </ul>
-                        </div>
-                        <div class="medium-6 columns">
-                            <h4>Latest News</h4>
-                            <ul>
-                                @foreach(App\Announcement::orderBy('created_at', 'desc')->take(3)->get() as $announcement)
-                                <li><a href="/announcements">{{$announcement->title}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="medium-4 columns">
-                    <img class="footer-logo" src="/images/cel.png" />
-                    <p class="footer-about">Continental was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
-                </div>
+        <div class="browrap">
+            <div class="main-content">
+                @yield('content')
             </div>
-        </footer>
+
+            <footer>
+                @include('partials.footer')
+            </footer>
+        </div>
     </div>
 </div>
 
