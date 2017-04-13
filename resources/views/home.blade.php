@@ -27,19 +27,19 @@
                 </div>
 
 
-                    @if(Auth::user()->team)
+                @if(Auth::user()->team)
                     <div class="panel team-info">
                         <img src="{{Auth::user()->team->logo}}" />
                         <p class="team-name">{{Auth::user()->team->name}}</p>
                         <p class="nomargin"><a href="/team/{{Auth::user()->team->slug}}">View team profile</a></p>
                     </div>
-                    @else
-                        <div class="panel">
-                            <p>You aren't on a team</p>
-                            <p><a href="/create-team" class="button primary button-full">Create a Team</a></p>
-                            <p class="nomargin"><a href="/teams" class="button primary button-full nomargin">Join a Team</a></p>
-                        </div>
-                    @endif
+                @else
+                    <div class="panel">
+                        <p>You aren't on a team</p>
+                        <p><a href="/create-team" class="button primary button-full">Create a Team</a></p>
+                        <p class="nomargin"><a href="/teams" class="button primary button-full nomargin">Join a Team</a></p>
+                    </div>
+                @endif
 
             </div>
         </div>
@@ -57,9 +57,9 @@
                             <div class="row">
                                 <div class="medium-6 columns">
                                     <div class="appstatus">
-                                      <p class="nomargin">Application Status: {{$seasonregistration->getStatusString()}}</p>
-                                      <p class="nomargin">Payment Status: {{ $seasonregistration->paid ? 'Paid':'Not Paid'}}</p>
-                                      <p class="nomargin">Division: Unassigned</p>
+                                        <p class="nomargin">Application Status: {{$seasonregistration->getStatusString()}}</p>
+                                        <p class="nomargin">Payment Status: {{ $seasonregistration->paid ? 'Paid':'Not Paid'}}</p>
+                                        <p class="nomargin">Division: Unassigned</p>
                                     </div>
                                 </div>
                                 <div class="medium-6 columns">
@@ -80,6 +80,7 @@
             </div>
 
             <div class="panel">
+                <playerqueue :initplayers="{{$players}}" :initgame="{{ $game !== NULL ? $game : '{}' }}"></playerqueue>
                 <p>Upcoming Games</p>
                 <div class="empty-state">
                     Available when Season 3 starts
@@ -94,6 +95,7 @@
             </div>
         </div>
     </section>
+
 @endif
 
 

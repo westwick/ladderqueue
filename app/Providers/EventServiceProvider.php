@@ -26,6 +26,16 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PartyPlayerStatusChange' => [
             'App\Listeners\SendPartyPlayerStatusChangeNotifications'
         ],
+        'App\Events\PlayerJoinedQueue' => [
+        ],
+        'App\Events\PlayerLeftQueue' => [
+        ],
+        'App\Events\GameStarting' => [
+        ],
+        'App\Events\PlayerDrafted' => [
+        ],
+        'App\Events\MapBanned' => [
+        ],
         'App\Events\ConversationsUpdated' => [
         ],
         'App\Events\ConversationMessage' => [

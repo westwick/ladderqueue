@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Broadcasting\PrivateChannel;
 use DB;
 use App\Party;
+use App\LadderGame;
+use App\LadderPlayer;
 
 class User extends Authenticatable
 {
@@ -37,7 +39,7 @@ class User extends Authenticatable
     {
         return json_encode([
             'userid' => $this->id,
-            'party' => $this->activeParty(),
+            //'party' => $this->activeParty(),
             'loggedIn' => true
         ]);
     }
@@ -106,5 +108,34 @@ class User extends Authenticatable
     public function getImageAttribute()
     {
         return $this->avatar !== NUll ? $this->avatar : '/images/unknown.png';
+    }
+
+    public function getLadderGame()
+    {
+        $player = LadderPlayer::where('user_id', $this->id)->where('status_id', '<', 90)->first();
+        if($player) {
+            $game = LadderGame::find($player->game_id);
+        } else {
+            $game = NULL;
+        }
+
+        return $game;
+    }
+
+    public function canDraftIn(LadderGame $game)
+    {
+        foreach($game->players as $player) {
+            if($player->isCaptain && 
+               $player->user->id === $this->id && 
+               $player->team === $game->draftTurn()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function canBanMapIn(LadderGame $game)
+    {
+        return true;
     }
 }

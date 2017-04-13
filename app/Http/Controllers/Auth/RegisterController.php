@@ -66,10 +66,13 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['password'])
         ]);
 
-        event(new UserAccountProgress($user, 'created an account from IP ' . \Request::ip()));
+        $user->steam_verified = true;
+        $user->save();
+
+        //event(new UserAccountProgress($user, 'created an account from IP ' . \Request::ip()));
 
         return $user;
     }

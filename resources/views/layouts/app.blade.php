@@ -49,11 +49,12 @@
         {{--don't show party bar on party page--}}
         {{--this logic should probably go elsewhere--}}
         @if(!Request::is('assemble/*'))
-            <partybar></partybar>
+            {{--<partybar></partybar>--}}
         @endif
     @else
         <dataloader :userstate="{ loggedIn: false, userid: null, party: {}}"></dataloader>
     @endif
+
 
     <div id="wrap">
         <div class="browrap">
