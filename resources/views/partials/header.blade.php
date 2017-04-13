@@ -23,7 +23,7 @@
             </li>
             <li>
                 <a href="#" class="nav-toggle">Tournaments <i class="icon ion-arrow-down-b"></i></a>
-                <div class="subnav subnav3">
+                <div class="subnav subnavblu">
                     <ul>
                         <li><a href="#">Upcoming</a></li>
                         <li><a href="#">Past Winners</a></li>
@@ -33,7 +33,7 @@
             </li>
             <li>
                 <a href="#" class="nav-toggle">Ladder <i class="icon ion-arrow-down-b"></i></a>
-                <div class="subnav subnav4">
+                <div class="subnav subnavblu">
                     <ul>
                         <li><a href="#">Queue</a></li>
                         <li><a href="#">Leaderboard</a></li>
@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="#" class="nav-toggle">Community <i class="icon ion-arrow-down-b"></i></a>
-                <div class="subnav">
+                <div class="subnav subnavblu">
                     <ul>
                         <li><a href="/coming-soon">Forum</a></li>
                         <li><a href="/coming-soon">Find a Player</a></li>

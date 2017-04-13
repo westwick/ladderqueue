@@ -43,12 +43,12 @@
         font-weight: bold;
 
         &.active {
-          color: $cxred2;
-          border-bottom: 3px solid $cxred2;
+          color: $celredlight;
+          border-bottom: 3px solid $celredlight;
         }
 
         &:hover {
-          color: $cxred2;
+          color: $celredlight;
         }
       }
     }
