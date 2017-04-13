@@ -54,7 +54,7 @@
     {{--</section>--}}
 
     <section class="home-section">
-        <h3 style="text-transform: uppercase">Our first official season is underway!</h3>
+        <h3>Our first official season is underway!</h3>
         <div class="home-content-pad">
             <div class="row">
                 <div class="medium-5 medium-offset-1 columns text-center">

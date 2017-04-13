@@ -467,6 +467,7 @@ header .login {
     top: 0;
     width: 101%;
     height: 100vh;
+    overflow: hidden;
   }
 
   .home-callout-1 {
@@ -477,7 +478,8 @@ header .login {
   }
 
   h3 {
-    font-size: rem-calc(30);
+    font-size: 2rem;
+    letter-spacing: 0.8px;
     font-weight: bold;
     color: #FFF;
   }
