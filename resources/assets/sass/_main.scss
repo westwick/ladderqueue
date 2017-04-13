@@ -316,7 +316,7 @@ header ul {
 }
 
 header ul.mainnav {
-  margin: 0 0 0 9.5rem;
+  margin: 0 0 0 11.5rem;
 
   & > li {
     font-weight: 600;
@@ -331,15 +331,14 @@ header ul.mainnav {
 }
 
 header .logo {
-  width: 7.5rem;
   display: inline-block;
   position: absolute;
-  top: 17px;
+  top: 13px;
 }
 
 .header-logo {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 38px;
 
 }
 
