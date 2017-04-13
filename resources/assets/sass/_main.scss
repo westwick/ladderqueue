@@ -2,9 +2,86 @@
 $cxred: #d41f26;
 $cxred2: lighten($cxred, 10%);
 $cxwhite: #e4e4e4;
+$coolblue: #145dbe;
+$cel3: #5e4583;
+$cel4: #893762;
+
+$parallax-perspective : 1 !default;
+$parallax-element     : "body" !default;
+$parallax-ios         : true !default;
+
+@mixin parallax-init(
+  $perspective  : $parallax-perspective,
+  $element      : $parallax-element,
+  $parallax-ios : $parallax-ios
+) {
+  @if $element == "body" {
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+  #{$element} {
+    //overflow: auto;
+    perspective: $perspective * 1px;
+    transform-style: preserve-3d;
+    // Allows for smooth scrolling but disables parallax effects.
+    @if $parallax-ios == false {
+      -webkit-overflow-scrolling: touch;
+    }
+    // Preserve 3D
+    &, * {
+      transform-style: preserve-3d;
+    }
+  }
+}
+
+@mixin parallax(
+  $distance    : 0,
+  $perspective : $parallax-perspective
+) {
+  transform:
+          translateZ($distance * $perspective * 1px)
+          scale(abs($distance - 1))
+;
+  z-index: $distance * 1000;
+}
+
+@include parallax-init(1, '#wrap');
+
+#wrap {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
 body {
-  background-color: #f8f8f8;
+  overflow-y: scroll;
+  background-color: #f7f8f9;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 5px;
+  background-color: #1a1a1a;
+  //background-color: #FFF;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(255,255,255,0);
+  border-radius: 4px;
+  background-clip: border-box;
+  background-color: #2d2d2d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 12px;
+  border: 4px solid rgba(255,255,255,0);
+  background-clip: content-box;
+  background-color: #A0A0A0;
 }
 
 //h1,h2,h3,h4,h5,h6 {
@@ -42,6 +119,7 @@ input[type='text'], input[type='password'], input[type='email'] {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  //padding-top: rem-calc(65);
 }
 
 .main-content {
@@ -130,14 +208,32 @@ button,.button {
   }
 }
 
+.gradient-divider {
+  height: 5px;
+  width: 400px;
+  margin: auto;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, rgba(20,93,190,1) 0%,rgba(212,31,38,1) 100%);
+  display: block;
+}
+
 #button-login {
-  background: #eee;
+  background-color: transparent;
+  color: $cxwhite;
+  border-color: $cxred;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
   padding: 6px 12px;
-  margin-right: 1rem;
-  //text-transform: uppercase;
-  border-radius: 2px;
-  border: 1px solid transparent;
-  color: #000;
+  //margin-right: 1rem;
+
+  &:hover {
+    color: $cxred;
+  }
+  &:focus,&:active {
+    background-color: transparent;
+    color: $cxred;
+    border-color: $cxred;
+  }
 }
 
 #button-register {
@@ -157,8 +253,10 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.94);
+  //background-color: rgba(0,0,0,0.94);
+  background: #090909;
   z-index: 999999;
+  height: rem-calc(65);
 }
 
 header .small-12 {
@@ -210,17 +308,25 @@ header ul {
 }
 
 header ul.mainnav {
-  margin: 0 0 0 6rem;
+  margin: 0 0 0 9.5rem;
 
   & > li {
     font-weight: 600;
   }
+
+  li {
+    i {
+      padding-left: 2px;
+      font-size: rem-calc(14);
+    }
+  }
 }
 
 header .logo {
-  width: 4.5rem;
+  width: 7.5rem;
   display: inline-block;
   position: absolute;
+  top: 15px;
 }
 
 .header-logo {
@@ -264,7 +370,8 @@ header .login {
   top: 63px;
   text-align: left;
   display: none;
-  width: 14rem;
+  //width: 14rem;
+  width: 12.5rem;
   box-shadow: 0px 4px 12px 0px rgba(2, 3, 3, 0.2);
 
   li {
@@ -277,6 +384,7 @@ header .login {
 
     a {
       padding: 1rem 1rem 1rem 2rem;
+      //padding: 0.825rem 0 0.825rem 1.5rem;
       display: block;
       color: #fff;
       text-transform: none;
@@ -300,44 +408,116 @@ header .login {
   border-top: 2px solid #145dbe;
 }
 
+.subnav3 {
+  border-top: 2px solid $cel3;
+}
+
+.subnav4 {
+  border-top: 2px solid $cel4;
+}
+
 .account-subnav {
   left: -1%;
 }
 
-section.hero {
-  background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/homepage.png);
-  background-size: cover;
-  color: #FFF;
-  padding: 8rem 0 6rem;
+.flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-section.hero p {
-  margin-bottom: 2rem;
+.darkwrap {
 
-  a {
-    color: #FFF;
-    text-decoration: underline;
+}
 
-    &:hover {
-      text-decoration: none;
-      color: #CCC;
+section.hero {
+  //background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/homepage.png);
+  //background: url(/images/homepage.jpg);
+  //background: linear-gradient(to right, rgba(20,93,190,0.5) 0%,rgba(212,31,38,0.5) 100%);
+  background-size: cover;
+  color: #FFF;
+  //padding: 10rem 0;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .darkwrap {
+    @include parallax(-.5);
+    background: #0A0A0A;
+    z-index: -900;
+    position: absolute;
+    width: 101%;
+    height: 101%;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+  .paraa {
+    @include parallax(-.5);
+    position: absolute;
+    width: 101%;
+    height: 101%;
+    //z-index: -1;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(to right, rgba(20,93,190,0.5) 0%,rgba(212,31,38,0.5) 100%),url(/images/homepage.png);
+    background-size: cover;
+
+  }
+
+  .hero-content {
+    margin-top: rem-calc(65);
+
+    h4 {
+      margin-bottom: 1rem;
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    .hero-intro {
+      margin-bottom: 0.5rem;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .hero-more {
+      margin-bottom: 2rem;
+      font-size: 19px;
     }
   }
 }
 
-.redbutton {
-  background-color: $cxred2;
+.home-cta-button {
+  background-color: $coolblue;
   color: $cxwhite;
-  //text-transform: uppercase;
-  //box-shadow: 2px 2px 2px #333;
-  padding: 11px 12px;
+  text-transform: uppercase;
+  box-shadow: 0 1px 2px rgba(33,33,33,0.3);
+  padding: 11px 23px;
   font-size: 1.125rem;
-  border-radius: 2px;
+  border-radius: 3px;
+  display: inline-block;
+
+  &:hover {
+    color: #FFF;
+    background-color: darken($coolblue, 10%);
+  }
 }
 
-.redbutton:hover {
-  color: #FFF;
-  background-color: darken($cxred2, 10%);
+.home-section {
+  background-color: #FFF;
+  padding: 2rem 0;
+
+  h3 {
+    color: #2d2d2d;
+    font-size: rem-calc(28);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.home-section-alt {
+  background-color: #f7f8f9;
 }
 
 section.welcome {
