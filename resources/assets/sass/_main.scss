@@ -56,16 +56,20 @@ $parallax-ios         : true !default;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 body {
-  overflow-y: scroll;
   background-color: #f7f8f9;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-  width: 5px;
+  width: 4px;
+  //background: transparent;
   background-color: #1a1a1a;
   //background-color: #FFF;
 }
@@ -116,10 +120,7 @@ input[type='text'], input[type='password'], input[type='email'] {
 }
 
 #app {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  //padding-top: rem-calc(65);
+  padding-top: rem-calc(65);
 }
 
 .main-content {
@@ -444,22 +445,24 @@ section.hero {
   position: relative;
 
   .darkwrap {
-    @include parallax(-.5);
+    @include parallax(-0.8);
     background: #0A0A0A;
     z-index: -900;
     position: absolute;
     width: 101%;
-    height: 101%;
-    top: 0; left: 0; bottom: 0; right: 0;
+    height: 80vh;
+    top: -20%;
+    left: 0; bottom: 0; right: 0;
   }
 
   .paraa {
-    @include parallax(-.5);
+    @include parallax(-0.8);
     position: absolute;
     width: 101%;
-    height: 101%;
+    height: 80vh;
     //z-index: -1;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: -20%;
+    left: 0; bottom: 0; right: 0;
     background: linear-gradient(to right, rgba(20,93,190,0.5) 0%,rgba(212,31,38,0.5) 100%),url(/images/homepage.png);
     background-size: cover;
 
