@@ -36263,7 +36263,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "playa"
     }, [_c('img', {
       attrs: {
-        "src": player.avatar
+        "src": player.image
       }
     }), _vm._v("\n                " + _vm._s(player.name) + "\n              ")])
   }))]), _vm._v(" "), (_vm.inQueue) ? _c('div', [_c('button', {
@@ -36288,7 +36288,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar
+        "src": player.user.image
       }
     }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
   })], 2)]), _vm._v(" "), _c('div', {
@@ -36300,7 +36300,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-available draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar
+        "src": player.user.image
       }
     }), _vm._v("\n            " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n            "), _c('div', {
       staticClass: "pick-player"
@@ -36344,7 +36344,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
       attrs: {
-        "src": player.user.avatar
+        "src": player.user.image
       }
     }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
   })], 2)])])])

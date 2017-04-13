@@ -31,7 +31,7 @@
               <p>Players in queue:</p>
               <div class="player-wrap">
                 <p v-for="player in players" class="playa">
-                  <img :src="player.avatar" />
+                  <img :src="player.image" />
                   {{player.name}}
                 </p>
               </div>
@@ -50,7 +50,7 @@
         <div class="panel">
           <strong>Team 1</strong>
           <div v-for="player in team1players" class="player-on-team draft-player">
-            <img :src="player.user.avatar" />
+            <img :src="player.user.image" />
             {{player.user.name}} ({{player.user.ladder_points}})
           </div>
         </div>
@@ -60,7 +60,7 @@
           <div v-if="undraftedcount > 0">
             <strong>Undrafted Players</strong>
             <div v-for="player in undraftedplayers" class="player-available draft-player">
-              <img :src="player.user.avatar" />
+              <img :src="player.user.image" />
               {{player.user.name}} ({{player.user.ladder_points}})
               <div class="pick-player">
                 <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || this.loading">
@@ -87,7 +87,7 @@
         <div class="panel">
           <strong>Team 2</strong>
           <div v-for="player in team2players" class="player-on-team draft-player">
-            <img :src="player.user.avatar" />
+            <img :src="player.user.image" />
             {{player.user.name}} ({{player.user.ladder_points}})
           </div>
         </div>
