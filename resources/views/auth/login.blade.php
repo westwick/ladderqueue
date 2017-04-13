@@ -46,6 +46,10 @@
                                 {{--</div>--}}
 
                                 <div class="login-helper">
+                                    <p class="nomargin text-center">Need an account? <a href="/register">Register here</a></p>
+                                </div>
+
+                                <div class="login-helper">
                                     Forgot your password? <a href="{{ url('/password/reset') }}">Click here to reset</a>
                                 </div>
                             </div>

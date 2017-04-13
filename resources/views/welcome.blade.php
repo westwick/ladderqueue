@@ -55,6 +55,30 @@
 
     <section class="home-section">
         <h3 style="text-transform: uppercase">Our first official season is underway!</h3>
+        <div class="home-content-pad">
+            <div class="row">
+                <div class="medium-5 medium-offset-1 columns text-center">
+                    <img src="http://placehold.it/300x500" />
+                </div>
+                <div class="medium-5 end columns text-center">
+                    <h5>Built by CS players for CS players</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+
+                    <h5>$250 Prize Pool for Season 1</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+
+                    <h5>Most games will be streamed and cast for your viewing pleasure</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-callout">
+        <div class="parallax-section home-callout-1">
+
+        </div>
+        <h3>The next evolution in North American eSports</h3>
     </section>
 
     <section class="home-section home-section-alt">
