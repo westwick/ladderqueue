@@ -120,24 +120,19 @@
     </section>
 
     <section class="home-section">
-        <h3>Our community sets us apart or something</h3>
+        <h3>Our community sets us apart</h3>
         <div class="home-content-horizontal">
 
             <div class="row">
-                <div class="medium-4 columns text-center">
-                    <h5>Find a Player</h5>
-                    <p>Need to find the perfect 5th member to fill our your roster? Or maybe just a backup, or ringer for your next match? Use our player finder</p>
+                <div class="medium-5 medium-offset-1 columns text-center">
+                    <h5>Find a Teammate or Ringer</h5>
+                    <p style="padding: 0 3rem">Need to find the perfect 5th member to fill our your roster? Or maybe just a backup, or ringer for your next match? Use our player finder</p>
                     <a class="button button-outline">Find A Player</a>
                 </div>
-                <div class="medium-4 columns text-center">
-                    <h5>Find a Team</h5>
-                    <p>The best place to find a team or club for the next Continental is right here! Check out our open teams that are looking to fill a roster spot.</p>
+                <div class="medium-5 columns end text-center">
+                    <h5>Find a Team to compete with</h5>
+                    <p style="padding: 0 3rem">The best place to find a team or club for the next Continental is right here! Check out our open teams that are looking to fill a roster spot.</p>
                     <a class="button button-outline">Open Teams</a>
-                </div>
-                <div class="medium-4 columns text-center">
-                    <h5>Continental Forums</h5>
-                    <p>Chat with others Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <a class="button button-outline">Browse Forum</a>
                 </div>
             </div>
         </div>
