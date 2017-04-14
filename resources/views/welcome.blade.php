@@ -75,14 +75,76 @@
     </section>
 
     <section class="home-callout">
-        <div class="parallax-section home-callout-1">
+        <div class="parallax-section home-callout-2">
 
         </div>
         <h3>The next evolution in North American eSports</h3>
     </section>
 
+    <section class="home-section">
+        <h3>Some heading right here</h3>
+        <div class="row">
+            <div class="medium-6 columns medium-centered">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+            </div>
+        </div>
+        <div class="home-content-horizontal">
+            <div class="row">
+                <div class="medium-4 columns text-center">
+                    <img src="https://placehold.it/175x140" />
+                    <h5>Continental League</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="button button-outline">More Info</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <img src="https://placehold.it/175x140" />
+                    <h5>Tournaments</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="button button-outline">View Tournaments</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <img src="https://placehold.it/175x140" />
+                    <h5>Continental Ladder</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="button button-outline">Join the Ladder</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-callout">
+        <div class="parallax-section home-callout-1">
+
+        </div>
+        <h3>A community of fun players</h3>
+    </section>
+
+    <section class="home-section">
+        <h3>Our community sets us apart or something</h3>
+        <div class="home-content-horizontal">
+
+            <div class="row">
+                <div class="medium-4 columns text-center">
+                    <h5>Find a Player</h5>
+                    <p>Need to find the perfect 5th member to fill our your roster? Or maybe just a backup, or ringer for your next match? Use our player finder</p>
+                    <a class="button button-outline">Find A Player</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <h5>Find a Team</h5>
+                    <p>The best place to find a team or club for the next Continental is right here! Check out our open teams that are looking to fill a roster spot.</p>
+                    <a class="button button-outline">Open Teams</a>
+                </div>
+                <div class="medium-4 columns text-center">
+                    <h5>Continental Forums</h5>
+                    <p>Chat with others Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="button button-outline">Browse Forum</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="home-section home-section-alt">
-        <h3>Recent Games</h3>
+        <h3>Recent League Games</h3>
         <div class="gradient-divider"></div>
         <div class="row">
             @foreach($recent as $game)
@@ -107,7 +169,7 @@
         </div>
         <div class="row">
             <div class="small-12 columns text-center">
-                <a href="/season2/standings" class="button button-outline">View Complete Standings</a>
+                <a href="/season2/standings" class="button button-outline">View League Standings</a>
             </div>
         </div>
     </section>
