@@ -145,7 +145,6 @@ section.hero {
   justify-content: center;
 
   .parallax-section {
-    @include parallax(-0.8);
     position: absolute;
     left: 0;
     top: 0;
@@ -155,6 +154,7 @@ section.hero {
   }
 
   .home-callout-1 {
+    @include parallax(-0.5);
     background: linear-gradient(to right, rgba(20,20,20,0.7) 0%,rgba(20,20,20,0.7) 100%), url(/images/esportsplayer.jpg);
     height: 90vh;
     background-size: cover;
@@ -162,6 +162,7 @@ section.hero {
   }
 
   .home-callout-2 {
+    @include parallax(-0.6);
     background: linear-gradient(to right, rgba(20,20,20,0.7) 0%,rgba(20,20,20,0.7) 100%), url(/images/gobg.jpg);
     height: 90vh;
     background-size: cover;
