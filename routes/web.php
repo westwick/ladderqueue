@@ -44,6 +44,9 @@ Route::get('/announcements', function() {
     return view('announcements')->with(compact('announcements'));
 });
 
+Route::get('/ladder/queue', 'LadderController@showQueue');
+Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
+
 Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
 Route::post('/leave-queue', 'BracketController@leaveQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');

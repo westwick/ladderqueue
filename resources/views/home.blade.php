@@ -80,7 +80,6 @@
             </div>
 
             <div class="panel">
-                <playerqueue :initplayers="{{$players}}" :initgame="{{ $game !== NULL ? $game : '{}' }}"></playerqueue>
                 <p>Upcoming Games</p>
                 <div class="empty-state">
                     Available when Season 3 starts

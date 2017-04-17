@@ -35,8 +35,8 @@
                 <a href="#" class="nav-toggle">Ladder <i class="icon ion-arrow-down-b"></i></a>
                 <div class="subnav subnavblu">
                     <ul>
-                        <li><a href="#">Queue</a></li>
-                        <li><a href="#">Leaderboard</a></li>
+                        <li><a href="/ladder/queue">Queue</a></li>
+                        <li><a href="/ladder/leaderboard">Leaderboard</a></li>
                         <li><a href="#">Rules &amp; Info</a></li>
                     </ul>
                 </div>

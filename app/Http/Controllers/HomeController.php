@@ -29,11 +29,6 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        $ids = QueueUser::all()->pluck('user_id');
-        $players = User::whereIn('id', $ids)->get();
-        
-        $game = $user->getLadderGame();
 
         $team = Auth::user()->team;
         $seasonregistration = NULL;
@@ -41,7 +36,7 @@ class HomeController extends Controller
             $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
         }
         
-        return view('home')->with(compact('game', 'players', 'seasonregistration'));
+        return view('home')->with(compact('seasonregistration'));
     }
 
     public function showCreateTeamForm()
