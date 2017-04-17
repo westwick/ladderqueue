@@ -45,7 +45,7 @@
                 <a href="#" class="nav-toggle">Community <i class="icon ion-arrow-down-b"></i></a>
                 <div class="subnav subnavblu">
                     <ul>
-                        <li><a href="/coming-soon">Forum</a></li>
+                        <li><a href="/forum">Forum</a></li>
                         <li><a href="/coming-soon">Find a Player</a></li>
                         <li><a href="/coming-soon">Find a Team</a></li>
                         <li><a href="/coming-soon" style="font-size: 14px">Become a Caster (??)</a></li>

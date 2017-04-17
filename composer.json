@@ -13,7 +13,8 @@
         "laravel/tinker": "~1.0",
         "pusher/pusher-php-server": "^2.6",
         "intervention/image": "~2.0",
-        "cartalyst/stripe-laravel": "6.0.*"
+        "cartalyst/stripe-laravel": "6.0.*",
+        "baum/baum": "~1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

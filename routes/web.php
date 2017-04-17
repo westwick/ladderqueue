@@ -44,6 +44,11 @@ Route::get('/announcements', function() {
     return view('announcements')->with(compact('announcements'));
 });
 
+Route::get('/test', 'CommentController@test');
+Route::get('/forum', 'CommentController@showForum');
+Route::get('/forum/post/{id}', 'CommentController@showPost');
+Route::post('/post-comment', 'CommentController@postComment');
+
 Route::get('/ladder/queue', 'LadderController@showQueue');
 Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
 
@@ -148,7 +153,6 @@ Route::post('/season3/register', 'TeamController@season3register');
  */
 
 Route::get('/messages', 'ConversationController@index');
-Route::get('test', 'ConversationController@sendtest');
 Route::post('/send-msg', 'ConversationController@sendMessage');
 Route::post('/sendmsg', 'ConversationController@sendMessageForm');
 Route::post('/get-messages', 'ConversationController@getMessages');

@@ -185,7 +185,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-        App\Providers\ViewServiceProvider::class
+        App\Providers\ViewServiceProvider::class,
+        Baum\Providers\BaumServiceProvider::class
 
     ],
 
