@@ -1,6 +1,14 @@
 .ladder-leaderboard {
+  a {
+    color: $primary-color;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+    }
+  }
+
   img {
-    width: 45px;
+    width: 30px;
     height: auto;
     border-radius: 100%;
   }

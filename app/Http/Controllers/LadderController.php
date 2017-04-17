@@ -9,12 +9,21 @@ use App\User;
 
 class LadderController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('auth')->except('showLeaderboard');
+    }
+
     public function showQueue()
     {
         $user = Auth::user();
         $canQueue = true;
-        if(!$user->ladder_queue) {
+        $players = [];
+        $game = [];
+        if(!$user || !$user->ladder_queue) {
             $canQueue = false;
+            return view('ladder.queue')->with(compact('players', 'game', 'canQueue'));
         }
         $ids = QueueUser::all()->pluck('user_id');
         $players = User::whereIn('id', $ids)->get();

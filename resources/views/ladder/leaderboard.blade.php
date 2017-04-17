@@ -5,6 +5,7 @@
 
     <div class="row">
         <div class="medium-9 large-6 medium-centered columns">
+            <p style="margin-top: 2rem; font-size: 14px;">The Continental Ladder is a community of players who queue against each other in a competitive 10-man environment. All teams are drafted by the captains with the highest ladder points. Compete for your share of a $100 prize. <a href="#">Learn More</a></p>
             <div class="panel ladder-leaderboard">
                 <table>
                     <thead>

@@ -58,7 +58,7 @@
         <div class="home-content-pad">
             <div class="row">
                 <div class="medium-5 medium-offset-1 columns text-center">
-                    <img src="https://placehold.it/300x500" />
+                    <img src="/images/csgoct.png" />
                 </div>
                 <div class="medium-5 end columns text-center">
                     <h5>Built by CS players for CS players</h5>
