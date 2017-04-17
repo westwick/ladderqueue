@@ -47,10 +47,10 @@ Route::get('/announcements', function() {
 Route::get('/test', 'CommentController@test');
 Route::get('/forum', 'CommentController@showForum');
 Route::get('/forum/post/{id}', 'CommentController@showPost');
-Route::post('/post-comment', 'CommentController@postComment');
+Route::post('/post-comment', 'CommentController@postComment')->middleware('auth');
 
-Route::get('/forum/post', 'CommentController@showPostThreadForm');
-Route::post('/post-thread', 'CommentController@postThread');
+Route::get('/forum/post', 'CommentController@showPostThreadForm')->middleware('auth');
+Route::post('/post-thread', 'CommentController@postThread')->middleware('auth');
 
 Route::get('/ladder/queue', 'LadderController@showQueue');
 Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
