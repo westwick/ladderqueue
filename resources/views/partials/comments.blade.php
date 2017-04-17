@@ -1,8 +1,16 @@
 @foreach($comments as $comment)
     <div class="comment c-{{$comment->getLevel()}}">
-        <p>{{$comment->author->name}}: {{$comment->content}}</p>
+        <p class="comment-author">
+            <a href="/u/{{strtolower($comment->author->name)}}">{{$comment->author->name}}</a>
+            <span class="cooldivider"></span>
+            {{$comment->created_at->diffForHumans()}}
+        </p>
+        <p class="comment-content">{{$comment->content}}</p>
         <div class="comment-actions">
-            <a href="#" class="show-reply"><i class="icon ion-reply"></i> reply</a>
+            <a href="#" class="reply">reply</a>
+            <a href="/forum/post/{{$comment->id}}">permalink</a>
+            <a href="#" class="hideyakids">hide replies</a>
+
             <form method="post" action="/post-comment" class="replier hidden">
                 {{ csrf_field() }}
                 <input type="hidden" name="parent_id" value="{{$comment->id}}" />

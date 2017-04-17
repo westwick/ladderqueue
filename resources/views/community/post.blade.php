@@ -2,14 +2,26 @@
 
 
 @section('content')
-
+<div class="forum-post">
     <div class="row">
-        <div class="large-12 columns">
+        <div class="large-12 columns post">
 
-            <div class="panel parent-comment">
-                <p>{{$parent->author->name}}</p>
-                <p>{{$parent->title}}</p>
-                <p>{{$parent->content}}</p>
+            @if($parent->getDepth() > 0)
+            <h4>{{$parent->getRoot()->title}}</h4>
+            <p>
+                You are viewing a child comment. <a href="{{$parent->getRoot()->id}}">View full thread</a>
+            </p>
+            @else
+            <h4>{{$parent->title}}</h4>
+            @endif
+
+            <div class="panel comment">
+                <p class="comment-author">
+                    <a href="/u/{{strtolower($parent->author->name)}}">{{$parent->author->name}}</a>
+                    <span class="cooldivider"></span>
+                    {{$parent->created_at->diffForHumans()}}
+                </p>
+                <p class="comment-content">{{$parent->content}}</p>
             </div>
 
             <div class="panel post-reply">
@@ -21,22 +33,30 @@
                 </form>
             </div>
 
+            @if(count($comments) > 0)
             <div class="panel post">
                 @include('partials.comments', ['comments' => $comments, 'endLoop' => false])
             </div>
+            @endif
         </div>
     </div>
-
+</div>
 @endsection
 
 @section('scripts')
     <script>
         $(function() {
-            $('.show-reply').click(function(e) {
+            $('.reply').click(function(e) {
                 e.preventDefault();
-                $(this).hide();
+
                 $(this).siblings('.replier').show();
             })
+
+            $('.hideyakids').click(function(e) {
+                e.preventDefault();
+                console.log($(this).closest('.comment'))
+                $(this).closest('.comment').children('.comment').hide();
+            });
         });
     </script>
 @endsection
