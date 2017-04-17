@@ -49,6 +49,9 @@ Route::get('/forum', 'CommentController@showForum');
 Route::get('/forum/post/{id}', 'CommentController@showPost');
 Route::post('/post-comment', 'CommentController@postComment');
 
+Route::get('/forum/post', 'CommentController@showPostThreadForm');
+Route::post('/post-thread', 'CommentController@postThread');
+
 Route::get('/ladder/queue', 'LadderController@showQueue');
 Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
 

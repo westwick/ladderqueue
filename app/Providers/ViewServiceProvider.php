@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use App\Comment;
 
 class ViewServiceProvider extends ServiceProvider {
 
@@ -29,7 +30,9 @@ class ViewServiceProvider extends ServiceProvider {
                 $unreadCount = $user->unreadMessagesCount();
             }
 
-            $view->with('user', $user)->with('unreadCount', $unreadCount);
+            $recentComments = $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->limit(3)->get();
+
+            $view->with('user', $user)->with(compact('unreadCount', 'recentComments'));
         });
     }
 

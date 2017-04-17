@@ -63,7 +63,7 @@
             </div>
 
             <footer>
-                @include('partials.footer')
+                @include('partials.footer', ['posts' => $recentComments])
             </footer>
         </div>
     </div>

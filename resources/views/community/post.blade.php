@@ -28,3 +28,15 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script>
+        $(function() {
+            $('.show-reply').click(function(e) {
+                e.preventDefault();
+                $(this).hide();
+                $(this).siblings('.replier').show();
+            })
+        });
+    </script>
+@endsection

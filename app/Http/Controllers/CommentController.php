@@ -16,15 +16,10 @@ class CommentController extends Controller
         $parent = Comment::find(4);
         $comment = $parent->children()->create(['content' => 'childcomment', 'user_id' => 2]);
     }
-    
-    public function reply()
-    {
-        
-    }
 
     public function showForum()
     {
-        $comments = Comment::with('author')->where('parent_id', NULL)->get();
+        $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->get();
         return view('community.forum')->with(compact('comments'));
     }
 
@@ -33,6 +28,25 @@ class CommentController extends Controller
         $parent = Comment::findOrFail($id);
         $comments = $parent->children()->get();
         return view('community.post')->with(compact('parent', 'comments'));
+    }
+
+    public function showPostThreadForm()
+    {
+        return view('community.new-post');
+    }
+
+    public function postThread()
+    {
+        $user = Auth::user();
+        $comment = Comment::create([
+            'title' => Input::get('title'),
+            'content' => Input::get('content'),
+            'user_id' => $user->id
+        ]);
+
+        flash('Your post has been created', 'success');
+
+        return redirect('/forum/post/' . $comment->id);
     }
 
     public function postComment()

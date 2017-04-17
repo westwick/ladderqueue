@@ -1,3 +1,7 @@
+.new-post {
+  margin-top: 2rem;
+}
+
 .post {
 
   .comment {
@@ -8,18 +12,10 @@
   .c-1 {
     margin-bottom: 1rem;
   }
+}
 
-  //@for $i from 1 through 100 {
-  //  @if $i < 5 {
-  //    $padding: 10px * ($i - 1);
-  //    .c-#{$i} {
-  //      margin-left: $padding;
-  //    }
-  //  } @else {
-  //    $padding: 60px;
-  //    .c-#{$i} {
-  //      margin-left: $padding;
-  //    }
-  //  }
-  //}
+.show-reply {
+  display: inline-block;
+  font-size: 14px;
+  color: #666;
 }

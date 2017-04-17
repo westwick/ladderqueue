@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="medium-8 columns">
+    <div class="medium-9 columns">
         <div class="row">
             <div class="medium-3 columns">
                 <h4>Useful Links</h4>
@@ -23,17 +23,20 @@
                 </ul>
             </div>
             <div class="medium-6 columns">
-                <h4>Latest News</h4>
-                <ul>
-                    @foreach(App\Announcement::orderBy('created_at', 'desc')->take(3)->get() as $announcement)
-                        <li><a href="/announcements">{{$announcement->title}}</a></li>
+                <h4>Latest Community Posts</h4>
+                <ul class="community-posts">
+                    @foreach($posts as $post)
+                        <li>
+                            <a href="/forum/post/{{$post->id}}">{{$post->title}}</a>
+                            posted by {{$post->author->name}}
+                        </li>
                     @endforeach
                 </ul>
             </div>
         </div>
     </div>
-    <div class="medium-4 columns">
+    <div class="medium-3 columns text-right">
         <img class="footer-logo" src="/images/cel.png" />
-        <p class="footer-about">Continental was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>
+        {{--<p class="footer-about">Continental was founded in 2016 and has since grown to become an established online gaming community.  We are fueled by our love for great entertainment, and fair competition. Our talented team of employees work hard to bring our vision to life in order to create a one of a kind gaming experience for all of our clients.</p>--}}
     </div>
 </div>
