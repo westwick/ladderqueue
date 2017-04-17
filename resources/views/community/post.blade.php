@@ -22,7 +22,7 @@
             </div>
 
             <div class="panel post">
-                @include('partials.comments', ['comments' => $comments])
+                @include('partials.comments', ['comments' => $comments, 'endLoop' => false])
             </div>
         </div>
     </div>

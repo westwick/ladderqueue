@@ -8,7 +8,11 @@
 
             <div class="panel">
                 @foreach($comments as $comment)
-                    <p>{{$comment->author->name}}: {{$comment->content}}</p>
+                    <p>
+                        {{$comment->author->name}}: {{$comment->content}}
+                        <a href="/forum/post/{{$comment->id}}">View Post</a>
+                    </p>
+
                 @endforeach
             </div>
         </div>

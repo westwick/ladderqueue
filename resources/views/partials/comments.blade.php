@@ -9,8 +9,12 @@
                 <button type="submit" class="button">Reply</button>
             </form>
         </div>
-        @if($comment->children->count() > 0)
-            @include('partials.comments', ['comments' => $comment->children()->get()])
+        @if($comment->children->count() > 0 && !$endLoop)
+            @if($comment->getDepth() > 3)
+                @include('partials.comments', ['comments' => $comment->descendants()->get(), 'endLoop' => true])
+            @else
+                @include('partials.comments', ['comments' => $comment->children()->get(), 'endLoop' => false])
+            @endif
         @endif
     </div>
 @endforeach
