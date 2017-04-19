@@ -12,9 +12,9 @@
             <div class="medium-10 large-7 columns medium-centered text-center hero-content">
                 <h4>INTRODUCING CONTINENTAL ESPORTS</h4>
                 {{--<p class="hero-intro">North America's Premier Amateur Global Offensive League</p>--}}
-                <p class="hero-more">North America's Premier Amateur Global Offensive League. Yo we need some marketing copy right here lol blah blah blah bloo bloo bloo reasons why Continental is cool and high level overview yea!</p>
+                <p class="hero-more">North America's Premier Amateur Global Offensive League. Compete in our League, Tournaments or Ladder to prizes and cash! Do you have what it takes?</p>
                 <div class="button-holder">
-                    <a href="/season3/registration" class="home-cta-button">Call to Action</a>
+                    <a href="/register" class="home-cta-button">Create an Account</a>
                 </div>
             </div>
         </div>
@@ -62,13 +62,13 @@
                 </div>
                 <div class="medium-5 end columns text-center">
                     <h5>Built by CS players for CS players</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>Join the league and show us what you can do. Can you take home the victory?</p>
 
                     <h5>$250 Prize Pool for Season 1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>Constantly changing prize pools allow you to play for something more than fun.</p>
 
                     <h5>Most games will be streamed and cast for your viewing pleasure</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>Watch your friends play live on twitch or rewatch the your own game after the action.</p>
                 </div>
             </div>
         </div>
@@ -82,10 +82,10 @@
     </section>
 
     <section class="home-section">
-        <h3>Some heading right here</h3>
+        <h3>Choose from our 3 game modes</h3>
         <div class="row">
             <div class="medium-6 columns medium-centered">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                <p class="text-center">Continental offers three competitive game modes giving you flexibility in how you want to practice and compete. We strive to provide a competitive environment in all of our offerings. Play in just one or all three!</p>
             </div>
         </div>
         <div class="home-content-horizontal">
@@ -93,19 +93,19 @@
                 <div class="medium-4 columns text-center">
                     <img src="https://placehold.it/175x140" />
                     <h5>Continental League</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Our most competitive mode and open only to teams. Pay to enter this month long season and compete for cash prizes and tune in to view games live!</p>
                     <a class="button button-outline">More Info</a>
                 </div>
                 <div class="medium-4 columns text-center">
                     <img src="https://placehold.it/175x140" />
                     <h5>Tournaments</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Continental also provides smaller infrequent tournaments, ranging from week long tourneys to 8-team quick play brackets.</p>
                     <a class="button button-outline">View Tournaments</a>
                 </div>
                 <div class="medium-4 columns text-center">
                     <img src="https://placehold.it/175x140" />
                     <h5>Continental Ladder</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Queue against other Continental players in a competitive 10-man environment. Cheap to enter, can you rise to the top of the ladder?</p>
                     <a class="button button-outline">Join the Ladder</a>
                 </div>
             </div>
