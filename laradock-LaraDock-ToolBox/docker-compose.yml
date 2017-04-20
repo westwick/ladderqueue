@@ -81,37 +81,37 @@ services:
 
 ### MySQL Container #########################################
 
-    mysql:
-        build: ./mysql
-        volumes_from:
-            - volumes_data
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: homestead
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
+#    mysql:
+#        build: ./mysql
+#        volumes_from:
+#            - volumes_data
+#        ports:
+#            - "3306:3306"
+#        environment:
+#            MYSQL_DATABASE: homestead
+#            MYSQL_USER: homestead
+#            MYSQL_PASSWORD: secret
+#            MYSQL_ROOT_PASSWORD: root
 
 ### PostgreSQL Container ####################################
 
-    postgres:
-        build: ./postgres
-        volumes_from:
-            - volumes_data
-        ports:
-            - "5432:5432"
-        environment:
-            POSTGRES_DB: homestead
-            POSTGRES_USER: homestead
-            POSTGRES_PASSWORD: secret
+#    postgres:
+#        build: ./postgres
+#        volumes_from:
+#            - volumes_data
+#        ports:
+#            - "5432:5432"
+#        environment:
+#            POSTGRES_DB: homestead
+#            POSTGRES_USER: homestead
+#            POSTGRES_PASSWORD: secret
 
 ### MariaDB Container #######################################
 
     mariadb:
         build: ./mariadb
-        volumes_from:
-            - volumes_data
+#        volumes_from:
+#            - volumes_data
         ports:
             - "3306:3306"
         environment:
@@ -122,78 +122,78 @@ services:
 
 ### Neo4j Container #########################################
 
-    neo4j:
-        build: ./neo4j
-        ports:
-            - "7474:7474"
-            - "1337:1337"
-        environment:
-            - NEO4J_AUTH=homestead:secret
-        volumes_from:
-            - volumes_data
+#    neo4j:
+#        build: ./neo4j
+#        ports:
+#            - "7474:7474"
+#            - "1337:1337"
+#        environment:
+#            - NEO4J_AUTH=homestead:secret
+#        volumes_from:
+#            - volumes_data
 
 ### MongoDB Container #######################################
-
-    mongo:
-        build: ./mongo
-        ports:
-            - "27017:27017"
-        volumes_from:
-            - volumes_data
+#
+#    mongo:
+#        build: ./mongo
+#        ports:
+#            - "27017:27017"
+#        volumes_from:
+#            - volumes_data
 
 ### Redis Container #########################################
 
-    redis:
-        build: ./redis
-        volumes_from:
-            - volumes_data
-        ports:
-            - "6379:6379"
+#    redis:
+#        build: ./redis
+#        volumes_from:
+#            - volumes_data
+#        ports:
+#            - "6379:6379"
 
 ### Memcached Container #####################################
 
-    memcached:
-        build: ./memcached
-        volumes_from:
-            - volumes_data
-        ports:
-            - "11211:11211"
-        links:
-            - php-fpm
+#    memcached:
+#        build: ./memcached
+#        volumes_from:
+#            - volumes_data
+#        ports:
+#            - "11211:11211"
+#        links:
+#            - php-fpm
 
 ### Beanstalkd Container ####################################
 
-    beanstalkd:
-        build: ./beanstalkd
-        ports:
-            - "11300:11300"
-        privileged: true
-        links:
-            - php-fpm
+#    beanstalkd:
+#        build: ./beanstalkd
+#        ports:
+#            - "11300:11300"
+#        privileged: true
+#        links:
+#            - php-fpm
 
 ### Beanstalkd Console Container ############################
 
-    beanstalkd-console:
-        build: ./beanstalkd-console
-        ports:
-            - "2080:2080"
-        links:
-            - beanstalkd
+#    beanstalkd-console:
+#        build: ./beanstalkd-console
+#        ports:
+#            - "2080:2080"
+#        links:
+#            - beanstalkd
 
 ### Caddy Server Container ##################################
 
-    caddy:
-        build: ./caddy
-        volumes_from:
-            - volumes_source
-        ports:
-            - "80:80"
-            - "443:443"
-            - "2015:2015"
-        volumes:
-            - ./caddy/Caddyfile:/etc/Caddyfile
-        links:
-            - php-fpm
+#    caddy:
+#        build: ./caddy
+#        volumes_from:
+#            - volumes_source
+#        ports:
+#            - "80:80"
+#            - "443:443"
+#            - "2015:2015"
+#        volumes:
+#            - ./caddy/Caddyfile:/etc/Caddyfile
+#        links:
+#            - php-fpm
 
 ### Laravel Application Code Container ######################
 
@@ -204,20 +204,20 @@ services:
 
 ### Databases Data Container ################################
 
-    volumes_data:
-        build: ./volumes/data
-        volumes:
+#    volumes_data:
+#        build: ./volumes/data
+#        volumes:
             ## mariadb mounted volumes has various issues with docker mounted data directories: Failed to set O_DIRECT on file ./ibdata1:
             ## see https://github.com/docker-library/mariadb/issues/38
             ## see laradock: https://github.com/laradock/laradock/issues/448
-            ## 
+            ##
             # - ./var/lib/mysql:/var/lib/mysql
             # - ./data/rethinkdb:/data
-            - /var/lib/postgres:/var/lib/postgres
-            # - /data/mariadb:/var/lib/mariadb
-            - /var/lib/memcached:/var/lib/memcached
-            - /var/lib/redis:/data
-            - /var/lib/neo4j:/var/lib/neo4j/data
-            - /var/lib/mongo:/data/db
+            # - /var/lib/postgres:/var/lib/postgres
+            #  - /data/mariadb:/var/lib/mariadb
+            # - /var/lib/memcached:/var/lib/memcached
+            # - /var/lib/redis:/data
+            # - /var/lib/neo4j:/var/lib/neo4j/data
+            # - /var/lib/mongo:/data/db
 
 ### Add more Containers below ###############################
