@@ -2,9 +2,9 @@
 
 ## now with a docker setup, to start the project take the following steps:
 
-1. To get the docker containers up and running, from terminal CD into the ./laradock-LaraDock-ToolBox directory,
-run: docker-compose -d nginx mariadb to start all of the necessary application docker containers
-If you would like terminal output from these containers to see that start up succeeded / check any errors then you may omit the -d argument from docker-compose
+1. To get the docker containers up and running, from terminal CD into the ./laradock-LaraDock-ToolBox directory and
+run `docker-compose up -d nginx mariadb` to start all of the necessary application docker containers.
+*If you would like terminal output from these containers to see that start up succeeded / check any errors then you may omit the -d argument from docker-compose*
 
 2. If a fresh install / you have not yet run composer to generate the /vendor files && autoload.php then you must do so now and run composer install from the workspace docker container
 
