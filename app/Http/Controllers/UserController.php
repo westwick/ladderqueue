@@ -24,10 +24,6 @@ class UserController extends Controller
         $user = Auth::user();
 
         $age = Input::get('age');
-        if($age < 14) {
-            flash('You must be older than 13 to use this site', 'error');
-            return redirect()->back();
-        }
         if($age == 69) {
             flash('lololololol', 'error');
             return redirect()->back();

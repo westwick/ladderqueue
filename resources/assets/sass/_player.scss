@@ -1,6 +1,6 @@
 section.player-hero {
-  background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/inferno-bg.jpg);
-  background-size: cover;
+  //background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/backgrounds/bg1.jpg);
+  //background-size: cover;
   color: #FFF;
   height: 300px;
 
@@ -19,6 +19,35 @@ section.player-hero {
     margin-bottom: 1.5rem;
   }
 
+  .player-bg {
+    width: 102%;
+    height: 400px;
+    position: absolute;
+    top: -85px;
+    left: 0;
+    background: linear-gradient(rgba(34,36,43,0.75),rgba(34,36,43,0.75)),url(/images/backgrounds/bg5.jpg);
+    background-position: center center;
+    background-size: cover;
+    @include parallax(-0.5);
+  }
+
+  .player-hero-info {
+    margin-bottom: 3rem;
+    .player-info-team, .noteam {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .noteam {
+      color: #a7b2b8;
+    }
+    .player-online {
+      color: $green;
+    }
+    .player-offline {
+      color: #a7a7a7;
+    }
+  }
+
   .player-info {
     position: relative;
     width: 100%;
@@ -27,6 +56,7 @@ section.player-hero {
       position: absolute;
       left: 0.9375rem;
       bottom: -32px;
+      @include parallaxfix();
 
       img {
         width: 8rem;
@@ -50,7 +80,8 @@ section.player-hero {
 
 .player-nav {
   width: 100%;
-  background-color: #1a1a1a;
+  //background-color: #1a1a1a;
+  background-color: #FFF;
   border-bottom: 1px solid #e8eced;
   border-top: 5px solid $celred;
   ul {
@@ -87,6 +118,11 @@ section.player-hero {
       }
     }
   }
+}
+
+.player-main {
+
+  background: $main-bg;
 }
 
 .stat-wrap {
@@ -159,9 +195,6 @@ ul.player-details {
       padding-left: 1.5rem;
       color: #464343;
 
-      &.noteam {
-        color: #a7b2b8;
-      }
     }
     a {
       color: $celred;

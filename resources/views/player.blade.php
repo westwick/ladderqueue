@@ -2,33 +2,58 @@
 
 @section('content')
     <section class="player-hero">
+        <div class="player-bg"></div>
         <div class="player-stats">
             <div class="row">
                 <div class="small-12 columns text-right">
-                    <div class="stat-wrap">
-                        <div class="stat-inner">
-                            <div class="player-stat">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">kills</span>
+                    <div class="player-hero-info">
+                        @if($player->team)
+                        <p class="player-info-team">
+                            {{ $player->team->owner_id == $player->id ? 'Leader' : 'Member' }}
+                                of
+                            <a href="/team/{{$player->team->slug}}">{{$player->team->name}}</a>
+                        </p>
+                        @else
+                            <p class="noteam">Not on a team</p>
+                        @endif
+                        <div class="player-info-online-status">
+                            @if($player->updated_at->diffInMinutes() < 5)
+                            <div class="player-online">
+                                <i class="status-icon">
+                                    <span class="status-icon__pulse"></span>
+                                    <span class="status-icon__dot"></span>
+                                </i>
+                                Online
                             </div>
-                            <div class="player-stat">
-                                <span class="stat-number">0.0</span>
-                                <span class="stat-label">avg dmg</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">999</span>
-                                <span class="stat-label">clutchs</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">1.0</span>
-                                <span class="stat-label">KDA</span>
-                            </div>
-                            <div class="player-stat">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">aces</span>
-                            </div>
+                            @else
+                            <span class="player-offline">Last online: {{$player->updated_at->diffForHumans()}}</span>
+                            @endif
                         </div>
                     </div>
+                    {{--<div class="stat-wrap">--}}
+                        {{--<div class="stat-inner">--}}
+                            {{--<div class="player-stat">--}}
+                                {{--<span class="stat-number">0</span>--}}
+                                {{--<span class="stat-label">kills</span>--}}
+                            {{--</div>--}}
+                            {{--<div class="player-stat">--}}
+                                {{--<span class="stat-number">0.0</span>--}}
+                                {{--<span class="stat-label">avg dmg</span>--}}
+                            {{--</div>--}}
+                            {{--<div class="player-stat">--}}
+                                {{--<span class="stat-number">999</span>--}}
+                                {{--<span class="stat-label">clutchs</span>--}}
+                            {{--</div>--}}
+                            {{--<div class="player-stat">--}}
+                                {{--<span class="stat-number">1.0</span>--}}
+                                {{--<span class="stat-label">KDA</span>--}}
+                            {{--</div>--}}
+                            {{--<div class="player-stat">--}}
+                                {{--<span class="stat-number">0</span>--}}
+                                {{--<span class="stat-label">aces</span>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -36,7 +61,7 @@
             <div class="row setrel">
                 <div class="small-12 columns">
                     <div class="player-image">
-                        <img src="{{ $player->avatar !== NULL ? $player->avatar : '/images/unknown.png' }}" />
+                        <img src="{{ $player->image }}" />
                     </div>
                     <div class="player-name">
                         {{$player->name}}
@@ -49,9 +74,8 @@
         <div class="row">
             <div class="medium-9 columns">
                 <ul>
-                    <li><a id="nav_0" href="#schedule" class="active">Overview</a></li>
-                    <li><a id="nav_1" href="#entry">Stats</a></li>
-                    <li><a id="nav_2" href="#requirements">Activity</a></li>
+                    <li><a href="/u/{{strtolower($player->name)}}" class="active">Overview</a></li>
+                    <li><a href="/u/{{strtolower($player->name)}}/activity">Activity</a></li>
                 </ul>
             </div>
             <div class="medium-3 columns text-right">
@@ -81,84 +105,82 @@
             </div>
         </div>
     </section>
-    <section class="row padbot">
-        <div class="medium-3 columns">
-            <div class="panel edit-profile hidden">
-                <form method="POST" action="/update-profile">
-                    {{ csrf_field() }}
-                    <textarea name="intro" style="height: 100px">{{$player->intro}}</textarea>
-                    <select name="serverpreference">
-                        <option value="US - East" {{ $player->server_preference === 'US - East' ? 'selected':'' }}>US - East</option>
-                        <option value="US - West" {{ $player->server_preference === 'US - West' ? 'selected':'' }}>US - West</option>
-                    </select>
-                    <input type="text" value="{{$player->location}}" name="location" placeholder="New York, NY"/>
-                    <input type="number" value="{{$player->age != 0 ? $player->age:''}}" name="age" placeholder="age" />
-                    <input type="submit" class="button button-full update-profile-button" value="Update Profile"/>
-                </form>
-            </div>
-            <div class="panel player-profile">
-                <p style="line-height: 20px">{{$player->intro}}</p>
-                <ul class="player-details">
-                    <li>
-                        <i class="icon ion-ios-people"></i>
-                        @if($player->team)
-                        <span>
-                            {{ $player->team->owner_id == $player->id ? 'Leader' : 'Member' }}
-                            of
-                            <a href="/team/{{$player->team->slug}}">{{$player->team->name}}</a>
-                        </span>
-                        @else
-                        <span class="noteam">Not on a team</span>
+    <section class="player-main">
+        <div class="row">
+            <div class="medium-3 columns">
+                <div class="panel edit-profile hidden">
+                    <form method="POST" action="/update-profile">
+                        {{ csrf_field() }}
+                        <textarea name="intro" style="height: 100px">{{$player->intro}}</textarea>
+                        <select name="serverpreference">
+                            <option value="US - East" {{ $player->server_preference === 'US - East' ? 'selected':'' }}>US - East</option>
+                            <option value="US - West" {{ $player->server_preference === 'US - West' ? 'selected':'' }}>US - West</option>
+                        </select>
+                        <input type="text" value="{{$player->location}}" name="location" placeholder="New York, NY"/>
+                        <input type="number" value="{{$player->age != 0 ? $player->age:''}}" name="age" placeholder="age" />
+                        <input type="submit" class="button button-full update-profile-button" value="Update Profile"/>
+                    </form>
+                </div>
+                <div class="panel player-profile">
+                    <p style="line-height: 20px">{{$player->intro}}</p>
+                    <ul class="player-details">
+                        <li>
+                            <i class="icon ion-network"></i>
+                            <span>{{$player->server_preference}}</span>
+                        </li>
+                        @if($player->location)
+                        <li>
+                            <i class="icon ion-location"></i>
+                            <span>{{$player->location}}</span>
+                        </li>
                         @endif
-                    </li>
-                    <li>
-                        <i class="icon ion-android-globe"></i>
-                        <span>{{$player->server_preference}}</span>
-                    </li>
-                    <li>
-                        <i class="icon ion-location"></i>
-                        <span>{{$player->location}}</span>
-                    </li>
-                    <li>
-                        <i class="icon ion-android-calendar"></i>
-                        <span>{{$player->age}} years old</span>
-                    </li>
-                    <li>
-                        <i class="icon ion-steam"></i>
-                        @if($player->steamid !== NULL)
-                            <span>{{ substr($player->steamid, 6) }}</span>
-                        @else
-                            <span class="noteam">Not authenticated</span>
+                        @if($player->age >= 15)
+                        <li>
+                            <i class="icon ion-android-calendar"></i>
+                            <span>{{$player->age}} years old</span>
+                        </li>
                         @endif
-                    </li>
-                </ul>
-            </div>
-            {{--<div class="panel">--}}
-                {{--<p class="panel-title">Clubs</p>--}}
-                {{--<div class="empty-state">--}}
-                    {{--Not a member of any clubs--}}
+                        <li>
+                            <i class="icon ion-android-time"></i>
+                            <span>Member since {{$player->created_at->format('M Y')}}</span>
+                        </li>
+                        <li>
+                            <i class="icon ion-steam"></i>
+                            @if($player->steamid !== NULL)
+                                <span>{{ substr($player->steamid, 6) }}</span>
+                            @else
+                                <span class="noteam">Not authenticated</span>
+                            @endif
+                        </li>
+                    </ul>
+                </div>
+                {{--<div class="panel">--}}
+                    {{--<p class="panel-title">Clubs</p>--}}
+                    {{--<div class="empty-state">--}}
+                        {{--Not a member of any clubs--}}
+                    {{--</div>--}}
                 {{--</div>--}}
-            {{--</div>--}}
-        </div>
-        <div class="medium-6 columns">
-            <div class="panel">
-                <p>Recent Matches</p>
-                <div class="empty-state" style="height: 300px">
-                    No matches played
+            </div>
+            <div class="medium-6 columns">
+                <div class="panel">
+                    <p>Recent Matches</p>
+                    <div class="empty-state" style="height: 300px">
+                        No matches played
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="medium-3 columns">
-            <div class="panel">
-                <p class="panel-title">Trophies</p>
-                <div class="empty-state">
-                    No trophies earned
+            <div class="medium-3 columns">
+                <div class="panel">
+                    <p class="panel-title">Trophies</p>
+                    <div class="empty-state">
+                        No trophies earned
+                    </div>
                 </div>
-            </div>
-            <div class="panel">
-                <p class="panel-title">Badges</p>
-                <div class="empty-state">
-                    No badges to display
+                <div class="panel">
+                    <p class="panel-title">Badges</p>
+                    <div class="empty-state">
+                        No badges to display
+                    </div>
                 </div>
             </div>
         </div>

@@ -46,6 +46,9 @@ class User extends Authenticatable
 
     public function routeNotificationForSlack()
     {
+        if(App::environment('local', 'dev', 'development')) {
+            return false;
+        }
         return 'https://hooks.slack.com/services/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';
     }
 

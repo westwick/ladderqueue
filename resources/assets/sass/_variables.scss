@@ -4,6 +4,9 @@ $celredlight: lighten($celred, 10%);
 $celwhite: #e4e4e4;
 $celblue: #145dbe;
 
+$green        : #cddc39 !default;
+$green-light  : #c3d82c !default;
+
 $main-bg: #f8f8f8;
 $border-color: #e8eced;
 
@@ -49,4 +52,8 @@ $parallax-ios         : true !default;
           scale(abs($distance - 1))
 ;
   z-index: $distance * 1000;
+}
+
+@mixin parallaxfix() {
+  transform: translateZ(0.000001px);
 }
