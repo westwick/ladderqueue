@@ -1,22 +1,11 @@
 section.player-hero {
-  //background: linear-gradient(rgba(34,36,43,0.55),rgba(34,36,43,0.55)),url(/images/backgrounds/bg1.jpg);
-  //background-size: cover;
   color: #FFF;
   height: 300px;
-
-  //-webkit-box-align: end;
-  //-ms-flex-align: end;
-  //align-items: flex-end;
-  //display: -webkit-box;
-  //display: -ms-flexbox;
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: flex-end;
-
   background-size: cover;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: column;
   position: relative;
 
   .player-stats {
