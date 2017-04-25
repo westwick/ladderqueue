@@ -1,41 +1,34 @@
 section.teamview-hero {
-  background: linear-gradient(rgba(11, 11, 30, 0.85), rgba(11, 11, 30, 0.85)),url(/images/team-bg.jpg);
-  background-size: cover;
   color: #FFF;
   height: 300px;
-
-  -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  background-size: cover;
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
   justify-content: flex-end;
+  flex-direction: column;
+  position: relative;
+
+  .team-bg {
+    @include parallax(-0.8);
+    width: 102%;
+    height: 400px;
+    position: absolute;
+    top: -25vh;
+    left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(34,36,43,0.75),rgba(34,36,43,0.75)),url(/images/backgrounds/bg5.jpg);
+    background-position: center center;
+    background-size: cover;
+  }
 
   .team-members {
     position: relative;
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
   }
 
   .team-info {
     position: relative;
     width: 100%;
-
-    .team-image {
-      position: absolute;
-      left: 0.9375rem;
-      bottom: -96px;
-
-      img {
-        width: 160px;
-        height: auto;
-        border-radius: 12px;
-        box-shadow: 0 1px 1px rgba(136,153,166,0.15);
-        border: 4px solid #FFF;
-      }
-    }
 
     .player-name {
       padding-left: 11.5rem;
@@ -53,6 +46,23 @@ section.teamview-hero {
   width: 100%;
   background-color: #fff;
   border-bottom: 1px solid #e8eced;
+  border-top: 5px solid $celblue;
+
+  .team-image {
+    position: absolute;
+    left: 0.9375rem;
+    top: -75%;
+    @include parallaxfix();
+
+    img {
+      width: 160px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 1px 1px rgba(136,153,166,0.15);
+      border: 4px solid #FFF;
+    }
+  }
+
   ul {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -87,6 +97,10 @@ section.teamview-hero {
       }
     }
   }
+}
+
+.team-main {
+  background: $main-bg;
 }
 
 .players-wrap {

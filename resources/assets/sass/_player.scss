@@ -19,7 +19,7 @@ section.player-hero {
     width: 102%;
     height: 400px;
     position: absolute;
-    top: -50%;
+    top: -25vh;
     left: 0; bottom: 0; right: 0;
     background: linear-gradient(rgba(34,36,43,0.75),rgba(34,36,43,0.75)),url(/images/backgrounds/bg5.jpg);
     background-position: center center;
@@ -47,22 +47,8 @@ section.player-hero {
     position: relative;
     width: 100%;
 
-    .player-image {
-      position: absolute;
-      left: 0.9375rem;
-      bottom: -32px;
-      @include parallaxfix();
-
-      img {
-        width: 8rem;
-        height: 8rem;
-        border-radius: 8rem;
-        border: 4px solid #FFF;
-      }
-    }
-
     .player-name {
-      padding-left: 9rem;
+      padding-left: 9.75rem;
       font-size: 3rem;
       text-shadow: 1px 1px 3px #131313;
     }
@@ -79,6 +65,22 @@ section.player-hero {
   background-color: #FFF;
   border-bottom: 1px solid #e8eced;
   border-top: 5px solid $celred;
+
+  .player-image {
+    position: absolute;
+    left: 0.9375rem;
+    top: -50%;
+    @include parallaxfix();
+
+    img {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 8rem;
+      border: 4px solid #FFF;
+    }
+  }
+
+
   ul {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -90,7 +92,7 @@ section.player-hero {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    padding-left: 9rem;
+    padding-left: 10rem;
 
     li {
       margin-right: 3rem;

@@ -60,9 +60,6 @@
         <div class="player-info">
             <div class="row setrel">
                 <div class="small-12 columns">
-                    <div class="player-image">
-                        <img src="{{ $player->image }}" />
-                    </div>
                     <div class="player-name">
                         {{$player->name}}
                     </div>
@@ -73,6 +70,9 @@
     <section class="player-nav">
         <div class="row">
             <div class="medium-9 columns">
+                <div class="player-image">
+                    <img src="{{ $player->image }}" />
+                </div>
                 <ul>
                     <li><a href="/u/{{strtolower($player->name)}}" class="active">Overview</a></li>
                     <li><a href="/u/{{strtolower($player->name)}}/activity">Activity</a></li>
