@@ -55,7 +55,8 @@ $parallax-ios         : true !default;
 }
 
 @mixin parallaxfix() {
-  transform: translateZ(0.000001px);
+  transform: translateZ(0.001px) scale(0.999);
+  z-index: 0;
 }
 
 @mixin herocontainer() {
