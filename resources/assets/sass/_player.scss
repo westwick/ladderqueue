@@ -4,14 +4,20 @@ section.player-hero {
   color: #FFF;
   height: 300px;
 
-  -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  //-webkit-box-align: end;
+  //-ms-flex-align: end;
+  //align-items: flex-end;
+  //display: -webkit-box;
+  //display: -ms-flexbox;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: flex-end;
+
+  background-size: cover;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
   .player-stats {
     position: relative;
@@ -20,15 +26,15 @@ section.player-hero {
   }
 
   .player-bg {
+    @include parallax(-0.8);
     width: 102%;
     height: 400px;
     position: absolute;
     top: -50%;
-    left: 0;
+    left: 0; bottom: 0; right: 0;
     background: linear-gradient(rgba(34,36,43,0.75),rgba(34,36,43,0.75)),url(/images/backgrounds/bg5.jpg);
     background-position: center center;
     background-size: cover;
-    @include parallax(-0.5);
   }
 
   .player-hero-info {
