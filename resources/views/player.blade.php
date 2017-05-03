@@ -1,5 +1,31 @@
 @extends('layouts.app')
 
+@section('head')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <style>
+        #container {
+            height: 180px;
+        }
+
+        .trophycase {
+            display: flex;
+        }
+
+        .trophy {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 0.5rem;
+        }
+
+        .trophy i {
+            display: block;
+            font-size: 1.5rem;
+            color: #111;
+        }
+    </style>
+@endsection
+
 @section('content')
     <section class="player-hero">
         <div class="player-bg"></div>
@@ -163,6 +189,9 @@
             </div>
             <div class="medium-6 columns">
                 <div class="panel">
+                    <div id="container"></div>
+                </div>
+                <div class="panel">
                     <p>Recent Matches</p>
                     <div class="empty-state" style="height: 300px">
                         No matches played
@@ -171,15 +200,17 @@
             </div>
             <div class="medium-3 columns">
                 <div class="panel">
-                    <p class="panel-title">Trophies</p>
-                    <div class="empty-state">
-                        No trophies earned
-                    </div>
-                </div>
-                <div class="panel">
-                    <p class="panel-title">Badges</p>
-                    <div class="empty-state">
-                        No badges to display
+                    <p class="text-center">Trophy Case</p>
+                    <div class="trophycase">
+                        <div class="trophy">
+                            <i class="icon ion-trophy"></i>
+                            Beta User
+                        </div>
+                        <div class="trophy">
+                            <i class="icon ion-ribbon-a"></i>
+                            Match MVP (x3)
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -204,4 +235,33 @@
         })
     })
 </script>
+    <script>
+        Highcharts.chart('container', {
+
+            title: {
+                text: 'KDA - last 10 games'
+            },
+
+            yAxis: {
+                title: {
+                    enabled: false
+                }
+            },
+            xAxis: {
+                categories: [''],
+                labels: {
+                    enabled: false
+                }
+            },
+            legend: false,
+            credits: false,
+
+
+            series: [{
+                name: 'KDA',
+                data: [0.89, 0.5, 1.12, 1.54, 0.5, 0.2, 0.9, 0.2, 1.5, 1.8]
+            }]
+
+        });
+    </script>
 @endsection
