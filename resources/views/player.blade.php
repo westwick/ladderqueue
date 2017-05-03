@@ -4,7 +4,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <style>
         #container {
-            height: 180px;
+            height: 200px;
         }
 
         .trophycase {
@@ -238,28 +238,63 @@
     <script>
         Highcharts.chart('container', {
 
-            title: {
-                text: 'KDA - last 10 games'
+            chart: {
+                type: 'line',
+                backgroundColor: null,
             },
-
-            yAxis: {
-                title: {
-                    enabled: false
+            plotOptions: {
+                series: {
+                    animation: {
+                        duration: 200
+                    },
+                    lineWidth: 5,
+                    marker: {
+                        radius: 6,
+                        symbol: 'circle',
+                        enabled: true
+                    },
+                    fillOpacity: 0.5
                 }
             },
+            title: {
+                text: 'KDA - Last 10 games',
+            },
             xAxis: {
-                categories: [''],
                 labels: {
                     enabled: false
                 }
             },
-            legend: false,
-            credits: false,
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                plotLines: [{
+                    value: 1,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            legend: {
+                enabled: false,
+                backgroundColor: null
+            },
+            credits: {
+                enabled: false
+            },
 
 
             series: [{
                 name: 'KDA',
-                data: [0.89, 0.5, 1.12, 1.54, 0.5, 0.2, 0.9, 0.2, 1.5, 1.8]
+                data: [0.89, 0.5, 1.12, 1.54, 0.5, 0.2, 0.9, 0.2, 1.5, 1.8],
+                dataLabels: {
+                    enabled: true,
+                    // color: '#127AA2',
+                    shadow: false,
+                    style: {
+                        fontSize: '10px',
+                        textShadow: false
+                    }
+                }
             }]
 
         });
