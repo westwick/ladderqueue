@@ -239,7 +239,7 @@
         Highcharts.chart('container', {
 
             chart: {
-                type: 'line',
+                type: 'areaspline',
                 backgroundColor: null,
             },
             plotOptions: {
@@ -247,9 +247,9 @@
                     animation: {
                         duration: 200
                     },
-                    lineWidth: 5,
+                    lineWidth: 3,
                     marker: {
-                        radius: 6,
+                        radius: 5,
                         symbol: 'circle',
                         enabled: true
                     },
@@ -262,7 +262,8 @@
             xAxis: {
                 labels: {
                     enabled: false
-                }
+                },
+                tickInterval: 1
             },
             yAxis: {
                 title: {
@@ -272,7 +273,8 @@
                     value: 1,
                     width: 1,
                     color: '#808080'
-                }]
+                }],
+                tickInterval: 0.5
             },
             legend: {
                 enabled: false,
@@ -282,13 +284,14 @@
                 enabled: false
             },
 
-
             series: [{
                 name: 'KDA',
-                data: [0.89, 0.5, 1.12, 1.54, 0.5, 0.2, 0.9, 0.2, 1.5, 1.8],
+                data: [2.2, 0.5, 1.12, 1.24, 0.53, 0.62, 0.85, 1.1, 1.5, 1.8],
+                threshold: 1,
+                color: '#cddc39',
+                negativeColor: '#d41f26',
                 dataLabels: {
-                    enabled: true,
-                    // color: '#127AA2',
+                    enabled: false,
                     shadow: false,
                     style: {
                         fontSize: '10px',
