@@ -44,40 +44,6 @@
             </div>
         </div>
         <div class="medium-9 columns">
-            <div class="panel">
-                <p class="biggertext">Season 3 Registration</p>
-                @if(Auth::user()->team)
-                    @if($seasonregistration)
-                        @if(!$seasonregistration->paid)
-                            <div>
-                                <p>Your team needs to pay: <a href="/checkout">click here</a></p>
-                            </div>
-                        @endif
-                        <div class="registration-status">
-                            <div class="row">
-                                <div class="medium-6 columns">
-                                    <div class="appstatus">
-                                        <p class="nomargin">Application Status: {{$seasonregistration->getStatusString()}}</p>
-                                        <p class="nomargin">Payment Status: {{ $seasonregistration->paid ? 'Paid':'Not Paid'}}</p>
-                                        <p class="nomargin">Division: Unassigned</p>
-                                    </div>
-                                </div>
-                                <div class="medium-6 columns">
-                                    <p>Settings:</p>
-                                    <ul>
-                                        <li>Server Preference: {{ $seasonregistration->server_preference }}</li>
-                                        <li>Timezone: {{ $seasonregistration->team_time_zone }}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <p class="greytext nomargin">No application found. <a href="/season3/registration">Register for Season 3 Here</a></p>
-                    @endif
-                @else
-                    <p class="greytext nomargin">You must be on a team to register for season 3</p>
-                @endif
-            </div>
 
             <div class="panel">
                 <p>Upcoming Games</p>

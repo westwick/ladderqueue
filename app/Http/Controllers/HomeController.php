@@ -29,14 +29,12 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-
-        $team = Auth::user()->team;
-        $seasonregistration = NULL;
-        if($team) {
-            $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
+        if($user) {
+            return view('home');
+        } else {
+            return view('welcome');
         }
-        
-        return view('home')->with(compact('seasonregistration'));
+
     }
 
     public function showCreateTeamForm()
