@@ -30,6 +30,6 @@ class LogSuccessfulLogin
     {
         $user = User::find($event->user->id);
         $user->touch();
-        $user->notify(new UserAccountProgressUpdated($user, 'logged in from ' . \Request::ip()));
+        // $user->notify(new UserAccountProgressUpdated($user, 'logged in from ' . \Request::ip()));
     }
 }
