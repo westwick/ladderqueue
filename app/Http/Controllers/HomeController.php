@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'test']);
+        //$this->middleware('auth', ['except' => 'test']);
     }
 
     /**
@@ -30,7 +30,19 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if($user) {
-            return view('home');
+            $user = Auth::user();
+            $canQueue = true;
+            $players = [];
+            $game = [];
+            if(!$user || !$user->ladder_queue) {
+                $canQueue = false;
+                return view('ladder.queue')->with(compact('players', 'game', 'canQueue'));
+            }
+            $ids = QueueUser::all()->pluck('user_id');
+            $players = User::whereIn('id', $ids)->get();
+
+            $game = $user->getLadderGame();
+            return view('home')->with(compact('players', 'game', 'canQueue'));
         } else {
             return view('welcome');
         }

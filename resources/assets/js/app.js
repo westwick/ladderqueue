@@ -5,7 +5,10 @@ import Vuex from 'vuex'
 // import VueResource from 'vue-resource'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import router from './router'
 
+Vue.component('app', require('./components/App.vue'));
+Vue.component('sidebar', require('./components/Sidebar.vue'));
 Vue.component('schedule', require('./components/Schedule.vue'));
 Vue.component('teamselecter', require('./components/TeamSelecter.vue'));
 Vue.component('dataloader', require('./components/DataLoader.vue'));
@@ -24,7 +27,8 @@ const store = new Vuex.Store({
     loggedIn: false,
     csrfToken: '',
     userid: 0,
-    party: {}
+    players: [],
+    game: ''
   },
   mutations: {
     setUserstate (state, userstate) {
@@ -34,6 +38,10 @@ const store = new Vuex.Store({
     },
     setCsrfToken (state, token) {
       state.csrfToken = token
+    },
+    setGamestate(state, data) {
+      state.players = data.players
+      state.game = data.game
     },
     addParty (state, data) {
       state.party = data.party
@@ -47,6 +55,7 @@ const store = new Vuex.Store({
 
 const app = new Vue({
     el: '#app',
+    router,
     store,
     methods: {
       getState: function() {
@@ -60,8 +69,6 @@ const app = new Vue({
       }
     }
 });
-
-// set up websocket listeners
 
 $(function() {
 

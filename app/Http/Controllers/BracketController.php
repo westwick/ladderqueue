@@ -27,56 +27,8 @@ class BracketController extends Controller
     public function joinQueue()
     {
         $user = Auth::user();
-        
-        $q = new QueueUser();
-        $q->user_id = $user->id;
-        $q->save();
-        
-        broadcast(new PlayerJoinedQueue($user))->toOthers();
 
-        $all = QueueUser::with('user')->orderBy('created_at')->limit(10)->get();
-        if(count($all) === 10) {
-            $team1captain = $all[0];
-            $team2captain = $all[1];
-
-
-            // create game
-            $game = new LadderGame();
-            $game->save();
-
-            // create captains
-            $player = new LadderPlayer();
-            $player->user_id = $team1captain->user->id;
-            $player->game_id = $game->id;
-            $player->status_id = 50;
-            $player->isCaptain = true;
-            $player->team = 1;
-            $player->save();
-
-            $player = new LadderPlayer();
-            $player->user_id = $team2captain->user->id;
-            $player->game_id = $game->id;
-            $player->status_id = 50;
-            $player->isCaptain = true;
-            $player->team = 2;
-            $player->save();
-
-            // create rest of players
-            for($i = 2; $i <= 9; $i++) {
-                $player = new LadderPlayer();
-                $player->user_id = $all[$i]->user->id;
-                $player->game_id = $game->id;
-                $player->status_id = 0;
-                $player->save();
-            }
-
-            // remove users from queue
-            foreach($all as $q) {
-                $q->delete();
-            }
-
-            broadcast(new GameStarting($game));
-        }
+        $user->joinQueue();
 
         return response()->json(['success' => true, 'user' => $user]);
     }

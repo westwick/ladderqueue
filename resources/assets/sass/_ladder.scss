@@ -1,15 +1,11 @@
-.ladder-leaderboard {
-  a {
-    color: $primary-color;
+.queue-status-header {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 1rem 0 0;
+}
 
-    &:hover {
-      color: darken($primary-color, 10%);
-    }
-  }
-
-  img {
-    width: 30px;
-    height: auto;
-    border-radius: 100%;
-  }
+.player-hover {
+  color: $vxblue;
 }

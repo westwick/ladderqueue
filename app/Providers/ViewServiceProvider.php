@@ -33,9 +33,9 @@ class ViewServiceProvider extends ServiceProvider {
                 }
             }
 
-            $recentComments = $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->limit(3)->get();
+            //$recentComments = $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->limit(3)->get();
 
-            $view->with('user', $user)->with(compact('unreadCount', 'recentComments'));
+            $view->with('user', $user)->with(compact('unreadCount'));
         });
     }
 

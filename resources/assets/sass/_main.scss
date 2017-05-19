@@ -1,20 +1,16 @@
 
 
 .panel {
-  margin: 2rem 0;
+  margin: 0.9375rem 0;
   padding: 1rem;
-  background-color: #FFF;
-  border: 1px solid #e8eced;
+  background-color: #151515;
+  border: 1px solid #1e1e1f;
   border-radius: 3px;
 
-  .panel-title {
-    font-weight: bold;
-    font-size: 14px;
-    color: #736e6e;
-    text-align: center;
-    border-bottom: 1px solid $celred;
-    width: 50%;
-    margin: 0 auto 1rem;
+  color: #fff;
+
+  p {
+    color: #fff;
   }
 }
 
@@ -80,6 +76,24 @@ img.grayscale:hover {
 .team-logo-small {
   width: 40px;
   height: 40px;
+}
+
+.auth-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+
+  .panel {
+    width: 450px;
+  }
+}
+
+.auth-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: 0.5rem;
 }
 
 .schedule-table {

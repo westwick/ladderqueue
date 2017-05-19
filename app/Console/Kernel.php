@@ -13,7 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\GenerateUsers::class,
+        Commands\PutInQueue::class,
+        Commands\ClearQueue::class,
+        Commands\ClearPendingGames::class
     ];
 
     /**

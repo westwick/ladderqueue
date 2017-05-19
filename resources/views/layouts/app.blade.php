@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
-        @if($unreadCount > 0)
-        [{{$unreadCount}}] -
-        @endif
         VitalityX
     </title>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
@@ -40,9 +37,6 @@
 </head>
 <body id="main">
 <div id="app">
-    <header>
-        @include('partials.header')
-    </header>
 
     @if(Auth::user())
         <dataloader :userstate="{{Auth::user()->getState()}}" :csrftoken="'{{csrf_token()}}'"></dataloader>
@@ -56,17 +50,14 @@
     @endif
 
 
-    <div id="wrap">
-        <div class="browrap">
-            <div class="main-content">
-                @yield('content')
-            </div>
+    @yield('content')
 
-            <footer>
-                @include('partials.footer', ['posts' => $recentComments])
-            </footer>
-        </div>
-    </div>
+    @if(Auth::user())
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    @endif
+
 </div>
 
 <script src="{{ mix('/js/app.js') }}"></script>

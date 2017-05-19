@@ -1,14 +1,14 @@
 body {
-  background-color: #f7f8f9;
+  background-color: #191919;
   overflow: hidden;
 }
 
 a {
   transition: all 0.3s ease-in-out;
-  color: $celred;
+  color: #1e7be4;
 
   &:hover, &:active, &:focus {
-    color: lighten($celred, 10%);
+    color: darken(#1e7be4, 10%);
   }
 }
 
@@ -38,12 +38,12 @@ input[type='text'], input[type='password'], input[type='email'] {
   box-shadow: none;
   transition: border-color .15s ease-in-out,background-color .15s ease-in-out;
   border-radius: 2px;
-  background-color: #FFF;
+  background-color: #2c2c2c;
   //border: 1px solid #ced4d4;
-  border: 1px solid $border-color;
+  border: 1px solid #22222a;
 
   &:focus {
-    border-color: #edbb8b;
+    border-color: #eddcb3;
     outline: 0;
     box-shadow: none;
   }

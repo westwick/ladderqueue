@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -46,8 +46,10 @@ class LoginController extends Controller
 
     public function logout()
     {
+        $user = Auth::user();
+        $user->removeFromQueue();
         Auth::logout();
         flash('You have been logged out', 'success');
-        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/login');
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 }
