@@ -2,7 +2,8 @@ body {
   background-color: #191919;
   background-image: url('/images/fadebg.jpg');
   background-size: cover;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 a {
@@ -14,27 +15,27 @@ a {
   }
 }
 
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 8px;
-  //background: transparent;
-  background-color: #1a1a1a;
-  //background-color: #FFF;
-}
-
-::-webkit-scrollbar-thumb {
-  border: 8px solid rgba(255,255,255,0);
-  border-radius: 8px;
-  background-clip: border-box;
-  background-color: #A0A0A0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  border-radius: 8px;
-  border: 8px solid rgba(255,255,255,0);
-  background-clip: content-box;
-  background-color: #aeaeae;
-}
+//::-webkit-scrollbar {
+//  -webkit-appearance: none;
+//  width: 8px;
+//  //background: transparent;
+//  background-color: #1a1a1a;
+//  //background-color: #FFF;
+//}
+//
+//::-webkit-scrollbar-thumb {
+//  border: 8px solid rgba(255,255,255,0);
+//  border-radius: 8px;
+//  background-clip: border-box;
+//  background-color: #A0A0A0;
+//}
+//
+//::-webkit-scrollbar-thumb:hover {
+//  border-radius: 8px;
+//  border: 8px solid rgba(255,255,255,0);
+//  background-clip: content-box;
+//  background-color: #aeaeae;
+//}
 
 input[type='text'], input[type='password'], input[type='email'] {
   box-shadow: none;

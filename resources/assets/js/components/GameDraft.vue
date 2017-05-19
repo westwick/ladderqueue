@@ -15,28 +15,7 @@
       </div>
     </section>
     <section v-if="!inGame" class="row padbot">
-      <div class="small-12 columns">
-        <div class="panel text-center">
-          <p class="text-center">Queue status: {{players.length}}/10 players</p>
-          <div v-if="players.length >= 10">
-            <p>Starting a game, please wait...</p>
-          </div>
-          <div v-else>
-            <div v-if="!inQueue">
-              <button class="button primary" @click.disable="enterQueue" :disabled="this.loading">
-                  {{ !this.loading ? 'Join Queue': 'Joining...'}}
-              </button>
-            </div>
-            <div class="players-in-queue" v-show="players.length > 0">
-            </div>
-            <div v-if="inQueue">
-              <button class="button primary" @click.disable="leaveQueue" :disabled="this.loading">
-                  {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div><p>Game Not Detected</p></div>
     </section>
     <section v-else class="row padbot text-center ladder-draft">
       <div class="medium-4 columns">
@@ -56,8 +35,8 @@
               <img :src="player.user.image" />
               {{player.user.name}} ({{player.user.ladder_points}})
               <div class="pick-player">
-                <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || this.loading">
-                  {{ !this.loading ? 'Draft': 'Drafting...'}}
+                <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || loading">
+                  {{ !loading ? 'Draft': 'Drafting...'}}
                 </a>
               </div>
             </div>
@@ -92,25 +71,21 @@
 <script>
     var _ = require('lodash')
     export default {
-        props: ['initplayers', 'initgame'],
         data() {
             return {
-                players: this.initplayers,
-                game: this.initgame,
                 loading: false,
                 mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
         },
         computed: {
+            players() {
+                return this.$store.state.players
+            },
+            game() {
+                return this.$store.state.game
+            },
             userid() {
               return this.$store.state.userid
-            },
-            inQueue() {
-                var q = false
-                _.forEach(this.players, (player) => {
-                  if(player.id == this.userid) q = true
-                })
-                return q
             },
             inGame() {
               return this.game && this.game.id > 0
@@ -166,38 +141,6 @@
             }
         },
         methods: {
-            startPartyListener: function() {
-                Echo.private('queue')
-                    .listen('PlayerJoinedQueue', (e) => {
-                        var p = this.players
-                        p.push(e.user)
-                        this.players = p
-                    })
-                    .listen('PlayerLeftQueue', (e) => {
-                        var p = []
-                        _.forEach(this.players, (player) => {
-                          if(player.id !== e.user.id) {
-                            p.push(player)
-                          }
-                        })
-                        this.players = p
-                    })
-                    .listen('GameStarting', (e) => {
-                        var userIsInGame = false
-                        _.forEach(e.game.players, (player) => {
-                          if(player.user.id === this.userid) {
-                            userIsInGame = true
-                          }
-                        })
-                        if(userIsInGame) {
-                          console.log('starting game', e.game)
-                          this.game = e.game
-                          this.startGameListener()
-                        } else {
-                          location.reload()
-                        }
-                    })
-            },
             startGameListener: function() {
               Echo.private('laddergame.' + this.game.id)
                   .listen('PlayerDrafted', (e) => {
@@ -207,38 +150,6 @@
                       console.log(e)
                       this.mapBanned(e.map)
                   })
-            },
-            enterQueue() {
-                this.loading = true
-                this.$http.post('/enter-queue').then((response) => {
-                    console.log(response)
-                    this.loading = false
-                    var p = this.players
-                    p.push(response.data.user)
-                    this.players = p
-                }).catch((error) => {
-                    this.loading = false
-                    if(error.response) {
-                      var retryafter = error.response.headers["retry-after"]
-                      toastr.error("You're doing that too fast. Try again in " + retryafter + " seconds")
-                    }
-                })
-            },
-            leaveQueue() {
-                this.loading = true
-                this.$http.post('/leave-queue').then((response) => {
-                    console.log(response)
-                    this.loading = false
-                    var p = []
-                    _.forEach(this.players, (player) => {
-                      if(player.id !== this.userid) {
-                        p.push(player)
-                      }
-                    })
-                    this.players = p
-                }, (response) => {
-                    this.loading = false
-                })
             },
             draftPlayer(userId) {
               if(!this.canDraft) return false
@@ -279,7 +190,6 @@
             }
         },
         created: function () {
-            this.startPartyListener()
             if(this.inGame) {
               this.startGameListener()
             }

@@ -220,3 +220,5 @@ Route::get('/game/{id}/edit', 'GameController@editGameForm');
 //
 //Route::post('profile-image-upload', 'ImageController@profile_image_upload');
 //Route::post('user-profile-image-save', 'ImageController@user_profile_image_save');
+
+Route::any('{url}', 'HomeController@index')->where('url', '(.*)');

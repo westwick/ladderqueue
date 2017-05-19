@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 85);
+/******/ 	return __webpack_require__(__webpack_require__.s = 88);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -17515,7 +17515,7 @@ module.exports = {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(84)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(87)(module)))
 
 /***/ }),
 /* 3 */
@@ -37182,14 +37182,14 @@ module.exports = g;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(49);
 
-__webpack_require__(47);
+__webpack_require__(48);
 
 
 // import VueResource from 'vue-resource'
@@ -37197,18 +37197,18 @@ __webpack_require__(47);
 
 
 
-Vue.component('app', __webpack_require__(54));
-Vue.component('sidebar', __webpack_require__(66));
-Vue.component('schedule', __webpack_require__(64));
-Vue.component('teamselecter', __webpack_require__(67));
-Vue.component('dataloader', __webpack_require__(57));
-Vue.component('partybar', __webpack_require__(61));
-Vue.component('partylobby', __webpack_require__(62));
-Vue.component('season3reg', __webpack_require__(65));
-Vue.component('playerqueue', __webpack_require__(63));
-Vue.component('messages', __webpack_require__(59));
-Vue.component('conversations', __webpack_require__(55));
-Vue.component('convonav', __webpack_require__(56));
+Vue.component('app', __webpack_require__(55));
+Vue.component('sidebar', __webpack_require__(68));
+Vue.component('schedule', __webpack_require__(66));
+Vue.component('teamselecter', __webpack_require__(69));
+Vue.component('dataloader', __webpack_require__(58));
+Vue.component('partybar', __webpack_require__(63));
+Vue.component('partylobby', __webpack_require__(64));
+Vue.component('season3reg', __webpack_require__(67));
+Vue.component('playerqueue', __webpack_require__(65));
+Vue.component('messages', __webpack_require__(61));
+Vue.component('conversations', __webpack_require__(56));
+Vue.component('convonav', __webpack_require__(57));
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_1_axios___default.a);
 
@@ -37229,9 +37229,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     setCsrfToken: function setCsrfToken(state, token) {
       state.csrfToken = token;
     },
+    newGame: function newGame(state, game) {
+      state.game = game;
+    },
     setGamestate: function setGamestate(state, data) {
       state.players = data.players;
       state.game = data.game;
+    },
+    playersUpdated: function playersUpdated(state, players) {
+      state.players = players;
     },
     addParty: function addParty(state, data) {
       state.party = data.party;
@@ -38491,6 +38497,221 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var _ = __webpack_require__(2);
+/* harmony default export */ __webpack_exports__["default"] = {
+  data: function data() {
+    return {
+      loading: false,
+      mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
+    };
+  },
+
+  computed: {
+    players: function players() {
+      return this.$store.state.players;
+    },
+    game: function game() {
+      return this.$store.state.game;
+    },
+    userid: function userid() {
+      return this.$store.state.userid;
+    },
+    inGame: function inGame() {
+      return this.game && this.game.id > 0;
+    },
+    undraftedplayers: function undraftedplayers() {
+      return _.filter(this.game.players, { team: 0 });
+    },
+    undraftedcount: function undraftedcount() {
+      return this.undraftedplayers.length;
+    },
+    team1players: function team1players() {
+      var players = _.filter(this.game.players, { team: 1 });
+      return _.sortBy(players, 'draft_position');
+    },
+    team2players: function team2players() {
+      var players = _.filter(this.game.players, { team: 2 });
+      return _.sortBy(players, 'draft_position');
+    },
+    team1captain: function team1captain() {
+      return _.find(this.team1players, { isCaptain: 1 });
+    },
+    team2captain: function team2captain() {
+      return _.find(this.team2players, { isCaptain: 1 });
+    },
+    pickTurn: function pickTurn() {
+      if (this.undraftedcount === 8) return this.team1captain;
+      if (this.undraftedcount === 7) return this.team2captain;
+      if (this.undraftedcount === 6) return this.team2captain;
+      if (this.undraftedcount === 5) return this.team1captain;
+      if (this.undraftedcount === 4) return this.team2captain;
+      if (this.undraftedcount === 3) return this.team1captain;
+      if (this.undraftedcount === 2) return this.team2captain;
+      if (this.undraftedcount === 1) return this.team1captain;
+      return 0;
+    },
+    canDraft: function canDraft() {
+      if (this.pickTurn === 0) return false;
+      return this.pickTurn.user.id === this.userid;
+    },
+    banTurn: function banTurn() {
+      if (!this.game.map_bans) return this.team1captain;
+      if (this.game.map_bans.length === 0) return this.team1captain;
+      if (this.game.map_bans.length === 1) return this.team2captain;
+      if (this.game.map_bans.length === 2) return this.team1captain;
+      if (this.game.map_bans.length === 3) return this.team2captain;
+      if (this.game.map_bans.length === 4) return this.team1captain;
+      if (this.game.map_bans.length === 5) return this.team2captain;
+      return 0;
+    },
+    canBanMap: function canBanMap() {
+      if (this.banTurn === 0 || _.isEmpty(this.game)) return false;
+      return this.banTurn.user.id === this.userid;
+    }
+  },
+  methods: {
+    startGameListener: function startGameListener() {
+      var _this = this;
+
+      Echo.private('laddergame.' + this.game.id).listen('PlayerDrafted', function (e) {
+        _this.playerDrafted(e.player);
+      }).listen('MapBanned', function (e) {
+        console.log(e);
+        _this.mapBanned(e.map);
+      });
+    },
+    draftPlayer: function draftPlayer(userId) {
+      var _this2 = this;
+
+      if (!this.canDraft) return false;
+      this.loading = true;
+      var gameId = this.game.id;
+      this.$http.post('/draft-player', { gameId: gameId, userId: userId }).then(function (response) {
+        _this2.playerDrafted(response.data.player);
+        _this2.loading = false;
+      }, function (response) {
+        _this2.loading = false;
+      });
+    },
+    playerDrafted: function playerDrafted(player) {
+      var players = this.game.players;
+      var index = _.indexOf(players, _.find(players, { id: player.id }));
+      // remove old player, insert new one
+      this.game.players.splice(index, 1, player);
+    },
+    banMap: function banMap(map) {
+      var _this3 = this;
+
+      this.loading = true;
+      var gameId = this.game.id;
+      this.$http.post('/ban-map', { gameId: gameId, map: map }).then(function (response) {
+        _this3.mapBanned(map);
+        _this3.loading = false;
+      }, function (response) {
+        _this3.loading = false;
+      });
+    },
+    mapBanned: function mapBanned(map) {
+      if (this.game.map_bans) {
+        this.game.map_bans.splice(0, 0, map);
+      } else {
+        this.game.map_bans = [map];
+      }
+    },
+    mapIsBanned: function mapIsBanned(map) {
+      return this.game.map_bans && this.game.map_bans.includes(map);
+    }
+  },
+  created: function created() {
+    if (this.inGame) {
+      this.startGameListener();
+    }
+  }
+};
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -38499,7 +38720,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38611,11 +38832,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -38630,7 +38853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38699,7 +38922,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38826,7 +39049,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38853,12 +39076,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 var _ = __webpack_require__(2);
-var Timer = __webpack_require__(49);
+var Timer = __webpack_require__(50);
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
+            timer: undefined,
             inQueueFor: '00:00:00',
             loading: false,
             mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
@@ -38866,11 +39098,22 @@ var Timer = __webpack_require__(49);
     },
 
     computed: {
+        componentClass: function componentClass() {
+            return {
+                'route-active': this.$route.name === "Draft"
+            };
+        },
+        componentActive: function componentActive() {
+            return this.$route.name === "Draft";
+        },
         players: function players() {
             return this.$store.state.players;
         },
         game: function game() {
             return this.$store.state.game;
+        },
+        inGame: function inGame() {
+            return this.game && this.game.id > 0;
         },
         userid: function userid() {
             return this.$store.state.userid;
@@ -38909,9 +39152,8 @@ var Timer = __webpack_require__(49);
                     }
                 });
                 if (userIsInGame) {
-                    console.log('starting game', e.game);
-                    _this2.game = e.game;
-                    _this2.startGameListener();
+                    _this2.$store.commit('newGame', e.game);
+                    _this2.$router.push('/draft');
                 } else {
                     location.reload();
                 }
@@ -38928,10 +39170,11 @@ var Timer = __webpack_require__(49);
                 p.push(response.data.user);
                 _this3.players = p;
 
-                var timer = new Timer();
-                timer.start();
-                timer.addEventListener('secondsUpdated', function (e) {
-                    _this3.inQueueFor = timer.getTimeValues().toString();
+                _this3.inQueueFor = '00:00:00';
+                _this3.timer = new Timer();
+                _this3.timer.start();
+                _this3.timer.addEventListener('secondsUpdated', function (e) {
+                    _this3.inQueueFor = _this3.timer.getTimeValues().toString();
                 });
             }).catch(function (error) {
                 _this3.loading = false;
@@ -38945,6 +39188,7 @@ var Timer = __webpack_require__(49);
             var _this4 = this;
 
             this.loading = true;
+            if (this.timer) this.timer.stop();
             this.$http.post('/leave-queue').then(function (response) {
                 console.log(response);
                 _this4.loading = false;
@@ -38954,7 +39198,7 @@ var Timer = __webpack_require__(49);
                         p.push(player);
                     }
                 });
-                _this4.players = p;
+                _this4.$store.commit('playersUpdated', p);
             }, function (response) {
                 _this4.loading = false;
             });
@@ -38966,7 +39210,7 @@ var Timer = __webpack_require__(49);
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39153,7 +39397,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39323,11 +39567,14 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -39409,7 +39656,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39485,12 +39732,12 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 window._ = __webpack_require__(2);
@@ -39532,7 +39779,7 @@ window.axios.defaults.headers.common = {
 
 
 
-window.Pusher = __webpack_require__(52);
+window.Pusher = __webpack_require__(53);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
@@ -39540,17 +39787,20 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 });
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_News__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_GameDraft__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_GameDraft___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_GameDraft__);
+
 
 
 
@@ -39568,11 +39818,15 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     path: '/leaderboard',
     name: 'Leaderboard',
     component: __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard___default.a
+  }, {
+    path: '/draft',
+    name: 'Draft',
+    component: __WEBPACK_IMPORTED_MODULE_4__components_GameDraft___default.a
   }]
 });
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -39639,7 +39893,7 @@ var Timer = (
                 days: 86400000
             },
 
-            events = module && module.exports? __webpack_require__(50) : undefined,
+            events = module && module.exports? __webpack_require__(51) : undefined,
 
             prototype;
 
@@ -40132,7 +40386,7 @@ var Timer = (
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -40440,7 +40694,7 @@ function isUndefined(arg) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -41214,7 +41468,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -45349,7 +45603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45357,14 +45611,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(80),
+  __webpack_require__(83),
   /* scopeId */
   null,
   /* cssModules */
@@ -45391,14 +45645,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(76),
+  __webpack_require__(78),
   /* scopeId */
   null,
   /* cssModules */
@@ -45425,14 +45679,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(71),
+  __webpack_require__(73),
   /* scopeId */
   null,
   /* cssModules */
@@ -45459,14 +45713,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(81),
+  __webpack_require__(84),
   /* scopeId */
   null,
   /* cssModules */
@@ -45493,14 +45747,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(74),
+  __webpack_require__(81),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/GameDraft.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] GameDraft.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b7694d72", Component.options)
+  } else {
+    hotAPI.reload("data-v-b7694d72", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(38),
+  /* template */
+  __webpack_require__(76),
   /* scopeId */
   null,
   /* cssModules */
@@ -45527,14 +45815,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(68),
+  __webpack_require__(70),
   /* scopeId */
   null,
   /* cssModules */
@@ -45561,14 +45849,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(39),
+  __webpack_require__(40),
   /* template */
-  __webpack_require__(78),
+  __webpack_require__(80),
   /* scopeId */
   null,
   /* cssModules */
@@ -45595,14 +45883,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(40),
+  __webpack_require__(41),
   /* template */
-  __webpack_require__(75),
+  __webpack_require__(77),
   /* scopeId */
   null,
   /* cssModules */
@@ -45629,14 +45917,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(41),
+  __webpack_require__(42),
   /* template */
-  __webpack_require__(69),
+  __webpack_require__(71),
   /* scopeId */
   null,
   /* cssModules */
@@ -45663,14 +45951,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(42),
+  __webpack_require__(43),
   /* template */
-  __webpack_require__(73),
+  __webpack_require__(75),
   /* scopeId */
   null,
   /* cssModules */
@@ -45697,14 +45985,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(43),
+  __webpack_require__(44),
   /* template */
-  __webpack_require__(79),
+  __webpack_require__(82),
   /* scopeId */
   null,
   /* cssModules */
@@ -45731,14 +46019,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(44),
+  __webpack_require__(45),
   /* template */
-  __webpack_require__(72),
+  __webpack_require__(74),
   /* scopeId */
   null,
   /* cssModules */
@@ -45765,14 +46053,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(45),
+  __webpack_require__(46),
   /* template */
-  __webpack_require__(77),
+  __webpack_require__(79),
   /* scopeId */
   null,
   /* cssModules */
@@ -45799,14 +46087,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(47),
   /* template */
-  __webpack_require__(70),
+  __webpack_require__(72),
   /* scopeId */
   null,
   /* cssModules */
@@ -45833,7 +46121,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -45928,7 +46216,7 @@ if (false) {
 }
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -45977,7 +46265,7 @@ if (false) {
 }
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46060,7 +46348,7 @@ if (false) {
 }
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46101,7 +46389,7 @@ if (false) {
 }
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46510,37 +46798,46 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.players.length >= 10) ? _c('div', [_c('p', [_vm._v("Starting a game, please wait...")])]) : _c('div', [(!_vm.inQueue) ? _c('div', [_c('button', {
+  return _c('div', {
+    staticClass: "queue-status",
+    class: _vm.componentClass
+  }, [(_vm.inGame) ? _c('div', [(!_vm.componentActive) ? _c('p', [_c('router-link', {
+    attrs: {
+      "to": "/draft"
+    }
+  }, [_vm._v("Your game is in progress!")])], 1) : _c('p', [_vm._v("Game ID#" + _vm._s(_vm.game.id) + " in progress")])]) : _c('div', [(_vm.players.length >= 10) ? _c('div', [_c('p', [_vm._v("Starting a game, please wait...")])]) : _c('div', [(!_vm.inQueue) ? _c('div', [_c('button', {
     staticClass: "button queue-button",
     attrs: {
       "disabled": this.loading
     },
     on: {
       "click": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "disable")) { return null; }
+        $event.preventDefault();
         _vm.enterQueue($event)
       }
     }
-  }, [_vm._v("\n            " + _vm._s(!this.loading ? 'Join Queue' : 'Joining...') + "\n        ")])]) : _vm._e(), _vm._v(" "), (_vm.inQueue) ? _c('div', [_c('p', {
+  }, [_vm._v("\n                    " + _vm._s(!this.loading ? 'Join Queue' : 'Joining...') + "\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.inQueue) ? _c('div', [_c('p', {
     staticClass: "queue-timer"
-  }, [_vm._v("Queued — " + _vm._s(_vm.inQueueFor))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.inQueueFor))]), _vm._v(" "), _c('p', {
+    staticClass: "in-queue"
+  }, [_c('a', {
     attrs: {
       "href": "#",
       "disabled": this.loading
     },
     on: {
       "click": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "disable")) { return null; }
+        $event.preventDefault();
         _vm.leaveQueue($event)
       }
     }
-  }, [_vm._v("\n            " + _vm._s(!this.loading ? 'Leave Queue' : 'Leaving...') + "\n        ")])]) : _vm._e(), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n                        " + _vm._s(!this.loading ? 'Leave Queue' : 'Leaving...') + "\n                    ")])])]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "queue-count"
-  }, [_vm._v("Players in queue: "), _c('span', [_vm._v(_vm._s(_vm.players.length) + "/10")])])])])
+  }, [_vm._v("Players in queue: "), _c('span', [_vm._v(_vm._s(_vm.players.length) + "/10")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -46551,13 +46848,17 @@ if (false) {
 }
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")])])
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [_c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")]), _vm._v(" "), _c('p', [_vm._v("Leaderboard")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -46568,7 +46869,7 @@ if (false) {
 }
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46640,7 +46941,7 @@ if (false) {
 }
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46705,15 +47006,13 @@ if (false) {
 }
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "user-sidebar"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "queue-status"
-  }, [_c('playerqueue')], 1), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('playerqueue'), _vm._v(" "), _c('div', {
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Navigation\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
@@ -46738,7 +47037,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Account\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
-  }, [_vm._m(2), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('a', {
+  }, [_vm._m(2), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": "/logout"
     },
@@ -46748,9 +47047,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.doLogout($event)
       }
     }
-  }, [_vm._v("\n                Logout\n            ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v("\n                Logout\n            ")])])]), _vm._v(" "), _c('div', {
     staticClass: "placeholder-bar"
-  }), _vm._v(" "), _vm._m(4)])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "platform-status"
+  }, [_vm._m(4), _vm._v(" "), _c('p', [_vm._v("Players online: "), _c('router-link', {
+    attrs: {
+      "to": "/"
+    }
+  }, [_vm._v("15")])], 1), _vm._v(" "), _c('p', [_vm._v("Games in progress: "), _c('router-link', {
+    attrs: {
+      "to": "/"
+    }
+  }, [_vm._v("2")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "version"
+  }, [_vm._v("\n            Beta v0.0.1\n        ")])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "sidebar-logo"
@@ -46760,25 +47071,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('div', {
+  return _c('li', [_c('a', {
+    attrs: {
+      "href": "/"
+    }
+  }, [_c('div', {
     staticClass: "nav-bullet"
   }, [_c('i', {
     staticClass: "icon ion-clipboard"
-  })]), _vm._v(" "), _c('a', {
+  })]), _vm._v("\n                Game History\n            ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
     attrs: {
       "href": "/"
     }
-  }, [_vm._v("Game History")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('div', {
+  }, [_c('div', {
     staticClass: "nav-bullet"
   }, [_c('i', {
     staticClass: "icon ion-gear-a"
-  })]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": "/"
-    }
-  }, [_vm._v("Settings")])])
+  })]), _vm._v("\n                Settings\n            ")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"
@@ -46786,17 +47097,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon ion-log-out"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "platform-status"
-  }, [_c('p', [_vm._v("Queue: "), _c('span', {
+  return _c('p', [_vm._v("Queue: "), _c('span', {
     staticClass: "queue-online"
-  }, [_vm._v("Available")])]), _vm._v(" "), _c('p', [_vm._v("Players online: "), _c('span', {
-    staticClass: "queue-online"
-  }, [_vm._v("14")])]), _vm._v(" "), _c('p', [_vm._v("Games in progress: "), _c('span', {
-    staticClass: "queue-online"
-  }, [_vm._v("1")])]), _vm._v(" "), _c('div', {
-    staticClass: "version"
-  }, [_vm._v("\n            Beta v0.0.1\n        ")])])
+  }, [_vm._v("Available")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -46807,13 +47110,17 @@ if (false) {
 }
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('p', [_vm._v("News!")])])
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [_c('p', [_vm._v("News!")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -46824,7 +47131,104 @@ if (false) {
 }
 
 /***/ }),
-/* 79 */
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('section', {
+    staticClass: "queue-status-header main-top-padder "
+  }, [(_vm.inGame) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [_c('div', {}, [(_vm.pickTurn !== 0) ? [_vm._v("\n            Status: "), _c('span', {
+    staticClass: "player-hover"
+  }, [_vm._v(_vm._s('@' + _vm.pickTurn.user.name) + "'s")]), _vm._v(" turn to pick a player\n          ")] : [_vm._v("\n            Status: Someone's turn to ban a map\n          ")]], 2)])]) : _vm._e()]), _vm._v(" "), (!_vm.inGame) ? _c('section', {
+    staticClass: "row padbot"
+  }, [_vm._m(0)]) : _c('section', {
+    staticClass: "row padbot text-center ladder-draft"
+  }, [_c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [_c('strong', [_vm._v("Team 1")]), _vm._v(" "), _vm._l((_vm.team1players), function(player) {
+    return _c('div', {
+      staticClass: "player-on-team draft-player"
+    }, [_c('img', {
+      attrs: {
+        "src": player.user.image
+      }
+    }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [(_vm.undraftedcount > 0) ? _c('div', [_c('strong', [_vm._v("Undrafted Players")]), _vm._v(" "), _vm._l((_vm.undraftedplayers), function(player) {
+    return _c('div', {
+      staticClass: "player-available draft-player"
+    }, [_c('img', {
+      attrs: {
+        "src": player.user.image
+      }
+    }), _vm._v("\n            " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n            "), _c('div', {
+      staticClass: "pick-player"
+    }, [_c('a', {
+      staticClass: "button",
+      attrs: {
+        "href": "#",
+        "disabled": !_vm.canDraft || _vm.loading
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.draftPlayer(player.user.id)
+        }
+      }
+    }, [_vm._v("\n                " + _vm._s(!_vm.loading ? 'Draft' : 'Drafting...') + "\n              ")])])])
+  })], 2) : _c('div', [_c('strong', [_vm._v("Map Bans")]), _vm._v(" "), _vm._l((_vm.mapPool), function(map) {
+    return _c('div', {
+      staticClass: "map-banner"
+    }, [(!_vm.mapIsBanned(map)) ? _c('p', [_vm._v("\n              " + _vm._s(map) + "\n              "), _c('a', {
+      staticClass: "button",
+      attrs: {
+        "href": "#",
+        "disabled": !_vm.canBanMap || this.loading
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.banMap(map)
+        }
+      }
+    }, [_vm._v("Ban")])]) : _c('p', {
+      staticClass: "map-banned"
+    }, [_vm._v("\n              " + _vm._s(map) + "\n            ")])])
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [_c('strong', [_vm._v("Team 2")]), _vm._v(" "), _vm._l((_vm.team2players), function(player) {
+    return _c('div', {
+      staticClass: "player-on-team draft-player"
+    }, [_c('img', {
+      attrs: {
+        "src": player.user.image
+      }
+    }), _vm._v("\n          " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n        ")])
+  })], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('p', [_vm._v("Game Not Detected")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-b7694d72", module.exports)
+  }
+}
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46951,7 +47355,7 @@ if (false) {
 }
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46978,7 +47382,7 @@ if (false) {
 }
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -46995,7 +47399,7 @@ if (false) {
 }
 
 /***/ }),
-/* 82 */
+/* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49467,7 +49871,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50282,7 +50686,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 84 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -50310,7 +50714,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 85 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);

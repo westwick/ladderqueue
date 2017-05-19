@@ -1,10 +1,16 @@
 <template>
-    <div>
-        <p>Leaderboard</p>
-        <p>Leaderboard</p>
-        <p>Leaderboard</p>
-        <p>Leaderboard</p>
-        <p>Leaderboard</p>
+    <div class="row">
+        <div class="small-12 columns">
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+            <p>Leaderboard</p>
+        </div>
     </div>
 </template>
 

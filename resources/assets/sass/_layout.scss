@@ -2,7 +2,7 @@ $sidebar-width: 300px;
 $header-height: 55px;
 
 .router-wrap {
-  padding: rem-calc(15);
+  padding: rem-calc(15) 0;
   color: #fff;
   p {
     color: #fff;
@@ -97,23 +97,17 @@ $header-height: 55px;
           background: -webkit-linear-gradient(left, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* Chrome10-25,Safari5.1-6 */
           background: linear-gradient(to right, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
-          &:hover, &:active, &:focus {
-            color: #fff;
+          .icon {
+            color: $vxblue;
           }
 
-          .nav-bullet {
-            .icon {
-              color: $vxblue;
-            }
+          &:hover, &:active, &:focus {
+            color: #fff;
           }
         }
 
         &:hover {
           color: $vxblue;
-
-          .icon {
-            color: #fff;
-          }
         }
         &:active, &:focus {
           color: darken($vxblue, 10%);
@@ -125,7 +119,21 @@ $header-height: 55px;
 
 .queue-status {
   background: #151515;
-  padding: 1.25rem 0;
+  border-right: 3px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+  padding: 1rem 0;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  &.route-active {
+    border-right: 3px solid $vxblue;
+    background: rgb(21,22,22); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(21,22,22,1) 0%, rgba(22,26,31,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  }
   p {
     margin: 0;
   }
@@ -138,6 +146,14 @@ $header-height: 55px;
     margin: 0 0 0.5rem 0;
     font-size: 16px;
     font-weight: normal;
+  }
+  .queue-timer {
+    font-size: 24px;
+    font-weight: 300;
+  }
+  .in-queue {
+    font-size: 14px;
+    font-weight: bold;
   }
   .queue-count {
     font-size: 13px;
@@ -154,6 +170,7 @@ $header-height: 55px;
   padding: 0.75rem;
   padding-bottom: 0;
   position: absolute;
+  z-index: -1;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -166,7 +183,7 @@ $header-height: 55px;
     text-align: center;
   }
   .queue-online {
-    color: $green;
+    color: #afda32;
   }
 
   .version {

@@ -12,6 +12,7 @@ use App\Party;
 use App\LadderGame;
 use App\LadderPlayer;
 use App\QueueUser;
+use Log;
 
 class User extends Authenticatable
 {
@@ -178,9 +179,8 @@ class User extends Authenticatable
             }
 
             // remove users from queue
-            foreach($all as $q) {
-                $q->delete();
-            }
+            $ids = $all->pluck('id')->toArray();
+            QueueUser::whereIn('user_id', $ids)->delete();
 
             broadcast(new GameStarting($game));
         }

@@ -1,21 +1,29 @@
 <template>
-  <div>
-      <div v-if="players.length >= 10">
-        <p>Starting a game, please wait...</p>
+  <div class="queue-status" :class="componentClass">
+      <div v-if="inGame">
+        <p v-if="!componentActive"><router-link to="/draft">Your game is in progress!</router-link></p>
+        <p v-else>Game ID#{{game.id}} in progress</p>
       </div>
       <div v-else>
-        <div v-if="!inQueue">
-          <button class="button queue-button" @click.disable="enterQueue" :disabled="this.loading">
-              {{ !this.loading ? 'Join Queue': 'Joining...'}}
-          </button>
-        </div>
-        <div v-if="inQueue">
-          <p class="queue-timer">Queued &mdash; {{inQueueFor}}</p>
-          <a href="#" @click.disable="leaveQueue" :disabled="this.loading">
-              {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
-          </a>
-        </div>
-        <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
+          <div v-if="players.length >= 10">
+              <p>Starting a game, please wait...</p>
+          </div>
+          <div v-else>
+              <div v-if="!inQueue">
+                  <button class="button queue-button" @click.prevent="enterQueue" :disabled="this.loading">
+                      {{ !this.loading ? 'Join Queue': 'Joining...'}}
+                  </button>
+              </div>
+              <div v-if="inQueue">
+                  <p class="queue-timer">{{inQueueFor}}</p>
+                  <p class="in-queue">
+                      <a href="#" @click.prevent="leaveQueue" :disabled="this.loading">
+                          {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
+                      </a>
+                  </p>
+              </div>
+              <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
+          </div>
       </div>
   </div>
 </template>
@@ -26,17 +34,29 @@
     export default {
         data() {
             return {
+                timer: undefined,
                 inQueueFor: '00:00:00',
                 loading: false,
                 mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
         },
         computed: {
+            componentClass() {
+                return {
+                    'route-active': this.$route.name === "Draft"
+                }
+            },
+            componentActive() {
+                return this.$route.name === "Draft"
+            },
             players() {
                 return this.$store.state.players
             },
             game() {
                 return this.$store.state.game
+            },
+            inGame() {
+                return this.game && this.game.id > 0
             },
             userid() {
               return this.$store.state.userid
@@ -74,9 +94,9 @@
                           }
                         })
                         if(userIsInGame) {
-                          console.log('starting game', e.game)
-                          this.game = e.game
-                          this.startGameListener()
+                          this.$store.commit('newGame', e.game)
+                          this.$router.push('/draft')
+
                         } else {
                           location.reload()
                         }
@@ -91,10 +111,11 @@
                     p.push(response.data.user)
                     this.players = p
 
-                    var timer = new Timer()
-                    timer.start()
-                    timer.addEventListener('secondsUpdated', (e) => {
-                        this.inQueueFor = timer.getTimeValues().toString()
+                    this.inQueueFor = '00:00:00'
+                    this.timer = new Timer()
+                    this.timer.start()
+                    this.timer.addEventListener('secondsUpdated', (e) => {
+                        this.inQueueFor = this.timer.getTimeValues().toString()
                     })
                 }).catch((error) => {
                     this.loading = false
@@ -106,6 +127,7 @@
             },
             leaveQueue() {
                 this.loading = true
+                if(this.timer) this.timer.stop()
                 this.$http.post('/leave-queue').then((response) => {
                     console.log(response)
                     this.loading = false
@@ -115,7 +137,7 @@
                         p.push(player)
                       }
                     })
-                    this.players = p
+                    this.$store.commit('playersUpdated', p)
                 }, (response) => {
                     this.loading = false
                 })

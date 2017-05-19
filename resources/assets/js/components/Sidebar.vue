@@ -5,9 +5,8 @@
             <img src="/images/vx.png" />
         </div>
 
-        <div class="queue-status">
-            <playerqueue></playerqueue>
-        </div>
+
+        <playerqueue></playerqueue>
 
 
         <div class="sidebar-section-header">
@@ -29,8 +28,10 @@
                 </router-link>
             </li>
             <li>
-                <div class="nav-bullet"><i class="icon ion-clipboard"></i></div>
-                <a href="/">Game History</a>
+                <a href="/">
+                    <div class="nav-bullet"><i class="icon ion-clipboard"></i></div>
+                    Game History
+                </a>
             </li>
         </ul>
 
@@ -40,12 +41,14 @@
 
         <ul class="main-nav">
             <li>
-                <div class="nav-bullet"><i class="icon ion-gear-a"></i></div>
-                <a href="/">Settings</a>
+                <a href="/">
+                    <div class="nav-bullet"><i class="icon ion-gear-a"></i></div>
+                    Settings
+                </a>
             </li>
             <li>
-                <div class="nav-bullet"><i class="icon ion-log-out"></i></div>
                 <a href="/logout" @click.prevent="doLogout">
+                    <div class="nav-bullet"><i class="icon ion-log-out"></i></div>
                     Logout
                 </a>
             </li>
@@ -55,8 +58,8 @@
 
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>
-            <p>Players online: <span class="queue-online">14</span></p>
-            <p>Games in progress: <span class="queue-online">1</span></p>
+            <p>Players online: <router-link to="/">15</router-link></p>
+            <p>Games in progress: <router-link to="/">2</router-link></p>
 
             <div class="version">
                 Beta v0.0.1

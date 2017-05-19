@@ -39,9 +39,15 @@ const store = new Vuex.Store({
     setCsrfToken (state, token) {
       state.csrfToken = token
     },
+    newGame(state, game) {
+      state.game = game
+    },
     setGamestate(state, data) {
       state.players = data.players
       state.game = data.game
+    },
+    playersUpdated(state, players) {
+      state.players = players
     },
     addParty (state, data) {
       state.party = data.party

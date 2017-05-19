@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <p>News!</p>
+    <div class="row">
+        <div class="small-12 columns">
+            <p>News!</p>
+        </div>
     </div>
 </template>
 
