@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -70,6 +70,7 @@ class RegisterController extends Controller
         ]);
 
         $user->steam_verified = true;
+        $user->ladder_queue = 'vx';
         $user->save();
 
         //event(new UserAccountProgress($user, 'created an account from IP ' . \Request::ip()));
