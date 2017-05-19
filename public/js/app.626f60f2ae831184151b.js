@@ -39439,7 +39439,7 @@ var Timer = __webpack_require__(53);
                         p.push(player);
                     }
                 });
-                _this2.players = p;
+                _this2.$store.commit('playersUpdated', p);
             }).listen('GameStarting', function (e) {
                 var userIsInGame = false;
                 _.forEach(e.game.players, function (player) {

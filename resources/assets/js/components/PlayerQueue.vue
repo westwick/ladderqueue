@@ -84,7 +84,7 @@
                             p.push(player)
                           }
                         })
-                        this.players = p
+                        this.$store.commit('playersUpdated', p)
                     })
                     .listen('GameStarting', (e) => {
                         var userIsInGame = false
