@@ -15,7 +15,7 @@
               {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
           </a>
         </div>
-        <p class="queue-count">Queue status: <span>{{players.length}}/10</span> players</p>
+        <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
       </div>
   </div>
 </template>

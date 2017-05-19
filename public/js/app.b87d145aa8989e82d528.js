@@ -46540,7 +46540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n            " + _vm._s(!this.loading ? 'Leave Queue' : 'Leaving...') + "\n        ")])]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "queue-count"
-  }, [_vm._v("Queue status: "), _c('span', [_vm._v(_vm._s(_vm.players.length) + "/10")]), _vm._v(" players")])])])
+  }, [_vm._v("Players in queue: "), _c('span', [_vm._v(_vm._s(_vm.players.length) + "/10")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
