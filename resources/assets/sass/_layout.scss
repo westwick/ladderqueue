@@ -19,15 +19,24 @@ $header-height: 55px;
   text-align: center;
 
   padding: 0;
-  background-color: #121212;
+  background-color: #151515;
   color: #fff;
-  border-bottom: 5px solid $vxblue;
+
+  .placeholder-bar {
+    background: #171717;
+    width: 46px;
+    position: absolute;
+    left: 0;
+    z-index: -2;
+    height: 100%;
+  }
 
   p {
     color: #fff;
   }
 
   .sidebar-logo {
+    background: #121212;
     height: $header-height;
     display: flex;
     align-items: center;
@@ -38,34 +47,8 @@ $header-height: 55px;
     }
   }
 
-  .player-profile {
-    background: #151515;
-    padding: 1rem 0;
-
-    .user-image {
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-      display: inline-block;
-      margin-right: 0.75rem;
-    }
-    .user-name {
-      font-size: 18px;
-      font-weight: bold;
-      display: inline-block;
-    }
-    .user-rank {
-      font-size: 14px;
-      font-weight: 300;
-
-      strong {
-        font-size: 20px;
-        font-weight: bold;
-      }
-    }
-  }
-
   .sidebar-section-header {
+    background: #121212;
     text-transform: uppercase;
     font-size: 13px;
     padding: 0.75rem;
@@ -92,6 +75,10 @@ $header-height: 55px;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        .icon {
+          margin: 0;
+        }
       }
 
       a {
@@ -109,10 +96,24 @@ $header-height: 55px;
           background: -moz-linear-gradient(left, rgba(21,22,22,1) 0%, rgba(22,26,31,1) 100%); /* FF3.6-15 */
           background: -webkit-linear-gradient(left, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* Chrome10-25,Safari5.1-6 */
           background: linear-gradient(to right, rgba(21,22,22,1) 0%,rgba(22,26,31,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+          &:hover, &:active, &:focus {
+            color: #fff;
+          }
+
+          .nav-bullet {
+            .icon {
+              color: $vxblue;
+            }
+          }
         }
 
         &:hover {
           color: $vxblue;
+
+          .icon {
+            color: #fff;
+          }
         }
         &:active, &:focus {
           color: darken($vxblue, 10%);
@@ -149,13 +150,14 @@ $header-height: 55px;
 }
 
 .platform-status {
-  background: #151515;
+  background: #121212;
   padding: 0.75rem;
   padding-bottom: 0;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
+  border-bottom: 5px solid $vxblue;
 
   p {
     color: #ccc;

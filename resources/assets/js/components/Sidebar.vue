@@ -16,12 +16,17 @@
 
         <ul class="main-nav">
             <li>
-                <div class="nav-bullet"><i class="icon ion-radio-waves"></i></div>
-                <router-link to="/" exact>News</router-link>
+                <router-link to="/" exact>
+                    <div class="nav-bullet"><i class="icon ion-radio-waves"></i></div>
+                    News
+                </router-link>
             </li>
             <li>
-                <div class="nav-bullet"><i class="icon ion-trophy"></i></div>
-                <router-link to="/leaderboard">Leaderboard</router-link>
+
+                <router-link to="/leaderboard">
+                    <div class="nav-bullet"><i class="icon ion-trophy"></i></div>
+                    Leaderboard
+                </router-link>
             </li>
             <li>
                 <div class="nav-bullet"><i class="icon ion-clipboard"></i></div>
@@ -45,6 +50,8 @@
                 </a>
             </li>
         </ul>
+
+        <div class="placeholder-bar"></div>
 
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>

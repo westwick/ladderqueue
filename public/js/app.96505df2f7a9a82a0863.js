@@ -39388,6 +39388,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -46710,20 +46717,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Navigation\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
-  }, [_c('li', [_vm._m(1), _vm._v(" "), _c('router-link', {
+  }, [_c('li', [_c('router-link', {
     attrs: {
       "to": "/",
       "exact": ""
     }
-  }, [_vm._v("News")])], 1), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('router-link', {
+  }, [_c('div', {
+    staticClass: "nav-bullet"
+  }, [_c('i', {
+    staticClass: "icon ion-radio-waves"
+  })]), _vm._v("\n                News\n            ")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     attrs: {
       "to": "/leaderboard"
     }
-  }, [_vm._v("Leaderboard")])], 1), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "nav-bullet"
+  }, [_c('i', {
+    staticClass: "icon ion-trophy"
+  })]), _vm._v("\n                Leaderboard\n            ")])], 1), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Account\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
-  }, [_vm._m(4), _vm._v(" "), _c('li', [_vm._m(5), _vm._v(" "), _c('a', {
+  }, [_vm._m(2), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('a', {
     attrs: {
       "href": "/logout"
     },
@@ -46733,7 +46748,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.doLogout($event)
       }
     }
-  }, [_vm._v("\n                Logout\n            ")])])]), _vm._v(" "), _vm._m(6)])
+  }, [_vm._v("\n                Logout\n            ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "placeholder-bar"
+  }), _vm._v(" "), _vm._m(4)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "sidebar-logo"
@@ -46741,18 +46758,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/images/vx.png"
     }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "nav-bullet"
-  }, [_c('i', {
-    staticClass: "icon ion-radio-waves"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "nav-bullet"
-  }, [_c('i', {
-    staticClass: "icon ion-trophy"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('div', {
