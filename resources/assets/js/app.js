@@ -27,12 +27,17 @@ const store = new Vuex.Store({
     loggedIn: false,
     csrfToken: '',
     userid: 0,
+    username: '',
+    joinedQueue: 0,
+    onlineUsers: [],
     players: [],
     game: ''
   },
   mutations: {
     setUserstate (state, userstate) {
       state.userid = userstate.userid
+      state.username = userstate.username
+      state.joinedQueue = userstate.joinedQueue
       state.party = userstate.party
       state.loggedIn = userstate.loggedIn
     },
@@ -41,20 +46,29 @@ const store = new Vuex.Store({
     },
     newGame(state, game) {
       state.game = game
+      state.players = []
+    },
+    updateGame(state, game) {
+      state.game = game
     },
     setGamestate(state, data) {
       state.players = data.players
       state.game = data.game
     },
+    clearGame(state) {
+      state.game = ''
+    },
+    clearQueueTimer(state) {
+      state.joinedQueue = 0
+    },
+    userReady(state, players) {
+      state.game.players = players
+    },
     playersUpdated(state, players) {
       state.players = players
     },
-    addParty (state, data) {
-      state.party = data.party
-      state.party.creator = data.creator
-    },
-    clearParty (state) {
-      state.party = {}
+    onlineUsers(state, users) {
+      state.onlineUsers = users
     }
   }
 })

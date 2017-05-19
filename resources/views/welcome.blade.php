@@ -41,7 +41,7 @@
         <source src="/images/homepage.mp4" type="video/mp4">
     </video>
     <div class="homepage">
-        <img src="/images/vx.png" class="homepage-logo" />
+        <img src="/images/vxblue.png" class="homepage-logo" />
         <p>
             <a href="/login">Login</a>
             or

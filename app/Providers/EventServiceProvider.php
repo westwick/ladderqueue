@@ -40,6 +40,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ConversationMessage' => [
         ],
+        'App\Events\GameCancelled' => [
+        ],
+        'App\Events\GameAccepted' => [
+        ],
+        'App\Events\GameDraftComplete' => [
+        ],
     ];
 
     /**

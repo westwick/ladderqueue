@@ -35,7 +35,7 @@
         data() {
             return {
                 timer: undefined,
-                inQueueFor: '00:00:00',
+                inQueueFor: '00:00',
                 loading: false,
                 mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
@@ -105,18 +105,11 @@
             enterQueue() {
                 this.loading = true
                 this.$http.post('/enter-queue').then((response) => {
-                    console.log(response)
                     this.loading = false
                     var p = this.players
                     p.push(response.data.user)
                     this.players = p
-
-                    this.inQueueFor = '00:00:00'
-                    this.timer = new Timer()
-                    this.timer.start()
-                    this.timer.addEventListener('secondsUpdated', (e) => {
-                        this.inQueueFor = this.timer.getTimeValues().toString()
-                    })
+                    this.inQueueFor = '00:00'
                 }).catch((error) => {
                     this.loading = false
                     if(error.response) {
@@ -129,7 +122,6 @@
                 this.loading = true
                 if(this.timer) this.timer.stop()
                 this.$http.post('/leave-queue').then((response) => {
-                    console.log(response)
                     this.loading = false
                     var p = []
                     _.forEach(this.players, (player) => {
@@ -145,6 +137,23 @@
         },
         created: function () {
             this.startPartyListener()
+        },
+        watch: {
+            'inQueue': function(queued) {
+                if(queued) {
+                    var seconds = this.$store.state.joinedQueue
+                    this.timer = new Timer()
+                    this.timer.start({startValues: {seconds: seconds}})
+                    this.timer.addEventListener('secondsUpdated', (e) => {
+                        this.inQueueFor = this.timer.getTimeValues().toString().substring(3)
+                    })
+                } else {
+                    this.$store.commit('clearQueueTimer')
+                    this.timer.removeEventListener('secondsUpdated')
+                    this.timer.stop()
+                    this.timer = undefined;
+                }
+            }
         }
     }
 </script>

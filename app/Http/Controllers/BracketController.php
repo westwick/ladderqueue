@@ -21,9 +21,32 @@ use App\Events\PlayerLeftQueue;
 use App\LadderGame;
 use App\LadderParty;
 use App\LadderPlayer;
+use DB;
 
 class BracketController extends Controller
 {
+    public function games()
+    {
+        return response()->json(LadderGame::orderBy('id', 'desc')->get());
+    }
+
+    public function gameInfo()
+    {
+        $game = LadderGame::findOrFail(Input::get('id'));
+        return response()->json($game);
+    }
+
+    public function leaderboard()
+    {
+        $users = User::select('*', DB::raw('
+            FIND_IN_SET( ladder_points, (
+                SELECT GROUP_CONCAT( ladder_points
+                ORDER BY ladder_points DESC ) 
+                FROM users )
+            ) AS rank'))->orderBy('rank')->get();
+        return $users;
+    }
+
     public function joinQueue()
     {
         $user = Auth::user();
@@ -43,6 +66,20 @@ class BracketController extends Controller
         broadcast(new PlayerLeftQueue($user))->toOthers();
 
         return response()->json(['success' => true]);
+    }
+
+    public function ready()
+    {
+        $input = Input::all();
+        $game = LadderGame::findOrFail($input['gameId']);
+        $user = Auth::user();
+        $player = LadderPlayer::where('game_id', $game->id)->where('user_id', $user->id)->firstOrFail();
+        $player->status_id = LadderPlayer::$STATUS_ACCEPTED;
+        $player->save();
+
+        $game->checkReady();
+
+        return response()->json($game);
     }
 
     public function draftPlayer() {
@@ -70,7 +107,6 @@ class BracketController extends Controller
         $game = LadderGame::findOrFail($input['gameId']);
         if($user->canBanMapIn($game)) {
             $game->mapBan($input['map']);
-            broadcast(new MapBanned($game, $input['map']))->toOthers();
         }
 
         return response()->json(['success' => true]);

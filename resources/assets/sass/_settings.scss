@@ -65,7 +65,7 @@ $dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
 $body-background: $white;
-$body-font-color: $black;
+$body-font-color: #fff;
 //$body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
 //$body-font-family: 'Montserrat', sans-serif;
 $body-font-family: 'gotham', sans-serif;
@@ -555,7 +555,8 @@ $switch-paddle-transition: all 0.25s ease-out;
 // 32. Table
 // ---------
 
-$table-background: $white;
+//$table-background: $white;
+$table-background: #151515;
 $table-color-scale: 5%;
 $table-border: 1px solid smart-scale($table-background, $table-color-scale);
 $table-padding: rem-calc(8 10 10);

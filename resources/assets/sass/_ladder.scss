@@ -9,3 +9,15 @@
 .player-hover {
   color: $vxblue;
 }
+
+.leaderboard {
+  tr.active-user {
+    outline: thin solid $vxblue;
+  }
+}
+
+span.selectedMap {
+  font-weight: bold;
+  font-size: 18px;
+  color: $vxblue;
+}

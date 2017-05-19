@@ -1,85 +1,125 @@
 <template>
   <div>
-    <section class="queue-status-header main-top-padder ">
-      <div class="row" v-if="inGame">
-        <div class="small-12 columns">
-          <div class="">
-            <template v-if="pickTurn !== 0">
-              Status: <span class="player-hover">{{'@' + pickTurn.user.name}}'s</span> turn to pick a player
-            </template>
-            <template v-else>
-              Status: Someone's turn to ban a map
-            </template>
-          </div>
+    <div v-if="!allPlayersReady">
+        <div class="row">
+            <div class="small-12 columns text-center">
+                <div v-if="userReady">
+                    <div class="panel nmt">
+                        <p>Waiting for other players to accept</p>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="panel nmt">
+                        <h4>Match Found!</h4>
+                        <p>
+                            <button class="button" @click.prevent="readyCheck()" :disabled="loading">
+                                {{ !loading ? 'Accept': 'Please wait...'}}
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
-    <section v-if="!inGame" class="row padbot">
-      <div><p>Game Not Detected</p></div>
-    </section>
-    <section v-else class="row padbot text-center ladder-draft">
-      <div class="medium-4 columns">
-        <div class="panel">
-          <strong>Team 1</strong>
-          <div v-for="player in team1players" class="player-on-team draft-player">
-            <img :src="player.user.image" />
-            {{player.user.name}} ({{player.user.ladder_points}})
-          </div>
-        </div>
-      </div>
-      <div class="medium-4 columns">
-        <div class="panel">
-          <div v-if="undraftedcount > 0">
-            <strong>Undrafted Players</strong>
-            <div v-for="player in undraftedplayers" class="player-available draft-player">
-              <img :src="player.user.image" />
-              {{player.user.name}} ({{player.user.ladder_points}})
-              <div class="pick-player">
-                <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || loading">
-                  {{ !loading ? 'Draft': 'Drafting...'}}
-                </a>
+    </div>
+    <div v-else>
+        <section class="queue-status-header main-top-padder ">
+          <div class="row" v-if="inGame">
+            <div class="small-12 columns">
+              <div class="">
+                <template v-if="pickTurn !== 0">
+                  Status: <span class="player-hover">{{'@' + pickTurn.user.name}}'s</span> turn to pick a player
+                </template>
+                <template v-else>
+                  Status: Someone's turn to ban a map
+                </template>
               </div>
             </div>
           </div>
-          <div v-else>
-            <strong>Map Bans</strong>
-            <div class="map-banner" v-for="map in mapPool">
-              <p v-if="!mapIsBanned(map)">
-                {{map}}
-                <a href="#" class="button" @click.prevent="banMap(map)" :disabled="!canBanMap || this.loading">Ban</a>
-              </p>
-              <p v-else class="map-banned">
-                {{map}}
-              </p>
+        </section>
+        <section v-if="!inGame">
+          <div class="row">
+              <div class="small-12 columns">
+                  <div class="panel text-center">
+                      <h4>Game Not Detected</h4>
+                      <p>Try refreshing your page and if you are still having problems, contact an admin.</p>
+                  </div>
+              </div>
+          </div>
+        </section>
+        <section v-else class="row padbot text-center ladder-draft">
+          <div class="medium-4 columns">
+            <div class="panel">
+              <strong>Team 1</strong>
+              <div v-for="player in team1players" class="player-on-team draft-player">
+                <img :src="player.user.image" />
+                {{player.user.name}} ({{player.user.ladder_points}})
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="medium-4 columns">
-        <div class="panel">
-          <strong>Team 2</strong>
-          <div v-for="player in team2players" class="player-on-team draft-player">
-            <img :src="player.user.image" />
-            {{player.user.name}} ({{player.user.ladder_points}})
+          <div class="medium-4 columns">
+            <div class="panel">
+              <div v-if="undraftedcount > 0">
+                <strong>Undrafted Players</strong>
+                <div v-for="player in undraftedplayers" class="player-available draft-player">
+                  <img :src="player.user.image" />
+                  {{player.user.name}} ({{player.user.ladder_points}})
+                  <div class="pick-player">
+                    <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || loading">
+                      {{ !loading ? 'Draft': 'Drafting...'}}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                <strong>Map Bans</strong>
+                <div class="map-banner" v-for="map in mapPool">
+                  <p v-if="!mapIsBanned(map)">
+                    <span :class="{selectedMap: banTurn == 0}">{{map}}</span>
+                    <a href="#"
+                       class="button"
+                       @click.prevent="banMap(map)"
+                       :disabled="!canBanMap || loading"
+                       v-show="banTurn != 0">
+                         Ban
+                    </a>
+                  </p>
+                  <p v-else class="map-banned">
+                    {{map}}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+          <div class="medium-4 columns">
+            <div class="panel">
+              <strong>Team 2</strong>
+              <div v-for="player in team2players" class="player-on-team draft-player">
+                <img :src="player.user.image" />
+                {{player.user.name}} ({{player.user.ladder_points}})
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
   </div>
 </template>
 
-<script>
+<script type="text/babel">
     var _ = require('lodash')
     export default {
         data() {
             return {
                 loading: false,
+                echoId: 0,
                 mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
         },
         computed: {
             players() {
                 return this.$store.state.players
+            },
+            gamePlayers() {
+                return this.$store.state.game.players
             },
             game() {
                 return this.$store.state.game
@@ -89,6 +129,19 @@
             },
             inGame() {
               return this.game && this.game.id > 0
+            },
+            userPlayer() {
+                return _.find(this.gamePlayers, {user: {id: this.userid}})
+            },
+            userReady() {
+                return this.userPlayer.status_id > 0
+            },
+            allPlayersReady() {
+                var ready = true
+                _.forEach(this.gamePlayers, (player) => {
+                    if(player.status_id == 0) ready = false
+                })
+                return ready
             },
             undraftedplayers() {
               return _.filter(this.game.players, {team: 0})
@@ -142,14 +195,51 @@
         },
         methods: {
             startGameListener: function() {
+              if(!this.game.id) {
+                  console.log('no game id to listen to')
+                  return false
+              } else {
+                  this.echoId = this.game.id
+              }
+
               Echo.private('laddergame.' + this.game.id)
                   .listen('PlayerDrafted', (e) => {
                       this.playerDrafted(e.player)
                   })
                   .listen('MapBanned', (e) => {
-                      console.log(e)
                       this.mapBanned(e.map)
                   })
+                  .listen('GameCancelled', (e) => {
+                      var gameid = this.game.id
+                      this.$store.commit('clearGame')
+                      this.$router.push('/game/' + gameid)
+                  })
+                  .listen('GameAccepted', (e) => {
+                      console.log(e)
+                      this.$store.commit('updateGame', e.game)
+                  })
+                  .listen('GameDraftComplete', (e) => {
+                      var gameid = this.game.id
+                      // add a slight delay before transitioning
+                      setTimeout(() => {
+                          this.$router.push('/game/' + gameid)
+                      }, 1500)
+                  })
+            },
+            readyCheck() {
+                this.loading = true
+                var gameId = this.game.id
+                this.$http.post('/readycheck', {gameId}).then((response) => {
+                    this.loading = false
+                    var players = this.game.players
+                    var userplayer = _.find(players, {user: {id: this.userid}})
+                    if(userplayer) {
+                        userplayer.status_id = 10
+                        this.$store.commit('userReady', players)
+                    }
+                }, (response) => {
+                    this.loading = false
+                })
             },
             draftPlayer(userId) {
               if(!this.canDraft) return false
@@ -189,10 +279,22 @@
               return this.game.map_bans && this.game.map_bans.includes(map)
             }
         },
-        created: function () {
-            if(this.inGame) {
-              this.startGameListener()
+        watch: {
+            'game': function(newgame) {
+                console.log('game detected: ' + newgame.id)
+                if(newgame.id && newgame.id !== this.echoId) {
+                    console.log('starting game listener')
+                    this.echoId = newgame.id
+                    this.startGameListener()
+
+                } else {
+                    console.log('game listener already running')
+                }
             }
+        },
+        mounted: function () {
+          console.log('starting game listener from mount')
+          this.startGameListener()
         }
     }
 </script>

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="auth-area">
-    <a href="/"><img src="/images/vx.png" class="auth-logo" /></a>
+    <a href="/"><img src="/images/vxblue.png" class="auth-logo" /></a>
     <div class="panel panel-default">
 
 

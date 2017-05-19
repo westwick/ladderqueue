@@ -9,8 +9,13 @@
 
   color: #fff;
 
+  &.nmt {
+    margin-top: 0;
+  }
+
   p {
     color: #fff;
+    margin: 0;
   }
 }
 
@@ -29,6 +34,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.news-item {
+  max-width: 800px;
+  margin: 0 auto 1rem;
+
+  .title {
+    font-weight: 300;
+    border-bottom: 1px solid $vxblue;
+    margin-bottom: 0.75rem;
+  }
+  p {
+    margin-bottom: 1.25rem;
+  }
+  p.author-info {
+    margin: 0;
+    font-size: 13px;
+    text-align: right;
+
+    span {
+      color: $vxblue;
+    }
+  }
 }
 
 .icon {
@@ -87,6 +115,9 @@ img.grayscale:hover {
 
   .panel {
     width: 450px;
+
+    // this pushes the panels up in flexbox to make them appear more cenetered when a logo is above it
+    margin-bottom: 100px;
   }
 }
 

@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Events\GameAccepted;
+use App\Events\GameDraftComplete;
+use App\Events\MapBanned;
 use Illuminate\Database\Eloquent\Model;
 
 class LadderGame extends Model
@@ -13,9 +16,30 @@ class LadderGame extends Model
         'map_bans' => 'array'
     ];
 
+    public $appends = ['start_time', 'end_time'];
+
+    public static $STATUS_CREATED = 0;
+    public static $STATUS_ACCEPTED = 10;
+    public static $STATUS_DRAFT_COMPLETE = 20;
+    public static $STATUS_PLAYING = 30;
+    public static $STATUS_COMPLETE = 40;
+    public static $STATUS_CANCELLED = 90;
+    public static $STATUS_PLAYER_DECLINED = 91;
+    public static $STATUS_OTHER_DECLINED = 92;
+
     public function players()
     {
         return $this->hasMany('App\LadderPlayer', 'game_id');
+    }
+
+    public function getStartTimeAttribute()
+    {
+        return $this->created_at->tz('America/Los_Angeles')->format('M j @ g:ia');
+    }
+
+    public function getEndTimeAttribute()
+    {
+        return $this->updated_at->tz('America/Los_Angeles')->format('M j @ g:ia');
     }
 
     public function draftTurn()
@@ -46,6 +70,21 @@ class LadderGame extends Model
             case 1:
                 return 1;
                 break;
+        }
+        return false;
+    }
+
+    public function checkReady()
+    {
+        if($this->status_id == 10) {
+            return true;
+        }
+        $ready_players = LadderPlayer::where('game_id', $this->id)->where('status_id', '10')->count();
+        if($ready_players == 10 && $this->status_id == 0) {
+            $this->status_id = 10;
+            $this->save();
+            broadcast(new GameAccepted($this));
+            return true;
         }
         return false;
     }
@@ -81,11 +120,19 @@ class LadderGame extends Model
             }
         }
         $bans[] = $map;
+        $needsBroadcast = false;
         if(count($bans) === 6) {
             $lastmap = array_values(array_diff($this->map_pool, $bans));
             $this->map = $lastmap[0];
+            $this->status_id = 20;
+            $needsBroadcast = true;
         }
+        broadcast(new MapBanned($this, $map))->toOthers();
         $this->map_bans = $bans;
         $this->save();
+
+        if($needsBroadcast) {
+            broadcast(new GameDraftComplete($this));
+        }
     }
 }

@@ -49,9 +49,13 @@ Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 //Route::get('/forum/post', 'CommentController@showPostThreadForm')->middleware('auth');
 //Route::post('/post-thread', 'CommentController@postThread')->middleware('auth');
 
-Route::get('/ladder/queue', 'LadderController@showQueue');
-Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
+//Route::get('/ladder/queue', 'LadderController@showQueue');
+//Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
 
+Route::post('/games', 'BracketController@games');
+Route::post('/gameinfo', 'BracketController@gameInfo');
+Route::post('/leaderboard', 'BracketController@leaderboard');
+Route::post('/readycheck', 'BracketController@ready');
 Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
 Route::post('/leave-queue', 'BracketController@leaveQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');

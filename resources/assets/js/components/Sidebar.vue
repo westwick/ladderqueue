@@ -2,7 +2,7 @@
     <div class="user-sidebar">
 
         <div class="sidebar-logo">
-            <img src="/images/vx.png" />
+            <img src="/images/vxblue.png" />
         </div>
 
 
@@ -28,10 +28,10 @@
                 </router-link>
             </li>
             <li>
-                <a href="/">
+                <router-link to="/games">
                     <div class="nav-bullet"><i class="icon ion-clipboard"></i></div>
                     Game History
-                </a>
+                </router-link>
             </li>
         </ul>
 
@@ -42,9 +42,15 @@
         <ul class="main-nav">
             <li>
                 <a href="/">
+                    <div class="nav-bullet"><i class="icon ion-stats-bars"></i></div>
+                    Player Log
+                </a>
+            </li>
+            <li>
+                <router-link to="/settings">
                     <div class="nav-bullet"><i class="icon ion-gear-a"></i></div>
                     Settings
-                </a>
+                </router-link>
             </li>
             <li>
                 <a href="/logout" @click.prevent="doLogout">
@@ -58,7 +64,7 @@
 
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>
-            <p>Players online: <router-link to="/">15</router-link></p>
+            <p>Players online: <router-link to="/">{{onlineUserCount}}</router-link></p>
             <p>Games in progress: <router-link to="/">2</router-link></p>
 
             <div class="version">
@@ -71,7 +77,21 @@
 <script type="text/babel">
     export default {
         mounted() {
-            console.log('Component mounted.')
+            Echo.join('players')
+                .here((users) => {
+                    this.$store.commit('onlineUsers', users)
+                })
+                .joining((user) => {
+                    console.log(user.username + ' joined');
+                })
+                .leaving((user) => {
+                    console.log(user.username + 'left');
+                });
+        },
+        computed: {
+            onlineUserCount() {
+                return this.$store.state.onlineUsers.length
+            }
         },
         methods: {
             doLogout: function() {

@@ -3,7 +3,7 @@
         <sidebar></sidebar>
         <div class="content-area">
             <div class="content-head text-right">
-                Logged in as <strong>drew</strong> &mdash; Current Rank: <strong>29</strong>
+                Logged in as <strong>{{username}}</strong>
             </div>
             <div class="router-wrap">
                 <router-view></router-view>
@@ -19,8 +19,12 @@
             return {
                 players: this.initplayers,
                 game: this.initgame,
-                loading: false,
-                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
+                loading: false
+            }
+        },
+        computed: {
+            username() {
+                return this.$store.state.username
             }
         },
         mounted() {

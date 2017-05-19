@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\GameStarting;
 use App\Events\PlayerJoinedQueue;
+use App\Jobs\CheckPlayersReady;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -13,6 +14,7 @@ use App\LadderGame;
 use App\LadderPlayer;
 use App\QueueUser;
 use Log;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -43,6 +45,8 @@ class User extends Authenticatable
     {
         return json_encode([
             'userid' => $this->id,
+            'username' => $this->name,
+            'joinedQueue' => $this->joinedQueue(),
             //'party' => $this->activeParty(),
             'loggedIn' => true
         ]);
@@ -101,6 +105,15 @@ class User extends Authenticatable
         return $this->conversations()->orderBy('updated_at', 'desc')->get();
     }
 
+    public function joinedQueue()
+    {
+        $user = QueueUser::where('user_id', $this->id)->first();
+        if($user) {
+            return Carbon::now()->diffInSeconds($user->created_at);
+        }
+        return 0;
+    }
+
     public function activeParty()
     {
         $party = $this->parties->where('status_id', '<', Party::$STATUS_COMPLETE)->first();
@@ -121,7 +134,7 @@ class User extends Authenticatable
     {
         $player = LadderPlayer::where('user_id', $this->id)->where('status_id', '<', 90)->first();
         if($player) {
-            $game = LadderGame::find($player->game_id);
+            $game = LadderGame::where('id', $player->game_id)->where('status_id', '<', 90)->first();
         } else {
             $game = NULL;
         }
@@ -156,7 +169,7 @@ class User extends Authenticatable
             $player = new LadderPlayer();
             $player->user_id = $team1captain->user->id;
             $player->game_id = $game->id;
-            $player->status_id = 50;
+            $player->status_id = 0;
             $player->isCaptain = true;
             $player->team = 1;
             $player->save();
@@ -164,7 +177,7 @@ class User extends Authenticatable
             $player = new LadderPlayer();
             $player->user_id = $team2captain->user->id;
             $player->game_id = $game->id;
-            $player->status_id = 50;
+            $player->status_id = 0;
             $player->isCaptain = true;
             $player->team = 2;
             $player->save();
@@ -183,6 +196,10 @@ class User extends Authenticatable
             QueueUser::whereIn('user_id', $ids)->delete();
 
             broadcast(new GameStarting($game));
+
+            // dispatch a job to make sure everyone ready'd up within 30 seconds
+            $checkReady = (new CheckPlayersReady($game))->delay(Carbon::now()->addSeconds(10));
+            dispatch($checkReady);
         }
 
         return true;

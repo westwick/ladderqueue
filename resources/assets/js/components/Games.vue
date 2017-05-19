@@ -7,20 +7,22 @@
                 </div>
             </div>
             <div v-else>
-                <table class="leaderboard">
+                <table>
                     <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Points</th>
-                        <th>Player</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Started</th>
+                            <th>Ended</th>
+                            <th>Status</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="player in leaderboard" :class="{'active-user': player.id === userid}">
-                        <td width="8%">{{player.rank}}</td>
-                        <td width="8%">{{player.ladder_points}}</td>
-                        <td width="84%">{{player.name}}</td>
-                    </tr>
+                        <tr v-for="game in games">
+                            <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
+                            <td>{{game.start_time}}</td>
+                            <td>{{game.end_time}}</td>
+                            <td>{{game.status_id}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -33,12 +35,7 @@
         data() {
             return {
                 loading: true,
-                leaderboard: null
-            }
-        },
-        computed: {
-            userid() {
-                return this.$store.state.userid
+                games: null
             }
         },
         created() {
@@ -47,9 +44,9 @@
         methods: {
             fetchData() {
                 this.loading = true
-                this.$http.post('/leaderboard').then((response) => {
+                this.$http.post('/games').then((response) => {
                     this.loading = false
-                    this.leaderboard = response.data
+                    this.games = response.data
                 }, (response) => {
                     this.loading = false
                 })

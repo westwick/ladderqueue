@@ -50,3 +50,7 @@ Broadcast::channel('party.{partyId}', function ($user, $partyId) {
     }
     return false;
 });
+
+Broadcast::channel('players', function($user) {
+    return ['id' => $user->id, 'username' => $user->name];
+});
