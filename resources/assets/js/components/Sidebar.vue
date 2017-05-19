@@ -40,7 +40,7 @@
 
         <ul class="main-nav">
             <li>
-                <div class="nav-bullet"><i class="icon ion-clipboard"></i></div>
+                <div class="nav-bullet"><i class="icon ion-gear-a"></i></div>
                 <a href="/">Settings</a>
             </li>
             <li>

@@ -46773,7 +46773,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('li', [_c('div', {
     staticClass: "nav-bullet"
   }, [_c('i', {
-    staticClass: "icon ion-clipboard"
+    staticClass: "icon ion-gear-a"
   })]), _vm._v(" "), _c('a', {
     attrs: {
       "href": "/"
