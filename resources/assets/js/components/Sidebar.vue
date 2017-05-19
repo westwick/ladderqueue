@@ -17,7 +17,7 @@
         <ul class="main-nav">
             <li>
                 <div class="nav-bullet"><i class="icon ion-radio-waves"></i></div>
-                <router-link to="/">News</router-link>
+                <router-link to="/" exact>News</router-link>
             </li>
             <li>
                 <div class="nav-bullet"><i class="icon ion-trophy"></i></div>

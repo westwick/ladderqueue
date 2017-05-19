@@ -46712,7 +46712,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "main-nav"
   }, [_c('li', [_vm._m(1), _vm._v(" "), _c('router-link', {
     attrs: {
-      "to": "/"
+      "to": "/",
+      "exact": ""
     }
   }, [_vm._v("News")])], 1), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('router-link', {
     attrs: {
