@@ -1,7 +1,7 @@
 <template>
   <div class="queue-status" :class="componentClass">
       <div v-if="inGame">
-        <p v-if="!componentActive"><router-link to="/draft">Your game is in progress!</router-link></p>
+        <p v-if="!componentActive"><router-link :to="gameLink">Your game is in progress!</router-link></p>
         <p v-else>Game ID#{{game.id}} in progress</p>
       </div>
       <div v-else>
@@ -43,11 +43,18 @@
         computed: {
             componentClass() {
                 return {
-                    'route-active': this.$route.name === "Draft"
+                    'route-active': this.componentActive
                 }
             },
             componentActive() {
-                return this.$route.name === "Draft"
+                return this.$route.name === "Draft" || this.$route.name === "LadderGame"
+            },
+            gameLink() {
+                if(this.game.id && this.game.status_id < 20) {
+                    return "/draft"
+                } else {
+                    return "/game/" + this.game.id
+                }
             },
             players() {
                 return this.$store.state.players
@@ -96,9 +103,18 @@
                         if(userIsInGame) {
                           this.$store.commit('newGame', e.game)
                           this.$router.push('/draft')
-
-                        } else {
-                          location.reload()
+                        }
+                    })
+                    .listen('GameCompleted', (e) => {
+                        var userIsInGame = false
+                        _.forEach(e.game.players, (player) => {
+                            if(player.user.id === this.userid) {
+                                userIsInGame = true
+                            }
+                        })
+                        if(userIsInGame) {
+                            this.$store.commit('clearGame')
+                            this.$router.push('/games')
                         }
                     })
             },

@@ -55,11 +55,13 @@ Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 Route::post('/games', 'BracketController@games');
 Route::post('/gameinfo', 'BracketController@gameInfo');
 Route::post('/leaderboard', 'BracketController@leaderboard');
+Route::post('/playerlog', 'BracketController@playerlog');
 Route::post('/readycheck', 'BracketController@ready');
 Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
 Route::post('/leave-queue', 'BracketController@leaveQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');
 Route::post('/ban-map', 'BracketController@banMap');
+Route::post('/reportscore', 'BracketController@reportScore');
 
 
 //Route::get('/checkout', function() {

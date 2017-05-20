@@ -6,6 +6,7 @@ import GameDraft from '../components/GameDraft'
 import LadderGame from '../components/LadderGame'
 import Games from '../components/Games'
 import Settings from '../components/Settings'
+import PlayerLog from '../components/PlayerLog'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/leaderboard',
       name: 'Leaderboard',
       component: Leaderboard
+    },
+    {
+      path: '/log',
+      name: 'PlayerLog',
+      component: PlayerLog
     },
     {
       path: '/draft',

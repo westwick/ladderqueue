@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\GameStarting;
 use App\Events\MapBanned;
 use App\Events\PlayerDrafted;
+use App\PlayerLog;
 use Illuminate\Http\Request;
 use App\Bracket;
 use Illuminate\Support\Facades\Input;
@@ -27,7 +28,7 @@ class BracketController extends Controller
 {
     public function games()
     {
-        return response()->json(LadderGame::orderBy('id', 'desc')->get());
+        return response()->json(LadderGame::where('status_id', '>=', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get());
     }
 
     public function gameInfo()
@@ -45,6 +46,11 @@ class BracketController extends Controller
                 FROM users )
             ) AS rank'))->orderBy('rank')->get();
         return $users;
+    }
+
+    public function playerlog()
+    {
+        return response()->json(PlayerLog::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get());
     }
 
     public function joinQueue()
@@ -229,5 +235,24 @@ class BracketController extends Controller
         event(new PartyPlayerStatusChange($partyPlayer, $party));
 
         return response()->json(['success' => 'andrewiscool']);
+    }
+
+    public function reportScore()
+    {
+        $user = Auth::user();
+        $gameid = Input::get('gameid');
+        $team1score = Input::get('team1score');
+        $team2score = Input::get('team2score');
+
+        $game = LadderGame::findOrFail($gameid);
+        $player = LadderPlayer::where('user_id', $user->id)->where('game_id', $game->id)->first();
+
+        if(!$player || !$player->isCaptain) {
+            return response()->json(['success' => false], 400);
+        }
+
+        $game->complete($team1score, $team2score);
+
+        return response()->json(['success' => true]);
     }
 }

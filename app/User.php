@@ -132,9 +132,9 @@ class User extends Authenticatable
 
     public function getLadderGame()
     {
-        $player = LadderPlayer::where('user_id', $this->id)->where('status_id', '<', 90)->first();
+        $player = LadderPlayer::where('user_id', $this->id)->where('status_id', '<', 40)->first();
         if($player) {
-            $game = LadderGame::where('id', $player->game_id)->where('status_id', '<', 90)->first();
+            $game = LadderGame::where('id', $player->game_id)->where('status_id', '<', 40)->first();
         } else {
             $game = NULL;
         }
@@ -225,5 +225,17 @@ class User extends Authenticatable
     public function canBanMapIn(LadderGame $game)
     {
         return true;
+    }
+
+    public function adjustPoints($points, $memo)
+    {
+        $this->ladder_points += $points;
+        $this->save();
+
+        $log = new PlayerLog();
+        $log->user_id = $this->id;
+        $log->points = $points;
+        $log->memo = $memo;
+        $log->save();
     }
 }

@@ -13,6 +13,9 @@
                             <th>ID</th>
                             <th>Started</th>
                             <th>Ended</th>
+                            <th>Team 1 Score</th>
+                            <th>Team 2 Score</th>
+                            <th>Winner</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -20,7 +23,10 @@
                         <tr v-for="game in games">
                             <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
                             <td>{{game.start_time}}</td>
-                            <td>{{game.end_time}}</td>
+                            <td>{{game.ended_at}}</td>
+                            <td>{{game.team1score}}</td>
+                            <td>{{game.team2score}}</td>
+                            <td>Team {{game.winner}}</td>
                             <td>{{game.status_id}}</td>
                         </tr>
                     </tbody>

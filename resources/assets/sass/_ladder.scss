@@ -21,3 +21,32 @@ span.selectedMap {
   font-size: 18px;
   color: $vxblue;
 }
+
+.ready-status {
+  display: inline-block;
+  height: 100%;
+  position: absolute;
+  right: 0.75rem;
+  line-height: 61px;
+  top: 0;
+
+  &.ready {
+    color: $newgreen;
+  }
+
+  &.notready {
+    color: $celred;
+  }
+}
+
+.popflash-instructions {
+  text-align: left;
+  h4 {
+    text-align: center;
+  }
+  .popflash-notes {
+    font-size: 14px;
+    margin-top: 2rem;
+    color: #b8b8b8;
+  }
+}

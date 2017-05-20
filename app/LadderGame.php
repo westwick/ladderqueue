@@ -3,14 +3,17 @@
 namespace App;
 
 use App\Events\GameAccepted;
+use App\Events\GameCompleted;
 use App\Events\GameDraftComplete;
 use App\Events\MapBanned;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class LadderGame extends Model
 {
     public $with = ['players', 'players.user'];
     public $map_pool = ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train'];
+    protected $dates = ['created_at', 'updated_at', 'ended_at'];
 
     protected $casts = [
         'map_bans' => 'array'
@@ -124,7 +127,8 @@ class LadderGame extends Model
         if(count($bans) === 6) {
             $lastmap = array_values(array_diff($this->map_pool, $bans));
             $this->map = $lastmap[0];
-            $this->status_id = 20;
+            $this->status_id = 30;
+            $this->url = 'vx' . $this->id . '-' . time();
             $needsBroadcast = true;
         }
         broadcast(new MapBanned($this, $map))->toOthers();
@@ -134,5 +138,35 @@ class LadderGame extends Model
         if($needsBroadcast) {
             broadcast(new GameDraftComplete($this));
         }
+    }
+
+    public function complete($team1score, $team2score)
+    {
+        if($team1score > $team2score) {
+            $winner = 1;
+        } else {
+            $winner = 2;
+        }
+
+        $points = floor(abs($team1score - $team2score)/2) + 3;
+
+        $this->team1score = $team1score;
+        $this->team2score = $team2score;
+        $this->winner = $winner;
+        $this->status_id = LadderGame::$STATUS_COMPLETE;
+        $this->ended_at = Carbon::now();
+        $this->save();
+
+        foreach($this->players as $player) {
+            $player->status_id = 40;
+            $player->save();
+            if($player->team == $winner) {
+                $player->user->adjustPoints($points, 'won game id #' . $this->id);
+            } else {
+                $player->user->adjustPoints($points * -1, 'lost game id #' . $this->id);
+            }
+        }
+
+        broadcast(new GameCompleted($this));
     }
 }

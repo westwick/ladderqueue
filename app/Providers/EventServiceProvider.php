@@ -46,6 +46,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\GameDraftComplete' => [
         ],
+        'App\Events\GameCompleted' => [
+        ],
     ];
 
     /**

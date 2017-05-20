@@ -41,10 +41,10 @@
 
         <ul class="main-nav">
             <li>
-                <a href="/">
+                <router-link to="/log">
                     <div class="nav-bullet"><i class="icon ion-stats-bars"></i></div>
                     Player Log
-                </a>
+                </router-link>
             </li>
             <li>
                 <router-link to="/settings">
