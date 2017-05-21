@@ -198,3 +198,7 @@ table {
     }
   }
 }
+
+.slide-fade-enter-active{transition: all .2s ease-in-out}
+.slide-fade-leave-active{transition: all .2s ease-in-out}
+.slide-fade-enter, .slide-fade-leave-to{transform: translateY(16px);opacity: 0}

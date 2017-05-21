@@ -37,12 +37,15 @@ class LadderGame extends Model
 
     public function getStartTimeAttribute()
     {
-        return $this->created_at->tz('America/Los_Angeles')->format('M j @ g:ia');
+        return $this->created_at->tz('America/New_York')->format('M j @ g:ia');
     }
 
     public function getEndTimeAttribute()
     {
-        return $this->updated_at->tz('America/Los_Angeles')->format('M j @ g:ia');
+        if($this->ended_at) {
+            return $this->ended_at->tz('America/New_York')->format('g:ia');
+        }
+        return null;
     }
 
     public function draftTurn()

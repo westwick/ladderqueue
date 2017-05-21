@@ -103,6 +103,8 @@
                         if(userIsInGame) {
                           this.$store.commit('newGame', e.game)
                           this.$router.push('/draft')
+                          var gameready = new Audio('/audio/gameready.wav')
+                          gameready.play()
                         }
                     })
                     .listen('GameCompleted', (e) => {

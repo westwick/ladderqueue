@@ -6,7 +6,9 @@
                 Logged in as <strong>{{username}}</strong>
             </div>
             <div class="router-wrap">
-                <router-view></router-view>
+                <transition name="slide-fade" appear mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
     </div>

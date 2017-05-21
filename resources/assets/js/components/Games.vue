@@ -23,11 +23,15 @@
                         <tr v-for="game in games">
                             <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
                             <td>{{game.start_time}}</td>
-                            <td>{{game.ended_at}}</td>
+                            <td>{{game.end_time}}</td>
                             <td>{{game.team1score}}</td>
                             <td>{{game.team2score}}</td>
-                            <td>Team {{game.winner}}</td>
-                            <td>{{game.status_id}}</td>
+                            <td>
+                                <template v-if="game.winner >= 1">
+                                    {{game.winner}}
+                                </template>
+                            </td>
+                            <td v-html="gameStatus(game.status_id)"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,6 +60,14 @@
                 }, (response) => {
                     this.loading = false
                 })
+            },
+            gameStatus(id) {
+                if(id == 40) {
+                    return '<span class="game-complete">Completed</span>'
+                }
+                if(id == 91) {
+                    return '<span class="game-cancelled">Cancelled</span>'
+                }
             }
         }
     }

@@ -38178,6 +38178,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['initplayers', 'initgame'],
@@ -38853,6 +38855,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -38876,6 +38882,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, function (response) {
                 _this.loading = false;
             });
+        },
+        gameStatus: function gameStatus(id) {
+            if (id == 40) {
+                return '<span class="game-complete">Completed</span>';
+            }
+            if (id == 91) {
+                return '<span class="game-cancelled">Cancelled</span>';
+            }
         }
     }
 };
@@ -39287,6 +39301,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     mounted: function mounted() {
@@ -39672,6 +39706,8 @@ var Timer = __webpack_require__(54);
                 if (userIsInGame) {
                     _this2.$store.commit('newGame', e.game);
                     _this2.$router.push('/draft');
+                    var gameready = new Audio('/audio/gameready.wav');
+                    gameready.play();
                 }
             }).listen('GameCompleted', function (e) {
                 var userIsInGame = false;
@@ -48169,7 +48205,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "to": '/game/' + game.id
       }
-    }, [_vm._v(_vm._s(game.id))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.start_time))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.ended_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.team1score))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.team2score))]), _vm._v(" "), _c('td', [_vm._v("Team " + _vm._s(game.winner))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.status_id))])])
+    }, [_vm._v(_vm._s(game.id))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.start_time))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.end_time))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.team1score))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.team2score))]), _vm._v(" "), _c('td', [(game.winner >= 1) ? [_vm._v("\n                                " + _vm._s(game.winner) + "\n                            ")] : _vm._e()], 2), _vm._v(" "), _c('td', {
+      domProps: {
+        "innerHTML": _vm._s(_vm.gameStatus(game.status_id))
+      }
+    })])
   }))])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -48190,20 +48230,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "small-12 columns"
+    staticClass: "medium-6 columns"
   }, [_c('div', {
     staticClass: "panel nmt news-item"
-  }, [_c('h4', {
+  }, [_c('h5', {
     staticClass: "title"
-  }, [_vm._v("Beta version is released!")]), _vm._v(" "), _c('p', [_vm._v("We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.")]), _vm._v(" "), _c('p', [_vm._v("See you on the ladder!")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Beta version is released!")]), _vm._v(" "), _c('p', {
     staticClass: "author-info"
-  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")]), _vm._v(" "), _c('p', [_vm._v("We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.")]), _vm._v(" "), _c('p', [_vm._v("See you on the ladder!")])]), _vm._v(" "), _c('div', {
     staticClass: "panel nmt news-item"
-  }, [_c('h4', {
+  }, [_c('h5', {
     staticClass: "title"
-  }, [_vm._v("Some other news")]), _vm._v(" "), _c('p', [_vm._v("Blahhhh")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Jam is a fairy")]), _vm._v(" "), _c('p', {
     staticClass: "author-info"
-  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")])])])])
+  }, [_vm._v("Posted by "), _c('span', [_vm._v("@rep")]), _vm._v(" on May 18, 2017")]), _vm._v(" "), _c('p', [_vm._v("Enough said.")])])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-6 columns"
+  }, [_c('div', {
+    staticClass: "panel nmt news-item support-info"
+  }, [_c('h5', {
+    staticClass: "title"
+  }, [_vm._v("Support")]), _vm._v(" "), _c('h6', [_vm._v("Join our Teamspeak server")]), _vm._v(" "), _c('p', [_vm._v("Our teamspeak is where most of our players hang out. Feel free to join and talk throughout your ladder adventures: "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("vitalityx.ts.nfoservers.com")])]), _vm._v(" "), _c('h6', [_vm._v("Report a bug or issue")]), _vm._v(" "), _c('p', [_vm._v("Please let us know if you find a bug on the site through one of contact methods below. If you find a bug you'll be rewarded with a badge on your player profile!")]), _vm._v(" "), _c('h6', [_vm._v("Have another idea?")]), _vm._v(" "), _c('p', [_vm._v("We'd love to hear your thoughts on how to improve the experience. If you have an idea, hop in our discord and post it in the ideas channel!")]), _vm._v(" "), _c('h6', [_vm._v("Contact")]), _vm._v(" "), _c('p', [_c('ul', [_c('li', [_vm._v("Teamspeak: "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("link")])]), _vm._v(" "), _c('li', [_vm._v("Discord: "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("link")])]), _vm._v(" "), _c('li', [_vm._v("Twitter: "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("@vitality_x")])]), _vm._v(" "), _c('li', [_vm._v("Email: "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("link")])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -48485,7 +48551,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "content-head text-right"
   }, [_vm._v("\n            Logged in as "), _c('strong', [_vm._v(_vm._s(_vm.username))])]), _vm._v(" "), _c('div', {
     staticClass: "router-wrap"
-  }, [_c('router-view')], 1)])], 1)
+  }, [_c('transition', {
+    attrs: {
+      "name": "slide-fade",
+      "appear": "",
+      "mode": "out-in"
+    }
+  }, [_c('router-view')], 1)], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
