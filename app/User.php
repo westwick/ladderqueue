@@ -47,6 +47,8 @@ class User extends Authenticatable
             'userid' => $this->id,
             'username' => $this->name,
             'joinedQueue' => $this->joinedQueue(),
+            'is_admin' => $this->is_admin,
+            'canQueue' => $this->ladder_queue != '',
             //'party' => $this->activeParty(),
             'loggedIn' => true
         ]);

@@ -145,13 +145,9 @@ class LadderGame extends Model
 
     public function complete($team1score, $team2score)
     {
-        if($team1score > $team2score) {
-            $winner = 1;
-        } else {
-            $winner = 2;
-        }
+        $winner = $this->getWinner($team1score, $team2score);
 
-        $points = floor(abs($team1score - $team2score)/2) + 3;
+        $points = $this->getPoints($team1score, $team2score);
 
         $this->team1score = $team1score;
         $this->team2score = $team2score;
@@ -171,5 +167,20 @@ class LadderGame extends Model
         }
 
         broadcast(new GameCompleted($this));
+    }
+
+    public function getWinner($team1score, $team2score)
+    {
+        if($team1score > $team2score) {
+            $winner = 1;
+        } else {
+            $winner = 2;
+        }
+        return $winner;
+    }
+
+    public function getPoints($team1score, $team2score) 
+    {
+        return floor(abs($team1score - $team2score)/2) + 3;
     }
 }

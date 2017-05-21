@@ -46,6 +46,12 @@
                     Player Log
                 </router-link>
             </li>
+            <li v-if="isAdmin">
+                <router-link to="/admin">
+                    <div class="nav-bullet"><i class="icon ion-flash"></i></div>
+                    Admin
+                </router-link>
+            </li>
             <li>
                 <router-link to="/settings">
                     <div class="nav-bullet"><i class="icon ion-gear-a"></i></div>
@@ -65,7 +71,7 @@
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>
             <p>Players online: <router-link to="/players">{{onlineUserCount}}</router-link></p>
-            <p>Games in progress: <router-link to="/">2</router-link></p>
+            <p>Games in progress: <router-link to="/live-games">{{gamesInProgressCount}}</router-link></p>
 
             <div class="version">
                 Beta v0.0.1
@@ -97,6 +103,12 @@
         computed: {
             onlineUserCount() {
                 return this.$store.state.onlineUsers.length
+            },
+            gamesInProgressCount() {
+                return this.$store.state.games.length
+            },
+            isAdmin() {
+                return this.$store.state.is_admin
             }
         },
         methods: {

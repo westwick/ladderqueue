@@ -17,7 +17,18 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in log">
-                        <td width="10%">{{item.points}}</td>
+                        <td width="10%">
+                            <template v-if="item.points > 0">
+                                <span class="points-positive">
+                                    +{{item.points}}
+                                </span>
+                            </template>
+                            <template v-else>
+                                <span class="points-negative">
+                                    {{item.points}}
+                                </span>
+                            </template>
+                        </td>
                         <td width="60%">{{item.memo}}</td>
                         <td width="30%">{{item.time_ago}}</td>
                     </tr>

@@ -16,11 +16,12 @@
 
 <script type="text/babel">
     export default {
-        props: ['initplayers', 'initgame'],
+        props: ['initplayers', 'initgame', 'initgames'],
         data() {
             return {
                 players: this.initplayers,
                 game: this.initgame,
+                games: this.initgames,
                 loading: false
             }
         },
@@ -33,6 +34,7 @@
             var data = {};
             data.players = this.players
             data.game = this.game
+            data.games = this.games
             this.$store.commit('setGamestate', data)
         }
     }

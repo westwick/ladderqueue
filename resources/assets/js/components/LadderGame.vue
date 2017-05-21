@@ -92,6 +92,29 @@
                 </div>
             </div>
 
+            <div v-if="isAdmin && !loading && game.status_id == 40" class="row">
+                <div class="small-12 columns">
+                    <div class="panel">
+                        <h6>ADMIN</h6>
+                        <p style="margin-bottom: 1rem;">Important: Changing this game's score will automatically adjust each players points</p>
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <p>Team 1 Score</p>
+                                <input type="number" v-model.number="team1score" />
+                            </div>
+                            <div class="medium-6 columns">
+                                <p>Team 2 Score</p>
+                                <input type="number" v-model.number="team2score" />
+                            </div>
+                        </div>
+                        <button class="button" @click="updateScore()">Update Score</button>
+                        <div v-if="success">
+                            Updated!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -103,6 +126,7 @@
             return {
                 loading: true,
                 posting: false,
+                success: false,
                 team1score: 0,
                 team2score: 0,
                 game: null,
@@ -112,6 +136,9 @@
         computed: {
             userid() {
                 return this.$store.state.userid
+            },
+            isAdmin() {
+                return this.$store.state.is_admin
             },
             userInGame() {
                 if(this.game) {
@@ -156,6 +183,8 @@
                 this.$http.post('/gameinfo', {id: this.$route.params.id}).then((response) => {
                     this.loading = false
                     this.game = response.data
+                    this.team1score = this.game.team1score
+                    this.team2score = this.game.team2score
                 }, (response) => {
                     this.loading = false
                 })
@@ -183,6 +212,20 @@
                     return true
                 } else {
                     return false
+                }
+            },
+            updateScore() {
+                if(this.isAdmin) {
+                    this.posting = true
+                    var gameid = this.$route.params.id
+                    var team1score = this.team1score
+                    var team2score = this.team2score
+                    this.$http.post('/admin/updatescore', {gameid, team1score, team2score}).then((response) => {
+                        this.posting = false
+                        this.success = true
+                    }, (response) => {
+                        this.posting = false
+                    })
                 }
             }
         }

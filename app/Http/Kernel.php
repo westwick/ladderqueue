@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         'steamauth' => \App\Http\Middleware\SteamAuthenticated::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
     ];
 }

@@ -44,7 +44,7 @@ class BracketController extends Controller
                 SELECT GROUP_CONCAT( ladder_points
                 ORDER BY ladder_points DESC ) 
                 FROM users )
-            ) AS rank'))->orderBy('rank')->get();
+            ) AS rank'))->where('ladder_queue', '!=', '')->orderBy('rank')->get();
         return $users;
     }
 
@@ -72,6 +72,13 @@ class BracketController extends Controller
         broadcast(new PlayerLeftQueue($user))->toOthers();
 
         return response()->json(['success' => true]);
+    }
+
+    public function getQueue()
+    {
+        $ids = QueueUser::all()->pluck('user_id');
+        $players = User::whereIn('id', $ids)->get();
+        return response()->json($players);
     }
 
     public function ready()

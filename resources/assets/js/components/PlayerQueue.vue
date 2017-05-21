@@ -1,30 +1,35 @@
 <template>
   <div class="queue-status" :class="componentClass">
-      <div v-if="inGame">
-        <p v-if="!componentActive"><router-link :to="gameLink">Your game is in progress!</router-link></p>
-        <p v-else>Game ID#{{game.id}} in progress</p>
-      </div>
-      <div v-else>
-          <div v-if="players.length >= 10">
-              <p>Starting a game, please wait...</p>
+      <template v-if="canQueue">
+          <div v-if="inGame">
+              <p v-if="!componentActive"><router-link :to="gameLink">Your game is in progress!</router-link></p>
+              <p v-else>Game ID#{{game.id}} in progress</p>
           </div>
           <div v-else>
-              <div v-if="!inQueue">
-                  <button class="button queue-button" @click.prevent="enterQueue" :disabled="this.loading">
-                      {{ !this.loading ? 'Join Queue': 'Joining...'}}
-                  </button>
+              <div v-if="players.length >= 10">
+                  <p>Starting a game, please wait...</p>
               </div>
-              <div v-if="inQueue">
-                  <p class="queue-timer">{{inQueueFor}}</p>
-                  <p class="in-queue">
-                      <a href="#" @click.prevent="leaveQueue" :disabled="this.loading">
-                          {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
-                      </a>
-                  </p>
+              <div v-else>
+                  <div v-if="!inQueue">
+                      <button class="button queue-button" @click.prevent="enterQueue" :disabled="this.loading">
+                          {{ !this.loading ? 'Join Queue': 'Joining...'}}
+                      </button>
+                  </div>
+                  <div v-if="inQueue">
+                      <p class="queue-timer">{{inQueueFor}}</p>
+                      <p class="in-queue">
+                          <a href="#" @click.prevent="leaveQueue" :disabled="this.loading">
+                              {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
+                          </a>
+                      </p>
+                  </div>
+                  <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
               </div>
-              <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
           </div>
-      </div>
+      </template>
+      <template v-else>
+          <p>You do not have queue privileges. <br />Speak with an admin</p>
+      </template>
   </div>
 </template>
 
@@ -41,6 +46,9 @@
             }
         },
         computed: {
+            canQueue() {
+                return this.$store.state.canQueue
+            },
             componentClass() {
                 return {
                     'route-active': this.componentActive
@@ -105,7 +113,13 @@
                           this.$router.push('/draft')
                           var gameready = new Audio('/audio/gameready.wav')
                           gameready.play()
+                        } else {
+                          this.updateQueuePlayers()
                         }
+
+                        var games = this.$store.state.games
+                        games.push(e.game)
+                        this.$store.commit('gamesUpdated', games)
                     })
                     .listen('GameCompleted', (e) => {
                         var userIsInGame = false
@@ -118,6 +132,12 @@
                             this.$store.commit('clearGame')
                             this.$router.push('/games')
                         }
+
+                        var games = this.$store.state.games
+                        var newGames = _.filter(games, function(newGame) {
+                            return newGame.id !== e.game.id
+                        })
+                        this.$store.commit('gamesUpdated', newGames)
                     })
             },
             enterQueue() {
@@ -150,6 +170,13 @@
                     this.$store.commit('playersUpdated', p)
                 }, (response) => {
                     this.loading = false
+                })
+            },
+            updateQueuePlayers() {
+                this.$http.post('/get-queue').then((response) => {
+                    this.$store.commit('playersUpdated', response.data)
+                }, (response) => {
+                    //
                 })
             }
         },

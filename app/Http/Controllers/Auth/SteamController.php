@@ -25,7 +25,7 @@ class SteamController extends Controller
         $user = Auth::user();
         if($user->steam_verified) {
             flash('You have already connected steam to this account', 'error');
-            return redirect('/home');
+            return redirect('/');
         }
 
         if ($this->steam->validate()) {
@@ -35,7 +35,7 @@ class SteamController extends Controller
                 $exists = User::where('steamid64', $info->steamID64)->first();
                 if($exists) {
                     flash('That steam account is already connected to another user', 'error');
-                    return redirect('/home');
+                    return redirect('/');
                 }
 
                 $user->username = $info->personaname;
@@ -48,7 +48,7 @@ class SteamController extends Controller
                 event(new UserAccountProgress($user, 'authenticated with steam'));
 
                 flash('Your steam account has been connected', 'success');
-                return redirect('/home'); // redirect to site
+                return redirect('/'); // redirect to site
             }
         }
         return $this->steam->redirect(); // redirect to Steam login page

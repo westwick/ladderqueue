@@ -54,3 +54,22 @@ span.selectedMap {
 .game-cancelled {
   color: #676767;
 }
+
+.points-positive {
+  font-size: 18px;
+  font-weight: bold;
+  color: $newgreen;
+}
+
+.points-negative {
+  font-size: 18px;
+  font-weight: bold;
+  color: $celred;
+}
+
+.admin-toolbar {
+  .button {
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+}

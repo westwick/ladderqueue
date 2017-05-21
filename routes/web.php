@@ -52,6 +52,13 @@ Route::get('/steam/auth', 'Auth\SteamController@steamAuth');
 //Route::get('/ladder/queue', 'LadderController@showQueue');
 //Route::get('/ladder/leaderboard', 'LadderController@showLeaderboard');
 
+Route::post('/admin/users', 'AdminController@getUsers');
+Route::post('/admin/updatescore', 'AdminController@updateScore');
+Route::post('/admin/clearqueue', 'AdminController@clearQueue');
+Route::post('/admin/approve', 'AdminController@approveUser');
+Route::post('/admin/remove', 'AdminController@removeUser');
+Route::post('/admin/adjust-points', 'AdminController@adjustPoints');
+
 Route::post('/games', 'BracketController@games');
 Route::post('/gameinfo', 'BracketController@gameInfo');
 Route::post('/leaderboard', 'BracketController@leaderboard');
@@ -59,6 +66,7 @@ Route::post('/playerlog', 'BracketController@playerlog');
 Route::post('/readycheck', 'BracketController@ready');
 Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
 Route::post('/leave-queue', 'BracketController@leaveQueue');
+Route::post('/get-queue', 'BracketController@getQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');
 Route::post('/ban-map', 'BracketController@banMap');
 Route::post('/reportscore', 'BracketController@reportScore');

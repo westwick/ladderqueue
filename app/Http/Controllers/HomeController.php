@@ -34,15 +34,13 @@ class HomeController extends Controller
             $canQueue = true;
             $players = [];
             $game = [];
-            if(!$user || !$user->ladder_queue) {
-                $canQueue = false;
-                return view('ladder.queue')->with(compact('players', 'game', 'canQueue'));
-            }
             $ids = QueueUser::all()->pluck('user_id');
             $players = User::whereIn('id', $ids)->get();
 
+            $gamesInProgress = LadderGame::where('status_id', '<', 40)->get();
+
             $game = $user->getLadderGame();
-            return view('home')->with(compact('players', 'game', 'canQueue'));
+            return view('home')->with(compact('players', 'game', 'gamesInProgress'));
         } else {
             return view('welcome');
         }

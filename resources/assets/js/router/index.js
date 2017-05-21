@@ -8,6 +8,7 @@ import Games from '../components/Games'
 import Settings from '../components/Settings'
 import PlayerLog from '../components/PlayerLog'
 import OnlineUsers from '../components/OnlineUsers'
+import Admin from '../components/Admin'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/game/:id',
       name: 'LadderGame',
       component: LadderGame
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     }
   ]
 })

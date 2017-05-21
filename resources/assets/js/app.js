@@ -25,13 +25,16 @@ Vue.use(VueAxios, axios)
 const store = new Vuex.Store({
   state: {
     loggedIn: false,
+    is_admin: false,
     csrfToken: '',
     userid: 0,
     username: '',
+    canQueue: false,
     joinedQueue: 0,
     onlineUsers: [],
     players: [],
-    game: ''
+    game: '',
+    games: []
   },
   mutations: {
     setUserstate (state, userstate) {
@@ -40,6 +43,8 @@ const store = new Vuex.Store({
       state.joinedQueue = userstate.joinedQueue
       state.party = userstate.party
       state.loggedIn = userstate.loggedIn
+      state.canQueue = userstate.canQueue
+      state.is_admin = userstate.is_admin
     },
     setCsrfToken (state, token) {
       state.csrfToken = token
@@ -54,6 +59,7 @@ const store = new Vuex.Store({
     setGamestate(state, data) {
       state.players = data.players
       state.game = data.game
+      state.games = data.games
     },
     clearGame(state) {
       state.game = ''
@@ -69,6 +75,9 @@ const store = new Vuex.Store({
     },
     onlineUsers(state, users) {
       state.onlineUsers = users
+    },
+    gamesUpdated(state, games) {
+      state.games = games
     }
   }
 })
