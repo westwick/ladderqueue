@@ -55,7 +55,7 @@
             <li>
                 <a href="/logout" @click.prevent="doLogout">
                     <div class="nav-bullet"><i class="icon ion-log-out"></i></div>
-                    Logout
+                    Log Out
                 </a>
             </li>
         </ul>

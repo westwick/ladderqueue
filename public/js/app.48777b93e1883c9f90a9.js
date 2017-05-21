@@ -48109,7 +48109,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.doLogout($event)
       }
     }
-  }, [_vm._m(1), _vm._v("\n                Logout\n            ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v("\n                Log Out\n            ")])])]), _vm._v(" "), _c('div', {
     staticClass: "placeholder-bar"
   }), _vm._v(" "), _c('div', {
     staticClass: "platform-status"
