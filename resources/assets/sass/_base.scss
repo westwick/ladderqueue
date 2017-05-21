@@ -115,15 +115,26 @@ table {
 }
 
 #toast-container {
+  width: calc(100vw - 300px);
+  padding: 0 1rem;
+
+  &.toast-bottom-right {
+    right: 0;
+  }
 
   & > div {
+    box-shadow: 0 0 4px rgba(30, 123, 228, 0.5);
+
     &.toast {
-      background-color: #FFF;
+      background-color: #111;
+      border: 1px solid $vxblue;
+      width: 100%;
     }
     &.toast-success {
-      background-color: #FFF;
-      border: 1px solid #51A351;
-      color: #51A351;
+      //background-color: #FFF;
+      //border: 1px solid #51A351;
+      //color: #51A351;
+      background-image: none !important;
 
       &:before {
         content: '\f122';
@@ -136,14 +147,16 @@ table {
       }
 
       .toast-progress {
-        background-color: #51A351;
-        opacity: 1;
+        //background-color: #51A351;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-error {
-      background-color: #FFF;
-      border: 1px solid #BD362F;
-      color: #BD362F;
+      //background-color: #FFF;
+      //border: 1px solid #BD362F;
+      //color: #BD362F;
+      background-image: none !important;
 
       &:before {
         content: '\f12a';
@@ -151,19 +164,22 @@ table {
         color: #BD362F;
         position: absolute;
         left: 1rem;
-        top: 12px;
+        top: 9px;
         font-size: 1.5rem;
       }
 
       .toast-progress {
-        background-color: #BD362F;
-        opacity: 1;
+        //background-color: #BD362F;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-info {
-      background-color: #FFF;
-      border: 1px solid #2F96B4;
-      color: #2F96B4;
+      //background-color: #FFF;
+      //border: 1px solid #2F96B4;
+      //color: #2F96B4;
+      background-image: none !important;
 
       &:before {
         content: '\f149';
@@ -176,14 +192,17 @@ table {
       }
 
       .toast-progress {
-        background-color: #2F96B4;
-        opacity: 1;
+        //background-color: #2F96B4;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-warning {
-      background-color: #FFF;
-      border: 1px solid #F89406;
-      color: #F89406;
+      //background-color: #FFF;
+      //border: 1px solid #F89406;
+      //color: #F89406;
+      background-image: none !important;
 
       &:before {
         content: '\f101';
@@ -196,8 +215,10 @@ table {
       }
 
       .toast-progress {
-        background-color: #F89406;
-        opacity: 1;
+        //background-color: #F89406;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
   }

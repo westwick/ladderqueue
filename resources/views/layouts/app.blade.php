@@ -69,6 +69,7 @@
 
             toastr.options.progressBar = true
             toastr.options.positionClass = 'toast-bottom-right'
+            //toastr.options.timeOut = 500000
 
             @if (session()->has('flash_notification.message'))
                 toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')
