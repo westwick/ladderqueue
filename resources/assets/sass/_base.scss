@@ -46,7 +46,7 @@ input[type='text'], input[type='password'], input[type='email'] {
   border: 1px solid #22222a;
 
   &:focus {
-    border-color: #eddcb3;
+    border-color: $vxblue;
     outline: 0;
     box-shadow: none;
   }

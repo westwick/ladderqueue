@@ -38,10 +38,9 @@
 <body id="main">
 <div id="app">
     <video playsinline autoplay muted loop poster="carbonpattern.png" id="bgvid">
-        <source src="/images/homepage.mp4" type="video/mp4">
+        <source src="/images/homevideo.mp4" type="video/mp4">
     </video>
-    <div class="homepage">
-        <img src="/images/vxblue.png" class="homepage-logo" />
+    <div class="login-area">
         <p>
             <a href="/login">Login</a>
             or

@@ -5,7 +5,7 @@
   padding: 1rem;
   background-color: #151515;
   border: 1px solid #1e1e1f;
-  border-radius: 3px;
+  //border-radius: 3px;
 
   color: #fff;
 
@@ -39,7 +39,13 @@
 .news-item {
   max-width: 800px;
   margin: 0 auto 1rem;
-  border-top: 3px solid $vxblue;
+  border-top: none;
+  padding: 0;
+
+  .news-inner {
+    border-top: 3px solid $vxblue;
+    padding: 1rem;
+  }
 
   .title {
     margin: 0;
@@ -51,6 +57,10 @@
     text-align: left;
     color: #676767;
     font-size: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   p.author-info {
     margin: 0 0 2rem;

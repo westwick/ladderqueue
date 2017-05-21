@@ -64,7 +64,7 @@
 
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>
-            <p>Players online: <router-link to="/">{{onlineUserCount}}</router-link></p>
+            <p>Players online: <router-link to="/players">{{onlineUserCount}}</router-link></p>
             <p>Games in progress: <router-link to="/">2</router-link></p>
 
             <div class="version">
@@ -82,10 +82,16 @@
                     this.$store.commit('onlineUsers', users)
                 })
                 .joining((user) => {
-                    console.log(user.username + ' joined');
+                    var users = this.$store.state.onlineUsers
+                    users.push(user)
+                    this.$store.commit('onlineUsers', users)
                 })
                 .leaving((user) => {
-                    console.log(user.username + 'left');
+                    var users = this.$store.state.onlineUsers
+                    var newUsers = _.filter(users, function(newUser) {
+                        return newUser.id !== user.id
+                    })
+                    this.$store.commit('onlineUsers', newUsers)
                 });
         },
         computed: {
