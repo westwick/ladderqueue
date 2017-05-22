@@ -48493,7 +48493,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n                        " + _vm._s(!_vm.loading ? 'Edit Users' : 'Loading...') + "\n                    ")])])] : _vm._e()] : [_c('p', {
     staticClass: "text-center; font-size: 25px"
   }, [_vm._v("Unauthorized")])], _vm._v(" "), (_vm.users.length > 0 && !_vm.editUser) ? _c('table', [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.created_at))]), _vm._v(" "), _c('td', [(user.ladder_queue != '') ? [_vm._v("\n                            VitalityX\n                        ")] : [_c('span', {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.created_at))]), _vm._v(" "), _c('td', [(user.ladder_queue == 'vitalityx') ? [_vm._v("\n                            VitalityX\n                        ")] : [_c('span', {
       staticStyle: {
         "color": "#666"
       }

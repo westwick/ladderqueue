@@ -9,13 +9,6 @@
                     <p>See you on the ladder!</p>
                 </div>
             </div>
-            <div class="panel nmt news-item">
-                <div class="news-inner">
-                    <h5 class="title">Jam is a fairy</h5>
-                    <p class="author-info">Posted by <span>@rep</span> on May 18, 2017</p>
-                    <p>Enough said.</p>
-                </div>
-            </div>
         </div>
         <div class="medium-6 columns">
             <div class="panel nmt news-item support-info">

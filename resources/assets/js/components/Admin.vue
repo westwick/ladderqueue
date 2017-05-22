@@ -31,7 +31,7 @@
                         <td>{{user.name}}</td>
                         <td>{{user.created_at}}</td>
                         <td>
-                            <template v-if="user.ladder_queue != ''">
+                            <template v-if="user.ladder_queue == 'vitalityx'">
                                 VitalityX
                             </template>
                             <template v-else>

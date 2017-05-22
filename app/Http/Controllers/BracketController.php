@@ -43,8 +43,8 @@ class BracketController extends Controller
             FIND_IN_SET( ladder_points, (
                 SELECT GROUP_CONCAT( ladder_points
                 ORDER BY ladder_points DESC ) 
-                FROM users )
-            ) AS rank'))->where('ladder_queue', '!=', '')->orderBy('rank')->get();
+                FROM users where ladder_queue = "vitalityx" )
+            ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
         return $users;
     }
 
