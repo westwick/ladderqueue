@@ -80,3 +80,24 @@ span.selectedMap {
     font-weight: bold;
   }
 }
+
+.online-users {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin: -0.5rem;
+
+  .online-user {
+    flex-basis: 200px;
+    border: 1px solid #3a3a3a;
+    margin: 0.5rem;
+    padding: 1px;
+
+    img {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      margin-right: 0.25rem;
+    }
+  }
+}
