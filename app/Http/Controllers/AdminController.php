@@ -64,10 +64,10 @@ class AdminController extends Controller
         // update the players new points
         foreach($game->players as $player) {
             if($player->team == $newWinner) {
-                $player->user->adjustPoints($newPoints, 'Points adjustment for Game ID#' . $game->id . ' (admin: ' . $user->name . ')');
+                $player->user->adjustPoints($newPoints, 'Points adjustment for game id#' . $game->id . ' (admin: ' . $user->name . ')');
             } else {
                 // player was on losing team, add points
-                $player->user->adjustPoints($newPoints * -1, 'Points adjustment for Game ID#' . $game->id . ' (admin: ' . $user->name . ')');
+                $player->user->adjustPoints($newPoints * -1, 'Points adjustment for game id#' . $game->id . ' (admin: ' . $user->name . ')');
             }
         }
 

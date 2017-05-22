@@ -168,9 +168,9 @@ class LadderGame extends Model
                 $player->status_id = 40;
                 $player->save();
                 if($player->team == $winner) {
-                    $player->user->adjustPoints($points, 'won game id #' . $this->id);
+                    $player->user->adjustPoints($points, 'Won game id#' . $this->id);
                 } else {
-                    $player->user->adjustPoints($points * -1, 'lost game id #' . $this->id);
+                    $player->user->adjustPoints($points * -1, 'Lost game id#' . $this->id);
                 }
             }
 

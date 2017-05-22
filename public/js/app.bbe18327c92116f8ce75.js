@@ -38256,9 +38256,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -38269,8 +38266,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             editUser: null,
             posting: false,
             userPoints: 0,
-            memo: '',
-            updated: false
+            memo: ''
         };
     },
 
@@ -38314,6 +38310,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post('/admin/approve', { userid: this.editUser.id }).then(function (r) {
                 _this3.posting = false;
                 _this3.editUser.ladder_queue = 'vitalityx';
+                toastr.success(_this3.editUser.name + ' can now queue');
             });
         },
         removeQueuePrivileges: function removeQueuePrivileges() {
@@ -38323,13 +38320,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post('/admin/remove', { userid: this.editUser.id }).then(function (r) {
                 _this4.posting = false;
                 _this4.editUser.ladder_queue = '';
+                toastr.success(_this4.editUser.name + ' can no longer queue');
             });
         },
         adjustPoints: function adjustPoints() {
             var _this5 = this;
 
+            if (this.memo.length < 1) {
+                toastr.error('you must include a memo about the point change');
+                return false;
+            }
+            if (this.userPoints === 0) {
+                toastr.error('points must be greater than or less than zero');
+                return false;
+            }
             this.$http.post('/admin/adjust-points', { userid: this.editUser.id, points: this.userPoints, memo: this.memo }).then(function (r) {
-                _this5.updated = true;
+                _this5.userPoints = 0;
+                _this5.memo = '';
+                toastr.success('Great Success!');
             });
         }
     }
@@ -39226,16 +39234,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
             loading: true,
             posting: false,
-            success: false,
             team1score: 0,
             team2score: 0,
             game: null,
@@ -39338,9 +39342,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var team2score = this.team2score;
                 this.$http.post('/admin/updatescore', { gameid: gameid, team1score: team1score, team2score: team2score }).then(function (response) {
                     _this3.posting = false;
-                    _this3.success = true;
+                    toastr.success('game score successfully updated');
+                    _this3.$router.push('/games');
                 }, function (response) {
                     _this3.posting = false;
+                    toastr.error('something went wrong');
                 });
             }
         }
@@ -39534,13 +39540,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -48339,7 +48338,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateScore()
       }
     }
-  }, [_vm._v("Update Score")]), _vm._v(" "), (_vm.success) ? _c('div', [_vm._v("\n                        Updated!\n                    ")]) : _vm._e()])])]) : _vm._e()])])
+  }, [_vm._v("Update Score")])])])]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('p', {
     staticStyle: {
@@ -48584,9 +48583,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.adjustPoints()
       }
     }
-  }, [_vm._v("Add/Remove Points")]), _vm._v(" "), (_vm.updated) ? _c('p', {
-    staticClass: "updateSuccess"
-  }, [_vm._v("\n                            Success\n                        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Add/Remove Points")])]), _vm._v(" "), _c('div', {
     staticClass: "medium-6 columns"
   }, [_vm._m(2), _vm._v(" "), (_vm.editUser.ladder_queue !== 'vitalityx') ? _c('p', [_c('button', {
     staticClass: "button",
@@ -48962,15 +48959,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title"
   }, [_vm._v("Beta version is released!")]), _vm._v(" "), _c('p', {
     staticClass: "author-info"
-  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")]), _vm._v(" "), _c('p', [_vm._v("We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.")]), _vm._v(" "), _c('p', [_vm._v("See you on the ladder!")])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel nmt news-item"
-  }, [_c('div', {
-    staticClass: "news-inner"
-  }, [_c('h5', {
-    staticClass: "title"
-  }, [_vm._v("Jam is a fairy")]), _vm._v(" "), _c('p', {
-    staticClass: "author-info"
-  }, [_vm._v("Posted by "), _c('span', [_vm._v("@rep")]), _vm._v(" on May 18, 2017")]), _vm._v(" "), _c('p', [_vm._v("Enough said.")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")]), _vm._v(" "), _c('p', [_vm._v("We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.")]), _vm._v(" "), _c('p', [_vm._v("See you on the ladder!")])])])]), _vm._v(" "), _c('div', {
     staticClass: "medium-6 columns"
   }, [_c('div', {
     staticClass: "panel nmt news-item support-info"

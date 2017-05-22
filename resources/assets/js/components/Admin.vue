@@ -60,9 +60,6 @@
                             <input type="number" v-model="userPoints" placeholder="0" style="max-width: 100px" />
                             <input type="text" v-model="memo" placeholder="leave a memo about why" />
                             <button class="button" @click="adjustPoints()">Add/Remove Points</button>
-                            <p class="updateSuccess" v-if="updated">
-                                Success
-                            </p>
                         </div>
                         <div class="medium-6 columns">
                             <p><strong>Queue Status</strong></p>
@@ -94,8 +91,7 @@
                 editUser: null,
                 posting: false,
                 userPoints: 0,
-                memo: '',
-                updated: false
+                memo: ''
             }
         },
         computed: {
@@ -132,6 +128,7 @@
                 this.$http.post('/admin/approve', {userid: this.editUser.id}).then((r) => {
                     this.posting = false
                     this.editUser.ladder_queue = 'vitalityx'
+                    toastr.success(this.editUser.name + ' can now queue')
                 })
             },
             removeQueuePrivileges() {
@@ -139,11 +136,22 @@
                 this.$http.post('/admin/remove', {userid: this.editUser.id}).then((r) => {
                     this.posting = false
                     this.editUser.ladder_queue = ''
+                    toastr.success(this.editUser.name + ' can no longer queue')
                 })
             },
             adjustPoints() {
+                if(this.memo.length < 1) {
+                    toastr.error('you must include a memo about the point change')
+                    return false
+                }
+                if(this.userPoints === 0) {
+                    toastr.error('points must be greater than or less than zero')
+                    return false
+                }
                 this.$http.post('/admin/adjust-points', {userid: this.editUser.id, points: this.userPoints, memo: this.memo}).then((r) => {
-                    this.updated = true
+                    this.userPoints = 0
+                    this.memo = ''
+                    toastr.success('Great Success!')
                 })
             }
         }

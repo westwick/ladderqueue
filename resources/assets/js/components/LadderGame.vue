@@ -138,9 +138,6 @@
                             </div>
                         </div>
                         <button class="button" @click="updateScore()">Update Score</button>
-                        <div v-if="success">
-                            Updated!
-                        </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +153,6 @@
             return {
                 loading: true,
                 posting: false,
-                success: false,
                 team1score: 0,
                 team2score: 0,
                 game: null,
@@ -252,9 +248,11 @@
                     var team2score = this.team2score
                     this.$http.post('/admin/updatescore', {gameid, team1score, team2score}).then((response) => {
                         this.posting = false
-                        this.success = true
+                        toastr.success('game score successfully updated')
+                        this.$router.push('/games')
                     }, (response) => {
                         this.posting = false
+                        toastr.error('something went wrong')
                     })
                 }
             }
