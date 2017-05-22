@@ -145,28 +145,30 @@ class LadderGame extends Model
 
     public function complete($team1score, $team2score)
     {
-        $winner = $this->getWinner($team1score, $team2score);
+        if($this->status_id == 30) {
+            $winner = $this->getWinner($team1score, $team2score);
 
-        $points = $this->getPoints($team1score, $team2score);
+            $points = $this->getPoints($team1score, $team2score);
 
-        $this->team1score = $team1score;
-        $this->team2score = $team2score;
-        $this->winner = $winner;
-        $this->status_id = LadderGame::$STATUS_COMPLETE;
-        $this->ended_at = Carbon::now();
-        $this->save();
+            $this->team1score = $team1score;
+            $this->team2score = $team2score;
+            $this->winner = $winner;
+            $this->status_id = LadderGame::$STATUS_COMPLETE;
+            $this->ended_at = Carbon::now();
+            $this->save();
 
-        foreach($this->players as $player) {
-            $player->status_id = 40;
-            $player->save();
-            if($player->team == $winner) {
-                $player->user->adjustPoints($points, 'won game id #' . $this->id);
-            } else {
-                $player->user->adjustPoints($points * -1, 'lost game id #' . $this->id);
+            foreach($this->players as $player) {
+                $player->status_id = 40;
+                $player->save();
+                if($player->team == $winner) {
+                    $player->user->adjustPoints($points, 'won game id #' . $this->id);
+                } else {
+                    $player->user->adjustPoints($points * -1, 'lost game id #' . $this->id);
+                }
             }
-        }
 
-        broadcast(new GameCompleted($this));
+            broadcast(new GameCompleted($this));
+        }
     }
 
     public function getWinner($team1score, $team2score)
