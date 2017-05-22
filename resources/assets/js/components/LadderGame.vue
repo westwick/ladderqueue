@@ -8,24 +8,46 @@
                 <div v-else>
                     <div v-if="game">
                         <div v-if="game.status_id == 20 || game.status_id == 30">
-                            <div class="popflash-instructions">
+                            <div class="popflash-instructionstext-center">
                                 <h4>{{game.status_id == 20 ? 'Match Ready':'Match In Progress'}}</h4>
-                                <p class="selected-map">Map: <strong>{{game.map}}</strong></p>
+                                <p class="selected-map">Final Pick: <strong>{{game.map}}</strong></p>
+                                <div class="maps-carousel">
+                                    <div><img :src="'/images/' + otherMaps[0] + '.png'" /></div>
+                                    <div><img :src="'/images/' + otherMaps[1] + '.png'" /></div>
+                                    <div><img :src="'/images/' + otherMaps[2] + '.png'" /></div>
+
+                                    <div class="map-selected"><img :src="'/images/' + game.map + '.png'" /></div>
+
+                                    <div><img :src="'/images/' + otherMaps[3] + '.png'" /></div>
+                                    <div><img :src="'/images/' + otherMaps[4] + '.png'" /></div>
+                                    <div><img :src="'/images/' + otherMaps[5] + '.png'" /></div>
+                                </div>
                                 <p class="popflash-url" v-if="userInGame">
                                     URL:
                                     <a :href="'//popflash.site/scrim/' + game.url" target="_blank">
                                     http://popflash.site/scrim/{{game.url}}
                                     </a>
                                 </p>
-                                <p class="popflash-notes">Some instruction text can go here about how to use popflash or whatever or something</p>
+                                <p class="popflash-notes">Join the URL above to start the match. Make sure you join the correct team!</p>
                             </div>
                         </div>
                         <div v-if="game.status_id == 91">
-                            <p>Game cancelled - not all players accepted the ready check</p>
+                            <p>Match cancelled - not all players accepted the ready check</p>
                         </div>
                         <div v-if="game.status_id == 40">
-                            <h4>Game Complete</h4>
-                            <p>Map: {{game.map}}</p>
+                            <h4>Match Complete</h4>
+                            <p class="selected-map">Final Pick: {{game.map}}</p>
+                            <div class="maps-carousel">
+                                <div><img :src="'/images/' + otherMaps[0] + '.png'" /></div>
+                                <div><img :src="'/images/' + otherMaps[1] + '.png'" /></div>
+                                <div><img :src="'/images/' + otherMaps[2] + '.png'" /></div>
+
+                                <div class="map-selected"><img :src="'/images/' + game.map + '.png'" /></div>
+
+                                <div><img :src="'/images/' + otherMaps[3] + '.png'" /></div>
+                                <div><img :src="'/images/' + otherMaps[4] + '.png'" /></div>
+                                <div><img :src="'/images/' + otherMaps[5] + '.png'" /></div>
+                            </div>
                         </div>
                     </div>
                     <div v-else>
@@ -156,7 +178,8 @@
                 team1score: 0,
                 team2score: 0,
                 game: null,
-                errors: false
+                errors: false,
+                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
             }
         },
         computed: {
@@ -165,6 +188,11 @@
             },
             isAdmin() {
                 return this.$store.state.is_admin
+            },
+            otherMaps() {
+                if(!this.game) return this.mapPool
+                var maps = this.mapPool
+                return _.filter(maps, (map) => {return map !== this.game.map})
             },
             userInGame() {
                 if(this.game) {

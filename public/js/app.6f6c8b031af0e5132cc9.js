@@ -39234,6 +39234,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -39243,7 +39265,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             team1score: 0,
             team2score: 0,
             game: null,
-            errors: false
+            errors: false,
+            mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
         };
     },
 
@@ -39253,6 +39276,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         isAdmin: function isAdmin() {
             return this.$store.state.is_admin;
+        },
+        otherMaps: function otherMaps() {
+            var _this = this;
+
+            if (!this.game) return this.mapPool;
+            var maps = this.mapPool;
+            return _.filter(maps, function (map) {
+                return map !== _this.game.map;
+            });
         },
         userInGame: function userInGame() {
             if (this.game) {
@@ -39294,20 +39326,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         fetchData: function fetchData() {
-            var _this = this;
+            var _this2 = this;
 
             this.loading = true;
             this.$http.post('/gameinfo', { id: this.$route.params.id }).then(function (response) {
-                _this.loading = false;
-                _this.game = response.data;
-                _this.team1score = _this.game.team1score;
-                _this.team2score = _this.game.team2score;
+                _this2.loading = false;
+                _this2.game = response.data;
+                _this2.team1score = _this2.game.team1score;
+                _this2.team2score = _this2.game.team2score;
             }, function (response) {
-                _this.loading = false;
+                _this2.loading = false;
             });
         },
         submitScore: function submitScore() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.validateScoreSubmission()) {
                 this.posting = true;
@@ -39315,9 +39347,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var team1score = this.team1score;
                 var team2score = this.team2score;
                 this.$http.post('/reportscore', { gameid: gameid, team1score: team1score, team2score: team2score }).then(function (response) {
-                    _this2.posting = false;
+                    _this3.posting = false;
                 }, function (response) {
-                    _this2.posting = false;
+                    _this3.posting = false;
                 });
             } else {
                 this.errors = true;
@@ -39333,7 +39365,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         updateScore: function updateScore() {
-            var _this3 = this;
+            var _this4 = this;
 
             if (this.isAdmin) {
                 this.posting = true;
@@ -39341,11 +39373,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var team1score = this.team1score;
                 var team2score = this.team2score;
                 this.$http.post('/admin/updatescore', { gameid: gameid, team1score: team1score, team2score: team2score }).then(function (response) {
-                    _this3.posting = false;
+                    _this4.posting = false;
                     toastr.success('game score successfully updated');
-                    _this3.$router.push('/games');
+                    _this4.$router.push('/games');
                 }, function (response) {
-                    _this3.posting = false;
+                    _this4.posting = false;
                     toastr.error('something went wrong');
                 });
             }
@@ -48114,10 +48146,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.loading) ? _c('div', {
     staticClass: "loading"
   }, [_vm._v("\n                Loading...\n            ")]) : _c('div', [(_vm.game) ? _c('div', [(_vm.game.status_id == 20 || _vm.game.status_id == 30) ? _c('div', [_c('div', {
-    staticClass: "popflash-instructions"
+    staticClass: "popflash-instructionstext-center"
   }, [_c('h4', [_vm._v(_vm._s(_vm.game.status_id == 20 ? 'Match Ready' : 'Match In Progress'))]), _vm._v(" "), _c('p', {
     staticClass: "selected-map"
-  }, [_vm._v("Map: "), _c('strong', [_vm._v(_vm._s(_vm.game.map))])]), _vm._v(" "), (_vm.userInGame) ? _c('p', {
+  }, [_vm._v("Final Pick: "), _c('strong', [_vm._v(_vm._s(_vm.game.map))])]), _vm._v(" "), _c('div', {
+    staticClass: "maps-carousel"
+  }, [_c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[0] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[1] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[2] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "map-selected"
+  }, [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.game.map + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[3] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[4] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[5] + '.png'
+    }
+  })])]), _vm._v(" "), (_vm.userInGame) ? _c('p', {
     staticClass: "popflash-url"
   }, [_vm._v("\n                                URL:\n                                "), _c('a', {
     attrs: {
@@ -48126,7 +48190,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                                http://popflash.site/scrim/" + _vm._s(_vm.game.url) + "\n                                ")])]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "popflash-notes"
-  }, [_vm._v("Some instruction text can go here about how to use popflash or whatever or something")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Game cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Game Complete")]), _vm._v(" "), _c('p', [_vm._v("Map: " + _vm._s(_vm.game.map))])]) : _vm._e()]) : _c('div', [_c('p', [_vm._v("Error: Game id " + _vm._s(_vm.$route.params.id) + " could not be found")])])])]), _vm._v(" "), (_vm.game && _vm.game.status_id == 30 && _vm.userInGame) ? _c('div', {
+  }, [_vm._v("Join the URL above to start the match. Make sure you join the correct team!")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Match cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Match Complete")]), _vm._v(" "), _c('p', {
+    staticClass: "selected-map"
+  }, [_vm._v("Final Pick: " + _vm._s(_vm.game.map))]), _vm._v(" "), _c('div', {
+    staticClass: "maps-carousel"
+  }, [_c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[0] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[1] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[2] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "map-selected"
+  }, [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.game.map + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[3] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[4] + '.png'
+    }
+  })]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": '/images/' + _vm.otherMaps[5] + '.png'
+    }
+  })])])]) : _vm._e()]) : _c('div', [_c('p', [_vm._v("Error: Game id " + _vm._s(_vm.$route.params.id) + " could not be found")])])])]), _vm._v(" "), (_vm.game && _vm.game.status_id == 30 && _vm.userInGame) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
