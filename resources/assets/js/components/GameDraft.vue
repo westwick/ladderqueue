@@ -52,7 +52,7 @@
               <strong>Team 1</strong>
               <div v-for="player in team1players" class="player-on-team draft-player">
                 <img :src="player.user.image" />
-                {{player.user.name}} ({{player.user.ladder_points}})
+                {{player.user.name}} &dash; <span class="ladderpoints">{{player.user.ladder_points}}</span>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
                 <strong>Undrafted Players</strong>
                 <div v-for="player in undraftedplayers" class="player-available draft-player">
                   <img :src="player.user.image" />
-                  {{player.user.name}} ({{player.user.ladder_points}})
+                  {{player.user.name}} &dash; <span class="ladderpoints">{{player.user.ladder_points}}</span>
                   <div class="pick-player">
                     <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || loading">
                       {{ !loading ? 'Draft': 'Drafting...'}}
@@ -76,11 +76,9 @@
                   <p v-if="!mapIsBanned(map)">
                     <span :class="{selectedMap: banTurn == 0}">{{map}}</span>
                     <a href="#"
-                       class="button"
                        @click.prevent="banMap(map)"
-                       :disabled="!canBanMap || loading"
-                       v-show="banTurn != 0">
-                         Ban
+                       v-show="banTurn != 0 && canBanMap">
+                         {{ !loading ? 'Ban' : 'Banning...' }}
                     </a>
                   </p>
                   <p v-else class="map-banned">
@@ -95,7 +93,7 @@
               <strong>Team 2</strong>
               <div v-for="player in team2players" class="player-on-team draft-player">
                 <img :src="player.user.image" />
-                {{player.user.name}} ({{player.user.ladder_points}})
+                {{player.user.name}} &dash; <span class="ladderpoints">{{player.user.ladder_points}}</span>
               </div>
             </div>
           </div>

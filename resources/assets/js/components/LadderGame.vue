@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row game-status-page">
         <div class="small-12 columns">
             <div class="panel nmt text-center">
                 <div class="loading" v-if="loading">
@@ -22,6 +22,10 @@
                         </div>
                         <div v-if="game.status_id == 91">
                             <p>Game cancelled - not all players accepted the ready check</p>
+                        </div>
+                        <div v-if="game.status_id == 40">
+                            <h4>Game Complete</h4>
+                            <p>Map: {{game.map}}</p>
                         </div>
                     </div>
                     <div v-else>
@@ -55,10 +59,10 @@
                 </div>
             </div>
 
-            <div class="row" v-if="game && game.status_id >= 20 && game.status_id <= 40">
+            <div class="row" v-if="game && game.status_id >= 20 && game.status_id < 40">
                 <div class="medium-6 columns">
                     <div class="panel">
-                        <p>Team 1</p>
+                        <p class="text-center"><strong>Team 1</strong></p>
                         <div v-for="player in team1players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
                             {{player.user.name}} ({{player.user.ladder_points}})
@@ -67,10 +71,36 @@
                 </div>
                 <div class="medium-6 columns">
                     <div class="panel">
-                        <p>Team 2</p>
+                        <p class="text-center"><strong>Team 2</strong></p>
                         <div v-for="player in team2players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
-                            {{player.user.name}} ({{player.user.ladder_points}})
+                            {{player.user.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" v-else-if="game && game.status_id == 40">
+                <div class="medium-4 columns">
+                    <div class="panel">
+                        <p class="text-center"><strong>Team 1</strong></p>
+                        <div v-for="player in team1players" class="player-on-team draft-player">
+                            <img :src="player.user.image" />
+                            {{player.user.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="medium-4 columns">
+                    <div class="panel text-center">
+                        <p class="score"><strong>{{game.team1score}}</strong> &mdash; <strong>{{game.team2score}}</strong></p>
+                        <p>Winner: <strong>Team {{game.winner}}</strong></p>
+                    </div>
+                </div>
+                <div class="medium-4 columns">
+                    <div class="panel">
+                        <p class="text-center"><strong>Team 2</strong></p>
+                        <div v-for="player in team2players" class="player-on-team draft-player">
+                            <img :src="player.user.image" />
+                            {{player.user.name}}
                         </div>
                     </div>
                 </div>
@@ -80,7 +110,7 @@
                     <div class="panel">
                         <div v-for="player in game.players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
-                            {{player.user.name}} ({{player.user.ladder_points}})
+                            {{player.user.name}}
                             <div v-if="player.status_id === 0 || player.status_id === 91" class="ready-status notready">
                                 <i class="icon ion-heart-broken"></i>
                             </div>

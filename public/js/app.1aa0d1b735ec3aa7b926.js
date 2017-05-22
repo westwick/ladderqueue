@@ -38791,8 +38791,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 var _ = __webpack_require__(2);
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -39079,6 +39077,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48060,7 +48088,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
+    staticClass: "row game-status-page"
   }, [_c('div', {
     staticClass: "small-12 columns"
   }, [_c('div', {
@@ -48080,7 +48108,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                                http://popflash.site/scrim/" + _vm._s(_vm.game.url) + "\n                                ")])]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "popflash-notes"
-  }, [_vm._v("Some instruction text can go here about how to use popflash or whatever or something")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Game cancelled - not all players accepted the ready check")])]) : _vm._e()]) : _c('div', [_c('p', [_vm._v("Error: Game id " + _vm._s(_vm.$route.params.id) + " could not be found")])])])]), _vm._v(" "), (_vm.game && _vm.game.status_id == 30 && _vm.userInGame) ? _c('div', {
+  }, [_vm._v("Some instruction text can go here about how to use popflash or whatever or something")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Game cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Game Complete")]), _vm._v(" "), _c('p', [_vm._v("Map: " + _vm._s(_vm.game.map))])]) : _vm._e()]) : _c('div', [_c('p', [_vm._v("Error: Game id " + _vm._s(_vm.$route.params.id) + " could not be found")])])])]), _vm._v(" "), (_vm.game && _vm.game.status_id == 30 && _vm.userInGame) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
@@ -48154,13 +48182,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "error"
   }, [_vm._v("Only the winner may submit the score")]) : _vm._e()]) : _c('div', [_c('p', {
     staticClass: "waiting-for-captains"
-  }, [_vm._v("Waiting for "), _c('span', [_vm._v("@" + _vm._s(_vm.team1captain.user.name))]), _vm._v(" or "), _c('span', [_vm._v("@" + _vm._s(_vm.team2captain.user.name))]), _vm._v(" to enter the game score.")])])])])]) : _vm._e(), _vm._v(" "), (_vm.game && _vm.game.status_id >= 20 && _vm.game.status_id <= 40) ? _c('div', {
+  }, [_vm._v("Waiting for "), _c('span', [_vm._v("@" + _vm._s(_vm.team1captain.user.name))]), _vm._v(" or "), _c('span', [_vm._v("@" + _vm._s(_vm.team2captain.user.name))]), _vm._v(" to enter the game score.")])])])])]) : _vm._e(), _vm._v(" "), (_vm.game && _vm.game.status_id >= 20 && _vm.game.status_id < 40) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "medium-6 columns"
   }, [_c('div', {
     staticClass: "panel"
-  }, [_c('p', [_vm._v("Team 1")]), _vm._v(" "), _vm._l((_vm.team1players), function(player) {
+  }, [_vm._m(1), _vm._v(" "), _vm._l((_vm.team1players), function(player) {
     return _c('div', {
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
@@ -48172,14 +48200,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "medium-6 columns"
   }, [_c('div', {
     staticClass: "panel"
-  }, [_c('p', [_vm._v("Team 2")]), _vm._v(" "), _vm._l((_vm.team2players), function(player) {
+  }, [_vm._m(2), _vm._v(" "), _vm._l((_vm.team2players), function(player) {
     return _c('div', {
       staticClass: "player-on-team draft-player"
     }, [_c('img', {
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                        " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                    ")])
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
+  })], 2)])]) : (_vm.game && _vm.game.status_id == 40) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [_c('p', {
+    staticClass: "text-center"
+  }, [_c('strong', [_vm._v("Team 1")])]), _vm._v(" "), _vm._l((_vm.team1players), function(player) {
+    return _c('div', {
+      staticClass: "player-on-team draft-player"
+    }, [_c('img', {
+      attrs: {
+        "src": player.user.image
+      }
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel text-center"
+  }, [_c('p', {
+    staticClass: "score"
+  }, [_c('strong', [_vm._v(_vm._s(_vm.game.team1score))]), _vm._v(" — "), _c('strong', [_vm._v(_vm._s(_vm.game.team2score))])]), _vm._v(" "), _c('p', [_vm._v("Winner: "), _c('strong', [_vm._v("Team " + _vm._s(_vm.game.winner))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [_c('p', {
+    staticClass: "text-center"
+  }, [_c('strong', [_vm._v("Team 2")])]), _vm._v(" "), _vm._l((_vm.team2players), function(player) {
+    return _c('div', {
+      staticClass: "player-on-team draft-player"
+    }, [_c('img', {
+      attrs: {
+        "src": player.user.image
+      }
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
   })], 2)])]) : (_vm.game) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -48193,7 +48257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                        " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                        "), (player.status_id === 0 || player.status_id === 91) ? _c('div', {
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                        "), (player.status_id === 0 || player.status_id === 91) ? _c('div', {
       staticClass: "ready-status notready"
     }, [_c('i', {
       staticClass: "icon ion-heart-broken"
@@ -48282,6 +48346,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "2rem"
     }
   }, [_vm._v("The "), _c('strong', [_vm._v("winner")]), _vm._v(" should enter the score below when done:")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "text-center"
+  }, [_c('strong', [_vm._v("Team 1")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "text-center"
+  }, [_c('strong', [_vm._v("Team 2")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -48985,7 +49057,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n              " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n            ")])
+    }), _vm._v("\n              " + _vm._s(player.user.name) + " ‐ "), _c('span', {
+      staticClass: "ladderpoints"
+    }, [_vm._v(_vm._s(player.user.ladder_points))])])
   })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "medium-4 columns"
   }, [_c('div', {
@@ -48997,7 +49071,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                "), _c('div', {
+    }), _vm._v("\n                " + _vm._s(player.user.name) + " ‐ "), _c('span', {
+      staticClass: "ladderpoints"
+    }, [_vm._v(_vm._s(player.user.ladder_points))]), _vm._v(" "), _c('div', {
       staticClass: "pick-player"
     }, [_c('a', {
       staticClass: "button",
@@ -49023,13 +49099,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: (_vm.banTurn != 0),
-        expression: "banTurn != 0"
+        value: (_vm.banTurn != 0 && _vm.canBanMap),
+        expression: "banTurn != 0 && canBanMap"
       }],
-      staticClass: "button",
       attrs: {
-        "href": "#",
-        "disabled": !_vm.canBanMap || _vm.loading
+        "href": "#"
       },
       on: {
         "click": function($event) {
@@ -49037,7 +49111,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.banMap(map)
         }
       }
-    }, [_vm._v("\n                       Ban\n                  ")])]) : _c('p', {
+    }, [_vm._v("\n                       " + _vm._s(!_vm.loading ? 'Ban' : 'Banning...') + "\n                  ")])]) : _c('p', {
       staticClass: "map-banned"
     }, [_vm._v("\n                  " + _vm._s(map) + "\n                ")])])
   })], 2)])]), _vm._v(" "), _c('div', {
@@ -49051,7 +49125,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n              " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n            ")])
+    }), _vm._v("\n              " + _vm._s(player.user.name) + " ‐ "), _c('span', {
+      staticClass: "ladderpoints"
+    }, [_vm._v(_vm._s(player.user.ladder_points))])])
   })], 2)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {

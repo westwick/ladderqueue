@@ -22,17 +22,22 @@
 
 .draft-player {
   width: 100%;
-  border: 1px solid #eee;
-  padding: 0.5rem;
+  border: 1px solid #3a3a3a;
+  padding: 1px;
   text-align: left;
   margin-bottom: 0.5rem;
   position: relative;
+  display: flex;
+  align-items: center;
 
   img {
-    width: 45px;
-    height: 45px;
-    border-radius: 100%;
-    margin-right: 0.25rem;
+    width: 50px;
+    height: 50px;
+    margin-right: 0.75rem;
+  }
+
+  .button {
+    margin: 0;
   }
 
   &.player-available {
@@ -44,16 +49,22 @@
       margin-left: 1rem;
       position: absolute;
       right: 0.5rem;
+      top: 6px;
     }
 
     &:hover {
-      border: 1px solid #aaa;
+      border: 1px solid #464647;
 
       .pick-player {
         //display: inline-block;
       }
     }
   }
+}
+
+.ladderpoints {
+  font-weight: bold;
+  margin-left: 0.25rem;
 }
 
 .map-banned {
