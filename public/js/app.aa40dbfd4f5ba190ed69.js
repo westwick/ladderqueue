@@ -39606,22 +39606,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -47645,7 +47629,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.users.length) + " users currently online")]), _vm._v(" "), _c('div', {
     staticClass: "online-users"
-  }, [_vm._l((_vm.users), function(user) {
+  }, _vm._l((_vm.users), function(user) {
     return _c('div', {
       staticClass: "online-user"
     }, [_c('img', {
@@ -47654,43 +47638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": user.image
       }
     }), _vm._v("\n                    " + _vm._s(user.username) + "\n                ")])
-  }), _vm._v(" "), _vm._l((_vm.users), function(user) {
-    return _c('div', {
-      staticClass: "online-user"
-    }, [_c('img', {
-      staticClass: "user-image",
-      attrs: {
-        "src": user.image
-      }
-    }), _vm._v("\n                    " + _vm._s(user.username) + "\n                ")])
-  }), _vm._v(" "), _vm._l((_vm.users), function(user) {
-    return _c('div', {
-      staticClass: "online-user"
-    }, [_c('img', {
-      staticClass: "user-image",
-      attrs: {
-        "src": user.image
-      }
-    }), _vm._v("\n                    " + _vm._s(user.username) + "\n                ")])
-  }), _vm._v(" "), _vm._l((_vm.users), function(user) {
-    return _c('div', {
-      staticClass: "online-user"
-    }, [_c('img', {
-      staticClass: "user-image",
-      attrs: {
-        "src": user.image
-      }
-    }), _vm._v("\n                    " + _vm._s(user.username) + "\n                ")])
-  }), _vm._v(" "), _vm._l((_vm.users), function(user) {
-    return _c('div', {
-      staticClass: "online-user"
-    }, [_c('img', {
-      staticClass: "user-image",
-      attrs: {
-        "src": user.image
-      }
-    }), _vm._v("\n                    " + _vm._s(user.username) + "\n                ")])
-  })], 2)])])])
+  }))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
