@@ -8,6 +8,7 @@ use App\Events\GameDraftComplete;
 use App\Events\MapBanned;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Log;
 
 class LadderGame extends Model
 {
@@ -149,6 +150,12 @@ class LadderGame extends Model
             $winner = $this->getWinner($team1score, $team2score);
 
             $points = $this->getPoints($team1score, $team2score);
+
+            if($points > 11) {
+                Log::info('ANOMALY DETECTED! points:' . $points);
+                Log::info('team1score: ' . $team1score);
+                Log::info('team2score: ' . $team2score);
+            }
 
             $this->team1score = $team1score;
             $this->team2score = $team2score;
