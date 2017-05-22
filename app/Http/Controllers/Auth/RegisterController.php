@@ -69,9 +69,12 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password'])
         ]);
 
-        $user->steam_verified = true;
-        $user->ladder_queue = 'vx';
-        $user->save();
+        /*
+         *  comment/uncomment this for testing (auto steam approval)
+         */
+        //$user->steam_verified = true;
+        //$user->ladder_queue = 'vx';
+        //$user->save();
 
         //event(new UserAccountProgress($user, 'created an account from IP ' . \Request::ip()));
 
