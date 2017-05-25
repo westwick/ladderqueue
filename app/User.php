@@ -200,7 +200,7 @@ class User extends Authenticatable
             broadcast(new GameStarting($game));
 
             // dispatch a job to make sure everyone ready'd up within 30 seconds
-            $checkReady = (new CheckPlayersReady($game))->delay(Carbon::now()->addSeconds(10));
+            $checkReady = (new CheckPlayersReady($game))->delay(Carbon::now()->addSeconds(25));
             dispatch($checkReady);
         }
 
