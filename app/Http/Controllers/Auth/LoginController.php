@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\PlayerLeftQueue;
 use App\Http\Controllers\Controller;
 use App\Notifications\UserAccountProgressUpdated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -48,6 +49,7 @@ class LoginController extends Controller
     {
         $user = Auth::user();
         $user->removeFromQueue();
+        broadcast(new PlayerLeftQueue($user));
         Auth::logout();
         flash('You have been logged out', 'success');
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
