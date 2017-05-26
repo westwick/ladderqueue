@@ -34,7 +34,8 @@ const store = new Vuex.Store({
     onlineUsers: [],
     players: [],
     game: '',
-    games: []
+    games: [],
+    news: null
   },
   mutations: {
     setUserstate (state, userstate) {
@@ -60,6 +61,7 @@ const store = new Vuex.Store({
       state.players = data.players
       state.game = data.game
       state.games = data.games
+      state.news = data.news
     },
     clearGame(state) {
       state.game = ''

@@ -2,7 +2,7 @@
     <div class="user-sidebar">
 
         <div class="sidebar-logo">
-            <img src="/images/vxblue.png" />
+            <router-link to="/"><img src="/images/vxblue.png" /></router-link>
         </div>
 
 
@@ -33,6 +33,12 @@
                     Game History
                 </router-link>
             </li>
+            <li v-if="isAdmin">
+                <router-link to="/admin">
+                    <div class="nav-bullet"><i class="icon ion-flash"></i></div>
+                    Admin
+                </router-link>
+            </li>
         </ul>
 
         <div class="sidebar-section-header">
@@ -44,12 +50,6 @@
                 <router-link to="/log">
                     <div class="nav-bullet"><i class="icon ion-stats-bars"></i></div>
                     Player Log
-                </router-link>
-            </li>
-            <li v-if="isAdmin">
-                <router-link to="/admin">
-                    <div class="nav-bullet"><i class="icon ion-flash"></i></div>
-                    Admin
                 </router-link>
             </li>
             <li>
@@ -71,10 +71,10 @@
         <div class="platform-status">
             <p>Queue: <span class="queue-online">Available</span></p>
             <p>Players online: <router-link to="/players">{{onlineUserCount}}</router-link></p>
-            <p>Games in progress: <router-link to="/live-games">{{gamesInProgressCount}}</router-link></p>
+            <p>Games in progress: <router-link to="/games/live">{{gamesInProgressCount}}</router-link></p>
 
             <div class="version">
-                Beta v0.0.1
+                Beta v0.0.2
             </div>
         </div>
     </div>

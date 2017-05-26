@@ -37,7 +37,7 @@ a {
 //  background-color: #aeaeae;
 //}
 
-input[type='text'], input[type='password'], input[type='email'] {
+input[type='text'], input[type='password'], input[type='email'], textarea {
   box-shadow: none;
   transition: border-color .15s ease-in-out,background-color .15s ease-in-out;
   border-radius: 2px;
@@ -50,6 +50,10 @@ input[type='text'], input[type='password'], input[type='email'] {
     outline: 0;
     box-shadow: none;
   }
+}
+
+textarea {
+  height: 200px;
 }
 
 .reveal {

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 106);
+/******/ 	return __webpack_require__(__webpack_require__.s = 115);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -17515,7 +17515,7 @@ module.exports = {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(105)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(114)(module)))
 
 /***/ }),
 /* 3 */
@@ -37182,14 +37182,14 @@ module.exports = g;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(58);
 
-__webpack_require__(54);
+__webpack_require__(57);
 
 
 // import VueResource from 'vue-resource'
@@ -37197,18 +37197,18 @@ __webpack_require__(54);
 
 
 
-Vue.component('app', __webpack_require__(62));
-Vue.component('sidebar', __webpack_require__(80));
-Vue.component('schedule', __webpack_require__(77));
-Vue.component('teamselecter', __webpack_require__(81));
-Vue.component('dataloader', __webpack_require__(65));
-Vue.component('partybar', __webpack_require__(73));
-Vue.component('partylobby', __webpack_require__(74));
-Vue.component('season3reg', __webpack_require__(78));
-Vue.component('playerqueue', __webpack_require__(76));
-Vue.component('messages', __webpack_require__(70));
-Vue.component('conversations', __webpack_require__(63));
-Vue.component('convonav', __webpack_require__(64));
+Vue.component('app', __webpack_require__(67));
+Vue.component('sidebar', __webpack_require__(86));
+Vue.component('schedule', __webpack_require__(83));
+Vue.component('teamselecter', __webpack_require__(87));
+Vue.component('dataloader', __webpack_require__(70));
+Vue.component('partybar', __webpack_require__(79));
+Vue.component('partylobby', __webpack_require__(80));
+Vue.component('season3reg', __webpack_require__(84));
+Vue.component('playerqueue', __webpack_require__(82));
+Vue.component('messages', __webpack_require__(76));
+Vue.component('conversations', __webpack_require__(68));
+Vue.component('convonav', __webpack_require__(69));
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_1_axios___default.a);
 
@@ -37224,7 +37224,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
     onlineUsers: [],
     players: [],
     game: '',
-    games: []
+    games: [],
+    news: null
   },
   mutations: {
     setUserstate: function setUserstate(state, userstate) {
@@ -37250,6 +37251,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
       state.players = data.players;
       state.game = data.game;
       state.games = data.games;
+      state.news = data.news;
     },
     clearGame: function clearGame(state) {
       state.game = '';
@@ -38201,61 +38203,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -38276,68 +38223,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        getUsers: function getUsers() {
-            var _this = this;
-
-            this.loading = true;
-            this.$http.post('/admin/users').then(function (response) {
-                _this.users = response.data;
-                _this.loading = false;
-            }, function (response) {
-                _this.loading = false;
-            });
-        },
-        setUser: function setUser(user) {
-            this.editUser = user;
-        },
-        clearEditUser: function clearEditUser() {
-            this.editUser = null;
-        },
         clearQueue: function clearQueue() {
-            var _this2 = this;
+            var _this = this;
 
             this.clearing = true;
             this.$http.post('/admin/clearqueue').then(function (response) {
-                _this2.clearing = false;
+                _this.clearing = false;
             }, function (response) {
-                _this2.clearing = false;
-            });
-        },
-        addQueuePrivileges: function addQueuePrivileges() {
-            var _this3 = this;
-
-            this.posting = true;
-            this.$http.post('/admin/approve', { userid: this.editUser.id }).then(function (r) {
-                _this3.posting = false;
-                _this3.editUser.ladder_queue = 'vitalityx';
-                toastr.success(_this3.editUser.name + ' can now queue');
-            });
-        },
-        removeQueuePrivileges: function removeQueuePrivileges() {
-            var _this4 = this;
-
-            this.posting = true;
-            this.$http.post('/admin/remove', { userid: this.editUser.id }).then(function (r) {
-                _this4.posting = false;
-                _this4.editUser.ladder_queue = '';
-                toastr.success(_this4.editUser.name + ' can no longer queue');
-            });
-        },
-        adjustPoints: function adjustPoints() {
-            var _this5 = this;
-
-            if (this.memo.length < 1) {
-                toastr.error('you must include a memo about the point change');
-                return false;
-            }
-            if (this.userPoints === 0) {
-                toastr.error('points must be greater than or less than zero');
-                return false;
-            }
-            this.$http.post('/admin/adjust-points', { userid: this.editUser.id, points: this.userPoints, memo: this.memo }).then(function (r) {
-                _this5.userPoints = 0;
-                _this5.memo = '';
-                toastr.success('Great Success!');
+                _this.clearing = false;
             });
         }
     }
@@ -38365,14 +38258,243 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    props: ['initplayers', 'initgame', 'initgames'],
+    data: function data() {
+        return {
+            loading: true,
+            clearing: false,
+            users: [],
+            editUser: null,
+            posting: false,
+            userPoints: 0,
+            memo: ''
+        };
+    },
+
+    computed: {
+        isAdmin: function isAdmin() {
+            return this.$store.state.is_admin;
+        }
+    },
+    mounted: function mounted() {
+        if (this.isAdmin) {
+            this.getUsers();
+        }
+    },
+
+    methods: {
+        getUsers: function getUsers() {
+            var _this = this;
+
+            this.loading = true;
+            this.$http.post('/admin/users').then(function (response) {
+                _this.users = response.data;
+                _this.loading = false;
+            }, function (response) {
+                _this.loading = false;
+            });
+        },
+        setUser: function setUser(user) {
+            this.editUser = user;
+        },
+        clearEditUser: function clearEditUser() {
+            this.editUser = null;
+        },
+        addQueuePrivileges: function addQueuePrivileges() {
+            var _this2 = this;
+
+            this.posting = true;
+            this.$http.post('/admin/approve', { userid: this.editUser.id }).then(function (r) {
+                _this2.posting = false;
+                _this2.editUser.ladder_queue = 'vitalityx';
+                toastr.success(_this2.editUser.name + ' can now queue');
+            });
+        },
+        removeQueuePrivileges: function removeQueuePrivileges() {
+            var _this3 = this;
+
+            this.posting = true;
+            this.$http.post('/admin/remove', { userid: this.editUser.id }).then(function (r) {
+                _this3.posting = false;
+                _this3.editUser.ladder_queue = '';
+                toastr.success(_this3.editUser.name + ' can no longer queue');
+            });
+        },
+        adjustPoints: function adjustPoints() {
+            var _this4 = this;
+
+            if (this.memo.length < 1) {
+                toastr.error('you must include a memo about the point change');
+                return false;
+            }
+            if (this.userPoints === 0) {
+                toastr.error('points must be greater than or less than zero');
+                return false;
+            }
+            this.$http.post('/admin/adjust-points', { userid: this.editUser.id, points: this.userPoints, memo: this.memo }).then(function (r) {
+                _this4.userPoints = 0;
+                _this4.memo = '';
+                toastr.success('Great Success!');
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            loading: false,
+            title: '',
+            body: ''
+        };
+    },
+
+    computed: {
+        isAdmin: function isAdmin() {
+            return this.$store.state.is_admin;
+        }
+    },
+    methods: {
+        postNews: function postNews() {
+            var _this = this;
+
+            if (this.title.length < 3 || this.body.length < 3) {
+                toastr.error('you must enter a title and body');
+                return false;
+            }
+            this.loading = true;
+            var title = this.title;
+            var body = this.body;
+            this.$http.post('/admin/news', { title: title, body: body }).then(function (response) {
+                _this.loading = false;
+                window.location.href = '/';
+            }, function (response) {
+                toastr.error('something went wrong');
+                _this.loading = false;
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['initplayers', 'initgame', 'initgames', 'initnews'],
     data: function data() {
         return {
             players: this.initplayers,
             game: this.initgame,
             games: this.initgames,
+            news: this.initnews,
             loading: false
         };
     },
@@ -38387,12 +38509,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         data.players = this.players;
         data.game = this.game;
         data.games = this.games;
+        data.news = this.news;
         this.$store.commit('setGamestate', data);
     }
 };
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38597,7 +38720,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38640,7 +38763,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38690,7 +38813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38904,11 +39027,14 @@ var _ = __webpack_require__(2);
                 _this.playerDrafted(e.player);
             }).listen('MapBanned', function (e) {
                 _this.mapBanned(e.map);
-            }).listen('GameCancelled', function (e) {
-                var gameid = _this.game.id;
-                _this.$store.commit('clearGame');
-                _this.$router.push('/game/' + gameid);
-            }).listen('GameAccepted', function (e) {
+            })
+            // this is handled in PlayerQueue component now
+            //                  .listen('GameCancelled', (e) => {
+            //                      var gameid = this.game.id
+            //                      this.$store.commit('clearGame')
+            //                      this.$router.push('/game/' + gameid)
+            //                  })
+            .listen('GameAccepted', function (e) {
                 console.log(e);
                 _this.$store.commit('updateGame', e.game);
             }).listen('GameDraftComplete', function (e) {
@@ -38997,11 +39123,21 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39056,6 +39192,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.fetchData();
     },
 
+    computed: {
+        filteredGames: function filteredGames() {
+            if (this.$route.name == 'Games') {
+                return _.filter(this.games, { status_id: 40 });
+            } else {
+                return _.filter(this.games, function (game) {
+                    return game.status_id >= 90;
+                });
+            }
+        }
+    },
     methods: {
         fetchData: function fetchData() {
             var _this = this;
@@ -39072,19 +39219,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (id == 40) {
                 return '<span class="game-complete">Completed</span>';
             }
+            if (id == 90) {
+                return '<span class="game-cancelled">Cancelled by Admin</span>';
+            }
             if (id == 91) {
-                return '<span class="game-cancelled">Cancelled</span>';
+                return '<span class="game-cancelled">Ready Check Failed</span>';
             }
         }
     }
 };
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39381,12 +39543,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     toastr.error('something went wrong');
                 });
             }
+        },
+        cancelGame: function cancelGame() {
+            var _this5 = this;
+
+            if (this.isAdmin) {
+                this.posting = true;
+                var gameid = this.$route.params.id;
+                this.$http.post('/admin/cancelgame', { gameid: gameid }).then(function (response) {
+                    _this5.posting = false;
+                    toastr.success('game was cancelled');
+                    _this5.$router.push('/games/cancelled');
+                }, function (resp) {
+                    //error
+                });
+            }
         }
     }
 };
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39455,7 +39632,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 42 */
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            //games: null
+        };
+    },
+
+    computed: {
+        games: function games() {
+            return this.$store.state.games;
+        }
+    }
+};
+
+/***/ }),
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39567,7 +39793,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39609,15 +39835,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    mounted: function mounted() {
-        // console.log('Component mounted.')
+    computed: {
+        newsItems: function newsItems() {
+            return this.$store.state.news;
+        }
     }
 };
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39648,7 +39877,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39717,7 +39946,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39844,7 +40073,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39924,7 +40153,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39966,7 +40195,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 var _ = __webpack_require__(2);
-var Timer = __webpack_require__(56);
+var Timer = __webpack_require__(59);
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
@@ -40054,36 +40283,48 @@ var Timer = __webpack_require__(56);
                 games.push(e.game);
                 _this2.$store.commit('gamesUpdated', games);
             }).listen('GameCompleted', function (e) {
-                var userIsInGame = false;
-                _.forEach(e.game.players, function (player) {
-                    if (player.user.id === _this2.userid) {
-                        userIsInGame = true;
-                    }
-                });
-                if (userIsInGame) {
-                    _this2.$store.commit('clearGame');
-                    _this2.$router.push('/games');
-                }
-
-                var games = _this2.$store.state.games;
-                var newGames = _.filter(games, function (newGame) {
-                    return newGame.id !== e.game.id;
-                });
-                _this2.$store.commit('gamesUpdated', newGames);
+                _this2.removeGame(e);
+            }).listen('GameCancelled', function (e) {
+                _this2.removeGame(e);
             });
         },
-        enterQueue: function enterQueue() {
+        removeGame: function removeGame(e) {
             var _this3 = this;
+
+            console.log(e);
+            var userIsInGame = false;
+            _.forEach(e.game.players, function (player) {
+                if (player.user.id === _this3.userid) {
+                    userIsInGame = true;
+                }
+            });
+            if (userIsInGame) {
+                this.$store.commit('clearGame');
+                if (e.game.status_id == 40) {
+                    this.$router.push('/games');
+                } else {
+                    this.$router.push('/games/cancelled');
+                }
+            }
+
+            var games = this.$store.state.games;
+            var newGames = _.filter(games, function (newGame) {
+                return newGame.id !== e.game.id;
+            });
+            this.$store.commit('gamesUpdated', newGames);
+        },
+        enterQueue: function enterQueue() {
+            var _this4 = this;
 
             this.loading = true;
             this.$http.post('/enter-queue').then(function (response) {
-                _this3.loading = false;
-                var p = _this3.players;
+                _this4.loading = false;
+                var p = _this4.players;
                 p.push(response.data.user);
-                _this3.players = p;
-                _this3.inQueueFor = '00:00';
+                _this4.players = p;
+                _this4.inQueueFor = '00:00';
             }).catch(function (error) {
-                _this3.loading = false;
+                _this4.loading = false;
                 if (error.response) {
                     var retryafter = error.response.headers["retry-after"];
                     toastr.error("You're doing that too fast. Try again in " + retryafter + " seconds");
@@ -40091,28 +40332,28 @@ var Timer = __webpack_require__(56);
             });
         },
         leaveQueue: function leaveQueue() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.loading = true;
             if (this.timer) this.timer.stop();
             this.$http.post('/leave-queue').then(function (response) {
-                _this4.loading = false;
+                _this5.loading = false;
                 var p = [];
-                _.forEach(_this4.players, function (player) {
-                    if (player.id !== _this4.userid) {
+                _.forEach(_this5.players, function (player) {
+                    if (player.id !== _this5.userid) {
                         p.push(player);
                     }
                 });
-                _this4.$store.commit('playersUpdated', p);
+                _this5.$store.commit('playersUpdated', p);
             }, function (response) {
-                _this4.loading = false;
+                _this5.loading = false;
             });
         },
         updateQueuePlayers: function updateQueuePlayers() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.$http.post('/get-queue').then(function (response) {
-                _this5.$store.commit('playersUpdated', response.data);
+                _this6.$store.commit('playersUpdated', response.data);
             }, function (response) {
                 //
             });
@@ -40123,14 +40364,14 @@ var Timer = __webpack_require__(56);
     },
     watch: {
         'inQueue': function inQueue(queued) {
-            var _this6 = this;
+            var _this7 = this;
 
             if (queued) {
                 var seconds = this.$store.state.joinedQueue;
                 this.timer = new Timer();
                 this.timer.start({ startValues: { seconds: seconds } });
                 this.timer.addEventListener('secondsUpdated', function (e) {
-                    _this6.inQueueFor = _this6.timer.getTimeValues().toString().substring(3);
+                    _this7.inQueueFor = _this7.timer.getTimeValues().toString().substring(3);
                 });
             } else {
                 this.$store.commit('clearQueueTimer');
@@ -40143,7 +40384,7 @@ var Timer = __webpack_require__(56);
 };
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40330,7 +40571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40500,7 +40741,7 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40540,7 +40781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40666,7 +40907,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40742,12 +40983,12 @@ var _ = __webpack_require__(2);
 };
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 window._ = __webpack_require__(2);
@@ -40789,7 +41030,7 @@ window.axios.defaults.headers.common = {
 
 
 
-window.Pusher = __webpack_require__(59);
+window.Pusher = __webpack_require__(62);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
@@ -40797,31 +41038,40 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 });
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_News___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_News__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Leaderboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Leaderboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_GameDraft__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_GameDraft__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_GameDraft___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_GameDraft__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_LadderGame__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_LadderGame__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_LadderGame___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_LadderGame__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Games__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Games__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Games___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Games__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Settings__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Settings__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Settings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_Settings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_PlayerLog__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_PlayerLog__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_PlayerLog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_PlayerLog__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_OnlineUsers__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_OnlineUsers__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_OnlineUsers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_OnlineUsers__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_Admin__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_Admin__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_Admin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_Admin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_AdminNews__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_AdminNews___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_AdminNews__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_AdminEditUsers__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_AdminEditUsers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_AdminEditUsers__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_LiveGames__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_LiveGames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_LiveGames__);
+
+
+
 
 
 
@@ -40867,6 +41117,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     name: 'Games',
     component: __WEBPACK_IMPORTED_MODULE_6__components_Games___default.a
   }, {
+    path: '/games/cancelled',
+    name: 'CancelledGames',
+    component: __WEBPACK_IMPORTED_MODULE_6__components_Games___default.a
+  }, {
+    path: '/games/live',
+    name: 'LiveGames',
+    component: __WEBPACK_IMPORTED_MODULE_13__components_LiveGames___default.a
+  }, {
     path: '/game/:id',
     name: 'LadderGame',
     component: __WEBPACK_IMPORTED_MODULE_5__components_LadderGame___default.a
@@ -40874,11 +41132,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     path: '/admin',
     name: 'Admin',
     component: __WEBPACK_IMPORTED_MODULE_10__components_Admin___default.a
+  }, {
+    path: '/admin/news',
+    name: 'AdminNews',
+    component: __WEBPACK_IMPORTED_MODULE_11__components_AdminNews___default.a
+  }, {
+    path: '/admin/users',
+    name: 'AdminEditUsers',
+    component: __WEBPACK_IMPORTED_MODULE_12__components_AdminEditUsers___default.a
   }]
 });
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -40945,7 +41211,7 @@ var Timer = (
                 days: 86400000
             },
 
-            events = module && module.exports? __webpack_require__(57) : undefined,
+            events = module && module.exports? __webpack_require__(60) : undefined,
 
             prototype;
 
@@ -41438,7 +41704,7 @@ var Timer = (
 
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -41746,7 +42012,7 @@ function isUndefined(arg) {
 
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -42520,7 +42786,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -46655,7 +46921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46663,14 +46929,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="fun
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(92),
+  __webpack_require__(99),
   /* scopeId */
   null,
   /* cssModules */
@@ -46697,14 +46963,82 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(101),
+  __webpack_require__(110),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/AdminEditUsers.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AdminEditUsers.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e5ab8d72", Component.options)
+  } else {
+    hotAPI.reload("data-v-e5ab8d72", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(35),
+  /* template */
+  __webpack_require__(107),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/AdminNews.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AdminNews.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c4ddf48c", Component.options)
+  } else {
+    hotAPI.reload("data-v-c4ddf48c", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(109),
   /* scopeId */
   null,
   /* cssModules */
@@ -46731,14 +47065,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(95),
+  __webpack_require__(102),
   /* scopeId */
   null,
   /* cssModules */
@@ -46765,14 +47099,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(85),
+  __webpack_require__(92),
   /* scopeId */
   null,
   /* cssModules */
@@ -46799,14 +47133,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(102),
+  __webpack_require__(111),
   /* scopeId */
   null,
   /* cssModules */
@@ -46833,14 +47167,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(40),
   /* template */
-  __webpack_require__(99),
+  __webpack_require__(106),
   /* scopeId */
   null,
   /* cssModules */
@@ -46867,14 +47201,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(39),
+  __webpack_require__(41),
   /* template */
-  __webpack_require__(97),
+  __webpack_require__(104),
   /* scopeId */
   null,
   /* cssModules */
@@ -46901,14 +47235,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(40),
+  __webpack_require__(42),
   /* template */
-  __webpack_require__(89),
+  __webpack_require__(96),
   /* scopeId */
   null,
   /* cssModules */
@@ -46935,14 +47269,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(41),
+  __webpack_require__(43),
   /* template */
-  __webpack_require__(93),
+  __webpack_require__(100),
   /* scopeId */
   null,
   /* cssModules */
@@ -46969,14 +47303,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(42),
+  __webpack_require__(44),
   /* template */
-  __webpack_require__(82),
+  __webpack_require__(90),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/awestwick/cxleague/resources/assets/js/components/LiveGames.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LiveGames.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-165316ad", Component.options)
+  } else {
+    hotAPI.reload("data-v-165316ad", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(45),
+  /* template */
+  __webpack_require__(88),
   /* scopeId */
   null,
   /* cssModules */
@@ -47003,14 +47371,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 71 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(43),
+  __webpack_require__(46),
   /* template */
-  __webpack_require__(98),
+  __webpack_require__(105),
   /* scopeId */
   null,
   /* cssModules */
@@ -47037,14 +47405,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 72 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(44),
+  __webpack_require__(47),
   /* template */
-  __webpack_require__(86),
+  __webpack_require__(93),
   /* scopeId */
   null,
   /* cssModules */
@@ -47071,14 +47439,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 73 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(45),
+  __webpack_require__(48),
   /* template */
-  __webpack_require__(94),
+  __webpack_require__(101),
   /* scopeId */
   null,
   /* cssModules */
@@ -47105,14 +47473,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 74 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(49),
   /* template */
-  __webpack_require__(83),
+  __webpack_require__(89),
   /* scopeId */
   null,
   /* cssModules */
@@ -47139,14 +47507,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 75 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(47),
+  __webpack_require__(50),
   /* template */
-  __webpack_require__(88),
+  __webpack_require__(95),
   /* scopeId */
   null,
   /* cssModules */
@@ -47173,14 +47541,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 76 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(48),
+  __webpack_require__(51),
   /* template */
-  __webpack_require__(90),
+  __webpack_require__(97),
   /* scopeId */
   null,
   /* cssModules */
@@ -47207,14 +47575,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 77 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(49),
+  __webpack_require__(52),
   /* template */
-  __webpack_require__(100),
+  __webpack_require__(108),
   /* scopeId */
   null,
   /* cssModules */
@@ -47241,14 +47609,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 78 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(50),
+  __webpack_require__(53),
   /* template */
-  __webpack_require__(87),
+  __webpack_require__(94),
   /* scopeId */
   null,
   /* cssModules */
@@ -47275,14 +47643,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 79 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(51),
+  __webpack_require__(54),
   /* template */
-  __webpack_require__(91),
+  __webpack_require__(98),
   /* scopeId */
   null,
   /* cssModules */
@@ -47309,14 +47677,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(52),
+  __webpack_require__(55),
   /* template */
-  __webpack_require__(96),
+  __webpack_require__(103),
   /* scopeId */
   null,
   /* cssModules */
@@ -47343,14 +47711,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 81 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(53),
+  __webpack_require__(56),
   /* template */
-  __webpack_require__(84),
+  __webpack_require__(91),
   /* scopeId */
   null,
   /* cssModules */
@@ -47377,7 +47745,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 82 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47472,7 +47840,7 @@ if (false) {
 }
 
 /***/ }),
-/* 83 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47521,7 +47889,34 @@ if (false) {
 }
 
 /***/ }),
-/* 84 */
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [(_vm.games.length == 0) ? [_c('div', {
+    staticClass: "panel blank-state nmt"
+  }, [_vm._v("\n                No games currently in progress\n            ")])] : [_c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Started")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.games), function(game) {
+    return _c('tr', [_c('td', [_c('router-link', {
+      attrs: {
+        "to": '/game/' + game.id
+      }
+    }, [_vm._v(_vm._s(game.id))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.start_time))])])
+  }))])]], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-165316ad", module.exports)
+  }
+}
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47604,7 +47999,7 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47645,7 +48040,7 @@ if (false) {
 }
 
 /***/ }),
-/* 86 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47681,7 +48076,7 @@ if (false) {
 }
 
 /***/ }),
-/* 87 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48090,7 +48485,7 @@ if (false) {
 }
 
 /***/ }),
-/* 88 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48133,7 +48528,7 @@ if (false) {
 }
 
 /***/ }),
-/* 89 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48190,7 +48585,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                                http://popflash.site/scrim/" + _vm._s(_vm.game.url) + "\n                                ")])]) : _vm._e(), _vm._v(" "), _c('p', {
     staticClass: "popflash-notes"
-  }, [_vm._v("Join the URL above to start the match. Make sure you join the correct team!")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Match cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Match Complete")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Join the URL above to start the match. Make sure you join the correct team!")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 90) ? _c('div', [_c('p', [_vm._v("Match cancelled by Admin")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Match cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Match Complete")]), _vm._v(" "), _c('p', {
     staticClass: "selected-map"
   }, [_vm._v("Final Pick: " + _vm._s(_vm.game.map))]), _vm._v(" "), _c('div', {
     staticClass: "maps-carousel"
@@ -48455,7 +48850,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateScore()
       }
     }
-  }, [_vm._v("Update Score")])])])]) : _vm._e()])])
+  }, [_vm._v("Update Score")])])])]) : _vm._e(), _vm._v(" "), (_vm.isAdmin && !_vm.loading && _vm.game.status_id < 40) ? _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [_c('div', {
+    staticClass: "panel"
+  }, [_c('h6', [_vm._v("Admin")]), _vm._v(" "), _c('p', [_c('button', {
+    staticClass: "button",
+    on: {
+      "click": function($event) {
+        _vm.cancelGame()
+      }
+    }
+  }, [_vm._v("Cancel Game")])]), _vm._v(" "), _c('p', [_vm._v("No points will be awarded for this game if cancelled")])])])]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('p', {
     staticStyle: {
@@ -48480,7 +48888,7 @@ if (false) {
 }
 
 /***/ }),
-/* 90 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48530,7 +48938,7 @@ if (false) {
 }
 
 /***/ }),
-/* 91 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48582,7 +48990,7 @@ if (false) {
 }
 
 /***/ }),
-/* 92 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48599,127 +49007,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.clearQueue()
       }
     }
-  }, [_vm._v("\n                        " + _vm._s(!_vm.clearing ? 'Clear Queue' : 'Clearing...') + "\n                    ")]), _vm._v(" "), _c('button', {
+  }, [_c('i', {
+    staticClass: "icon ion-android-refresh"
+  }), _vm._v("\n                        " + _vm._s(!_vm.clearing ? 'Clear Queue' : 'Clearing...') + "\n                    ")]), _vm._v(" "), _c('router-link', {
     staticClass: "button",
-    on: {
-      "click": function($event) {
-        _vm.getUsers()
-      }
-    }
-  }, [_vm._v("\n                        " + _vm._s(!_vm.loading ? 'Edit Users' : 'Loading...') + "\n                    ")])])] : _vm._e()] : [_c('p', {
-    staticClass: "text-center; font-size: 25px"
-  }, [_vm._v("Unauthorized")])], _vm._v(" "), (_vm.users.length > 0 && !_vm.editUser) ? _c('table', [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.created_at))]), _vm._v(" "), _c('td', [(user.ladder_queue == 'vitalityx') ? [_vm._v("\n                            VitalityX\n                        ")] : [_c('span', {
-      staticStyle: {
-        "color": "#666"
-      }
-    }, [_vm._v("not approved")])]], 2), _vm._v(" "), _c('td', [_c('button', {
-      staticClass: "button",
-      on: {
-        "click": function($event) {
-          _vm.setUser(user)
-        }
-      }
-    }, [_vm._v("\n                            Edit\n                        ")])])])
-  }))]) : _vm._e(), _vm._v(" "), (_vm.editUser !== null) ? [_c('a', {
     attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.clearEditUser($event)
-      }
+      "to": "/admin/users"
     }
   }, [_c('i', {
-    staticClass: "icon ion-ios-arrow-back"
-  }), _vm._v(" Back")]), _vm._v(" "), _c('div', {
-    staticClass: "panel"
-  }, [_c('p', [_vm._v("Editing user "), _c('strong', [_vm._v(_vm._s(_vm.editUser.name))])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "medium-6 columns"
-  }, [_vm._m(1), _vm._v(" "), _c('p', {
-    staticStyle: {
-      "margin-bottom": "1rem",
-      "color": "#676767",
-      "font-size": "14px"
-    }
-  }, [_vm._v("Enter a positive number to add points or a negative number to subtract points. Make sure to include a memo, which the user will see.")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.userPoints),
-      expression: "userPoints"
-    }],
-    staticStyle: {
-      "max-width": "100px"
-    },
+    staticClass: "icon ion-ios-people"
+  }), _vm._v("\n                        Edit Users\n                    ")]), _vm._v(" "), _c('router-link', {
+    staticClass: "button",
     attrs: {
-      "type": "number",
-      "placeholder": "0"
-    },
-    domProps: {
-      "value": (_vm.userPoints)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.userPoints = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      "to": "/admin/news"
     }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.memo),
-      expression: "memo"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": "leave a memo about why"
-    },
-    domProps: {
-      "value": (_vm.memo)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.memo = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "button",
-    on: {
-      "click": function($event) {
-        _vm.adjustPoints()
-      }
-    }
-  }, [_vm._v("Add/Remove Points")])]), _vm._v(" "), _c('div', {
-    staticClass: "medium-6 columns"
-  }, [_vm._m(2), _vm._v(" "), (_vm.editUser.ladder_queue !== 'vitalityx') ? _c('p', [_c('button', {
-    staticClass: "button",
-    on: {
-      "click": _vm.addQueuePrivileges
-    }
-  }, [_vm._v("\n                                " + _vm._s(!_vm.posting ? 'Grant Privileges' : 'Updating') + "\n                            ")])]) : _c('p', [_c('button', {
-    staticClass: "button",
-    on: {
-      "click": _vm.removeQueuePrivileges
-    }
-  }, [_vm._v("\n                                " + _vm._s(!_vm.posting ? 'Remove Privileges' : 'Updating') + "\n                            ")])])])])])] : _vm._e()], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("User")]), _vm._v(" "), _c('th', [_vm._v("Registered")]), _vm._v(" "), _c('th', [_vm._v("Queue")]), _vm._v(" "), _c('th', [_vm._v("Edit")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('p', [_c('strong', [_vm._v("Adjust points")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('p', [_c('strong', [_vm._v("Queue Status")])])
-}]}
+  }, [_c('i', {
+    staticClass: "icon ion-compose"
+  }), _vm._v("\n                        Edit News\n                    ")])], 1)] : _vm._e()] : [_c('p', {
+    staticClass: "text-center; font-size: 25px"
+  }, [_vm._v("Unauthorized")])]], 2)])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -48729,7 +49036,7 @@ if (false) {
 }
 
 /***/ }),
-/* 93 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48772,7 +49079,7 @@ if (false) {
 }
 
 /***/ }),
-/* 94 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48844,7 +49151,7 @@ if (false) {
 }
 
 /***/ }),
-/* 95 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48909,13 +49216,23 @@ if (false) {
 }
 
 /***/ }),
-/* 96 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "user-sidebar"
-  }, [_vm._m(0), _vm._v(" "), _c('playerqueue'), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "sidebar-logo"
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/vxblue.png"
+    }
+  })])], 1), _vm._v(" "), _c('playerqueue'), _vm._v(" "), _c('div', {
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Navigation\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
@@ -48944,7 +49261,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "nav-bullet"
   }, [_c('i', {
     staticClass: "icon ion-clipboard"
-  })]), _vm._v("\n                Game History\n            ")])], 1)]), _vm._v(" "), _c('div', {
+  })]), _vm._v("\n                Game History\n            ")])], 1), _vm._v(" "), (_vm.isAdmin) ? _c('li', [_c('router-link', {
+    attrs: {
+      "to": "/admin"
+    }
+  }, [_c('div', {
+    staticClass: "nav-bullet"
+  }, [_c('i', {
+    staticClass: "icon ion-flash"
+  })]), _vm._v("\n                Admin\n            ")])], 1) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "sidebar-section-header"
   }, [_vm._v("\n        Account\n    ")]), _vm._v(" "), _c('ul', {
     staticClass: "main-nav"
@@ -48956,15 +49281,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "nav-bullet"
   }, [_c('i', {
     staticClass: "icon ion-stats-bars"
-  })]), _vm._v("\n                Player Log\n            ")])], 1), _vm._v(" "), (_vm.isAdmin) ? _c('li', [_c('router-link', {
-    attrs: {
-      "to": "/admin"
-    }
-  }, [_c('div', {
-    staticClass: "nav-bullet"
-  }, [_c('i', {
-    staticClass: "icon ion-flash"
-  })]), _vm._v("\n                Admin\n            ")])], 1) : _vm._e(), _vm._v(" "), _c('li', [_c('router-link', {
+  })]), _vm._v("\n                Player Log\n            ")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     attrs: {
       "to": "/settings"
     }
@@ -48982,30 +49299,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.doLogout($event)
       }
     }
-  }, [_vm._m(1), _vm._v("\n                Log Out\n            ")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v("\n                Log Out\n            ")])])]), _vm._v(" "), _c('div', {
     staticClass: "placeholder-bar"
   }), _vm._v(" "), _c('div', {
     staticClass: "platform-status"
-  }, [_vm._m(2), _vm._v(" "), _c('p', [_vm._v("Players online: "), _c('router-link', {
+  }, [_vm._m(1), _vm._v(" "), _c('p', [_vm._v("Players online: "), _c('router-link', {
     attrs: {
       "to": "/players"
     }
   }, [_vm._v(_vm._s(_vm.onlineUserCount))])], 1), _vm._v(" "), _c('p', [_vm._v("Games in progress: "), _c('router-link', {
     attrs: {
-      "to": "/live-games"
+      "to": "/games/live"
     }
   }, [_vm._v(_vm._s(_vm.gamesInProgressCount))])], 1), _vm._v(" "), _c('div', {
     staticClass: "version"
-  }, [_vm._v("\n            Beta v0.0.1\n        ")])])], 1)
+  }, [_vm._v("\n            Beta v0.0.2\n        ")])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "sidebar-logo"
-  }, [_c('img', {
-    attrs: {
-      "src": "/images/vxblue.png"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"
   }, [_c('i', {
@@ -49025,7 +49334,7 @@ if (false) {
 }
 
 /***/ }),
-/* 97 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -49037,7 +49346,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "loading"
   }, [_c('div', {
     staticClass: "panel nmt text-center"
-  }, [_vm._v("\n                Loading...\n            ")])]) : _c('div', [_c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Started")]), _vm._v(" "), _c('th', [_vm._v("Ended")]), _vm._v(" "), _c('th', [_vm._v("Team 1 Score")]), _vm._v(" "), _c('th', [_vm._v("Team 2 Score")]), _vm._v(" "), _c('th', [_vm._v("Winner")]), _vm._v(" "), _c('th', [_vm._v("Status")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.games), function(game) {
+  }, [_vm._v("\n                Loading...\n            ")])]) : _c('div', [_c('div', {
+    staticClass: "games-filter"
+  }, [_c('p', {
+    staticClass: "text-right"
+  }, [(_vm.$route.name == 'Games') ? [_c('router-link', {
+    attrs: {
+      "to": "/games/cancelled"
+    }
+  }, [_vm._v("Show Cancelled Games")])] : [_c('router-link', {
+    attrs: {
+      "to": "/games"
+    }
+  }, [_vm._v("Show Completed Games")])]], 2)]), _vm._v(" "), _c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Started")]), _vm._v(" "), _c('th', [_vm._v("Ended")]), _vm._v(" "), _c('th', [_vm._v("Team 1 Score")]), _vm._v(" "), _c('th', [_vm._v("Team 2 Score")]), _vm._v(" "), _c('th', [_vm._v("Winner")]), _vm._v(" "), _c('th', [_vm._v("Status")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.filteredGames), function(game) {
     return _c('tr', [_c('td', [_c('router-link', {
       attrs: {
         "to": '/game/' + game.id
@@ -49058,25 +49379,31 @@ if (false) {
 }
 
 /***/ }),
-/* 98 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "medium-6 columns"
-  }, [_c('div', {
-    staticClass: "panel nmt news-item"
-  }, [_c('div', {
-    staticClass: "news-inner"
-  }, [_c('h5', {
-    staticClass: "title"
-  }, [_vm._v("Beta version is released!")]), _vm._v(" "), _c('p', {
-    staticClass: "author-info"
-  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 19, 2017")]), _vm._v(" "), _c('p', [_vm._v("We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.")]), _vm._v(" "), _c('p', [_vm._v("See you on the ladder!")])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._l((_vm.newsItems), function(news) {
+    return [_c('div', {
+      staticClass: "panel nmt news-item"
+    }, [_c('div', {
+      staticClass: "news-inner"
+    }, [_c('h5', {
+      staticClass: "title"
+    }, [_vm._v(_vm._s(news.title))]), _vm._v(" "), _c('p', {
+      staticClass: "author-info"
+    }, [_vm._v("Posted by "), _c('span', [_vm._v("@" + _vm._s(news.user.name))]), _vm._v(" on " + _vm._s(news.posted_on))]), _vm._v(" "), _c('div', {
+      domProps: {
+        "innerHTML": _vm._s(news.body)
+      }
+    })])])]
+  })], 2), _vm._v(" "), _vm._m(0)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "medium-6 columns"
   }, [_c('div', {
     staticClass: "panel nmt news-item support-info"
@@ -49092,19 +49419,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("link")])]), _vm._v(" "), _c('li', [_vm._v("Discord: "), _c('a', {
+  }, [_vm._v("vitalityx.ts.nfoservers.com")])]), _vm._v(" "), _c('li', [_vm._v("Discord: "), _c('a', {
     attrs: {
-      "href": "#"
+      "href": "https://discord.gg/XHNAKZs",
+      "target": "_blank"
     }
-  }, [_vm._v("link")])]), _vm._v(" "), _c('li', [_vm._v("Twitter: "), _c('a', {
+  }, [_vm._v("discord.gg/XHNAKZs")])]), _vm._v(" "), _c('li', [_vm._v("Twitter: "), _c('a', {
     attrs: {
-      "href": "#"
+      "href": "https://twitter.com/vitality_x",
+      "target": "_blank"
     }
   }, [_vm._v("@vitality_x")])]), _vm._v(" "), _c('li', [_vm._v("Email: "), _c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("link")])])])])])])])])
+  }, [_vm._v("vitalityxleague@gmail.com")])])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -49115,7 +49444,7 @@ if (false) {
 }
 
 /***/ }),
-/* 99 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -49249,7 +49578,79 @@ if (false) {
 }
 
 /***/ }),
-/* 100 */
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [(_vm.isAdmin) ? [_c('div', {
+    staticClass: "panel nmt"
+  }, [_c('h6', [_vm._v("Post News Article")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.title),
+      expression: "title"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "Title"
+    },
+    domProps: {
+      "value": (_vm.title)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.title = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.body),
+      expression: "body"
+    }],
+    attrs: {
+      "placeholder": "post content goes here"
+    },
+    domProps: {
+      "value": (_vm.body)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.body = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "button nomargin",
+    attrs: {
+      "disabled": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.postNews()
+      }
+    }
+  }, [_vm._v("\n                    " + _vm._s(!_vm.loading ? 'Post' : 'Posting...') + "\n                ")])])] : [_c('p', {
+    staticClass: "text-center; font-size: 25px"
+  }, [_vm._v("Unauthorized")])]], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-c4ddf48c", module.exports)
+  }
+}
+
+/***/ }),
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -49376,7 +49777,7 @@ if (false) {
 }
 
 /***/ }),
-/* 101 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -49407,7 +49808,140 @@ if (false) {
 }
 
 /***/ }),
-/* 102 */
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "small-12 columns"
+  }, [(_vm.isAdmin) ? [(_vm.loading) ? _c('div', {
+    staticClass: "panel nmt text-center"
+  }, [_vm._v("\n                Loading...\n            ")]) : _vm._e()] : [_c('p', {
+    staticClass: "text-center; font-size: 25px"
+  }, [_vm._v("Unauthorized")])], _vm._v(" "), (_vm.users.length > 0 && !_vm.editUser) ? _c('table', [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.created_at))]), _vm._v(" "), _c('td', [(user.ladder_queue == 'vitalityx') ? [_vm._v("\n                            VitalityX\n                        ")] : [_c('span', {
+      staticStyle: {
+        "color": "#666"
+      }
+    }, [_vm._v("not approved")])]], 2), _vm._v(" "), _c('td', [_c('button', {
+      staticClass: "button",
+      on: {
+        "click": function($event) {
+          _vm.setUser(user)
+        }
+      }
+    }, [_vm._v("\n                            Edit\n                        ")])])])
+  }))]) : _vm._e(), _vm._v(" "), (_vm.editUser !== null) ? [_c('a', {
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.clearEditUser($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "icon ion-ios-arrow-back"
+  }), _vm._v(" Back")]), _vm._v(" "), _c('div', {
+    staticClass: "panel"
+  }, [_c('p', [_vm._v("Editing user "), _c('strong', [_vm._v(_vm._s(_vm.editUser.name))]), _vm._v(" - (" + _vm._s(_vm.editUser.ladder_points) + " ladder points)")])]), _vm._v(" "), _c('div', {
+    staticClass: "panel"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "medium-6 columns"
+  }, [_vm._m(1), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "margin-bottom": "1rem",
+      "color": "#676767",
+      "font-size": "14px"
+    }
+  }, [_vm._v("Enter a positive number to add points or a negative number to subtract points. Make sure to include a memo, which the user will see.")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.userPoints),
+      expression: "userPoints"
+    }],
+    staticStyle: {
+      "max-width": "100px"
+    },
+    attrs: {
+      "type": "number",
+      "placeholder": "0"
+    },
+    domProps: {
+      "value": (_vm.userPoints)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.userPoints = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.memo),
+      expression: "memo"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "leave a memo about why"
+    },
+    domProps: {
+      "value": (_vm.memo)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.memo = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "button",
+    on: {
+      "click": function($event) {
+        _vm.adjustPoints()
+      }
+    }
+  }, [_vm._v("Add/Remove Points")])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-6 columns"
+  }, [_vm._m(2), _vm._v(" "), (_vm.editUser.ladder_queue !== 'vitalityx') ? _c('p', [_c('button', {
+    staticClass: "button",
+    on: {
+      "click": _vm.addQueuePrivileges
+    }
+  }, [_vm._v("\n                                " + _vm._s(!_vm.posting ? 'Grant Privileges' : 'Updating') + "\n                            ")])]) : _c('p', [_c('button', {
+    staticClass: "button",
+    on: {
+      "click": _vm.removeQueuePrivileges
+    }
+  }, [_vm._v("\n                                " + _vm._s(!_vm.posting ? 'Remove Privileges' : 'Updating') + "\n                            ")])])])])])] : _vm._e()], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("User")]), _vm._v(" "), _c('th', [_vm._v("Registered")]), _vm._v(" "), _c('th', [_vm._v("Queue")]), _vm._v(" "), _c('th', [_vm._v("Edit")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Adjust points")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', [_c('strong', [_vm._v("Queue Status")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-e5ab8d72", module.exports)
+  }
+}
+
+/***/ }),
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -49424,7 +49958,7 @@ if (false) {
 }
 
 /***/ }),
-/* 103 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51896,7 +52430,7 @@ if (inBrowser && window.Vue) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 104 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52711,7 +53245,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 105 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -52739,7 +53273,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 106 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(14);

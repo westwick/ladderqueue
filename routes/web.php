@@ -57,6 +57,8 @@ Route::post('/admin/updatescore', 'AdminController@updateScore');
 Route::post('/admin/clearqueue', 'AdminController@clearQueue');
 Route::post('/admin/approve', 'AdminController@approveUser');
 Route::post('/admin/remove', 'AdminController@removeUser');
+Route::post('/admin/news', 'AdminController@postNews');
+Route::post('/admin/cancelgame', 'AdminController@cancelGame');
 Route::post('/admin/adjust-points', 'AdminController@adjustPoints');
 
 Route::post('/games', 'BracketController@games');

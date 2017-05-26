@@ -207,11 +207,12 @@
                   .listen('MapBanned', (e) => {
                       this.mapBanned(e.map)
                   })
-                  .listen('GameCancelled', (e) => {
-                      var gameid = this.game.id
-                      this.$store.commit('clearGame')
-                      this.$router.push('/game/' + gameid)
-                  })
+                  // this is handled in PlayerQueue component now
+//                  .listen('GameCancelled', (e) => {
+//                      var gameid = this.game.id
+//                      this.$store.commit('clearGame')
+//                      this.$router.push('/game/' + gameid)
+//                  })
                   .listen('GameAccepted', (e) => {
                       console.log(e)
                       this.$store.commit('updateGame', e.game)

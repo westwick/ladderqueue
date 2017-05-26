@@ -9,6 +9,9 @@ import Settings from '../components/Settings'
 import PlayerLog from '../components/PlayerLog'
 import OnlineUsers from '../components/OnlineUsers'
 import Admin from '../components/Admin'
+import AdminNews from '../components/AdminNews'
+import AdminEditUsers from '../components/AdminEditUsers'
+import LiveGames from '../components/LiveGames'
 
 Vue.use(Router)
 
@@ -51,6 +54,16 @@ export default new Router({
       component: Games
     },
     {
+      path: '/games/cancelled',
+      name: 'CancelledGames',
+      component: Games
+    },
+    {
+      path: '/games/live',
+      name: 'LiveGames',
+      component: LiveGames
+    },
+    {
       path: '/game/:id',
       name: 'LadderGame',
       component: LadderGame
@@ -59,6 +72,16 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Admin
+    },
+    {
+      path: '/admin/news',
+      name: 'AdminNews',
+      component: AdminNews
+    },
+    {
+      path: '/admin/users',
+      name: 'AdminEditUsers',
+      component: AdminEditUsers
     }
   ]
 })

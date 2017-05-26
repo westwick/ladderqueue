@@ -34,6 +34,6 @@ class GameCancelled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('laddergame.' . $this->game->id);
+        return new PrivateChannel('queue');
     }
 }

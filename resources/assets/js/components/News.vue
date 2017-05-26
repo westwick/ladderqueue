@@ -1,14 +1,15 @@
 <template>
     <div class="row">
         <div class="medium-6 columns">
-            <div class="panel nmt news-item">
-                <div class="news-inner">
-                    <h5 class="title">Beta version is released!</h5>
-                    <p class="author-info">Posted by <span>@drew</span> on May 19, 2017</p>
-                    <p>We are excited to release the first version of the VitalityX 10man queue. As this is the first release, we expect there to be several bugs. Let us know if you find any and thanks for being a beta tester.</p>
-                    <p>See you on the ladder!</p>
+            <template v-for="news in newsItems">
+                <div class="panel nmt news-item">
+                    <div class="news-inner">
+                        <h5 class="title">{{news.title}}</h5>
+                        <p class="author-info">Posted by <span>@{{news.user.name}}</span> on {{news.posted_on}}</p>
+                        <div v-html="news.body"></div>
+                    </div>
                 </div>
-            </div>
+            </template>
         </div>
         <div class="medium-6 columns">
             <div class="panel nmt news-item support-info">
@@ -23,10 +24,10 @@
                     <h6>Contact</h6>
                     <p>
                     <ul>
-                        <li>Teamspeak: <a href="#">link</a></li>
-                        <li>Discord: <a href="#">link</a></li>
-                        <li>Twitter: <a href="#">@vitality_x</a></li>
-                        <li>Email: <a href="#">link</a></li>
+                        <li>Teamspeak: <a href="#">vitalityx.ts.nfoservers.com</a></li>
+                        <li>Discord: <a href="https://discord.gg/XHNAKZs" target="_blank">discord.gg/XHNAKZs</a></li>
+                        <li>Twitter: <a href="https://twitter.com/vitality_x" target="_blank">@vitality_x</a></li>
+                        <li>Email: <a href="#">vitalityxleague@gmail.com</a></li>
                     </ul>
                     </p>
                 </div>
@@ -37,8 +38,10 @@
 
 <script type="text/babel">
     export default {
-        mounted() {
-            // console.log('Component mounted.')
+        computed: {
+            newsItems() {
+                return this.$store.state.news
+            }
         }
     }
 </script>

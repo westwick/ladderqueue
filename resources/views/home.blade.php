@@ -19,7 +19,9 @@
         <div class="main-content">
             <app :initplayers="{{$players}}"
                  :initgame="{{ $game !== NULL ? $game : '{}' }}"
-                 :initgames="{{$gamesInProgress !== NULL ? $gamesInProgress : '{}'}}">
+                 :initgames="{{$gamesInProgress !== NULL ? $gamesInProgress : '{}'}}"
+                 :initnews="{{$news}}"
+            >
 
             </app>
         </div>

@@ -122,23 +122,34 @@
                         this.$store.commit('gamesUpdated', games)
                     })
                     .listen('GameCompleted', (e) => {
-                        var userIsInGame = false
-                        _.forEach(e.game.players, (player) => {
-                            if(player.user.id === this.userid) {
-                                userIsInGame = true
-                            }
-                        })
-                        if(userIsInGame) {
-                            this.$store.commit('clearGame')
-                            this.$router.push('/games')
-                        }
-
-                        var games = this.$store.state.games
-                        var newGames = _.filter(games, function(newGame) {
-                            return newGame.id !== e.game.id
-                        })
-                        this.$store.commit('gamesUpdated', newGames)
+                        this.removeGame(e)
                     })
+                    .listen('GameCancelled', (e) => {
+                        this.removeGame(e)
+                    })
+            },
+            removeGame(e) {
+                console.log(e)
+                var userIsInGame = false
+                _.forEach(e.game.players, (player) => {
+                    if(player.user.id === this.userid) {
+                        userIsInGame = true
+                    }
+                })
+                if(userIsInGame) {
+                    this.$store.commit('clearGame')
+                    if(e.game.status_id == 40) {
+                        this.$router.push('/games')
+                    } else {
+                        this.$router.push('/games/cancelled')
+                    }
+                }
+
+                var games = this.$store.state.games
+                var newGames = _.filter(games, function(newGame) {
+                    return newGame.id !== e.game.id
+                })
+                this.$store.commit('gamesUpdated', newGames)
             },
             enterQueue() {
                 this.loading = true

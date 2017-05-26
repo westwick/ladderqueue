@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameCancelled;
 use App\Events\PlayerLeftQueue;
+use App\News;
 use App\User;
 use Illuminate\Http\Request;
 use App\LadderGame;
@@ -102,6 +104,37 @@ class AdminController extends Controller
     {
         $user = User::findOrFail(Input::get('userid'));
         $user->adjustPoints(Input::get('points'), Input::get('memo') . ' (admin: ' . Auth::user()->name . ')');
+
+        return response()->json(['success' => true]);
+    }
+
+    public function cancelGame()
+    {
+        $game = LadderGame::findOrFail(Input::get('gameid'));
+        $game->status_id = 90;
+        $game->save();
+
+        foreach($game->players as $player) {
+            $player->status_id = 90;
+            $player->save();
+        }
+
+        broadcast(new GameCancelled($game));
+
+        return response()->json(['success' => true]);
+    }
+
+    public function postNews()
+    {
+        $user = Auth::user();
+        $title = Input::get('title');
+        $body = Input::get('body');
+
+        $news = new News();
+        $news->user_id = $user->id;
+        $news->title = $title;
+        $news->body = $body;
+        $news->save();
 
         return response()->json(['success' => true]);
     }

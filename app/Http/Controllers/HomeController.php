@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LadderGame;
+use App\News;
 use Illuminate\Http\Request;
 use Auth;
 use App\SeasonRegistration;
@@ -36,11 +37,12 @@ class HomeController extends Controller
             $game = [];
             $ids = QueueUser::all()->pluck('user_id');
             $players = User::whereIn('id', $ids)->get();
+            $news = News::orderBy('id', 'desc')->limit(5)->get();
 
             $gamesInProgress = LadderGame::where('status_id', '<', 40)->get();
 
             $game = $user->getLadderGame();
-            return view('home')->with(compact('players', 'game', 'gamesInProgress'));
+            return view('home')->with(compact('players', 'game', 'gamesInProgress', 'news'));
         } else {
             return view('welcome');
         }

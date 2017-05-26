@@ -31,6 +31,9 @@
                                 <p class="popflash-notes">Join the URL above to start the match. Make sure you join the correct team!</p>
                             </div>
                         </div>
+                        <div v-if="game.status_id == 90">
+                            <p>Match cancelled by Admin</p>
+                        </div>
                         <div v-if="game.status_id == 91">
                             <p>Match cancelled - not all players accepted the ready check</p>
                         </div>
@@ -164,6 +167,15 @@
                 </div>
             </div>
 
+            <div v-if="isAdmin && !loading && game.status_id < 40" class="row">
+                <div class="small-12 columns">
+                    <div class="panel">
+                        <h6>Admin</h6>
+                        <p><button class="button" @click="cancelGame()">Cancel Game</button></p>
+                        <p>No points will be awarded for this game if cancelled</p>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -281,6 +293,19 @@
                     }, (response) => {
                         this.posting = false
                         toastr.error('something went wrong')
+                    })
+                }
+            },
+            cancelGame() {
+                if(this.isAdmin) {
+                    this.posting = true
+                    var gameid = this.$route.params.id
+                    this.$http.post('/admin/cancelgame', {gameid}).then((response) => {
+                        this.posting = false
+                        toastr.success('game was cancelled')
+                        this.$router.push('/games/cancelled')
+                    }, (resp) => {
+                        //error
                     })
                 }
             }
