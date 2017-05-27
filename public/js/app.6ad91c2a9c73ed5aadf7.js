@@ -49470,7 +49470,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.gamesInProgressCount))])], 1), _vm._v(" "), _c('div', {
     staticClass: "version"
-  }, [_vm._v("\n            Beta v0.0.2\n        ")])])], 1)
+  }, [_vm._v("\n            Beta v0.0.3\n        ")])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"
