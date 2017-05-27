@@ -45,6 +45,13 @@ class BracketController extends Controller
                 ORDER BY ladder_points DESC ) 
                 FROM users where ladder_queue = "vitalityx" )
             ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
+
+        foreach($users as $user) {
+            $user->append('streak');
+            $user->append('record');
+            $user->append('sparkline');
+        }
+
         return $users;
     }
 

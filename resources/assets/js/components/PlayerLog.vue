@@ -1,40 +1,39 @@
 <template>
-    <div class="row">
+    <div v-if="loading" class="loading">
+        <div class="loader-spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <div class="row" v-else>
         <div class="small-12 columns">
-            <div class="loading" v-if="loading">
-                <div class="panel nmt text-center">
-                    Loading...
-                </div>
-            </div>
-            <div v-else>
-                <table class="leaderboard">
-                    <thead>
-                    <tr>
-                        <th>Points</th>
-                        <th>Memo</th>
-                        <th>When</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in log">
-                        <td width="10%">
-                            <template v-if="item.points > 0">
-                                <span class="points-positive">
-                                    +{{item.points}}
-                                </span>
-                            </template>
-                            <template v-else>
-                                <span class="points-negative">
-                                    {{item.points}}
-                                </span>
-                            </template>
-                        </td>
-                        <td width="60%">{{item.memo}}</td>
-                        <td width="30%">{{item.time_ago}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="leaderboard">
+                <thead>
+                <tr>
+                    <th>Points</th>
+                    <th>Memo</th>
+                    <th>When</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in log">
+                    <td width="10%">
+                        <template v-if="item.points > 0">
+                            <span class="points-positive">
+                                +{{item.points}}
+                            </span>
+                        </template>
+                        <template v-else>
+                            <span class="points-negative">
+                                {{item.points}}
+                            </span>
+                        </template>
+                    </td>
+                    <td width="60%">{{item.memo}}</td>
+                    <td width="30%">{{item.time_ago}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>

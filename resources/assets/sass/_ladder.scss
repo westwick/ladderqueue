@@ -14,6 +14,15 @@
   tr.active-user {
     outline: thin solid $vxblue;
   }
+  .streak-pos {
+    color: $newgreen;
+  }
+  .streak-neg {
+    color: $celred;
+  }
+  .nostreak {
+    color: #676767;
+  }
 }
 
 span.selectedMap {
@@ -149,4 +158,52 @@ span.selectedMap {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.loading {
+  height: calc(100vh - 55px - 1rem - 1rem);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-spinner {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: $vxblue;
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 0.8s infinite ease-in-out;
+  animation: sk-bounce 0.8s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(1.0) }
+  50% { -webkit-transform: scale(0.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  } 50% {
+      transform: scale(0.0);
+      -webkit-transform: scale(0.0);
+    }
 }

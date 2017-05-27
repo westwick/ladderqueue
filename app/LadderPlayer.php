@@ -21,4 +21,9 @@ class LadderPlayer extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function game()
+    {
+        return $this->belongsTo('App\LadderGame');
+    }
 }

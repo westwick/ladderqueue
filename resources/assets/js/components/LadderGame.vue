@@ -99,7 +99,7 @@
                         <p class="text-center"><strong>Team 2</strong></p>
                         <div v-for="player in team2players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
-                            {{player.user.name}}
+                            {{player.user.name}} ({{player.user.ladder_points}})
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                         <p class="text-center"><strong>Team 1</strong></p>
                         <div v-for="player in team1players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
-                            {{player.user.name}}
+                            {{player.user.name}} ({{player.user.ladder_points}})
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                         <p class="text-center"><strong>Team 2</strong></p>
                         <div v-for="player in team2players" class="player-on-team draft-player">
                             <img :src="player.user.image" />
-                            {{player.user.name}}
+                            {{player.user.name}} ({{player.user.ladder_points}})
                         </div>
                     </div>
                 </div>

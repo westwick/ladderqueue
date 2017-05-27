@@ -1,12 +1,12 @@
 <template>
-    <div class="row">
+    <div class="loading" v-if="loading">
+        <div class="loader-spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <div class="row" v-else>
         <div class="small-12 columns">
-            <div class="loading" v-if="loading">
-                <div class="panel nmt text-center">
-                    Loading...
-                </div>
-            </div>
-            <div v-else>
                 <div class="games-filter">
                     <p class="text-right">
                         <template v-if="$route.name == 'Games'">
@@ -45,7 +45,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
         </div>
     </div>
 </template>

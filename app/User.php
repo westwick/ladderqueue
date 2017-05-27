@@ -132,6 +132,51 @@ class User extends Authenticatable
         return $this->avatar !== NUll ? $this->avatar : '/images/unknown.png';
     }
 
+    public function getGamesPlayedAttribute()
+    {
+        return LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->count();
+    }
+
+    public function getRecordAttribute()
+    {
+        $wins = 0;
+        $losses = 0;
+        $players = LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->get();
+        foreach($players as $player) {
+            if($player->team == $player->game->winner) {
+                $wins++;
+            } else {
+                $losses++;
+            }
+        }
+        $total = $wins+$losses;
+        $return = $wins . ' - ' . $losses;
+        //if($total > 0) {
+        //    $return .= ' (' . number_format($wins/($wins+$losses), 2) . ')';
+        //} else {
+        //    $return .= ' (0.00)';
+        //}
+        return $return;
+    }
+
+    public function getStreakAttribute()
+    {
+        $log = PlayerLog::where('user_id', $this->id)->orderBy('created_at', 'desc')->take(5)->pluck('points')->all();
+        return array_sum($log);
+    }
+
+    public function getSparklineAttribute()
+    {
+        $log = PlayerLog::where('user_id', $this->id)->orderBy('created_at', 'desc')->take(5)->pluck('points');
+        $streak = $this->streak;
+        $sparkline = [$streak];
+        for($i = 1; $i <= count($log); $i++) {
+            $sparkline[] = $sparkline[$i - 1] + (-1 * $log[$i - 1]);
+        }
+        return array_reverse($sparkline);
+    }
+
+
     public function getLadderGame()
     {
         $player = LadderPlayer::where('user_id', $this->id)->where('status_id', '<', 40)->first();

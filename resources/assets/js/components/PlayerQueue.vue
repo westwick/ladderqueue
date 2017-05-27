@@ -58,7 +58,7 @@
                 return this.$route.name === "Draft" || this.$route.name === "LadderGame"
             },
             gameLink() {
-                if(this.game.id && this.game.status_id < 20) {
+                if(this.game.id && this.game.status_id < 30) {
                     return "/draft"
                 } else {
                     return "/game/" + this.game.id

@@ -39179,7 +39179,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -39598,6 +39597,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -39610,6 +39616,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         userid: function userid() {
             return this.$store.state.userid;
+        },
+        onlineUsers: function onlineUsers() {
+            return this.$store.state.onlineUsers;
         }
     },
     created: function created() {
@@ -39624,9 +39633,146 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$http.post('/leaderboard').then(function (response) {
                 _this.loading = false;
                 _this.leaderboard = response.data;
+                setTimeout(_this.drawCharts, 1);
             }, function (response) {
                 _this.loading = false;
             });
+        },
+        isOnline: function isOnline(player) {
+            var test = _.find(this.onlineUsers, { id: player.id });
+            return JSON.toString(test);
+        },
+        getStreakClass: function getStreakClass(streak) {
+            if (streak > 0) {
+                return 'streak-pos';
+            } else if (streak < 0) {
+                return 'streak-neg';
+            } else {
+                return 'nostreak';
+            }
+        },
+        drawCharts: function drawCharts() {
+            var _this2 = this;
+
+            _.forEach(this.leaderboard, function (player) {
+                if (player.sparkline.length > 2) {
+                    var options = _this2.defaultOptions();
+                    options.series = [{
+                        data: player.sparkline,
+                        pointStart: 1,
+                        threshold: 0,
+                        color: '#cddc39',
+                        negativeColor: '#d41f26'
+                    }];
+                    var test = new Highcharts.chart('spark' + player.id, options);
+                }
+            });
+        },
+        defaultOptions: function defaultOptions() {
+            return {
+                chart: {
+                    //renderTo: (options.chart && options.chart.renderTo) || this,
+                    backgroundColor: null,
+                    borderWidth: 0,
+                    type: 'areaspline',
+                    margin: [2, 0, 2, 0],
+                    width: 120,
+                    height: 20,
+                    style: {
+                        overflow: 'visible',
+                        margin: '0 auto'
+                    },
+
+                    // small optimalization, saves 1-2 ms each sparkline
+                    skipClone: true
+                },
+                title: {
+                    text: ''
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    },
+                    title: {
+                        text: null
+                    },
+                    startOnTick: false,
+                    endOnTick: false,
+                    tickPositions: []
+                },
+                yAxis: {
+                    endOnTick: false,
+                    startOnTick: false,
+                    labels: {
+                        enabled: false
+                    },
+                    title: {
+                        text: null
+                    },
+                    tickPositions: [0],
+                    gridLineWidth: 0,
+                    minorGridLineWidth: 0
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    backgroundColor: '#121212',
+                    borderWidth: '1',
+                    borderColor: '#2e2e2e',
+                    style: {
+                        color: '#FFF'
+                    },
+                    shadow: false,
+                    useHTML: true,
+                    hideDelay: 0,
+                    shared: true,
+                    //padding: '3px',
+                    formatter: function formatter() {
+                        console.log(this);
+                        if (this.x > 1) {
+                            var previousPoint = this.points[0].series.data[this.x - 2].y;
+                            var currentPoint = this.y;
+                            var diff = currentPoint - previousPoint;
+                            return diff > 0 ? '+' + diff : diff;
+                        } else {
+                            return this.y;
+                        }
+                    },
+
+                    positioner: function positioner(w, h, point) {
+                        return { x: point.plotX - w / 2, y: point.plotY - h };
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        animation: false,
+                        lineWidth: 1,
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        marker: {
+                            radius: 1,
+                            states: {
+                                hover: {
+                                    radius: 2
+                                }
+                            }
+                        },
+                        fillOpacity: 0.25
+                    },
+                    column: {
+                        negativeColor: '#910000',
+                        borderColor: 'silver'
+                    }
+                }
+            };
         }
     }
 };
@@ -40118,7 +40264,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -40219,7 +40364,7 @@ var Timer = __webpack_require__(59);
             return this.$route.name === "Draft" || this.$route.name === "LadderGame";
         },
         gameLink: function gameLink() {
-            if (this.game.id && this.game.status_id < 20) {
+            if (this.game.id && this.game.status_id < 30) {
                 return "/draft";
             } else {
                 return "/game/" + this.game.id;
@@ -48489,15 +48634,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.loading) ? _c('div', {
+    staticClass: "loading"
+  }, [_vm._m(0)]) : _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
-  }, [(_vm.loading) ? _c('div', {
-    staticClass: "loading"
-  }, [_c('div', {
-    staticClass: "panel nmt text-center"
-  }, [_vm._v("\n                Loading...\n            ")])]) : _c('div', [_c('table', {
+  }, [_c('table', {
     staticClass: "leaderboard"
   }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Memo")]), _vm._v(" "), _c('th', [_vm._v("When")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.log), function(item) {
     return _c('tr', [_c('td', {
@@ -48506,9 +48649,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [(item.points > 0) ? [_c('span', {
       staticClass: "points-positive"
-    }, [_vm._v("\n                                +" + _vm._s(item.points) + "\n                            ")])] : [_c('span', {
+    }, [_vm._v("\n                            +" + _vm._s(item.points) + "\n                        ")])] : [_c('span', {
       staticClass: "points-negative"
-    }, [_vm._v("\n                                " + _vm._s(item.points) + "\n                            ")])]], 2), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                            " + _vm._s(item.points) + "\n                        ")])]], 2), _vm._v(" "), _c('td', {
       attrs: {
         "width": "60%"
       }
@@ -48517,8 +48660,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "30%"
       }
     }, [_vm._v(_vm._s(item.time_ago))])])
-  }))])])])])
-},staticRenderFns: []}
+  }))])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "loader-spinner"
+  }, [_c('div', {
+    staticClass: "double-bounce1"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "double-bounce2"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -48718,7 +48869,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                    ")])
   })], 2)])]) : (_vm.game && _vm.game.status_id == 40) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -48734,7 +48885,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                    ")])
   })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "medium-4 columns"
   }, [_c('div', {
@@ -48754,7 +48905,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": player.user.image
       }
-    }), _vm._v("\n                        " + _vm._s(player.user.name) + "\n                    ")])
+    }), _vm._v("\n                        " + _vm._s(player.user.name) + " (" + _vm._s(player.user.ladder_points) + ")\n                    ")])
   })], 2)])]) : (_vm.game) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -49040,36 +49191,42 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.loading) ? _c('div', {
+    staticClass: "loading"
+  }, [_vm._m(0)]) : _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
-  }, [(_vm.loading) ? _c('div', {
-    staticClass: "loading"
-  }, [_c('div', {
-    staticClass: "panel nmt text-center"
-  }, [_vm._v("\n                Loading...\n            ")])]) : _c('div', [_c('table', {
+  }, [_c('table', {
     staticClass: "leaderboard"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player) {
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")]), _vm._v(" "), _c('th', [_vm._v("Recent Performance")]), _vm._v(" "), _c('th', [_vm._v("Streak")]), _vm._v(" "), _c('th', [_vm._v("Record")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player) {
     return _c('tr', {
       class: {
         'active-user': player.id === _vm.userid
       }
-    }, [_c('td', {
+    }, [_c('td', [_vm._v(_vm._s(player.rank))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(player.ladder_points))]), _vm._v(" "), _c('td', {
       attrs: {
-        "width": "8%"
+        "width": "55%"
       }
-    }, [_vm._v(_vm._s(player.rank))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(player.name))]), _vm._v(" "), _c('td', [_c('div', {
       attrs: {
-        "width": "8%"
+        "id": 'spark' + player.id
       }
-    }, [_vm._v(_vm._s(player.ladder_points))]), _vm._v(" "), _c('td', {
-      attrs: {
-        "width": "84%"
-      }
-    }, [_vm._v(_vm._s(player.name))])])
-  }))])])])])
-},staticRenderFns: []}
+    })]), _vm._v(" "), _c('td', {
+      class: _vm.getStreakClass(player.streak)
+    }, [_vm._v(_vm._s(player.streak > 0 ? '+' + player.streak : player.streak))]), _vm._v(" "), _c('td', {
+      class: player.record !== '0 - 0' ? '' : 'nostreak'
+    }, [_vm._v(_vm._s(player.record))])])
+  }))])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "loader-spinner"
+  }, [_c('div', {
+    staticClass: "double-bounce1"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "double-bounce2"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -49338,15 +49495,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.loading) ? _c('div', {
+    staticClass: "loading"
+  }, [_vm._m(0)]) : _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
-  }, [(_vm.loading) ? _c('div', {
-    staticClass: "loading"
   }, [_c('div', {
-    staticClass: "panel nmt text-center"
-  }, [_vm._v("\n                Loading...\n            ")])]) : _c('div', [_c('div', {
     staticClass: "games-filter"
   }, [_c('p', {
     staticClass: "text-right"
@@ -49368,8 +49523,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "innerHTML": _vm._s(_vm.gameStatus(game.status_id))
       }
     })])
-  }))])])])])
-},staticRenderFns: []}
+  }))])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "loader-spinner"
+  }, [_c('div', {
+    staticClass: "double-bounce1"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "double-bounce2"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

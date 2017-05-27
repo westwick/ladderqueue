@@ -4,6 +4,7 @@ $header-height: 55px;
 .router-wrap {
   padding: rem-calc(15) 0;
   color: #fff;
+  min-height: calc(100vh - 55px);
 }
 
 .user-sidebar {
