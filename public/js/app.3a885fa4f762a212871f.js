@@ -39674,7 +39674,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     //renderTo: (options.chart && options.chart.renderTo) || this,
                     backgroundColor: null,
                     borderWidth: 0,
-                    type: 'area',
+                    type: 'areaspline',
                     margin: [2, 0, 2, 0],
                     width: 120,
                     height: 20,
