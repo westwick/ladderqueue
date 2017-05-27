@@ -40448,7 +40448,7 @@ var Timer = __webpack_require__(59);
                 if (e.game.status_id == 40) {
                     this.$router.push('/games');
                 } else {
-                    this.$router.push('/games/cancelled');
+                    this.$router.push('/game/' + e.game.id);
                 }
             }
 

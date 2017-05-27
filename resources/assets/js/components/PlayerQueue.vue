@@ -141,7 +141,7 @@
                     if(e.game.status_id == 40) {
                         this.$router.push('/games')
                     } else {
-                        this.$router.push('/games/cancelled')
+                        this.$router.push('/game/' + e.game.id)
                     }
                 }
 
