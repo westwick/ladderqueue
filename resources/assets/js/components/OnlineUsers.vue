@@ -18,7 +18,8 @@
     export default {
         computed: {
             users() {
-                return this.$store.state.onlineUsers
+                var users = this.$store.state.onlineUsers
+                return _.orderBy(users, [user => user.username.toLowerCase()])
             }
         }
     }

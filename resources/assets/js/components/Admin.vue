@@ -17,6 +17,17 @@
                             Edit News
                         </router-link>
                     </div>
+
+                    <div class="panel">
+                        <p>Users in queue: ({{queuePlayers.length}})</p>
+                        <p>
+                            <ul>
+                                <li v-for="user in queuePlayers">
+                                    {{user.name}}
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
                 </template>
             </template>
             <template v-else>
@@ -42,6 +53,9 @@
         computed: {
             isAdmin() {
                 return this.$store.state.is_admin
+            },
+            queuePlayers() {
+                return this.$store.state.players
             }
         },
         methods: {
