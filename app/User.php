@@ -15,6 +15,7 @@ use App\LadderPlayer;
 use App\QueueUser;
 use Log;
 use Carbon\Carbon;
+use Cache;
 
 class User extends Authenticatable
 {
@@ -284,5 +285,7 @@ class User extends Authenticatable
         $log->points = $points;
         $log->memo = $memo;
         $log->save();
+
+        Cache::forget('leaderboard');
     }
 }

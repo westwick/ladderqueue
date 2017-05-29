@@ -23,6 +23,7 @@ use App\LadderGame;
 use App\LadderParty;
 use App\LadderPlayer;
 use DB;
+use Cache;
 
 class BracketController extends Controller
 {
@@ -39,18 +40,22 @@ class BracketController extends Controller
 
     public function leaderboard()
     {
-        $users = User::select('*', DB::raw('
+        $users = Cache::remember('leaderboard', 15, function () {
+            $users = User::select('*', DB::raw('
             FIND_IN_SET( ladder_points, (
                 SELECT GROUP_CONCAT( ladder_points
                 ORDER BY ladder_points DESC ) 
                 FROM users where ladder_queue = "vitalityx" )
             ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
 
-        foreach($users as $user) {
-            $user->append('streak');
-            $user->append('record');
-            $user->append('sparkline');
-        }
+            foreach($users as $user) {
+                $user->append('streak');
+                $user->append('record');
+                $user->append('sparkline');
+            }
+
+            return $users;
+        });
 
         return $users;
     }
