@@ -52,12 +52,14 @@ class BracketController extends Controller
                 $user->append('streak');
                 $user->append('record');
                 $user->append('sparkline');
+
+                $user->setVisible(['id', 'rank', 'name', 'streak', 'record', 'sparkline', 'ladder_points']);
             }
 
             return $users;
         });
 
-        return $users;
+        return response()->json($users);
     }
 
     public function playerlog()
