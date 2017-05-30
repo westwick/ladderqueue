@@ -160,6 +160,28 @@ class User extends Authenticatable
         return $return;
     }
 
+    public function getWinpctAttribute()
+    {
+        $wins = 0;
+        $losses = 0;
+        $players = LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->get();
+        foreach($players as $player) {
+            if($player->team == $player->game->winner) {
+                $wins++;
+            } else {
+                $losses++;
+            }
+        }
+        $total = $wins+$losses;
+
+        if($total > 0) {
+            $return = number_format($wins/($total), 3);
+        } else {
+            $return = '0.000';
+        }
+        return $return;
+    }
+
     public function getStreakAttribute()
     {
         $log = PlayerLog::where('user_id', $this->id)->orderBy('created_at', 'desc')->take(5)->pluck('points')->all();

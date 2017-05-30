@@ -51,9 +51,10 @@ class BracketController extends Controller
             foreach($users as $user) {
                 $user->append('streak');
                 $user->append('record');
+                $user->append('winpct');
                 $user->append('sparkline');
 
-                $user->setVisible(['id', 'rank', 'name', 'streak', 'record', 'sparkline', 'ladder_points']);
+                $user->setVisible(['id', 'rank', 'name', 'streak', 'record', 'sparkline', 'ladder_points', 'winpct']);
             }
 
             return $users;

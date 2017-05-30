@@ -55208,6 +55208,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -55274,6 +55287,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 return 'nostreak';
             }
+        },
+        getPrizeText: function getPrizeText(i) {
+            if (i == 0) return '$70';
+            if (i == 1) return '$40';
+            if (i == 2) return '$25';
+            if (i == 3) return '$15';
+            if (i == 4) return 'skin';
+            if (i == 5) return 'skin';
+            return '';
         },
         drawCharts: function drawCharts() {
             var _this3 = this;
@@ -65086,21 +65108,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "small-12 columns"
-  }, [_c('p', {
+  }, [_c('div', {
+    staticClass: "panel nmt text-center season-info"
+  }, [_c('h4', [_vm._v("Season 4")]), _vm._v(" "), _c('p', {
+    staticClass: "season-dates"
+  }, [_vm._v("May 1 - May 31")])]), _vm._v(" "), _c('p', {
     staticClass: "text-right",
     staticStyle: {
       "color": "#676767",
       "font-size": "14px",
       "margin": "0 0 4px"
     }
-  }, [_vm._v("Last updated: " + _vm._s(_vm.lastUpdated))]), _vm._v(" "), _c('table', {
+  }, [_vm._v("\n            Last updated: " + _vm._s(_vm.lastUpdated) + "\n            "), _c('i', {
+    staticClass: "icon ion-refresh",
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    on: {
+      "click": function($event) {
+        _vm.refreshData()
+      }
+    }
+  })]), _vm._v(" "), _c('table', {
     staticClass: "leaderboard"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")]), _vm._v(" "), _c('th', [_vm._v("Recent Performance")]), _vm._v(" "), _c('th', [_vm._v("Streak")]), _vm._v(" "), _c('th', [_vm._v("Record")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player) {
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Prize")]), _vm._v(" "), _c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")]), _vm._v(" "), _c('th', [_vm._v("Recent Performance")]), _vm._v(" "), _c('th', [_vm._v("Streak")]), _vm._v(" "), _c('th', [_vm._v("Record")]), _vm._v(" "), _c('th', [_vm._v("Win Pct.")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player, i) {
     return _c('tr', {
       class: {
         'active-user': player.id === _vm.userid
       }
-    }, [_c('td', [_vm._v(_vm._s(player.rank))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(player.ladder_points))]), _vm._v(" "), _c('td', {
+    }, [_c('td', {
+      staticStyle: {
+        "font-size": "14px",
+        "color": "#676767"
+      }
+    }, [_vm._v("\n                    " + _vm._s(_vm.getPrizeText(i)) + "\n                ")]), _vm._v(" "), _c('td', {
+      staticStyle: {
+        "font-weight": "bold"
+      }
+    }, [_vm._v(_vm._s(player.rank))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(player.ladder_points))]), _vm._v(" "), _c('td', {
       attrs: {
         "width": "55%"
       }
@@ -65112,7 +65157,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: _vm.getStreakClass(player.streak)
     }, [_vm._v(_vm._s(player.streak > 0 ? '+' + player.streak : player.streak))]), _vm._v(" "), _c('td', {
       class: player.record !== '0 - 0' ? '' : 'nostreak'
-    }, [_vm._v(_vm._s(player.record))])])
+    }, [_vm._v(_vm._s(player.record))]), _vm._v(" "), _c('td', {
+      class: player.winpct !== '0.000' ? '' : 'nostreak'
+    }, [_vm._v(_vm._s(player.winpct))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {

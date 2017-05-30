@@ -7,21 +7,33 @@
     </div>
     <div class="row" v-else>
         <div class="small-12 columns">
-            <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">Last updated: {{lastUpdated}}</p>
+            <div class="panel nmt text-center season-info">
+                <h4>Season 4</h4>
+                <p class="season-dates">May 1 - May 31</p>
+            </div>
+            <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
+                Last updated: {{lastUpdated}}
+                <i class="icon ion-refresh" @click="refreshData()" style="cursor: pointer"></i>
+            </p>
             <table class="leaderboard">
                 <thead>
                 <tr>
+                    <th>Prize</th>
                     <th>Rank</th>
                     <th>Points</th>
                     <th>Player</th>
                     <th>Recent Performance</th>
                     <th>Streak</th>
                     <th>Record</th>
+                    <th>Win Pct.</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="player in leaderboard" :class="{'active-user': player.id === userid}">
-                    <td>{{player.rank}}</td>
+                <tr v-for="(player, i) in leaderboard" :class="{'active-user': player.id === userid}">
+                    <td style="font-size: 14px; color: #676767">
+                        {{getPrizeText(i)}}
+                    </td>
+                    <td style="font-weight: bold">{{player.rank}}</td>
                     <td>{{player.ladder_points}}</td>
                     <td width="55%">{{player.name}}</td>
                     <td>
@@ -29,6 +41,7 @@
                     </td>
                     <td :class="getStreakClass(player.streak)">{{player.streak > 0 ? '+' + player.streak : player.streak}}</td>
                     <td :class="player.record !== '0 - 0' ? '':'nostreak'">{{player.record}}</td>
+                    <td :class="player.winpct !== '0.000' ? '':'nostreak'">{{player.winpct}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -97,6 +110,15 @@
                 } else {
                     return 'nostreak'
                 }
+            },
+            getPrizeText(i) {
+                if(i == 0) return '$70'
+                if(i == 1) return '$40'
+                if(i == 2) return '$25'
+                if(i == 3) return '$15'
+                if(i == 4) return 'skin'
+                if(i == 5) return 'skin'
+                return ''
             },
             drawCharts() {
                 _.forEach(this.leaderboard, (player) => {
