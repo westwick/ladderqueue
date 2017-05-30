@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\GameCancelled;
 use App\Events\PlayerLeftQueue;
+use App\Jobs\GenerateUserStats;
 use App\News;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,10 +53,10 @@ class AdminController extends Controller
         foreach($game->players as $player) {
             if($player->team == $oldWinner) {
                 // player was on winning team, so we need to subtract points
-                $player->user->adjustPoints($oldPoints * -1, 'Points adjustment for Game ID#' . $game->id . ' (admin: ' . $user->name . ')');
+                $player->user->adjustPoints($oldPoints * -1, 'Points adjustment for game id#' . $game->id . ' (admin: ' . $user->name . ')');
             } else {
                 // player was on losing team, add points
-                $player->user->adjustPoints($oldPoints, 'Points adjustment for Game ID#' . $game->id . ' (admin: ' . $user->name . ')');
+                $player->user->adjustPoints($oldPoints, 'Points adjustment for game id#' . $game->id . ' (admin: ' . $user->name . ')');
             }
         }
         
@@ -78,6 +79,8 @@ class AdminController extends Controller
         $game->team2score = $team2score;
         $game->winner = $game->getWinner($team1score, $team2score);
         $game->save();
+
+        dispatch(new GenerateUserStats());
 
         return response()->json(['success' => true]);
     }
@@ -104,6 +107,7 @@ class AdminController extends Controller
     {
         $user = User::findOrFail(Input::get('userid'));
         $user->adjustPoints(Input::get('points'), Input::get('memo') . ' (admin: ' . Auth::user()->name . ')');
+        dispatch(new GenerateUserStats());
 
         return response()->json(['success' => true]);
     }

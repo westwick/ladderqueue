@@ -1,200 +1,63 @@
-section.player-hero {
-  color: #FFF;
-  height: 300px;
-  background-size: cover;
+.player-head {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  flex-direction: column;
-  position: relative;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 
-  .player-stats {
-    position: relative;
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-
-  .player-bg {
-    @include parallax(-0.8);
-    width: 102%;
-    height: 400px;
-    position: absolute;
-    top: -25vh;
-    left: 0; bottom: 0; right: 0;
-    background: linear-gradient(rgba(34,36,43,0.75),rgba(34,36,43,0.75)),url(/images/backgrounds/bg5.jpg);
-    background-position: center center;
-    background-size: cover;
-  }
-
-  .player-hero-info {
-    margin-bottom: 3rem;
-    .player-info-team, .noteam {
-      font-size: 1.25rem;
-      margin: 0;
-    }
-    .noteam {
-      color: #a7b2b8;
-    }
-    .player-online {
-      color: $green;
-    }
-    .player-offline {
-      color: #a7a7a7;
-    }
-  }
-
-  .player-info {
-    position: relative;
-    width: 100%;
-
-    .player-name {
-      padding-left: 9.75rem;
-      font-size: 3rem;
-      text-shadow: 1px 1px 3px #131313;
-    }
-  }
-}
-
-.setrel {
-  position: relative;
-}
-
-.player-nav {
-  width: 100%;
-  //background-color: #1a1a1a;
-  background-color: #FFF;
-  border-bottom: 1px solid #e8eced;
-  border-top: 5px solid $celred;
-
-  .player-image {
-    position: absolute;
-    left: 1rem;
-    top: -66%;
-    @include parallaxfix();
+  .player-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
-      width: 9rem;
+      width: 75px;
       height: auto;
-      border-radius: 8rem;
-      border: 4px solid #FFF;
+      margin-right: 1rem;
     }
-  }
 
-
-  ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-direction: normal;
-    -webkit-box-orient: horizontal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    padding-left: 10rem;
-
-    li {
-      margin-right: 3rem;
+    .player-name {
+      font-size: 26px;
+      font-weight: 300;
 
       a {
+        font-size: 13px;
         display: block;
-        padding: 1.5rem 0;
-        color: #a7b2b8;
-        border-bottom: 3px solid transparent;
-        font-weight: bold;
-
-        &.active {
-          color: $celredlight;
-          border-bottom: 3px solid $celredlight;
-        }
-
-        &:hover {
-          color: $celredlight;
-        }
       }
     }
   }
-}
 
-.player-main {
-  transform-style: flat !important;
-  background: $main-bg;
-}
+  .player-stats {
+    display: flex;
 
-.stat-wrap {
-  -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-
-  .stat-inner {
-    display: block;
-    background: rgba(0,0,0,0.75);
-    border-radius: 3px;
-    border: 1px solid #292929;
-    padding: 1.25rem 1.5rem;
-
-    .player-stat {
-      display: inline-block;
+    .stat-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1rem 2rem;
+      font-size: 22px;
+      font-weight: normal;
       text-align: center;
-      margin-left: 2.5rem;
-      position: relative;
 
-      &:before {
-        content: '';
-        height: 32px;
-        width: 1px;
-        background-color: #292929;
-        position: absolute;
-        top: 20px;
-        left: -1.25rem;
-      }
-
-      .stat-number {
-        font-size: 1.75rem;
+      span {
         display: block;
-        font-weight: 300;
-      }
-      .stat-label {
-        font-size: 12px;
-        display: block;
-      }
-
-      &:first-child {
-        margin-left: 0;
-        &:before {
-          display: none;
-        }
+        font-size: 13px;
+        font-weight: normal;
+        color: #676767;
       }
     }
   }
 }
 
+.player-body {
+  h4 {
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+}
 
-ul.player-details {
-  list-style-type: none;
-  margin: 0;
-  font-size: 14px;
-
-  li {
-    position: relative;
-    i {
-      position: absolute;
-      left: 0;
-      color: #464343;
-    }
-    span {
-      padding-left: 1.5rem;
-      color: #464343;
-
-    }
-    a {
-      color: $celred;
-    }
+.player-points-table {
+  td {
+    font-size: 14px;
   }
 }

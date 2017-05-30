@@ -6,6 +6,7 @@ use App\Events\GameAccepted;
 use App\Events\GameCompleted;
 use App\Events\GameDraftComplete;
 use App\Events\MapBanned;
+use App\Jobs\GenerateUserStats;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Log;
@@ -175,6 +176,7 @@ class LadderGame extends Model
             }
 
             broadcast(new GameCompleted($this));
+            dispatch(new GenerateUserStats());
         }
     }
 

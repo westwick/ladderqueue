@@ -36,7 +36,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email'
     ];
 
     // always add the image attribute to all model requests
@@ -138,7 +138,46 @@ class User extends Authenticatable
         return LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->count();
     }
 
-    public function getRecordAttribute()
+    public function calculateRank()
+    {
+        $rank = DB::table('users')->select(DB::raw('
+            FIND_IN_SET( ladder_points, (
+                SELECT GROUP_CONCAT( ladder_points
+                ORDER BY ladder_points DESC ) 
+                FROM users where games_played > 0 )
+            ) AS rank'))->where('id', $this->id)->first();
+        return $rank->rank;
+    }
+
+    public function getGamesAttribute()
+    {
+        $result = [];
+        $players = LadderPlayer::with('game')
+            ->where('user_id', $this->id)
+            ->where('status_id', LadderPlayer::$STATUS_COMPLETE)
+            ->orderBy('id', 'desc')
+            ->get();
+        foreach($players as $player) {
+            $win = false;
+            if($player->team === $player->game->winner) {
+                $win = true;
+            }
+            $result[] = [
+                'id' => $player->game->id,
+                'won' => $win,
+                'score' => $player->game->team1score . ' - ' . $player->game->team2score,
+                'when' => $player->game->ended_at->diffForHumans()
+            ];
+        }
+        return $result;
+    }
+
+    public function getLogAttribute()
+    {
+        return PlayerLog::where('user_id', $this->id)->orderBy('id', 'desc')->get();
+    }
+
+    public function calculateGames()
     {
         $wins = 0;
         $losses = 0;
@@ -151,38 +190,11 @@ class User extends Authenticatable
             }
         }
         $total = $wins+$losses;
-        $return = $wins . ' - ' . $losses;
-        //if($total > 0) {
-        //    $return .= ' (' . number_format($wins/($wins+$losses), 2) . ')';
-        //} else {
-        //    $return .= ' (0.00)';
-        //}
-        return $return;
+        $win_pct = $total > 0 ? $wins/$total : 0;
+        return ['wins' => $wins, 'losses' => $losses, 'games_played' => $total, 'win_pct' => $win_pct];
     }
 
-    public function getWinpctAttribute()
-    {
-        $wins = 0;
-        $losses = 0;
-        $players = LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->get();
-        foreach($players as $player) {
-            if($player->team == $player->game->winner) {
-                $wins++;
-            } else {
-                $losses++;
-            }
-        }
-        $total = $wins+$losses;
-
-        if($total > 0) {
-            $return = number_format($wins/($total), 3);
-        } else {
-            $return = '0.000';
-        }
-        return $return;
-    }
-
-    public function getStreakAttribute()
+    public function calculateStreak()
     {
         $log = PlayerLog::where('user_id', $this->id)->orderBy('created_at', 'desc')->take(5)->pluck('points')->all();
         return array_sum($log);

@@ -7,8 +7,8 @@
     </div>
     <div class="row" v-else>
         <div class="small-12 columns">
-            <div class="panel nmt text-center season-info">
-                <h4>Season 4</h4>
+            <div class="text-center season-info">
+                <h4>Season 5</h4>
                 <p class="season-dates">May 1 - May 31</p>
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
@@ -35,13 +35,15 @@
                     </td>
                     <td style="font-weight: bold">{{player.rank}}</td>
                     <td>{{player.ladder_points}}</td>
-                    <td width="55%">{{player.name}}</td>
+                    <td width="55%">
+                        <router-link :to="'/u/' + player.name.toLowerCase()">{{player.name}}</router-link>
+                    </td>
                     <td>
                         <div :id="'spark' + player.id"></div>
                     </td>
                     <td :class="getStreakClass(player.streak)">{{player.streak > 0 ? '+' + player.streak : player.streak}}</td>
-                    <td :class="player.record !== '0 - 0' ? '':'nostreak'">{{player.record}}</td>
-                    <td :class="player.winpct !== '0.000' ? '':'nostreak'">{{player.winpct}}</td>
+                    <td>{{player.wins}} - {{player.losses}}</td>
+                    <td :class="player.win_pct !== '0.000' ? '':'nostreak'">{{player.win_pct}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -86,7 +88,7 @@
             },
             refreshData() {
                 this.loading = true
-                this.$http.post('/leaderboard').then((response) => {
+                this.$http.get('/api/leaderboard').then((response) => {
                     this.loading = false
                     this.leaderboard = response.data
                     window.localStorage.setItem('leaderboardUpdated', moment().format('X'))

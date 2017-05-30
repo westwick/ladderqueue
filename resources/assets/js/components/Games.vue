@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="game in filteredGames">
+                        <tr v-for="game in games">
                             <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
                             <td>{{game.start_time}}</td>
                             <td>{{game.end_time}}</td>
@@ -66,19 +66,14 @@
         created() {
             this.fetchData()
         },
-        computed: {
-            filteredGames() {
-                if(this.$route.name == 'Games') {
-                    return _.filter(this.games, {status_id: 40})
-                } else {
-                    return _.filter(this.games, function(game) { return game.status_id >= 90 })
-                }
-            }
+        watch: {
+            '$route': 'fetchData'
         },
         methods: {
             fetchData() {
                 this.loading = true
-                this.$http.post('/games').then((response) => {
+                var cancelled = this.$route.name !== 'Games'
+                this.$http.post('/games', {cancelled}).then((response) => {
                     this.loading = false
                     this.games = response.data
                 }, (response) => {

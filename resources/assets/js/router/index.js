@@ -7,6 +7,7 @@ import LadderGame from '../components/LadderGame'
 import Games from '../components/Games'
 import Settings from '../components/Settings'
 import PlayerLog from '../components/PlayerLog'
+import PlayerProfile from '../components/PlayerProfile'
 import OnlineUsers from '../components/OnlineUsers'
 import Admin from '../components/Admin'
 import AdminNews from '../components/AdminNews'
@@ -47,6 +48,12 @@ export default new Router({
       path: '/players',
       name: 'OnlineUsers',
       component: OnlineUsers
+    },
+    {
+      path: '/u/:username',
+      name: 'PlayerProfile',
+      component: PlayerProfile,
+      props: true
     },
     {
       path: '/games',

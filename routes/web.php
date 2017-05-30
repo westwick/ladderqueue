@@ -63,7 +63,7 @@ Route::post('/admin/adjust-points', 'AdminController@adjustPoints');
 
 Route::post('/games', 'BracketController@games');
 Route::post('/gameinfo', 'BracketController@gameInfo');
-Route::post('/leaderboard', 'BracketController@leaderboard');
+Route::get('/api/leaderboard', 'BracketController@leaderboard');
 Route::post('/playerlog', 'BracketController@playerlog');
 Route::post('/readycheck', 'BracketController@ready');
 Route::post('/enter-queue', 'BracketController@joinQueue')->middleware('throttle:2,1');
@@ -72,6 +72,8 @@ Route::post('/get-queue', 'BracketController@getQueue');
 Route::post('/draft-player', 'BracketController@draftPlayer');
 Route::post('/ban-map', 'BracketController@banMap');
 Route::post('/reportscore', 'BracketController@reportScore');
+
+Route::get('/api/user', 'BracketController@showUser');
 
 
 //Route::get('/checkout', function() {
@@ -130,7 +132,7 @@ Route::get('/userstate', function() {
  * User Controller
  */
 
-Route::get('/u/{slug}', 'UserController@showUser');
+//Route::get('/u/{slug}', 'UserController@showUser');
 
 /*
  * Team Controller

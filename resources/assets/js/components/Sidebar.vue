@@ -47,9 +47,9 @@
 
         <ul class="main-nav">
             <li>
-                <router-link to="/log">
+                <router-link :to="'/u/' + username">
                     <div class="nav-bullet"><i class="icon ion-stats-bars"></i></div>
-                    Player Log
+                    My Profile
                 </router-link>
             </li>
             <li>
@@ -112,6 +112,9 @@
             },
             isAdmin() {
                 return this.$store.state.is_admin
+            },
+            username() {
+                return this.$store.state.username.toLowerCase()
             }
         },
         methods: {

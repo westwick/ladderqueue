@@ -29,7 +29,12 @@ class BracketController extends Controller
 {
     public function games()
     {
-        return response()->json(LadderGame::where('status_id', '>=', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get());
+        if(Input::get('cancelled')) {
+            $games = LadderGame::where('status_id', '>', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get();
+        } else {
+            $games = LadderGame::where('status_id', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get();
+        }
+        return response()->json($games);
     }
 
     public function gameInfo()
@@ -40,27 +45,37 @@ class BracketController extends Controller
 
     public function leaderboard()
     {
-        $users = Cache::remember('leaderboard', 15, function () {
-            $users = User::select('*', DB::raw('
-            FIND_IN_SET( ladder_points, (
-                SELECT GROUP_CONCAT( ladder_points
-                ORDER BY ladder_points DESC ) 
-                FROM users where ladder_queue = "vitalityx" )
-            ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
+        //Cache::forget('leaderboard');
+        //$users = Cache::remember('leaderboard', 15, function () {
+        //
+        //
+        //    return $users;
+        //});
 
-            foreach($users as $user) {
-                $user->append('streak');
-                $user->append('record');
-                $user->append('winpct');
-                $user->append('sparkline');
+        //$users = User::select('*', DB::raw('
+        //    FIND_IN_SET( ladder_points, (
+        //        SELECT GROUP_CONCAT( ladder_points
+        //        ORDER BY ladder_points DESC )
+        //        FROM users where ladder_queue = "vitalityx" )
+        //    ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
 
-                $user->setVisible(['id', 'rank', 'name', 'streak', 'record', 'sparkline', 'ladder_points', 'winpct']);
-            }
+        $users = User::where('rank', '>', 0)->orderBy('rank')->get();
 
-            return $users;
-        });
+        foreach($users as $user) {
+            $user->append('sparkline');
+            $user->setVisible(['id', 'rank', 'name', 'streak', 'wins', 'losses', 'sparkline', 'ladder_points', 'win_pct']);
+        }
 
         return response()->json($users);
+    }
+
+    public function showUser()
+    {
+        $name = Input::get('name');
+        $user = User::where('name', $name)->firstOrFail();
+        $user->append('log');
+        $user->append('games');
+        return response()->json($user);
     }
 
     public function playerlog()
