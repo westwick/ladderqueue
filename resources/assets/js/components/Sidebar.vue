@@ -83,6 +83,9 @@
 <script type="text/babel">
     export default {
         mounted() {
+
+            window.localStorage.removeItem('leaderboard')
+
             Echo.join('players')
                 .here((users) => {
                     this.$store.commit('onlineUsers', users)

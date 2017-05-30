@@ -122,6 +122,7 @@
                         this.$store.commit('gamesUpdated', games)
                     })
                     .listen('GameCompleted', (e) => {
+                        window.localStorage.removeItem('leaderboard')
                         this.removeGame(e)
                     })
                     .listen('GameCancelled', (e) => {

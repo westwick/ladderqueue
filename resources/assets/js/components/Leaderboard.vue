@@ -7,6 +7,7 @@
     </div>
     <div class="row" v-else>
         <div class="small-12 columns">
+            <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">Last updated: {{lastUpdated}}</p>
             <table class="leaderboard">
                 <thead>
                 <tr>
@@ -36,11 +37,13 @@
 </template>
 
 <script type="text/babel">
+    import moment from 'moment'
     export default {
         data() {
             return {
                 loading: true,
-                leaderboard: null
+                leaderboard: null,
+                lastUpdated: ''
             }
         },
         computed: {
@@ -56,10 +59,26 @@
         },
         methods: {
             fetchData() {
+                var leaderboard = JSON.parse(window.localStorage.getItem('leaderboard'))
+                if(leaderboard) {
+                    setTimeout(() => {
+                        this.loading = false
+                        setTimeout(this.drawCharts, 1)
+                    }, 100)
+                    this.lastUpdated = moment(window.localStorage.getItem('leaderboardUpdated'), 'X').fromNow()
+                    this.leaderboard = leaderboard
+                } else {
+                    this.refreshData()
+                }
+            },
+            refreshData() {
                 this.loading = true
                 this.$http.post('/leaderboard').then((response) => {
                     this.loading = false
                     this.leaderboard = response.data
+                    window.localStorage.setItem('leaderboardUpdated', moment().format('X'))
+                    this.lastUpdated = moment().fromNow();
+                    window.localStorage.setItem('leaderboard', JSON.stringify(response.data))
                     setTimeout(this.drawCharts, 1)
 
                 }, (response) => {
@@ -175,22 +194,22 @@
                     plotOptions: {
                         series: {
                             animation: false,
-                            lineWidth: 1,
+                            lineWidth: 2,
                             shadow: false,
                             states: {
                                 hover: {
-                                    lineWidth: 1
+                                    lineWidth: 2
                                 }
                             },
                             marker: {
-                                radius: 1,
+                                radius: 2,
                                 states: {
                                     hover: {
-                                        radius: 2
+                                        radius: 3
                                     }
                                 }
                             },
-                            fillOpacity: 0.25
+                            fillOpacity: 0.38
                         },
                         column: {
                             negativeColor: '#910000',

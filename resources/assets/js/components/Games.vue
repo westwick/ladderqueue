@@ -23,9 +23,9 @@
                             <th>ID</th>
                             <th>Started</th>
                             <th>Ended</th>
-                            <th>Team 1 Score</th>
-                            <th>Team 2 Score</th>
-                            <th>Winner</th>
+                            <th width="15%">Team 1</th>
+                            <th></th>
+                            <th width="15%">Team 2</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -34,12 +34,18 @@
                             <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
                             <td>{{game.start_time}}</td>
                             <td>{{game.end_time}}</td>
-                            <td>{{game.team1score}}</td>
-                            <td>{{game.team2score}}</td>
                             <td>
-                                <template v-if="game.winner >= 1">
-                                    {{game.winner}}
-                                </template>
+                                <span class="game-captain" :class="game.winner == 1 ? 'game-winner': ''">
+                                    {{game.players[0].user.name}}
+                                    <span class="game-score">{{game.team1score}}</span>
+                                </span>
+                            </td>
+                            <td>vs</td>
+                            <td>
+                                <span class="game-captain" :class="game.winner == 2 ? 'game-winner': ''">
+                                    {{game.players[1].user.name}}
+                                    <span class="game-score">{{game.team2score}}</span>
+                                </span>
                             </td>
                             <td v-html="gameStatus(game.status_id)"></td>
                         </tr>

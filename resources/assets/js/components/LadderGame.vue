@@ -1,11 +1,14 @@
 <template>
-    <div class="row game-status-page">
+    <div class="loading" v-if="loading">
+        <div class="loader-spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <div v-else class="row game-status-page">
         <div class="small-12 columns">
             <div class="panel nmt text-center">
-                <div class="loading" v-if="loading">
-                    Loading...
-                </div>
-                <div v-else>
+                <div>
                     <div v-if="game">
                         <div v-if="game.status_id == 20 || game.status_id == 30">
                             <div class="popflash-instructionstext-center">

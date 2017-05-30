@@ -160,6 +160,23 @@ span.selectedMap {
   justify-content: center;
 }
 
+.game-captain {
+  font-size: 14px;
+  color: #bbb;
+  display: block;
+}
+
+.game-score {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-top: -2px;
+}
+
+.game-winner {
+  outline: 1px solid $newgreen;
+}
+
 .loading {
   height: calc(100vh - 55px - 1rem - 1rem);
   width: 100%;
