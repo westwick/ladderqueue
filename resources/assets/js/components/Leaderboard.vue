@@ -12,7 +12,7 @@
                 <p class="season-dates">May 1 - May 31</p>
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
-                Last updated: {{lastUpdated}}
+                Last updated {{lastUpdated}}
                 <i class="icon ion-refresh" @click="refreshData()" style="cursor: pointer"></i>
             </p>
             <table class="leaderboard">
@@ -201,7 +201,6 @@
                         shared: true,
                         //padding: '3px',
                         formatter() {
-                            console.log(this)
                             if(this.x > 1) {
                                 var previousPoint = this.points[0].series.data[this.x-2].y
                                 var currentPoint = this.y

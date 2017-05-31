@@ -10,6 +10,7 @@ use App\Jobs\GenerateUserStats;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Log;
+use Auth;
 
 class LadderGame extends Model
 {
@@ -39,13 +40,13 @@ class LadderGame extends Model
 
     public function getStartTimeAttribute()
     {
-        return $this->created_at->tz('America/New_York')->format('M j @ g:ia');
+        return $this->created_at->tz(Auth::user()->tz)->format('M j @ g:ia');
     }
 
     public function getEndTimeAttribute()
     {
         if($this->ended_at) {
-            return $this->ended_at->tz('America/New_York')->format('g:ia');
+            return $this->ended_at->tz(Auth::user()->tz)->format('g:ia');
         }
         return null;
     }

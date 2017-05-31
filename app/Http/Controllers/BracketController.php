@@ -75,6 +75,7 @@ class BracketController extends Controller
         $user = User::where('name', $name)->firstOrFail();
         $user->append('log');
         $user->append('games');
+        $user->append('member_since');
         return response()->json($user);
     }
 

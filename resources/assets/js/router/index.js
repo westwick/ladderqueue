@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import News from '../components/News'
+import About from '../components/About'
 import Leaderboard from '../components/Leaderboard'
 import GameDraft from '../components/GameDraft'
 import LadderGame from '../components/LadderGame'
@@ -23,6 +24,11 @@ export default new Router({
       path: '/',
       name: 'News',
       component: News
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About
     },
     {
       path: '/settings',

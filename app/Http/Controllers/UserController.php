@@ -9,37 +9,29 @@ use Auth;
 
 class UserController extends Controller
 {
-    public function showUser($slug)
-    {
-        $user = User::where('name', $slug)->first();
-        if(!$user) {
-            return response(404);
-        } else {
-            return view('player')->with('player', $user);
-        }
-    }
-
-    public function updateProfile()
+    public function updateSettings()
     {
         $user = Auth::user();
+        $settings = Input::get('settings');
+        $profile = Input::get('profile');
+        $age = $profile['age'];
+        $profile['twitch'] = str_replace('twitch.tv/', '', $profile['twitch']);
+        $profile['twitter'] = str_replace('@', '', $profile['twitter']);
 
-        $age = Input::get('age');
-        if($age == 69) {
-            flash('lololololol', 'error');
-            return redirect()->back();
-        }
-        if($age > 90) {
-            flash('Go back to your retirement home, grandpa', 'error');
-            return redirect()->back();
+        if($age && ($age < 15 || $age > 80)) {
+            abort(400);
         }
 
-        $user->intro = Input::get('intro');
-        $user->server_preference = Input::get('serverpreference');
-        $user->location = Input::get('location');
         $user->age = $age;
+        $user->intro = $profile['intro'];
+        $user->location = $profile['location'];
+        $user->twitch = $profile['twitch'];
+        $user->twitter = $profile['twitter'];
+        $user->sound_enabled = $settings['sound_enabled'];
+        $user->notifications_enabled = $settings['notifications_enabled'];
+        $user->timezone = $settings['timezone'];
         $user->save();
-
-        flash('Profile updated', 'success');
-        return redirect()->back();
+        
+        return response()->json($profile);
     }
 }

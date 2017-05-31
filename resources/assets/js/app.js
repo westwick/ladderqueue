@@ -30,6 +30,8 @@ const store = new Vuex.Store({
     userid: 0,
     username: '',
     canQueue: false,
+    settings: [],
+    profile: [],
     joinedQueue: 0,
     onlineUsers: [],
     players: [],
@@ -46,6 +48,12 @@ const store = new Vuex.Store({
       state.loggedIn = userstate.loggedIn
       state.canQueue = userstate.canQueue
       state.is_admin = userstate.is_admin
+      state.settings = userstate.settings
+      state.profile = userstate.profile
+    },
+    saveSettings(state, settings) {
+      state.settings = settings.settings
+      state.profile = settings.profile
     },
     setCsrfToken (state, token) {
       state.csrfToken = token

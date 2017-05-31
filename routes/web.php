@@ -74,6 +74,7 @@ Route::post('/ban-map', 'BracketController@banMap');
 Route::post('/reportscore', 'BracketController@reportScore');
 
 Route::get('/api/user', 'BracketController@showUser');
+Route::post('/api/update-settings', 'UserController@updateSettings');
 
 
 //Route::get('/checkout', function() {

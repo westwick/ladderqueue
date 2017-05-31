@@ -372,7 +372,7 @@ $form-label-color: $black;
 $form-label-font-size: rem-calc(14);
 $form-label-font-weight: $global-weight-normal;
 $form-label-line-height: 1.8;
-$select-background: $white;
+$select-background: #2c2c2c;
 $select-triangle-color: $dark-gray;
 $select-radius: $global-radius;
 //$input-color: $black;
@@ -540,16 +540,16 @@ $slider-radius: $global-radius;
 // ----------
 
 $switch-background: $medium-gray;
-$switch-background-active: $primary-color;
-$switch-height: 2rem;
+$switch-background-active: #1e7be4;
+$switch-height: 1.5rem;
 $switch-height-tiny: 1.5rem;
 $switch-height-small: 1.75rem;
 $switch-height-large: 2.5rem;
-$switch-radius: $global-radius;
+$switch-radius: 4px;
 $switch-margin: $global-margin;
 $switch-paddle-background: $white;
 $switch-paddle-offset: 0.25rem;
-$switch-paddle-radius: $global-radius;
+$switch-paddle-radius: 4px;
 $switch-paddle-transition: all 0.25s ease-out;
 
 // 32. Table

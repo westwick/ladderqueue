@@ -39,6 +39,45 @@
                             </div>
                         </div>
                     </div>
+                    <div class="player-middle">
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                <p v-if="player.intro" class="player-intro">{{player.intro}}</p>
+                                <ul>
+                                    <li v-if="player.is_admin" class="adminclass">
+                                        <i class="icon ion-flash"></i><span>Admin</span>
+                                    </li>
+                                    <li v-if="player.location">
+                                        <i class="icon ion-location"></i><span>{{player.location}}</span>
+                                    </li>
+                                    <li v-else>
+                                        <i class="icon ion-android-globe"></i><span>{{player.timezone}} timezone</span>
+                                    </li>
+                                    <li v-if="player.age">
+                                        <i class="icon ion-android-calendar"></i><span>{{player.age}} years old</span>
+                                    </li>
+                                    <li>
+                                        <i class="icon ion-android-time"></i><span>Member since {{player.member_since}}</span>
+                                    </li>
+                                    <li v-if="player.twitter">
+                                        <i class="icon ion-social-twitter"></i>
+                                        <span>
+                                            <a :href="'http://twitter.com/' + player.twitter" target="_blank">@{{player.twitter}}</a>
+                                        </span>
+                                    </li>
+                                    <li v-if="player.twitch">
+                                        <i class="icon ion-social-twitch"></i>
+                                        <span>
+                                            <a :href="'http://twitch.tv/' + player.twitch" target="_blank">twitch.tv/{{player.twitch}}</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="medium-8 columns">
+                                <div class="trophy-case">No Badges Or Trophies To Display</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="player-body">
                         <div class="row text-center">
                             <div class="medium-6 columns">

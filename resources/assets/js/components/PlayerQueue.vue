@@ -36,13 +36,15 @@
 <script type="text/babel">
     var _ = require('lodash')
     var Timer = require('easytimer')
+    import Push from 'push.js'
     export default {
         data() {
             return {
                 timer: undefined,
                 inQueueFor: '00:00',
                 loading: false,
-                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
+                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train'],
+                gamereadyclip: null
             }
         },
         computed: {
@@ -74,7 +76,10 @@
                 return this.game && this.game.id > 0
             },
             userid() {
-              return this.$store.state.userid
+                return this.$store.state.userid
+            },
+            userSettings() {
+                return this.$store.state.settings
             },
             inQueue() {
                 var q = false
@@ -111,8 +116,23 @@
                         if(userIsInGame) {
                           this.$store.commit('newGame', e.game)
                           this.$router.push('/draft')
-                          var gameready = new Audio('/audio/gameready.wav')
-                          gameready.play()
+                          if(this.userSettings.sound_enabled) {
+                              this.gamereadyclip.play()
+                          }
+                          if(this.userSettings.notifications_enabled) {
+                              Push.create('VitalityX', {
+                                  body: 'Your game is ready',
+                                  icon: {
+                                      x16: '/favicon-16x16.png',
+                                      x32: '/favicon-32x32.png'
+                                  },
+                                  onClick: function () {
+                                      window.focus();
+                                      this.close();
+                                  },
+                                  timeout: 4000
+                              });
+                          }
                         } else {
                           this.updateQueuePlayers()
                         }
@@ -194,6 +214,7 @@
         },
         created: function () {
             this.startPartyListener()
+            this.gamereadyclip = new Audio('/audio/gameready.wav')
         },
         watch: {
             'inQueue': function(queued) {

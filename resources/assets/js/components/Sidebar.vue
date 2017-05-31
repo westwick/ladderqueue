@@ -74,7 +74,7 @@
             <p>Games in progress: <router-link to="/games/live">{{gamesInProgressCount}}</router-link></p>
 
             <div class="version">
-                Beta v0.0.4
+                <router-link to="/about">Beta v0.0.5</router-link>
             </div>
         </div>
     </div>

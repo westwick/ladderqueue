@@ -50,6 +50,18 @@ class User extends Authenticatable
             'joinedQueue' => $this->joinedQueue(),
             'is_admin' => $this->is_admin,
             'canQueue' => $this->ladder_queue != '',
+            'settings' => [
+                'sound_enabled' => $this->sound_enabled,
+                'notifications_enabled' => $this->notifications_enabled,
+                'timezone' => $this->timezone
+            ],
+            'profile' => [
+                'location' => $this->location,
+                'age' => $this->age,
+                'intro' => $this->intro,
+                'twitch' => $this->twitch,
+                'twitter' => $this->twitter
+            ],
             //'party' => $this->activeParty(),
             'loggedIn' => true
         ]);
@@ -133,6 +145,16 @@ class User extends Authenticatable
         return $this->avatar !== NUll ? $this->avatar : '/images/unknown.png';
     }
 
+    public function getTzAttribute()
+    {
+        $tz = $this->timezone;
+        if($tz === 'Pacific') return 'America/Los_Angeles';
+        if($tz === 'Mountain') return 'America/Denver';
+        if($tz === 'Central') return 'America/Chicago';
+        if($tz === 'Eastern') return 'America/New_York';
+        return 'America/New_York';
+    }
+
     public function getGamesPlayedAttribute()
     {
         return LadderPlayer::where('user_id', $this->id)->where('status_id', LadderPlayer::$STATUS_COMPLETE)->count();
@@ -147,6 +169,11 @@ class User extends Authenticatable
                 FROM users where games_played > 0 )
             ) AS rank'))->where('id', $this->id)->first();
         return $rank->rank;
+    }
+
+    public function getMemberSinceAttribute()
+    {
+        return $this->created_at->format('M Y');
     }
 
     public function getGamesAttribute()
