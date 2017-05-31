@@ -23,7 +23,7 @@
                         <p>
                             <ul>
                                 <li v-for="user in queuePlayers">
-                                    {{user.name}}
+                                    <strong>{{user.name}}</strong> - Rank: {{user.rank}}, Points: {{user.ladder_points}}
                                 </li>
                             </ul>
                         </p>

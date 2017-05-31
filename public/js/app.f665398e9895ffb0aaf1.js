@@ -66558,7 +66558,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v("\n                        Edit News\n                    ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "panel"
   }, [_c('p', [_vm._v("Users in queue: (" + _vm._s(_vm.queuePlayers.length) + ")")]), _vm._v(" "), _c('p', [_c('ul', _vm._l((_vm.queuePlayers), function(user) {
-    return _c('li', [_vm._v("\n                                " + _vm._s(user.name) + "\n                            ")])
+    return _c('li', [_c('strong', [_vm._v(_vm._s(user.name))]), _vm._v(" - Rank: " + _vm._s(user.rank) + ", Points: " + _vm._s(user.ladder_points) + "\n                            ")])
   }))])])] : _vm._e()] : [_c('p', {
     staticClass: "text-center; font-size: 25px"
   }, [_vm._v("Unauthorized")])]], 2)])
