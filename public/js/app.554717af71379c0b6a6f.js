@@ -57811,7 +57811,7 @@ window.Pusher = __webpack_require__(183);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: '914817c74b20f20c979e'
+  key: '5a305c752899d0386283'
 });
 
 /***/ }),
