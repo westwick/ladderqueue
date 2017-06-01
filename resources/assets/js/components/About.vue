@@ -4,6 +4,15 @@
             <template>
                 <div class="panel nmt news-item">
                     <div class="news-inner">
+                        <h5 class="title">v0.1.0 - New Season</h5>
+                        <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
+                        <div>
+                            <p>Just a small release this time to add last season's stats to player profiles, as well as some minor changes to prepare the database for the new season.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel nmt news-item">
+                    <div class="news-inner">
                         <h5 class="title">v0.0.5</h5>
                         <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
                         <div>

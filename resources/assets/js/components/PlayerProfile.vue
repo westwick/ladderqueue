@@ -74,7 +74,15 @@
                                 </ul>
                             </div>
                             <div class="medium-4 columns">
-                                <div class="trophy-case">Season 5 Stats</div>
+                                <div class="trophy-case" v-if="player.s5_games_played == 0">
+                                    No Season 5 Stats
+                                </div>
+                                <div v-else class="text-center">
+                                    <h4>Last Season</h4>
+                                    <p>Rank: {{player.s5_rank}}</p>
+                                    <p>Points: {{player.s5_points}}</p>
+                                    <p>Record: {{player.s5_wins}} - {{player.s5_losses}}</p>
+                                </div>
                             </div>
                             <div class="medium-4 columns">
                                 <div class="trophy-case">No Badges Or Trophies To Display</div>

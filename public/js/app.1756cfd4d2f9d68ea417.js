@@ -54391,6 +54391,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -56613,6 +56622,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65189,9 +65206,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "medium-6 columns"
   }, [
-    [_vm._m(0)]
-  ], 2), _vm._v(" "), _vm._m(1)])
+    [_vm._m(0), _vm._v(" "), _vm._m(1)]
+  ], 2), _vm._v(" "), _vm._m(2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel nmt news-item"
+  }, [_c('div', {
+    staticClass: "news-inner"
+  }, [_c('h5', {
+    staticClass: "title"
+  }, [_vm._v("v0.1.0 - New Season")]), _vm._v(" "), _c('p', {
+    staticClass: "author-info"
+  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 31, 2017")]), _vm._v(" "), _c('div', [_c('p', [_vm._v("Just a small release this time to add last season's stats to player profiles, as well as some minor changes to prepare the database for the new season.")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "panel nmt news-item"
   }, [_c('div', {
@@ -66174,9 +66201,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("twitch.tv/" + _vm._s(_vm.player.twitch))])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "medium-4 columns"
-  }, [_c('div', {
+  }, [(_vm.player.s5_games_played == 0) ? _c('div', {
     staticClass: "trophy-case"
-  }, [_vm._v("Season 5 Stats")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                No Season 5 Stats\n                            ")]) : _c('div', {
+    staticClass: "text-center"
+  }, [_c('h4', [_vm._v("Last Season")]), _vm._v(" "), _c('p', [_vm._v("Rank: " + _vm._s(_vm.player.s5_rank))]), _vm._v(" "), _c('p', [_vm._v("Points: " + _vm._s(_vm.player.s5_points))]), _vm._v(" "), _c('p', [_vm._v("Record: " + _vm._s(_vm.player.s5_wins) + " - " + _vm._s(_vm.player.s5_losses))])])]), _vm._v(" "), _c('div', {
     staticClass: "medium-4 columns"
   }, [_c('div', {
     staticClass: "trophy-case"
@@ -66940,7 +66969,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/about"
     }
-  }, [_vm._v("Beta v0.0.5")])], 1)])], 1)
+  }, [_vm._v("Beta v0.1.0")])], 1)])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"
