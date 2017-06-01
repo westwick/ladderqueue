@@ -54400,6 +54400,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     computed: {
@@ -65206,9 +65215,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "medium-6 columns"
   }, [
-    [_vm._m(0), _vm._v(" "), _vm._m(1)]
-  ], 2), _vm._v(" "), _vm._m(2)])
+    [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]
+  ], 2), _vm._v(" "), _vm._m(3)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel nmt news-item"
+  }, [_c('div', {
+    staticClass: "news-inner"
+  }, [_c('h5', {
+    staticClass: "title"
+  }, [_vm._v("v0.1.1")]), _vm._v(" "), _c('p', {
+    staticClass: "author-info"
+  }, [_vm._v("Posted by "), _c('span', [_vm._v("@drew")]), _vm._v(" on May 31, 2017")]), _vm._v(" "), _c('div', [_c('p', [_vm._v("Fixed a bug that was preventing the queue from popping.")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "panel nmt news-item"
   }, [_c('div', {
@@ -66969,7 +66988,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/about"
     }
-  }, [_vm._v("Beta v0.1.0")])], 1)])], 1)
+  }, [_vm._v("Beta v0.1.1")])], 1)])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"

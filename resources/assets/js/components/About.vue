@@ -4,6 +4,15 @@
             <template>
                 <div class="panel nmt news-item">
                     <div class="news-inner">
+                        <h5 class="title">v0.1.1</h5>
+                        <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
+                        <div>
+                            <p>Fixed a bug that was preventing the queue from popping.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel nmt news-item">
+                    <div class="news-inner">
                         <h5 class="title">v0.1.0 - New Season</h5>
                         <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
                         <div>
