@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\GenerateUsers::class,
         Commands\PutInQueue::class,
         Commands\ClearQueue::class,
-        Commands\ClearPendingGames::class
+        Commands\ClearPendingGames::class,
+        Commands\SeasonRollover::class
     ];
 
     /**
