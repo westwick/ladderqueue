@@ -76,6 +76,7 @@ class BracketController extends Controller
         $user->append('log');
         $user->append('games');
         $user->append('member_since');
+        $user->setHidden(['password', 'remember_token', 'email']);
         return response()->json($user);
     }
 

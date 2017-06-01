@@ -36,7 +36,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'email'
+        'password', 'remember_token', 'email', 'avatar', 'intro', 'steamid', 'server_preference',
+        's5_rank', 's5_points', 's5_wins', 's5_losses', 's5_games_played', 's5_win_pct'
     ];
 
     // always add the image attribute to all model requests
