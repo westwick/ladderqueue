@@ -55430,6 +55430,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -55877,6 +55880,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -55944,10 +55951,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         getPrizeText: function getPrizeText(i) {
-            if (i == 0) return '$70';
-            if (i == 1) return '$40';
-            if (i == 2) return '$25';
-            if (i == 3) return '$15';
+            if (i == 0) return '$50';
+            if (i == 1) return '$25';
+            if (i == 2) return '$15';
+            if (i == 3) return '$10';
             if (i == 4) return 'skin';
             if (i == 5) return 'skin';
             return '';
@@ -56606,6 +56613,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -66091,7 +66111,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row player-profile"
   }, [_c('div', {
     staticClass: "small-12 columns"
-  }, [(_vm.player) ? _c('div', {
+  }, [(_vm.player) ? _c('div', {}, [_c('div', {
     staticClass: "panel nmt"
   }, [_c('div', {
     staticClass: "player-head"
@@ -66103,26 +66123,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "player-name"
-  }, [_vm._v("\n                            " + _vm._s(_vm.player.name) + "\n                            "), _c('a', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.player.name) + "\n                                "), _c('a', {
     attrs: {
       "href": 'http://steamcommunity.com/profiles/' + _vm.player.steamid64,
       "target": "_blank"
     }
-  }, [_vm._v("\n                                Steam Profile\n                                "), _c('i', {
+  }, [_vm._v("\n                                    Steam Profile\n                                    "), _c('i', {
     staticClass: "icon ion-android-open"
   })])])]), _vm._v(" "), _c('div', {
     staticClass: "player-stats"
   }, [_c('div', {
     staticClass: "stat-box"
-  }, [_vm._v("\n                            " + _vm._s(_vm.player.rank) + "\n                            "), _c('span', [_vm._v("Rank")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.player.rank) + "\n                                "), _c('span', [_vm._v("Rank")])]), _vm._v(" "), _c('div', {
     staticClass: "stat-box"
-  }, [_vm._v("\n                            " + _vm._s(_vm.player.ladder_points) + "\n                            "), _c('span', [_vm._v("Points")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.player.ladder_points) + "\n                                "), _c('span', [_vm._v("Points")])]), _vm._v(" "), _c('div', {
     staticClass: "stat-box"
-  }, [_vm._v("\n                            " + _vm._s(_vm.player.wins) + " - " + _vm._s(_vm.player.losses) + "\n                            "), _c('span', [_vm._v("Record")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.player.wins) + " - " + _vm._s(_vm.player.losses) + "\n                                "), _c('span', [_vm._v("Record")])]), _vm._v(" "), _c('div', {
     staticClass: "stat-box"
-  }, [_vm._v("\n                            " + _vm._s(_vm.player.win_pct) + "\n                            "), _c('span', [_vm._v("Win %")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "player-middle"
-  }, [_c('div', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.player.win_pct) + "\n                                "), _c('span', [_vm._v("Win %")])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "medium-4 columns"
@@ -66155,7 +66173,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "target": "_blank"
     }
   }, [_vm._v("twitch.tv/" + _vm._s(_vm.player.twitch))])])]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "medium-8 columns"
+    staticClass: "medium-4 columns"
+  }, [_c('div', {
+    staticClass: "trophy-case"
+  }, [_vm._v("Season 5 Stats")])]), _vm._v(" "), _c('div', {
+    staticClass: "medium-4 columns"
   }, [_c('div', {
     staticClass: "trophy-case"
   }, [_vm._v("No Badges Or Trophies To Display")])])])]), _vm._v(" "), _c('div', {
@@ -66164,7 +66186,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row text-center"
   }, [_c('div', {
     staticClass: "medium-6 columns"
-  }, [_c('h4', [_vm._v("Game History")]), _vm._v(" "), _c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("Result")]), _vm._v(" "), _c('th', [_vm._v("Score")]), _vm._v(" "), _c('th', [_vm._v("When")]), _vm._v(" "), _c('th', [_vm._v("ID")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.player.games), function(game) {
+  }, [_c('div', {}, [_c('h4', [_vm._v("Game History")]), _vm._v(" "), _c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("Result")]), _vm._v(" "), _c('th', [_vm._v("Score")]), _vm._v(" "), _c('th', [_vm._v("When")]), _vm._v(" "), _c('th', [_vm._v("ID")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.player.games), function(game) {
     return _c('tr', [_c('td', [(game.won) ? [_c('span', {
       staticClass: "points-positive"
     }, [_vm._v("\n                                                    W\n                                                ")])] : [_c('span', {
@@ -66174,9 +66196,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "to": '/game/' + game.id
       }
     }, [_vm._v(_vm._s(game.id))])], 1)])
-  }))])]), _vm._v(" "), _c('div', {
+  }))]), _vm._v(" "), (_vm.player.games.length === 0) ? _c('div', {
+    staticClass: "blank-state dark-bordered"
+  }, [_vm._v("\n                                    No Game History\n                                ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "medium-6 columns"
-  }, [_c('h4', [_vm._v("Points History")]), _vm._v(" "), _c('table', {
+  }, [_c('div', {}, [_c('h4', [_vm._v("Point History")]), _vm._v(" "), _c('table', {
     staticClass: "player-points-table"
   }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Memo")]), _vm._v(" "), _c('th', [_vm._v("When")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.player.log), function(item) {
     return _c('tr', [_c('td', [(item.points > 0) ? [_c('span', {
@@ -66184,7 +66208,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                                    +" + _vm._s(item.points) + "\n                                                ")])] : [_c('span', {
       staticClass: "points-negative"
     }, [_vm._v("\n                                                    " + _vm._s(item.points) + "\n                                                ")])]], 2), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.memo))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.time_ago))])])
-  }))])])])])]) : _c('div', {
+  }))]), _vm._v(" "), (_vm.player.log.length === 0) ? _c('div', {
+    staticClass: "blank-state dark-bordered"
+  }, [_vm._v("\n                                    No Point History\n                                ")]) : _vm._e()])])])])]) : _c('div', {
     staticClass: "panel nmt text-center"
   }, [_c('p', [_vm._v("Error: player " + _vm._s(_vm.username) + " not found")])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -66591,9 +66617,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "small-12 columns"
   }, [_c('div', {
     staticClass: "text-center season-info"
-  }, [_c('h4', [_vm._v("Season 5")]), _vm._v(" "), _c('p', {
+  }, [_c('h4', [_vm._v("Season 6")]), _vm._v(" "), _c('p', {
     staticClass: "season-dates"
-  }, [_vm._v("May 1 - May 31")])]), _vm._v(" "), _c('p', {
+  }, [_vm._v("June 1 - June 15")]), _vm._v(" "), _c('p', {
+    staticClass: "season-dates"
+  }, [_vm._v("$100 Prize Pool")])]), _vm._v(" "), _c('p', {
     staticClass: "text-right",
     staticStyle: {
       "color": "#676767",
@@ -66653,7 +66681,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(player.streak > 0 ? '+' + player.streak : player.streak))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(player.wins) + " - " + _vm._s(player.losses))]), _vm._v(" "), _c('td', {
       class: player.win_pct !== '0.000' ? '' : 'nostreak'
     }, [_vm._v(_vm._s(player.win_pct))])])
-  }))])])])
+  }))]), _vm._v(" "), (_vm.leaderboard.length === 0) ? _c('div', {
+    staticClass: "blank-state dark-bordered"
+  }, [_vm._v("\n            No games have been played\n        ")]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "loader-spinner"
@@ -66981,7 +67011,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "innerHTML": _vm._s(_vm.gameStatus(game.status_id))
       }
     })])
-  }))])])])
+  }))]), _vm._v(" "), (_vm.games.length === 0) ? _c('div', {
+    staticClass: "blank-state dark-bordered"
+  }, [_vm._v("\n                No Games have been played\n            ")]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "loader-spinner"

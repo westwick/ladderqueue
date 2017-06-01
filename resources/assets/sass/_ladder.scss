@@ -168,6 +168,12 @@ span.selectedMap {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.dark-bordered {
+    color: #555;
+    border: 1px solid #1e1e1f;
+    background: #121212;
+  }
 }
 
 .game-captain {

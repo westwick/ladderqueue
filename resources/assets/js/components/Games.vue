@@ -51,6 +51,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="blank-state dark-bordered" v-if="games.length === 0">
+                    No Games have been played
+                </div>
         </div>
     </div>
 </template>

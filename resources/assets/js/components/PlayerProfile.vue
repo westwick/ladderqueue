@@ -8,38 +8,38 @@
         </div>
         <div v-else class="row player-profile">
             <div class="small-12 columns">
-                <div v-if="player" class="panel nmt">
-                    <div class="player-head">
-                        <div class="player-box">
-                            <img :src="player.image"/>
-                            <div class="player-name">
-                                {{player.name}}
-                                <a :href="'http://steamcommunity.com/profiles/' + player.steamid64" target="_blank">
-                                    Steam Profile
-                                    <i class="icon ion-android-open"></i>
-                                </a>
+                <div v-if="player" class="">
+                    <div class="panel nmt">
+                        <div class="player-head">
+                            <div class="player-box">
+                                <img :src="player.image"/>
+                                <div class="player-name">
+                                    {{player.name}}
+                                    <a :href="'http://steamcommunity.com/profiles/' + player.steamid64" target="_blank">
+                                        Steam Profile
+                                        <i class="icon ion-android-open"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="player-stats">
+                                <div class="stat-box">
+                                    {{player.rank}}
+                                    <span>Rank</span>
+                                </div>
+                                <div class="stat-box">
+                                    {{player.ladder_points}}
+                                    <span>Points</span>
+                                </div>
+                                <div class="stat-box">
+                                    {{player.wins}} - {{player.losses}}
+                                    <span>Record</span>
+                                </div>
+                                <div class="stat-box">
+                                    {{player.win_pct}}
+                                    <span>Win %</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="player-stats">
-                            <div class="stat-box">
-                                {{player.rank}}
-                                <span>Rank</span>
-                            </div>
-                            <div class="stat-box">
-                                {{player.ladder_points}}
-                                <span>Points</span>
-                            </div>
-                            <div class="stat-box">
-                                {{player.wins}} - {{player.losses}}
-                                <span>Record</span>
-                            </div>
-                            <div class="stat-box">
-                                {{player.win_pct}}
-                                <span>Win %</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="player-middle">
                         <div class="row">
                             <div class="medium-4 columns">
                                 <p v-if="player.intro" class="player-intro">{{player.intro}}</p>
@@ -61,19 +61,22 @@
                                     </li>
                                     <li v-if="player.twitter">
                                         <i class="icon ion-social-twitter"></i>
-                                        <span>
-                                            <a :href="'http://twitter.com/' + player.twitter" target="_blank">@{{player.twitter}}</a>
-                                        </span>
+                                    <span>
+                                        <a :href="'http://twitter.com/' + player.twitter" target="_blank">@{{player.twitter}}</a>
+                                    </span>
                                     </li>
                                     <li v-if="player.twitch">
                                         <i class="icon ion-social-twitch"></i>
-                                        <span>
-                                            <a :href="'http://twitch.tv/' + player.twitch" target="_blank">twitch.tv/{{player.twitch}}</a>
-                                        </span>
+                                    <span>
+                                        <a :href="'http://twitch.tv/' + player.twitch" target="_blank">twitch.tv/{{player.twitch}}</a>
+                                    </span>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="medium-8 columns">
+                            <div class="medium-4 columns">
+                                <div class="trophy-case">Season 5 Stats</div>
+                            </div>
+                            <div class="medium-4 columns">
                                 <div class="trophy-case">No Badges Or Trophies To Display</div>
                             </div>
                         </div>
@@ -81,17 +84,18 @@
                     <div class="player-body">
                         <div class="row text-center">
                             <div class="medium-6 columns">
-                                <h4>Game History</h4>
-                                <table>
-                                    <thead>
+                                <div class="">
+                                    <h4>Game History</h4>
+                                    <table>
+                                        <thead>
                                         <tr>
                                             <th>Result</th>
                                             <th>Score</th>
                                             <th>When</th>
                                             <th>ID</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                        </thead>
+                                        <tbody>
                                         <tr v-for="game in player.games">
                                             <td>
                                                 <template v-if="game.won">
@@ -115,28 +119,33 @@
                                                 <router-link :to="'/game/' + game.id">{{game.id}}</router-link>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                    <div class="blank-state dark-bordered" v-if="player.games.length === 0">
+                                        No Game History
+                                    </div>
+                                </div>
                             </div>
                             <div class="medium-6 columns">
-                                <h4>Points History</h4>
-                                <table class="player-points-table">
-                                    <thead>
+                                <div class="">
+                                    <h4>Point History</h4>
+                                    <table class="player-points-table">
+                                        <thead>
                                         <tr>
                                             <th>Points</th>
                                             <th>Memo</th>
                                             <th>When</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                        </thead>
+                                        <tbody>
                                         <tr v-for="item in player.log">
                                             <td>
                                                 <template v-if="item.points > 0">
                                                     <span class="points-positive">
                                                         +{{item.points}}
                                                     </span>
-                                                            </template>
-                                                            <template v-else>
+                                                </template>
+                                                <template v-else>
                                                     <span class="points-negative">
                                                         {{item.points}}
                                                     </span>
@@ -145,8 +154,12 @@
                                             <td>{{item.memo}}</td>
                                             <td>{{item.time_ago}}</td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                    <div class="blank-state dark-bordered" v-if="player.log.length === 0">
+                                        No Point History
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

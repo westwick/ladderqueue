@@ -8,8 +8,9 @@
     <div class="row" v-else>
         <div class="small-12 columns">
             <div class="text-center season-info">
-                <h4>Season 5</h4>
-                <p class="season-dates">May 1 - May 31</p>
+                <h4>Season 6</h4>
+                <p class="season-dates">June 1 - June 15</p>
+                <p class="season-dates">$100 Prize Pool</p>
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
                 Last updated {{lastUpdated}}
@@ -55,6 +56,9 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="blank-state dark-bordered" v-if="leaderboard.length === 0">
+                No games have been played
+            </div>
         </div>
     </div>
 </template>
@@ -121,10 +125,10 @@
                 }
             },
             getPrizeText(i) {
-                if(i == 0) return '$70'
-                if(i == 1) return '$40'
-                if(i == 2) return '$25'
-                if(i == 3) return '$15'
+                if(i == 0) return '$50'
+                if(i == 1) return '$25'
+                if(i == 2) return '$15'
+                if(i == 3) return '$10'
                 if(i == 4) return 'skin'
                 if(i == 5) return 'skin'
                 return ''
