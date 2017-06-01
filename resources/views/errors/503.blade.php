@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 
     <style>
         body {
@@ -11,7 +11,7 @@
             height: 100%;
             color: #1e7be4;
             display: table;
-            font-weight: 100;
+            font-weight: 300;
             font-family: 'Lato';
         }
 
