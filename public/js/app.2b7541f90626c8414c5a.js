@@ -55869,6 +55869,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -55924,8 +55932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         isOnline: function isOnline(player) {
-            var test = _.find(this.onlineUsers, { id: player.id });
-            return JSON.toString(test);
+            return _.some(this.onlineUsers, { id: player.id });
         },
         getStreakClass: function getStreakClass(streak) {
             if (streak > 0) {
@@ -66623,11 +66630,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "width": "55%"
       }
-    }, [_c('router-link', {
+    }, [_c('div', {
+      staticClass: "player-link"
+    }, [(_vm.isOnline(player)) ? _c('div', {
+      staticClass: "player-online"
+    }, [_c('i', {
+      staticClass: "status-icon"
+    }, [_c('span', {
+      staticClass: "status-icon__pulse"
+    }), _vm._v(" "), _c('span', {
+      staticClass: "status-icon__dot"
+    })])]) : _vm._e(), _vm._v(" "), _c('router-link', {
       attrs: {
         "to": '/u/' + player.name.toLowerCase()
       }
-    }, [_vm._v(_vm._s(player.name))])], 1), _vm._v(" "), _c('td', [_c('div', {
+    }, [_vm._v(_vm._s(player.name))])], 1)]), _vm._v(" "), _c('td', [_c('div', {
       attrs: {
         "id": 'spark' + player.id
       }

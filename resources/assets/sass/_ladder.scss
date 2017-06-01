@@ -23,6 +23,16 @@
   .nostreak {
     color: #676767;
   }
+
+  .player-link {
+    position: relative;
+    display: inline-block;
+
+    .player-online {
+      position: absolute;
+      left: 0;
+    }
+  }
 }
 
 span.selectedMap {

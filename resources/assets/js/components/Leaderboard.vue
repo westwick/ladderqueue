@@ -36,7 +36,15 @@
                     <td style="font-weight: bold">{{player.rank}}</td>
                     <td>{{player.ladder_points}}</td>
                     <td width="55%">
-                        <router-link :to="'/u/' + player.name.toLowerCase()">{{player.name}}</router-link>
+                        <div class="player-link">
+                            <div class="player-online" v-if="isOnline(player)">
+                                <i class="status-icon">
+                                    <span class="status-icon__pulse"></span>
+                                    <span class="status-icon__dot"></span>
+                                </i>
+                            </div>
+                            <router-link :to="'/u/' + player.name.toLowerCase()">{{player.name}}</router-link>
+                        </div>
                     </td>
                     <td>
                         <div :id="'spark' + player.id"></div>
@@ -101,8 +109,7 @@
                 })
             },
             isOnline(player) {
-                var test = _.find(this.onlineUsers, {id: player.id})
-                return JSON.toString(test)
+                return _.some(this.onlineUsers, {id: player.id})
             },
             getStreakClass(streak) {
                 if(streak > 0) {
