@@ -18,7 +18,7 @@
         img {
             width: 200px;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
 
         .container {
@@ -34,7 +34,12 @@
 
         .title {
             font-size: 72px;
-            margin-bottom: 40px;
+            margin-bottom: 16px;
+        }
+
+        .starts {
+            font-size: 36px;
+            color: #676767;
         }
     </style>
 </head>
@@ -42,7 +47,8 @@
 <div class="container">
     <div class="content">
         <img src="/images/vxblue.png">
-        <div class="title">Be right back.</div>
+        <div class="title">Season 6</div>
+        <div class="starts">Starts June 1st 12:00 Noon EST</div>
     </div>
 </div>
 </body>
