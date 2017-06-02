@@ -40,26 +40,21 @@ class LadderGame extends Model
 
     public function getStartTimeAttribute()
     {
-        //if(Auth::user()) {
-        //    return $this->created_at->tz(Auth::user()->tz)->format('M j @ g:ia');
-        //} else {
-        //
-        //}
-
-        return $this->created_at->format('M j @ g:ia');
+        if(Auth::user()) {
+            return $this->created_at->tz(Auth::user()->tz)->format('M j @ g:ia');
+        } else {
+            return $this->created_at->format('M j @ g:ia');
+        }
     }
 
     public function getEndTimeAttribute()
     {
         if($this->ended_at) {
-            //if(Auth::user()) {
-            //    return $this->ended_at->tz(Auth::user()->tz)->format('g:ia');
-            //} else {
-            //
-            //}
-
-            return $this->ended_at->format('g:ia');
-
+            if(Auth::user()) {
+                return $this->ended_at->tz(Auth::user()->tz)->format('g:ia');
+            } else {
+                return $this->ended_at->format('g:ia');
+            }
         }
         return null;
     }
