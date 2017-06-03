@@ -43,7 +43,7 @@ class LadderGame extends Model
         if(Auth::user()) {
             return $this->created_at->tz(Auth::user()->tz)->format('M j @ g:ia');
         } else {
-            return $this->created_at->format('M j @ g:ia');
+            return $this->created_at->tz('America/New_York')->format('M j @ g:ia');
         }
     }
 
@@ -53,7 +53,7 @@ class LadderGame extends Model
             if(Auth::user()) {
                 return $this->ended_at->tz(Auth::user()->tz)->format('g:ia');
             } else {
-                return $this->ended_at->format('g:ia');
+                return $this->ended_at->tz('America/New_York')->format('g:ia');
             }
         }
         return null;
