@@ -56108,6 +56108,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 //
 //
 //
@@ -56136,6 +56138,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -56147,6 +56156,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         games: function games() {
             return this.$store.state.games;
+        }
+    },
+    methods: {
+        getStartedTime: function getStartedTime(game) {
+            if (game) {
+                var start = new __WEBPACK_IMPORTED_MODULE_0_moment___default.a(game.created_at);
+                return start.fromNow();
+            }
+            return 'n/a';
         }
     }
 };
@@ -56966,6 +56984,7 @@ var Timer = __webpack_require__(179);
                 });
                 _this2.$store.commit('playersUpdated', p);
             }).listen('GameStarting', function (e) {
+                console.log(e);
                 var userIsInGame = false;
                 _.forEach(e.game.players, function (player) {
                     if (player.user.id === _this2.userid) {
@@ -65065,12 +65084,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "small-12 columns"
   }, [(_vm.games.length == 0) ? [_c('div', {
     staticClass: "panel blank-state nmt"
-  }, [_vm._v("\n                No games currently in progress\n            ")])] : [_c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Started")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.games), function(game) {
+  }, [_vm._v("\n                No games currently in progress\n            ")])] : [_c('table', [_c('thead', [_c('tr', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Started")]), _vm._v(" "), _c('th', [_vm._v("Team 1")]), _vm._v(" "), _c('th'), _vm._v(" "), _c('th', [_vm._v("Team 2")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.games), function(game) {
     return _c('tr', [_c('td', [_c('router-link', {
       attrs: {
         "to": '/game/' + game.id
       }
-    }, [_vm._v(_vm._s(game.id))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.start_time))])])
+    }, [_vm._v(_vm._s(game.id))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.getStartedTime(game)))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.players[0].user.name))]), _vm._v(" "), _c('td', [_vm._v("vs")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(game.players[1].user.name))])])
   }))])]], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
