@@ -33,7 +33,7 @@
 </template>
 
 <script type="text/babel">
-    import moment from 'moment'
+    import moment from 'moment-timezone'
     export default {
         data() {
             return {
@@ -43,13 +43,21 @@
         computed: {
             games() {
                 return this.$store.state.games
+            },
+            userTimezone() {
+                var tz = this.$store.state.settings.timezone
+                if(tz === 'Eastern') return 'America/New_York'
+                if(tz === 'Central') return 'America/Chicago'
+                if(tz === 'Mountain') return 'America/Denver'
+                if(tz === 'Pacific') return 'America/Los_Angeles'
+                return 'America/New_York'
             }
         },
         methods: {
             getStartedTime(game) {
                 if(game) {
-                    var start = new moment(game.created_at)
-                    return start.fromNow();
+                    var start_tz = moment.utc(game.created_at).tz(this.userTimezone)
+                    return start_tz.fromNow()
                 }
                 return 'n/a'
             }
