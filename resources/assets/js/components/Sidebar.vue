@@ -86,7 +86,7 @@
 
             window.localStorage.removeItem('leaderboard')
 
-            Echo.join('players')
+            Echo.join('presence')
                 .here((users) => {
                     this.$store.commit('onlineUsers', users)
                 })

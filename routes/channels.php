@@ -51,6 +51,6 @@ Broadcast::channel('party.{partyId}', function ($user, $partyId) {
     return false;
 });
 
-Broadcast::channel('players', function($user) {
+Broadcast::channel('presence', function($user) {
     return ['id' => $user->id, 'username' => $user->name, 'image' => $user->image];
 });

@@ -57726,7 +57726,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         window.localStorage.removeItem('leaderboard');
 
-        Echo.join('players').here(function (users) {
+        Echo.join('presence').here(function (users) {
             _this.$store.commit('onlineUsers', users);
         }).joining(function (user) {
             var users = _this.$store.state.onlineUsers;
