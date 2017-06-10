@@ -4,8 +4,17 @@
             <template>
                 <div class="panel nmt news-item">
                     <div class="news-inner">
+                        <h5 class="title">v0.1.2</h5>
+                        <p class="author-info">Posted by <span>@drew</span> on June 9, 2017</p>
+                        <div>
+                            <p>Just a minor update: added the selected map to the games list and updated the season dates on the leaderboard.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel nmt news-item">
+                    <div class="news-inner">
                         <h5 class="title">v0.1.1</h5>
-                        <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
+                        <p class="author-info">Posted by <span>@drew</span> on June 1, 2017</p>
                         <div>
                             <p>Fixed a bug that was preventing the queue from popping.</p>
                         </div>
@@ -14,7 +23,7 @@
                 <div class="panel nmt news-item">
                     <div class="news-inner">
                         <h5 class="title">v0.1.0 - New Season</h5>
-                        <p class="author-info">Posted by <span>@drew</span> on May 31, 2017</p>
+                        <p class="author-info">Posted by <span>@drew</span> on June 1, 2017</p>
                         <div>
                             <p>Just a small release this time to add last season's stats to player profiles, as well as some minor changes to prepare the database for the new season.</p>
                         </div>

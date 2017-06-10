@@ -9,7 +9,7 @@
         <div class="small-12 columns">
             <div class="text-center season-info">
                 <h4>Season 6</h4>
-                <p class="season-dates">June 1 - June 15</p>
+                <p class="season-dates">June 1 - June 30</p>
                 <p class="season-dates">$100 Prize Pool</p>
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">

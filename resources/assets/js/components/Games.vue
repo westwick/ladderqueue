@@ -23,6 +23,7 @@
                             <th>ID</th>
                             <th>Started</th>
                             <th>Ended</th>
+                            <th>Map</th>
                             <th width="15%">Team 1</th>
                             <th></th>
                             <th width="15%">Team 2</th>
@@ -34,6 +35,7 @@
                             <td><router-link :to="'/game/' + game.id">{{game.id}}</router-link></td>
                             <td>{{game.start_time}}</td>
                             <td>{{game.end_time}}</td>
+                            <td class="mapname">{{game.map}}</td>
                             <td>
                                 <span class="game-captain" :class="game.winner == 1 ? 'game-winner': ''">
                                     {{game.players[0].user.name}}
