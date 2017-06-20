@@ -55696,6 +55696,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
@@ -67103,16 +67105,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/images/' + _vm.otherMaps[5] + '.png'
     }
-  })])]), _vm._v(" "), (_vm.userInGame) ? _c('p', {
+  })])]), _vm._v(" "), (_vm.userInGame) ? [_c('p', {
     staticClass: "popflash-url"
-  }, [_vm._v("\n                                URL:\n                                "), _c('a', {
+  }, [_vm._v("\n                                    Server:\n                                    "), _c('a', {
     attrs: {
-      "href": '//popflash.site/scrim/' + _vm.game.url,
-      "target": "_blank"
+      "href": "#"
     }
-  }, [_vm._v("\n                                http://popflash.site/scrim/" + _vm._s(_vm.game.url) + "\n                                ")])]) : _vm._e(), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n                                    connect vitalityx.clanservers.com; password Vital101\n                                    ")])]), _vm._v(" "), _c('p', {
     staticClass: "popflash-notes"
-  }, [_vm._v("Join the URL above to start the match. Make sure you join the correct team!")])])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 90) ? _c('div', [_c('p', [_vm._v("Match cancelled by Admin")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Match cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Match Complete")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Copy and paste the server info to connect. You will have to re-draft teams and select the correct map (automation coming soon)")])] : _vm._e()], 2)]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 90) ? _c('div', [_c('p', [_vm._v("Match cancelled by Admin")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 91) ? _c('div', [_c('p', [_vm._v("Match cancelled - not all players accepted the ready check")])]) : _vm._e(), _vm._v(" "), (_vm.game.status_id == 40) ? _c('div', [_c('h4', [_vm._v("Match Complete")]), _vm._v(" "), _c('p', {
     staticClass: "selected-map"
   }, [_vm._v("Final Pick: " + _vm._s(_vm.game.map))]), _vm._v(" "), _c('div', {
     staticClass: "maps-carousel"

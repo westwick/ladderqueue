@@ -25,13 +25,15 @@
                                     <div><img :src="'/images/' + otherMaps[4] + '.png'" /></div>
                                     <div><img :src="'/images/' + otherMaps[5] + '.png'" /></div>
                                 </div>
-                                <p class="popflash-url" v-if="userInGame">
-                                    URL:
-                                    <a :href="'//popflash.site/scrim/' + game.url" target="_blank">
-                                    http://popflash.site/scrim/{{game.url}}
-                                    </a>
-                                </p>
-                                <p class="popflash-notes">Join the URL above to start the match. Make sure you join the correct team!</p>
+                                <template v-if="userInGame">
+                                    <p class="popflash-url" >
+                                        Server:
+                                        <a href="#">
+                                        connect vitalityx.clanservers.com; password Vital101
+                                        </a>
+                                    </p>
+                                    <p class="popflash-notes">Copy and paste the server info to connect. You will have to re-draft teams and select the correct map (automation coming soon)</p>
+                                </template>
                             </div>
                         </div>
                         <div v-if="game.status_id == 90">
