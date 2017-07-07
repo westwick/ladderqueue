@@ -40,7 +40,7 @@
         .starts {
             font-size: 22px;
             color: #676767;
-            width: 500px;
+            width: 700px;
             margin: 0 auto;
         }
     </style>
@@ -51,7 +51,7 @@
         <img src="/images/vxblue.png">
         <div class="title">Site Closing</div>
         <div class="starts">
-          Unfortunately I was hospitalized for emergency surgency right as the previous season was ending so I was unable to transition to the new season.
+          Unfortunately I was hospitalized for emergency surgery right as the previous season was ending so I was unable to transition to the new season.
           During this time, rep and jam were in a hard spot and were forced to look for a new developer since I was not in communication.
           No hard feelings on either side and I would have done the same in their position.
           With a new developer working on this, a new vitalityx queue system will soon be in place, so it doesn't make sense for me to keep working on it and this current site will be shutting down.
