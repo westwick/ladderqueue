@@ -38,8 +38,10 @@
         }
 
         .starts {
-            font-size: 36px;
+            font-size: 22px;
             color: #676767;
+            width: 500px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -47,8 +49,19 @@
 <div class="container">
     <div class="content">
         <img src="/images/vxblue.png">
-        <div class="title">Season 6</div>
-        <div class="starts">Starts June 1st 12:00 Noon EST</div>
+        <div class="title">Site Closing</div>
+        <div class="starts">
+          Unfortunately I was hospitalized for emergency surgency right as the previous season was ending so I was unable to transition to the new season.
+          During this time, rep and jam were in a hard spot and were forced to look for a new developer since I was not in communication.
+          No hard feelings on either side and I would have done the same in their position.
+          With a new developer working on this, a new vitalityx queue system will soon be in place, so it doesn't make sense for me to keep working on it and this current site will be shutting down.
+          <br /><br />
+          Thanks to everyone for being a part of this project while I was around.
+          <br/><br />
+          Best,
+          <br/>
+          Drew
+        </div>
     </div>
 </div>
 </body>
