@@ -8,9 +8,9 @@
     <div class="row" v-else>
         <div class="small-12 columns">
             <div class="text-center season-info">
-                <h4>Season 6</h4>
-                <p class="season-dates">June 1 - June 30</p>
-                <p class="season-dates">$100 Prize Pool</p>
+                <h4>Season 7</h4>
+                <p class="season-dates">August 19 - ???</p>
+                <p class="season-dates">$??? Prize Pool</p>
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
                 Last updated {{lastUpdated}}
