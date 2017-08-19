@@ -67935,11 +67935,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "small-12 columns"
   }, [_c('div', {
     staticClass: "text-center season-info"
-  }, [_c('h4', [_vm._v("Season 6")]), _vm._v(" "), _c('p', {
+  }, [_c('h4', [_vm._v("Season 7")]), _vm._v(" "), _c('p', {
     staticClass: "season-dates"
-  }, [_vm._v("June 1 - June 30")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("August 19 - ???")]), _vm._v(" "), _c('p', {
     staticClass: "season-dates"
-  }, [_vm._v("$100 Prize Pool")])]), _vm._v(" "), _c('p', {
+  }, [_vm._v("$??? Prize Pool")])]), _vm._v(" "), _c('p', {
     staticClass: "text-right",
     staticStyle: {
       "color": "#676767",
