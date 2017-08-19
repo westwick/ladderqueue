@@ -68258,7 +68258,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/about"
     }
-  }, [_vm._v("Beta v0.1.2")])], 1)])], 1)
+  }, [_vm._v("Beta v0.1.3")])], 1)])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "nav-bullet"
