@@ -67937,9 +67937,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "text-center season-info"
   }, [_c('h4', [_vm._v("Season 7")]), _vm._v(" "), _c('p', {
     staticClass: "season-dates"
-  }, [_vm._v("August 19 - ???")]), _vm._v(" "), _c('p', {
-    staticClass: "season-dates"
-  }, [_vm._v("$??? Prize Pool")])]), _vm._v(" "), _c('p', {
+  }, [_vm._v("August 19 - September 30")])]), _vm._v(" "), _c('p', {
     staticClass: "text-right",
     staticStyle: {
       "color": "#676767",
@@ -67958,17 +67956,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('table', {
     staticClass: "leaderboard"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Prize")]), _vm._v(" "), _c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")]), _vm._v(" "), _c('th', [_vm._v("Recent Performance")]), _vm._v(" "), _c('th', [_vm._v("Streak")]), _vm._v(" "), _c('th', [_vm._v("Record")]), _vm._v(" "), _c('th', [_vm._v("Win Pct.")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player, i) {
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("Rank")]), _vm._v(" "), _c('th', [_vm._v("Points")]), _vm._v(" "), _c('th', [_vm._v("Player")]), _vm._v(" "), _c('th', [_vm._v("Recent Performance")]), _vm._v(" "), _c('th', [_vm._v("Streak")]), _vm._v(" "), _c('th', [_vm._v("Record")]), _vm._v(" "), _c('th', [_vm._v("Win Pct.")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.leaderboard), function(player, i) {
     return _c('tr', {
       class: {
         'active-user': player.id === _vm.userid
       }
     }, [_c('td', {
-      staticStyle: {
-        "font-size": "14px",
-        "color": "#676767"
-      }
-    }, [_vm._v("\n                    " + _vm._s(_vm.getPrizeText(i)) + "\n                ")]), _vm._v(" "), _c('td', {
       staticStyle: {
         "font-weight": "bold"
       }

@@ -9,8 +9,8 @@
         <div class="small-12 columns">
             <div class="text-center season-info">
                 <h4>Season 7</h4>
-                <p class="season-dates">August 19 - ???</p>
-                <p class="season-dates">$??? Prize Pool</p>
+                <p class="season-dates">August 19 - September 30</p>
+                <!--<p class="season-dates">$??? Prize Pool</p>-->
             </div>
             <p class="text-right" style="color: #676767; font-size: 14px; margin: 0 0 4px">
                 Last updated {{lastUpdated}}
@@ -19,7 +19,7 @@
             <table class="leaderboard">
                 <thead>
                 <tr>
-                    <th>Prize</th>
+                    <!--<th>Prize</th>-->
                     <th>Rank</th>
                     <th>Points</th>
                     <th>Player</th>
@@ -31,9 +31,9 @@
                 </thead>
                 <tbody>
                 <tr v-for="(player, i) in leaderboard" :class="{'active-user': player.id === userid}">
-                    <td style="font-size: 14px; color: #676767">
-                        {{getPrizeText(i)}}
-                    </td>
+                    <!--<td style="font-size: 14px; color: #676767">-->
+                        <!--{{getPrizeText(i)}}-->
+                    <!--</td>-->
                     <td style="font-weight: bold">{{player.rank}}</td>
                     <td>{{player.ladder_points}}</td>
                     <td width="55%">
