@@ -24,7 +24,7 @@
                     <h6>Contact</h6>
                     <p>
                     <ul>
-                        <li>Teamspeak: <a href="#">vitalityx.ts.nfoservers.com</a></li>
+                        <li>Teamspeak: <a href="#">209.222.6.34:9999</a></li>
                         <li>Discord: <a href="https://discord.gg/XHNAKZs" target="_blank">discord.gg/XHNAKZs</a></li>
                         <li>Twitter: <a href="https://twitter.com/vitality_x" target="_blank">@vitality_x</a></li>
                         <li>Email: <a href="#">vitalityxleague@gmail.com</a></li>
