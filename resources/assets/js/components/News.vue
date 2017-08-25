@@ -16,7 +16,7 @@
                 <div class="news-inner">
                     <h5 class="title">Support</h5>
                     <h6>Join our Teamspeak server</h6>
-                    <p>Our teamspeak is where most of our players hang out. Feel free to join and talk throughout your ladder adventures: <a href="#">vitalityx.ts.nfoservers.com</a></p>
+                    <p>Our teamspeak is where most of our players hang out. Feel free to join and talk throughout your ladder adventures: <a href="#">209.222.6.34:9999</a></p>
                     <h6>Report a bug or issue</h6>
                     <p>Please let us know if you find a bug on the site through one of contact methods below. If you find a bug you'll be rewarded with a badge on your player profile!</p>
                     <h6>Have another idea?</h6>
