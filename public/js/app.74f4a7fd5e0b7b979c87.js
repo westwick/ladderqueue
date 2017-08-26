@@ -68381,11 +68381,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("vitalityx.ts.nfoservers.com")])]), _vm._v(" "), _c('h6', [_vm._v("Report a bug or issue")]), _vm._v(" "), _c('p', [_vm._v("Please let us know if you find a bug on the site through one of contact methods below. If you find a bug you'll be rewarded with a badge on your player profile!")]), _vm._v(" "), _c('h6', [_vm._v("Have another idea?")]), _vm._v(" "), _c('p', [_vm._v("We'd love to hear your thoughts on how to improve the experience. If you have an idea, hop in our discord and post it in the ideas channel!")]), _vm._v(" "), _c('h6', [_vm._v("Contact")]), _vm._v(" "), _c('p', [_c('ul', [_c('li', [_vm._v("Teamspeak: "), _c('a', {
+  }, [_vm._v("209.222.6.34:9999")])]), _vm._v(" "), _c('h6', [_vm._v("Report a bug or issue")]), _vm._v(" "), _c('p', [_vm._v("Please let us know if you find a bug on the site through one of contact methods below. If you find a bug you'll be rewarded with a badge on your player profile!")]), _vm._v(" "), _c('h6', [_vm._v("Have another idea?")]), _vm._v(" "), _c('p', [_vm._v("We'd love to hear your thoughts on how to improve the experience. If you have an idea, hop in our discord and post it in the ideas channel!")]), _vm._v(" "), _c('h6', [_vm._v("Contact")]), _vm._v(" "), _c('p', [_c('ul', [_c('li', [_vm._v("Teamspeak: "), _c('a', {
     attrs: {
       "href": "#"
     }
-  }, [_vm._v("vitalityx.ts.nfoservers.com")])]), _vm._v(" "), _c('li', [_vm._v("Discord: "), _c('a', {
+  }, [_vm._v("209.222.6.34:9999")])]), _vm._v(" "), _c('li', [_vm._v("Discord: "), _c('a', {
     attrs: {
       "href": "https://discord.gg/XHNAKZs",
       "target": "_blank"
