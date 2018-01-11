@@ -1,116 +1,85 @@
 <template>
-  <div>
-    <section class="queue-status main-top-padder ">
-      <div class="row" v-if="inGame">
-        <div class="small-12 columns">
-          <div class="panel">
-            <template v-if="pickTurn !== 0">
-              Status: {{pickTurn.user.name}}'s turn to pick a player
-            </template>
-            <template v-else>
-              Status: Someone's turn to ban a map
-            </template>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section v-if="!inGame" class="row padbot">
-      <div class="medium-9 large-6 columns medium-centered">
-        <div class="panel text-center">
-          <p class="text-center">Queue status: {{players.length}}/10 players</p>
-          <div v-if="players.length >= 10">
-            <p>Starting a game, please wait...</p>
+  <div class="queue-status" :class="componentClass">
+      <template v-if="canQueue">
+          <div v-if="inGame">
+              <p v-if="!componentActive"><router-link :to="gameLink">Your game is in progress!</router-link></p>
+              <p v-else>Game ID#{{game.id}} in progress</p>
           </div>
           <div v-else>
-            <div v-if="!inQueue">
-              <button class="button primary" @click.disable="enterQueue" :disabled="this.loading">
-                  {{ !this.loading ? 'Join Queue': 'Joining...'}}
-              </button>
-            </div>
-            <div class="players-in-queue" v-show="players.length > 0">
-              <p>Players in queue:</p>
-              <div class="player-wrap">
-                <p v-for="player in players" class="playa">
-                  <img :src="player.image" />
-                  {{player.name}}
-                </p>
+              <div v-if="players.length >= 10">
+                  <p>Starting a game, please wait...</p>
               </div>
-            </div>
-            <div v-if="inQueue">
-              <button class="button primary" @click.disable="leaveQueue" :disabled="this.loading">
-                  {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section v-else class="row padbot text-center ladder-draft">
-      <div class="medium-4 columns">
-        <div class="panel">
-          <strong>Team 1</strong>
-          <div v-for="player in team1players" class="player-on-team draft-player">
-            <img :src="player.user.image" />
-            {{player.user.name}} ({{player.user.ladder_points}})
-          </div>
-        </div>
-      </div>
-      <div class="medium-4 columns">
-        <div class="panel">
-          <div v-if="undraftedcount > 0">
-            <strong>Undrafted Players</strong>
-            <div v-for="player in undraftedplayers" class="player-available draft-player">
-              <img :src="player.user.image" />
-              {{player.user.name}} ({{player.user.ladder_points}})
-              <div class="pick-player">
-                <a href="#" class="button" @click.prevent="draftPlayer(player.user.id)" :disabled="!canDraft || this.loading">
-                  {{ !this.loading ? 'Draft': 'Drafting...'}}
-                </a>
+              <div v-else>
+                  <div v-if="!inQueue">
+                      <button class="button queue-button" @click.prevent="enterQueue" :disabled="this.loading">
+                          {{ !this.loading ? 'Join Queue': 'Joining...'}}
+                      </button>
+                  </div>
+                  <div v-if="inQueue">
+                      <p class="queue-timer">{{inQueueFor}}</p>
+                      <p class="in-queue">
+                          <a href="#" @click.prevent="leaveQueue" :disabled="this.loading">
+                              {{ !this.loading ? 'Leave Queue': 'Leaving...'}}
+                          </a>
+                      </p>
+                  </div>
+                  <p class="queue-count">Players in queue: <span>{{players.length}}/10</span></p>
               </div>
-            </div>
           </div>
-          <div v-else>
-            <strong>Map Bans</strong>
-            <div class="map-banner" v-for="map in mapPool">
-              <p v-if="!mapIsBanned(map)">
-                {{map}}
-                <a href="#" class="button" @click.prevent="banMap(map)" :disabled="!canBanMap || this.loading">Ban</a>
-              </p>
-              <p v-else class="map-banned">
-                {{map}}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="medium-4 columns">
-        <div class="panel">
-          <strong>Team 2</strong>
-          <div v-for="player in team2players" class="player-on-team draft-player">
-            <img :src="player.user.image" />
-            {{player.user.name}} ({{player.user.ladder_points}})
-          </div>
-        </div>
-      </div>
-    </section>
+      </template>
+      <template v-else>
+          <p>You do not have queue privileges. <br />Speak with an admin</p>
+      </template>
   </div>
 </template>
 
-<script>
+<script type="text/babel">
     var _ = require('lodash')
+    var Timer = require('easytimer')
+    import Push from 'push.js'
     export default {
-        props: ['initplayers', 'initgame'],
         data() {
             return {
-                players: this.initplayers,
-                game: this.initgame,
+                timer: undefined,
+                inQueueFor: '00:00',
                 loading: false,
-                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train']
+                mapPool: ['inferno', 'cache', 'nuke', 'cobblestone', 'mirage', 'overpass', 'train'],
+                gamereadyclip: null
             }
         },
         computed: {
+            canQueue() {
+                return this.$store.state.canQueue
+            },
+            componentClass() {
+                return {
+                    'route-active': this.componentActive
+                }
+            },
+            componentActive() {
+                return this.$route.name === "Draft" || this.$route.name === "LadderGame"
+            },
+            gameLink() {
+                if(this.game.id && this.game.status_id < 30) {
+                    return "/draft"
+                } else {
+                    return "/game/" + this.game.id
+                }
+            },
+            players() {
+                return this.$store.state.players
+            },
+            game() {
+                return this.$store.state.game
+            },
+            inGame() {
+                return this.game && this.game.id > 0
+            },
             userid() {
-              return this.$store.state.userid
+                return this.$store.state.userid
+            },
+            userSettings() {
+                return this.$store.state.settings
             },
             inQueue() {
                 var q = false
@@ -119,58 +88,6 @@
                 })
                 return q
             },
-            inGame() {
-              return this.game && this.game.id > 0
-            },
-            undraftedplayers() {
-              return _.filter(this.game.players, {team: 0})
-            },
-            undraftedcount() {
-              return this.undraftedplayers.length
-            },
-            team1players() {
-              var players = _.filter(this.game.players, {team: 1})
-              return _.sortBy(players, 'draft_position')
-            },
-            team2players() {
-              var players = _.filter(this.game.players, {team: 2})
-              return _.sortBy(players, 'draft_position')
-            },
-            team1captain() {
-              return _.find(this.team1players, {isCaptain: 1})
-            },
-            team2captain() {
-              return _.find(this.team2players, {isCaptain: 1})
-            },
-            pickTurn() {
-              if(this.undraftedcount === 8) return this.team1captain
-              if(this.undraftedcount === 7) return this.team2captain
-              if(this.undraftedcount === 6) return this.team2captain
-              if(this.undraftedcount === 5) return this.team1captain
-              if(this.undraftedcount === 4) return this.team2captain
-              if(this.undraftedcount === 3) return this.team1captain
-              if(this.undraftedcount === 2) return this.team2captain
-              if(this.undraftedcount === 1) return this.team1captain
-              return 0
-            },
-            canDraft() {
-              if(this.pickTurn === 0) return false
-              return this.pickTurn.user.id === this.userid
-            },
-            banTurn() {
-              if(!this.game.map_bans) return this.team1captain
-              if(this.game.map_bans.length === 0) return this.team1captain
-              if(this.game.map_bans.length === 1) return this.team2captain
-              if(this.game.map_bans.length === 2) return this.team1captain
-              if(this.game.map_bans.length === 3) return this.team2captain
-              if(this.game.map_bans.length === 4) return this.team1captain
-              if(this.game.map_bans.length === 5) return this.team2captain
-              return 0
-            },
-            canBanMap() {
-              if(this.banTurn === 0 || _.isEmpty(this.game)) return false
-              return this.banTurn.user.id === this.userid
-            }
         },
         methods: {
             startPartyListener: function() {
@@ -187,7 +104,7 @@
                             p.push(player)
                           }
                         })
-                        this.players = p
+                        this.$store.commit('playersUpdated', p)
                     })
                     .listen('GameStarting', (e) => {
                         var userIsInGame = false
@@ -197,32 +114,72 @@
                           }
                         })
                         if(userIsInGame) {
-                          console.log('starting game', e.game)
-                          this.game = e.game
-                          this.startGameListener()
+                          this.$store.commit('newGame', e.game)
+                          this.$router.push('/draft')
+                          if(this.userSettings.sound_enabled) {
+                              this.gamereadyclip.play()
+                          }
+                          if(this.userSettings.notifications_enabled) {
+                              Push.create('VitalityX', {
+                                  body: 'Your game is ready',
+                                  icon: {
+                                      x16: '/favicon-16x16.png',
+                                      x32: '/favicon-32x32.png'
+                                  },
+                                  onClick: function () {
+                                      window.focus();
+                                      this.close();
+                                  },
+                                  timeout: 4000
+                              });
+                          }
                         } else {
-                          location.reload()
+                          this.updateQueuePlayers()
                         }
+
+                        var games = this.$store.state.games
+                        games.push(e.game)
+                        this.$store.commit('gamesUpdated', games)
+                    })
+                    .listen('GameCompleted', (e) => {
+                        window.localStorage.removeItem('leaderboard')
+                        this.removeGame(e)
+                    })
+                    .listen('GameCancelled', (e) => {
+                        this.removeGame(e)
                     })
             },
-            startGameListener: function() {
-              Echo.private('laddergame.' + this.game.id)
-                  .listen('PlayerDrafted', (e) => {
-                      this.playerDrafted(e.player)
-                  })
-                  .listen('MapBanned', (e) => {
-                      console.log(e)
-                      this.mapBanned(e.map)
-                  })
+            removeGame(e) {
+                console.log(e)
+                var userIsInGame = false
+                _.forEach(e.game.players, (player) => {
+                    if(player.user.id === this.userid) {
+                        userIsInGame = true
+                    }
+                })
+                if(userIsInGame) {
+                    this.$store.commit('clearGame')
+                    if(e.game.status_id == 40) {
+                        this.$router.push('/games')
+                    } else {
+                        this.$router.push('/game/' + e.game.id)
+                    }
+                }
+
+                var games = this.$store.state.games
+                var newGames = _.filter(games, function(newGame) {
+                    return newGame.id !== e.game.id
+                })
+                this.$store.commit('gamesUpdated', newGames)
             },
             enterQueue() {
                 this.loading = true
                 this.$http.post('/enter-queue').then((response) => {
-                    console.log(response)
                     this.loading = false
                     var p = this.players
                     p.push(response.data.user)
                     this.players = p
+                    this.inQueueFor = '00:00'
                 }).catch((error) => {
                     this.loading = false
                     if(error.response) {
@@ -233,8 +190,8 @@
             },
             leaveQueue() {
                 this.loading = true
+                if(this.timer) this.timer.stop()
                 this.$http.post('/leave-queue').then((response) => {
-                    console.log(response)
                     this.loading = false
                     var p = []
                     _.forEach(this.players, (player) => {
@@ -242,53 +199,38 @@
                         p.push(player)
                       }
                     })
-                    this.players = p
+                    this.$store.commit('playersUpdated', p)
                 }, (response) => {
                     this.loading = false
                 })
             },
-            draftPlayer(userId) {
-              if(!this.canDraft) return false
-              this.loading = true
-              var gameId = this.game.id
-              this.$http.post('/draft-player', {gameId, userId}).then((response) => {
-                  this.playerDrafted(response.data.player)
-                  this.loading = false
-              }, (response) => {
-                  this.loading = false
-              })
-            },
-            playerDrafted(player) {
-              var players = this.game.players
-              var index = _.indexOf(players, _.find(players, {id: player.id}))
-              // remove old player, insert new one
-              this.game.players.splice(index, 1, player)
-            },
-            banMap(map) {
-              this.loading = true
-              var gameId = this.game.id
-              this.$http.post('/ban-map', {gameId, map}).then((response) => {
-                  this.mapBanned(map)
-                  this.loading = false
-              }, (response) => {
-                  this.loading = false
-              })
-            },
-            mapBanned(map) {
-              if(this.game.map_bans) {
-                this.game.map_bans.splice(0, 0, map)
-              } else {
-                this.game.map_bans = [map]
-              }
-            },
-            mapIsBanned(map) {
-              return this.game.map_bans && this.game.map_bans.includes(map)
+            updateQueuePlayers() {
+                this.$http.post('/get-queue').then((response) => {
+                    this.$store.commit('playersUpdated', response.data)
+                }, (response) => {
+                    //
+                })
             }
         },
         created: function () {
             this.startPartyListener()
-            if(this.inGame) {
-              this.startGameListener()
+            this.gamereadyclip = new Audio('/audio/gameready.wav')
+        },
+        watch: {
+            'inQueue': function(queued) {
+                if(queued) {
+                    var seconds = this.$store.state.joinedQueue
+                    this.timer = new Timer()
+                    this.timer.start({startValues: {seconds: seconds}})
+                    this.timer.addEventListener('secondsUpdated', (e) => {
+                        this.inQueueFor = this.timer.getTimeValues().toString().substring(3)
+                    })
+                } else {
+                    this.$store.commit('clearQueueTimer')
+                    this.timer.removeEventListener('secondsUpdated')
+                    this.timer.stop()
+                    this.timer = undefined;
+                }
             }
         }
     }

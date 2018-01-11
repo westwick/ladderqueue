@@ -19,6 +19,8 @@ MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
 # base image (https://github.com/LaraDock/php-fpm).
 #
 
+RUN docker-php-ext-install gd && docker-php-ext-enable gd
+
 #
 #--------------------------------------------------------------------------
 # Optional Software's Installation

@@ -1,20 +1,21 @@
 
 
 .panel {
-  margin: 2rem 0 0;
+  margin: 0.9375rem 0;
   padding: 1rem;
-  background-color: #FFF;
-  border: 1px solid #e8eced;
-  border-radius: 3px;
+  background-color: #151515;
+  border: 1px solid #1e1e1f;
+  //border-radius: 3px;
 
-  .panel-title {
-    font-weight: bold;
-    font-size: 14px;
-    color: #736e6e;
-    text-align: center;
-    border-bottom: 1px solid $celred;
-    width: 50%;
-    margin: 0 auto 1rem;
+  color: #fff;
+
+  &.nmt {
+    margin-top: 0;
+  }
+
+  p {
+    color: #fff;
+    margin: 0;
   }
 }
 
@@ -33,6 +34,68 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.news-item {
+  max-width: 800px;
+  margin: 0 auto 1rem;
+  border-top: none;
+  padding: 0;
+
+  .news-inner {
+    border-top: 3px solid $vxblue;
+    padding: 1rem;
+  }
+
+  .title {
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+  }
+  p {
+    margin-bottom: 1.25rem;
+    text-align: left;
+    color: #676767;
+    font-size: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  p.author-info {
+    margin: 0 0 2rem;
+    font-size: 14px;
+    text-align: center;
+
+    span {
+      color: $vxblue;
+    }
+  }
+  ul {
+    li {
+      color: #676767;
+      font-size: 15px;
+    }
+  }
+
+  &.support-info {
+    text-align: center;
+    .title {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid $vxblue;
+      display: inline-block;
+    }
+    h6 {
+      text-align: left;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    p {
+      text-align: left;
+    }
+  }
 }
 
 .icon {
@@ -80,6 +143,27 @@ img.grayscale:hover {
 .team-logo-small {
   width: 40px;
   height: 40px;
+}
+
+.auth-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+
+  .panel {
+    width: 450px;
+
+    // this pushes the panels up in flexbox to make them appear more cenetered when a logo is above it
+    margin-bottom: 100px;
+  }
+}
+
+.auth-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: 0.5rem;
 }
 
 .schedule-table {

@@ -1,52 +1,59 @@
 body {
-  background-color: #f7f8f9;
-  overflow: hidden;
+  background-color: #191919;
+  background-image: url('/images/fadebg.jpg');
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 a {
   transition: all 0.3s ease-in-out;
-  color: $celred;
+  color: #1e7be4;
 
   &:hover, &:active, &:focus {
-    color: lighten($celred, 10%);
+    color: darken(#1e7be4, 10%);
   }
 }
 
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 8px;
-  //background: transparent;
-  background-color: #1a1a1a;
-  //background-color: #FFF;
-}
+//::-webkit-scrollbar {
+//  -webkit-appearance: none;
+//  width: 8px;
+//  //background: transparent;
+//  background-color: #1a1a1a;
+//  //background-color: #FFF;
+//}
+//
+//::-webkit-scrollbar-thumb {
+//  border: 8px solid rgba(255,255,255,0);
+//  border-radius: 8px;
+//  background-clip: border-box;
+//  background-color: #A0A0A0;
+//}
+//
+//::-webkit-scrollbar-thumb:hover {
+//  border-radius: 8px;
+//  border: 8px solid rgba(255,255,255,0);
+//  background-clip: content-box;
+//  background-color: #aeaeae;
+//}
 
-::-webkit-scrollbar-thumb {
-  border: 8px solid rgba(255,255,255,0);
-  border-radius: 8px;
-  background-clip: border-box;
-  background-color: #A0A0A0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  border-radius: 8px;
-  border: 8px solid rgba(255,255,255,0);
-  background-clip: content-box;
-  background-color: #aeaeae;
-}
-
-input[type='text'], input[type='password'], input[type='email'] {
+input[type='text'], input[type='password'], input[type='email'], textarea {
   box-shadow: none;
   transition: border-color .15s ease-in-out,background-color .15s ease-in-out;
   border-radius: 2px;
-  background-color: #FFF;
+  background-color: #2c2c2c;
   //border: 1px solid #ced4d4;
-  border: 1px solid $border-color;
+  border: 1px solid #22222a;
 
   &:focus {
-    border-color: #edbb8b;
+    border-color: $vxblue;
     outline: 0;
     box-shadow: none;
   }
+}
+
+textarea {
+  height: 200px;
 }
 
 .reveal {
@@ -56,6 +63,42 @@ input[type='text'], input[type='password'], input[type='email'] {
 [v-cloak] {
   opacity: 0;
   display: none;
+}
+
+select:disabled {
+  background-color: #aaa;
+  color: #666;
+}
+
+select:focus {
+  box-shadow: none;
+  border: 1px solid $vxblue;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  thead {
+    background-color: #141414;
+    th {
+      font-size: 12px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 6px 8px 8px;
+    }
+  }
+  tbody {
+    tr {
+      background-color: #181818;
+    }
+    tr:nth-child(even) {
+      background-color: #161616;
+    }
+  }
+
+  .button {
+    margin: 0;
+  }
 }
 
 .select2-container {
@@ -81,15 +124,26 @@ input[type='text'], input[type='password'], input[type='email'] {
 }
 
 #toast-container {
+  width: calc(100vw - 300px);
+  padding: 0 1rem;
+
+  &.toast-bottom-right {
+    right: 0;
+  }
 
   & > div {
+    box-shadow: 0 0 4px rgba(30, 123, 228, 0.5);
+
     &.toast {
-      background-color: #FFF;
+      background-color: #111;
+      border: 1px solid $vxblue;
+      width: 100%;
     }
     &.toast-success {
-      background-color: #FFF;
-      border: 1px solid #51A351;
-      color: #51A351;
+      //background-color: #FFF;
+      //border: 1px solid #51A351;
+      //color: #51A351;
+      background-image: none !important;
 
       &:before {
         content: '\f122';
@@ -102,14 +156,16 @@ input[type='text'], input[type='password'], input[type='email'] {
       }
 
       .toast-progress {
-        background-color: #51A351;
-        opacity: 1;
+        //background-color: #51A351;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-error {
-      background-color: #FFF;
-      border: 1px solid #BD362F;
-      color: #BD362F;
+      //background-color: #FFF;
+      //border: 1px solid #BD362F;
+      //color: #BD362F;
+      background-image: none !important;
 
       &:before {
         content: '\f12a';
@@ -117,19 +173,22 @@ input[type='text'], input[type='password'], input[type='email'] {
         color: #BD362F;
         position: absolute;
         left: 1rem;
-        top: 12px;
+        top: 9px;
         font-size: 1.5rem;
       }
 
       .toast-progress {
-        background-color: #BD362F;
-        opacity: 1;
+        //background-color: #BD362F;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-info {
-      background-color: #FFF;
-      border: 1px solid #2F96B4;
-      color: #2F96B4;
+      //background-color: #FFF;
+      //border: 1px solid #2F96B4;
+      //color: #2F96B4;
+      background-image: none !important;
 
       &:before {
         content: '\f149';
@@ -142,14 +201,17 @@ input[type='text'], input[type='password'], input[type='email'] {
       }
 
       .toast-progress {
-        background-color: #2F96B4;
-        opacity: 1;
+        //background-color: #2F96B4;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
     &.toast-warning {
-      background-color: #FFF;
-      border: 1px solid #F89406;
-      color: #F89406;
+      //background-color: #FFF;
+      //border: 1px solid #F89406;
+      //color: #F89406;
+      background-image: none !important;
 
       &:before {
         content: '\f101';
@@ -162,9 +224,15 @@ input[type='text'], input[type='password'], input[type='email'] {
       }
 
       .toast-progress {
-        background-color: #F89406;
-        opacity: 1;
+        //background-color: #F89406;
+        //opacity: 1;
+        background-color: $vxblue;
+        opacity: 0.5;
       }
     }
   }
 }
+
+.slide-fade-enter-active{transition: all .2s ease-in-out}
+.slide-fade-leave-active{transition: all .2s ease-in-out}
+.slide-fade-enter, .slide-fade-leave-to{transform: translateY(16px);opacity: 0}

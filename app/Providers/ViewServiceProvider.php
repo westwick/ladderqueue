@@ -28,11 +28,14 @@ class ViewServiceProvider extends ServiceProvider {
             {
                 // do something
                 $unreadCount = $user->unreadMessagesCount();
+                if($user->updated_at->diffInMinutes() > 3) {
+                    $user->touch();
+                }
             }
 
-            $recentComments = $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->limit(3)->get();
+            //$recentComments = $comments = Comment::with('author')->where('parent_id', NULL)->orderBy('updated_at', 'desc')->limit(3)->get();
 
-            $view->with('user', $user)->with(compact('unreadCount', 'recentComments'));
+            $view->with('user', $user)->with(compact('unreadCount'));
         });
     }
 

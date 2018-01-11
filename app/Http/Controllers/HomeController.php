@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LadderGame;
+use App\News;
 use Illuminate\Http\Request;
 use Auth;
 use App\SeasonRegistration;
@@ -18,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'test']);
+        //$this->middleware('auth', ['except' => 'test']);
     }
 
     /**
@@ -29,14 +30,23 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if($user) {
+            $user = Auth::user();
+            $canQueue = true;
+            $players = [];
+            $game = [];
+            $ids = QueueUser::all()->pluck('user_id');
+            $players = User::whereIn('id', $ids)->get();
+            $news = News::orderBy('id', 'desc')->limit(5)->get();
 
-        $team = Auth::user()->team;
-        $seasonregistration = NULL;
-        if($team) {
-            $seasonregistration = SeasonRegistration::where('team_id', $team->id)->first();
+            $gamesInProgress = LadderGame::where('status_id', '<', 40)->get();
+
+            $game = $user->getLadderGame();
+            return view('home')->with(compact('players', 'game', 'gamesInProgress', 'news'));
+        } else {
+            return view('welcome');
         }
-        
-        return view('home')->with(compact('seasonregistration'));
+
     }
 
     public function showCreateTeamForm()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\GameStarting;
 use App\Events\MapBanned;
 use App\Events\PlayerDrafted;
+use App\PlayerLog;
 use Illuminate\Http\Request;
 use App\Bracket;
 use Illuminate\Support\Facades\Input;
@@ -21,62 +22,74 @@ use App\Events\PlayerLeftQueue;
 use App\LadderGame;
 use App\LadderParty;
 use App\LadderPlayer;
+use DB;
+use Cache;
 
 class BracketController extends Controller
 {
+    public function games()
+    {
+        if(Input::get('cancelled')) {
+            $games = LadderGame::where('status_id', '>', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get();
+        } else {
+            $games = LadderGame::where('status_id', LadderGame::$STATUS_COMPLETE)->orderBy('id', 'desc')->get();
+        }
+        return response()->json($games);
+    }
+
+    public function gameInfo()
+    {
+        $game = LadderGame::findOrFail(Input::get('id'));
+        return response()->json($game);
+    }
+
+    public function leaderboard()
+    {
+        //Cache::forget('leaderboard');
+        //$users = Cache::remember('leaderboard', 15, function () {
+        //
+        //
+        //    return $users;
+        //});
+
+        //$users = User::select('*', DB::raw('
+        //    FIND_IN_SET( ladder_points, (
+        //        SELECT GROUP_CONCAT( ladder_points
+        //        ORDER BY ladder_points DESC )
+        //        FROM users where ladder_queue = "vitalityx" )
+        //    ) AS rank'))->where('ladder_queue', '=', 'vitalityx')->orderBy('rank')->get();
+
+        $users = User::where('rank', '>', 0)->orderBy('rank')->get();
+
+        foreach($users as $user) {
+            $user->append('sparkline');
+            $user->setVisible(['id', 'rank', 'name', 'streak', 'wins', 'losses', 'sparkline', 'ladder_points', 'win_pct']);
+        }
+
+        return response()->json($users);
+    }
+
+    public function showUser()
+    {
+        $name = Input::get('name');
+        $user = User::where('name', $name)->firstOrFail();
+        $user->append('log');
+        $user->append('games');
+        $user->append('member_since');
+        $user->setHidden(['password', 'remember_token', 'email']);
+        return response()->json($user);
+    }
+
+    public function playerlog()
+    {
+        return response()->json(PlayerLog::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get());
+    }
+
     public function joinQueue()
     {
         $user = Auth::user();
-        
-        $q = new QueueUser();
-        $q->user_id = $user->id;
-        $q->save();
-        
-        broadcast(new PlayerJoinedQueue($user))->toOthers();
 
-        $all = QueueUser::with('user')->orderBy('created_at')->limit(10)->get();
-        if(count($all) === 10) {
-            $team1captain = $all[0];
-            $team2captain = $all[1];
-
-
-            // create game
-            $game = new LadderGame();
-            $game->save();
-
-            // create captains
-            $player = new LadderPlayer();
-            $player->user_id = $team1captain->user->id;
-            $player->game_id = $game->id;
-            $player->status_id = 50;
-            $player->isCaptain = true;
-            $player->team = 1;
-            $player->save();
-
-            $player = new LadderPlayer();
-            $player->user_id = $team2captain->user->id;
-            $player->game_id = $game->id;
-            $player->status_id = 50;
-            $player->isCaptain = true;
-            $player->team = 2;
-            $player->save();
-
-            // create rest of players
-            for($i = 2; $i <= 9; $i++) {
-                $player = new LadderPlayer();
-                $player->user_id = $all[$i]->user->id;
-                $player->game_id = $game->id;
-                $player->status_id = 0;
-                $player->save();
-            }
-
-            // remove users from queue
-            foreach($all as $q) {
-                $q->delete();
-            }
-
-            broadcast(new GameStarting($game));
-        }
+        $user->joinQueue();
 
         return response()->json(['success' => true, 'user' => $user]);
     }
@@ -91,6 +104,27 @@ class BracketController extends Controller
         broadcast(new PlayerLeftQueue($user))->toOthers();
 
         return response()->json(['success' => true]);
+    }
+
+    public function getQueue()
+    {
+        $ids = QueueUser::all()->pluck('user_id');
+        $players = User::whereIn('id', $ids)->get();
+        return response()->json($players);
+    }
+
+    public function ready()
+    {
+        $input = Input::all();
+        $game = LadderGame::findOrFail($input['gameId']);
+        $user = Auth::user();
+        $player = LadderPlayer::where('game_id', $game->id)->where('user_id', $user->id)->firstOrFail();
+        $player->status_id = LadderPlayer::$STATUS_ACCEPTED;
+        $player->save();
+
+        $game->checkReady();
+
+        return response()->json($game);
     }
 
     public function draftPlayer() {
@@ -118,7 +152,6 @@ class BracketController extends Controller
         $game = LadderGame::findOrFail($input['gameId']);
         if($user->canBanMapIn($game)) {
             $game->mapBan($input['map']);
-            broadcast(new MapBanned($game, $input['map']))->toOthers();
         }
 
         return response()->json(['success' => true]);
@@ -241,5 +274,24 @@ class BracketController extends Controller
         event(new PartyPlayerStatusChange($partyPlayer, $party));
 
         return response()->json(['success' => 'andrewiscool']);
+    }
+
+    public function reportScore()
+    {
+        $user = Auth::user();
+        $gameid = Input::get('gameid');
+        $team1score = Input::get('team1score');
+        $team2score = Input::get('team2score');
+
+        $game = LadderGame::findOrFail($gameid);
+        $player = LadderPlayer::where('user_id', $user->id)->where('game_id', $game->id)->first();
+
+        if(!$player || !$player->isCaptain) {
+            return response()->json(['success' => false], 400);
+        }
+
+        $game->complete($team1score, $team2score);
+
+        return response()->json(['success' => true]);
     }
 }

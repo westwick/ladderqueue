@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
-        @if($unreadCount > 0)
-        [{{$unreadCount}}] -
-        @endif
-        Continental eSports
+        VitalityX
     </title>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -28,6 +25,7 @@
     {{--<link href="https://fonts.googleapis.com/css?family=Patua+One|Montserrat:300,400,700" rel="stylesheet">--}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <script>
         window.Laravel = {!! json_encode([
@@ -40,9 +38,6 @@
 </head>
 <body id="main">
 <div id="app">
-    <header>
-        @include('partials.header')
-    </header>
 
     @if(Auth::user())
         <dataloader :userstate="{{Auth::user()->getState()}}" :csrftoken="'{{csrf_token()}}'"></dataloader>
@@ -56,17 +51,14 @@
     @endif
 
 
-    <div id="wrap">
-        <div class="browrap">
-            <div class="main-content">
-                @yield('content')
-            </div>
+    @yield('content')
 
-            <footer>
-                @include('partials.footer', ['posts' => $recentComments])
-            </footer>
-        </div>
-    </div>
+    @if(Auth::user())
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    @endif
+
 </div>
 
 <script src="{{ mix('/js/app.js') }}"></script>
@@ -78,6 +70,7 @@
 
             toastr.options.progressBar = true
             toastr.options.positionClass = 'toast-bottom-right'
+            //toastr.options.timeOut = 500000
 
             @if (session()->has('flash_notification.message'))
                 toastr.{{ session('flash_notification.level') }}('{!! session('flash_notification.message') !!}')

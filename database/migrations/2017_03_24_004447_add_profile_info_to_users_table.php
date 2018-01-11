@@ -17,7 +17,7 @@ class AddProfileInfoToUsersTable extends Migration
             $table->string('intro')->nullable();
             $table->string('server_preference')->default('US - East');
             $table->string('location')->nullable();
-            $table->integer('age')->default(0)->nullable();
+            $table->integer('age')->nullable();
         });
     }
 

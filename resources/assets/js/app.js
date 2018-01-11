@@ -5,7 +5,10 @@ import Vuex from 'vuex'
 // import VueResource from 'vue-resource'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import router from './router'
 
+Vue.component('app', require('./components/App.vue'));
+Vue.component('sidebar', require('./components/Sidebar.vue'));
 Vue.component('schedule', require('./components/Schedule.vue'));
 Vue.component('teamselecter', require('./components/TeamSelecter.vue'));
 Vue.component('dataloader', require('./components/DataLoader.vue'));
@@ -22,31 +25,76 @@ Vue.use(VueAxios, axios)
 const store = new Vuex.Store({
   state: {
     loggedIn: false,
+    is_admin: false,
     csrfToken: '',
     userid: 0,
-    party: {}
+    username: '',
+    canQueue: false,
+    settings: [],
+    profile: [],
+    joinedQueue: 0,
+    onlineUsers: [],
+    players: [],
+    game: '',
+    games: [],
+    news: null
   },
   mutations: {
     setUserstate (state, userstate) {
       state.userid = userstate.userid
+      state.username = userstate.username
+      state.joinedQueue = userstate.joinedQueue
       state.party = userstate.party
       state.loggedIn = userstate.loggedIn
+      state.canQueue = userstate.canQueue
+      state.is_admin = userstate.is_admin
+      state.settings = userstate.settings
+      state.profile = userstate.profile
+    },
+    saveSettings(state, settings) {
+      state.settings = settings.settings
+      state.profile = settings.profile
     },
     setCsrfToken (state, token) {
       state.csrfToken = token
     },
-    addParty (state, data) {
-      state.party = data.party
-      state.party.creator = data.creator
+    newGame(state, game) {
+      state.game = game
+      state.players = []
     },
-    clearParty (state) {
-      state.party = {}
+    updateGame(state, game) {
+      state.game = game
+    },
+    setGamestate(state, data) {
+      state.players = data.players
+      state.game = data.game
+      state.games = data.games
+      state.news = data.news
+    },
+    clearGame(state) {
+      state.game = ''
+    },
+    clearQueueTimer(state) {
+      state.joinedQueue = 0
+    },
+    userReady(state, players) {
+      state.game.players = players
+    },
+    playersUpdated(state, players) {
+      state.players = players
+    },
+    onlineUsers(state, users) {
+      state.onlineUsers = users
+    },
+    gamesUpdated(state, games) {
+      state.games = games
     }
   }
 })
 
 const app = new Vue({
     el: '#app',
+    router,
     store,
     methods: {
       getState: function() {
@@ -60,8 +108,6 @@ const app = new Vue({
       }
     }
 });
-
-// set up websocket listeners
 
 $(function() {
 

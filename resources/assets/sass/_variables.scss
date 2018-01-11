@@ -3,6 +3,12 @@ $celred: #d41f26;
 $celredlight: lighten($celred, 10%);
 $celwhite: #e4e4e4;
 $celblue: #145dbe;
+$vxblue: #1e7be4;
+
+$green        : #cddc39 !default;
+$green-light  : #c3d82c !default;
+
+$newgreen : #afda32;
 
 $main-bg: #f8f8f8;
 $border-color: #e8eced;
@@ -49,4 +55,13 @@ $parallax-ios         : true !default;
           scale(abs($distance - 1))
 ;
   z-index: $distance * 1000;
+}
+
+@mixin parallaxfix() {
+  transform: translateZ(0.001px) scale(0.999);
+  z-index: 0;
+}
+
+@mixin herocontainer() {
+
 }

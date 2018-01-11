@@ -48,11 +48,12 @@
 // ---------
 
 $global-font-size: 100%;
-$global-width: rem-calc(1280);
+//$global-width: rem-calc(1280);
+$global-width: 100%;
 $global-lineheight: 1.5;
 $foundation-palette: (
   //primary: #1779ba,
-  primary: #145dbe,
+  primary: #1e7be4,
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,
@@ -64,10 +65,10 @@ $dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
 $body-background: $white;
-$body-font-color: $black;
+$body-font-color: #fff;
 //$body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
 //$body-font-family: 'Montserrat', sans-serif;
-$body-font-family: 'proxima nova', sans-serif;
+$body-font-family: 'gotham', sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -371,18 +372,28 @@ $form-label-color: $black;
 $form-label-font-size: rem-calc(14);
 $form-label-font-weight: $global-weight-normal;
 $form-label-line-height: 1.8;
-$select-background: $white;
+$select-background: #2c2c2c;
 $select-triangle-color: $dark-gray;
 $select-radius: $global-radius;
-$input-color: $black;
-$input-placeholder-color: $medium-gray;
+//$input-color: $black;
+//$input-placeholder-color: $medium-gray;
+//$input-font-family: inherit;
+//$input-font-size: rem-calc(16);
+//$input-font-weight: $global-weight-normal;
+//$input-background: $white;
+//$input-background-focus: $white;
+//$input-background-disabled: $light-gray;
+//$input-border: 1px solid $medium-gray;
+//$input-border-focus: 1px solid $dark-gray;
+$input-color: #FFF;
+$input-placeholder-color: #464649;
 $input-font-family: inherit;
 $input-font-size: rem-calc(16);
 $input-font-weight: $global-weight-normal;
-$input-background: $white;
-$input-background-focus: $white;
+$input-background: #2c2c2c;
+$input-background-focus: #333;
 $input-background-disabled: $light-gray;
-$input-border: 1px solid $medium-gray;
+$input-border: 1px solid #22222a;
 $input-border-focus: 1px solid $dark-gray;
 $input-shadow: inset 0 1px 2px rgba($black, 0.1);
 $input-shadow-focus: 0 0 5px $medium-gray;
@@ -529,22 +540,23 @@ $slider-radius: $global-radius;
 // ----------
 
 $switch-background: $medium-gray;
-$switch-background-active: $primary-color;
-$switch-height: 2rem;
+$switch-background-active: #1e7be4;
+$switch-height: 1.5rem;
 $switch-height-tiny: 1.5rem;
 $switch-height-small: 1.75rem;
 $switch-height-large: 2.5rem;
-$switch-radius: $global-radius;
+$switch-radius: 4px;
 $switch-margin: $global-margin;
 $switch-paddle-background: $white;
 $switch-paddle-offset: 0.25rem;
-$switch-paddle-radius: $global-radius;
+$switch-paddle-radius: 4px;
 $switch-paddle-transition: all 0.25s ease-out;
 
 // 32. Table
 // ---------
 
-$table-background: $white;
+//$table-background: $white;
+$table-background: #151515;
 $table-color-scale: 5%;
 $table-border: 1px solid smart-scale($table-background, $table-color-scale);
 $table-padding: rem-calc(8 10 10);

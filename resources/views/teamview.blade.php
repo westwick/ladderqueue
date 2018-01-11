@@ -2,6 +2,7 @@
 
 @section('content')
     <section class="teamview-hero">
+        <div class="team-bg"></div>
         <div class="team-members">
             <div class="row">
                 <div class="small-12 columns text-right">
@@ -21,9 +22,6 @@
         <div class="team-info">
             <div class="row setrel">
                 <div class="small-12 columns">
-                    <div class="team-image">
-                        <img src="{{$team->logo}}" />
-                    </div>
                     <div class="player-name">
                         {{$team->name}}
                     </div>
@@ -34,6 +32,9 @@
     <section class="teamview-nav">
         <div class="row">
             <div class="medium-9 columns">
+                <div class="team-image">
+                    <img src="{{$team->logo}}" />
+                </div>
                 <ul>
                     <li><a id="nav_0" href="#schedule" class="active">Overview</a></li>
                     <li><a id="nav_1" href="#entry">Stats</a></li>
@@ -74,35 +75,37 @@
         </div>
     </div>
 
-    <section class="row padbot">
-        <div class="medium-6 columns">
-            <div class="panel">
-                <h4 class="text-center">Upcoming Games</h4>
-                @foreach($upcoming as $game)
-                    <p>
-                        vs {{$game->team1->name !== $team->name ? $game->team1->name : $game->team2->name}}
-                        ({{$game->start_time->diffForHumans()}})
-                    </p>
-                @endforeach
+    <section class="team-main">
+        <div class="row padbot">
+            <div class="medium-6 columns">
+                <div class="panel">
+                    <h4 class="text-center">Upcoming Games</h4>
+                    @foreach($upcoming as $game)
+                        <p>
+                            vs {{$game->team1->name !== $team->name ? $game->team1->name : $game->team2->name}}
+                            ({{$game->start_time->diffForHumans()}})
+                        </p>
+                    @endforeach
+                </div>
             </div>
-        </div>
-        <div class="medium-6 columns">
-            <div class="panel">
-                <h4 class="text-center">Latest Match Results</h4>
-                @foreach($recent as $game)
-                    <p>
-                        {{$game->winner_id == $team->id ? 'WIN' : 'LOSS'}}
-                        @if($game->status == 9)
-                            (F)
-                        @else
-                            ({{$game->team1_score}} - {{$game->team2_score}})
-                        @endif
-                        vs
-                        <a href="/team/{{$game->team1->name !== $team->name ? $game->team1->slug : $game->team2->slug}}">
-                            {{$game->team1->name !== $team->name ? $game->team1->name : $game->team2->name}}
-                        </a>
-                    </p>
-                @endforeach
+            <div class="medium-6 columns">
+                <div class="panel">
+                    <h4 class="text-center">Latest Match Results</h4>
+                    @foreach($recent as $game)
+                        <p>
+                            {{$game->winner_id == $team->id ? 'WIN' : 'LOSS'}}
+                            @if($game->status == 9)
+                                (F)
+                            @else
+                                ({{$game->team1_score}} - {{$game->team2_score}})
+                            @endif
+                            vs
+                            <a href="/team/{{$game->team1->name !== $team->name ? $game->team1->slug : $game->team2->slug}}">
+                                {{$game->team1->name !== $team->name ? $game->team1->name : $game->team2->name}}
+                            </a>
+                        </p>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
